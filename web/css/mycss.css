@@ -1,0 +1,170 @@
+*{
+    box-sizing:border-box;
+}
+html{
+    font-family: arial;
+    font-size: 18px;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+header{
+    clear: left;
+    background-color:#333;
+}
+
+
+.header li {
+    float: left;
+    list-style-type: none;
+    line-height: 64px;
+}
+
+
+.header a{
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    display: block;
+    padding: 0px 10px;
+}
+
+#logo{
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.nav-header{
+    margin-right: 110px;
+}
+
+.formsearch {
+    float: right;
+}
+
+footer{
+    height: 100px;
+    background-color:#14D973;
+}
+
+.nav-loginedUser{
+    background-color:#14D973;
+}
+
+footer p{
+    line-height: 100px;
+}
+
+.order-table{
+    text-align: center;
+    width: 1465px;
+    margin-bottom: 15px;
+    border: solid 2px gray;
+}
+
+.header-order-table{
+    background-color:#14D973;
+}
+
+.plant-img{
+    height: 150px;
+    width: 150px;
+}
+
+.header-order-detail{
+    background-color:#14D973;
+}
+
+.order-detail-table{
+    text-align: center;
+    width: 1465px;
+    margin-bottom: 15px;
+    border: solid 2px gray;
+}
+
+.logout{
+    text-decoration: none;
+}
+
+.view-all-orders{
+    text-decoration: none;
+}
+
+.shopping-header td{
+    background-color: #83C75D;
+    color: #E6F1D8;
+    width: 1200px;
+    text-align: center;
+    border: solid 2px;
+}
+
+.shopping-item td{
+    color: #67BF7F;
+    text-align: center;
+    border: solid 2px;
+}
+
+/*.product-index td{
+    width: 1400px;
+    color: #67BF7F;
+    text-align: center;
+    border: solid 2px;
+}*/
+
+.product-content li{
+    list-style-type: none;
+}
+
+.product-content{
+    display: inline-block;
+}
+
+.product-table{
+    float: left;
+}
+
+.product-all{
+    margin-left: 70px;
+    display: inline-block;
+}
+
+
+.header-admin li {
+    line-height: 100px;
+    margin-right: 50px;
+    float: left;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.header-admin li:last-child{
+    margin-left: 200px;
+}
+.header-admin a{
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+
+    padding: 0px 10px;
+}
+.header-admin li:hover{
+    background-color: #33FF99;
+}
+
+.header-admin{
+    height: 100px;
+}
+.background-admin{
+    width: 1850px;
+}
+
+
+
+
+
+
+

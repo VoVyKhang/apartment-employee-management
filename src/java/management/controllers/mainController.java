@@ -1,0 +1,153 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package management.controllers;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author lehon
+ */
+public class mainController extends HttpServlet {
+
+    private String url = "error.jsp";
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            String action = request.getParameter("action");
+            if (action.equals("showlist")) {
+                url = "listHallManagerController";
+            } else if (action.equals("logout")) {
+                url = "logoutController";
+            } else if (action.equals("Create")) {
+                url = "newDepController";
+            } else if (action.equals("Update")) {
+                url = "editDepController";
+            } else if (action.equals("changeDep")) {
+                url = "changeDepController";
+            } else if (action.equals("listPosition")) {
+                url = "listPositionController";
+            } else if (action.equals("ssPosition")) {
+                url = "sessionPositionController";
+            } else if (action.equals("updatePosition")) {
+                url = "updatePositionController";
+            } else if (action.equals("promoteAndDemote")) {
+                url = "promoteAndDemoteController";
+            } else if (action.equals("SavePosition")) {
+                url = "savePositionController";
+            } else if (action.equals("history")) {
+                url = "listHistoryController";
+            } else if (action.equals("createcon")) {
+                url = "newConController";
+            } else if (action.equals("hisPromoteAndDemote")) {
+                url = "listHistoryPositionController";
+            } else if (action.equals("listCertificate")) {
+                url = "listCertificateController";
+            } else if (action.equals("add new certificate")) {
+                url = "addNewCertificateController";
+            } else if (action.equals("saveNewCertificate")) {
+                url = "saveNewCertificateController";
+            } else if (action.equals("passidcon")) {
+                url = "passOjConController";
+            } else if (action.equals("updateCon")) {
+                url = "updateConController";
+            } else if (action.equals("renewal")) {
+                url = "renewalConController";
+            } else if (action.equals("updateCertificate")) {
+                url = "updateCertificateController";
+            } else if (action.equals("passidemp")) {
+                url = "passOjEmpController";
+            } else if (action.equals("SaveChange")) {
+                url = "saveChangeCertificateController";
+            } else if (action.equals("Update Regulation")) {
+                url = "updateRegController";
+            } else if (action.equals("UpdateReg")) {
+                url = "updateRegPageController";
+            } else if (action.equals("addReg")) {
+                url = "addNewRegPage.jsp";
+            } else if (action.equals("Create Regulation")) {
+                url = "createNewRegController";
+            } else if (action.equals("passiddep")) {
+                url = "passOjDepController";
+            } else if (action.equals("listDependent")) {
+                url = "listDependentController";
+            } else if (action.equals("updateDependent")) {
+                url = "updateDependentController";
+            } else if (action.equals("Save Dependent")) {
+                url = "saveDependentController";
+            } else if (action.equals("rewardpenalty")) {
+                url = "SearchRPController";
+            } else if (action.equals("UpdateRp")) {
+                url = "editRPController";
+            } else if (action.equals("pushss")) {
+                url = "pushSessionController";
+            } else if (action.equals("DeleteRp")) {
+                url = "DeleteRpController";
+            } else if (action.equals("CreateNewRp")){
+                url = "CreateNewRpController";
+            }
+
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
