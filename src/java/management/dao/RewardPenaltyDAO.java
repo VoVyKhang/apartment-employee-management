@@ -20,23 +20,23 @@ import management.dto.RewardPenaltyDTO;
  */
 public class RewardPenaltyDAO {
 
-    private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,r.reason,d.depName\n"
+    private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.idEmp like ?  ";
 
-    private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,r.reason,d.depName\n"
+    private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ?  ";
      
-    private static String LIST_RP_NAMEEMP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,r.reason,d.depName\n"
+    private static String LIST_RP_NAMEEMP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ? and e.idEmp like ? ";
     
-    private static String UPDATE_RP ="update RewardAndPenalty set reason = ? ,times = ? , idReg = ?\n" 
+    private static String UPDATE_RP ="update RewardAndPenalty set idReg = ? ,times = ? \n" 
             + "where idEmp = ?";
     
-    private static String CREATE_NEW_RP="INSERT INTO RewardAndPenalty(idReg,reason,applicableDate,times,idEmp)\n" 
-            + "VALUES(?, ?, ?, ?,?)";
+    private static String CREATE_NEW_RP="INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp)\n" 
+            + "VALUES(?, ?, ?, ?)";
     
     private static String DELETE_RP="DELETE FROM RewardAndPenalty WHERE idEmp=?";
     
@@ -64,7 +64,8 @@ public class RewardPenaltyDAO {
                         Date applicableDate = rs.getDate("ApplicableDate");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate);
+                        int idReg = rs.getInt("IDReg");
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -107,7 +108,8 @@ public class RewardPenaltyDAO {
                         Date applicableDate = rs.getDate("ApplicableDate");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate);
+                        int idReg = rs.getInt("IDReg");
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -151,7 +153,8 @@ public class RewardPenaltyDAO {
                         Date applicableDate = rs.getDate("ApplicableDate");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate);
+                        int idReg = rs.getInt("IDReg");
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -171,7 +174,7 @@ public class RewardPenaltyDAO {
     }
 
     //Update Reward & Penalty
-    public static boolean updateRP(int idReg, String reason, int times, int idEmp) {
+    public static boolean updateRP( int idReg, int times, int idEmp) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -180,10 +183,9 @@ public class RewardPenaltyDAO {
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(UPDATE_RP);
                 //gan data vao dau cham ?
-                pst.setString(1, reason);
+                pst.setInt(1, idReg);
                 pst.setInt(2, times);
-                pst.setInt(3, idReg);
-                pst.setInt(4, idEmp);
+                pst.setInt(3, idEmp);
                 pst.executeUpdate();
             }
             return true;
@@ -202,7 +204,7 @@ public class RewardPenaltyDAO {
     }
     
     //Create New Reward & Penalty
-    public static boolean createnewRP(int idReg,String reason,int times,int idEmp){
+    public static boolean createnewRP(int idReg,int times,int idEmp){
          Connection cn = null; 
         try {
             //buoc 1: mo ket noi
@@ -212,10 +214,9 @@ public class RewardPenaltyDAO {
                 Date d = new Date(System.currentTimeMillis());
                 PreparedStatement pst = cn.prepareStatement(CREATE_NEW_RP);
                  pst.setInt(1, idReg);
-                 pst.setString(2, reason);
-                 pst.setDate(3, d);
-                 pst.setInt(4, times);
-                 pst.setInt(5, idEmp);
+                 pst.setDate(2, d);
+                 pst.setInt(3, times);
+                 pst.setInt(4, idEmp);
                  pst.executeUpdate();
             }
             return true;

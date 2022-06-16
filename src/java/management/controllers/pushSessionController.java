@@ -6,11 +6,17 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import management.dao.RegulationDAO;
+import management.dto.RegulationDTO;
 
 /**
  *
@@ -33,13 +39,14 @@ public class pushSessionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
             String updateType = request.getParameter("updatetype");
             String id = "";
             String name = "";
+            String idReg = "";
             if (updateType.equals("updatedep")) {
                 id = request.getParameter("iddep");
                 name = request.getParameter("namedep");
@@ -48,7 +55,9 @@ public class pushSessionController extends HttpServlet {
             }if (updateType.equals("updaterp")) {
                 id = request.getParameter("idemp");
                 name = request.getParameter("nameemp");
+                idReg = request.getParameter("idreg");
                 URL = URL_UPDATE_RP;
+                
 
             }if (updateType.equals("updateemp")) {
                 id = request.getParameter("idemp");
@@ -64,7 +73,10 @@ public class pushSessionController extends HttpServlet {
             
             session.setAttribute("id", id);
             session.setAttribute("name", name);
-            response.sendRedirect(URL);
+            session.setAttribute("idReg", idReg);
+            ArrayList<RegulationDTO> list = RegulationDAO.listReg();
+            request.setAttribute("list", list);
+            request.getRequestDispatcher(URL).forward(request, response);
         }
     }
 
@@ -80,7 +92,11 @@ public class pushSessionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(pushSessionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -94,7 +110,11 @@ public class pushSessionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(pushSessionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

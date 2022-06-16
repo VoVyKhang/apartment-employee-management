@@ -33,11 +33,10 @@ public class CreateNewRpController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                int idReg = Integer.parseInt(request.getParameter("typerp"));
-                String reason = request.getParameter("reasonrp");
+                int reason = Integer.parseInt(request.getParameter("reasonrp"));
                 int times = Integer.parseInt(request.getParameter("timerp"));
-                int idEmp = Integer.parseInt(request.getParameter("idEmp"));
-                boolean result = RewardPenaltyDAO.createnewRP(idReg, reason, times, idEmp);
+                int idEmp = Integer.parseInt(request.getParameter("idemp"));
+                boolean result = RewardPenaltyDAO.createnewRP(reason, times, idEmp);
                 if(result == true){
                     request.setAttribute("updateSuccess", "Update success");
                     request.getRequestDispatcher("SearchRPController").forward(request, response);

@@ -22,11 +22,12 @@ public class RewardPenaltyDTO {
     private int status;
     private int times;
     private Date applicableDate;
+    private int idReg;
 
     public RewardPenaltyDTO() {
     }
 
-    public RewardPenaltyDTO(int idEmp, String name, String gender, String imgPath, String depName, int idRP, String reason, int status, int times, Date applicableDate) {
+    public RewardPenaltyDTO(int idEmp, String name, String gender, String imgPath, String depName, int idRP, String reason, int status, int times, Date applicableDate, int idReg) {
         this.idEmp = idEmp;
         this.name = name;
         this.gender = gender;
@@ -37,6 +38,15 @@ public class RewardPenaltyDTO {
         this.status = status;
         this.times = times;
         this.applicableDate = applicableDate;
+        this.idReg = idReg;
+    }
+
+    public int getIdReg() {
+        return idReg;
+    }
+
+    public void setIdReg(int idReg) {
+        this.idReg = idReg;
     }
 
     public Date getApplicableDate() {
