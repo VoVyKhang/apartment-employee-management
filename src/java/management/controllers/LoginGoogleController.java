@@ -56,15 +56,10 @@ public class LoginGoogleController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (result == 1 && emp.getRole() == 2) {
+        if (result == 1 && emp.getRole() == 1) {
             HttpSession ss = request.getSession(true);
             ss.setAttribute("USER_LOGGIN", emp);
             RequestDispatcher rd = request.getRequestDispatcher("listHallManagerController");
-            rd.forward(request, response);
-        } else if (result == 1 && emp.getRole() == 1) {
-            HttpSession ss = request.getSession(true);
-            ss.setAttribute("USER_LOGGIN", emp);
-            RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
             rd.forward(request, response);
         } else if (result == 1 && emp.getRole() == 0) {
             HttpSession ss = request.getSession(true);

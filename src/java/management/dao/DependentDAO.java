@@ -24,12 +24,12 @@ public class DependentDAO {
     private static PreparedStatement pst = null;
     private static Statement st = null;
     private static ResultSet rs = null;
-    private static final String LIST_DEPENDENT = "SELECT  e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.ralationship FROM Dependent as d, Employee as e \n"
+    private static final String LIST_DEPENDENT = "SELECT  e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e \n"
             + "WHERE d.idEmp = e.idEmp";
     private static final String UPDATE_DEPENDENT = "UPDATE Dependent\n"
-            + "SET name = ?, gender =?, dob =? , ralationship =?\n"
+            + "SET name = ?, gender =?, dob =? , relationship =?\n"
             + "WHERE idEmp = ? AND idDepen = ?;";
-    private static final String OBJECT_DEPENDENT = "SELECT e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.ralationship FROM Dependent as d, Employee as e \n"
+    private static final String OBJECT_DEPENDENT = "SELECT e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e \n"
             + "WHERE e.idEmp = ? AND d.idDepen = ?";
 
     public static ArrayList<DependentDTO> listDependent() throws SQLException {
@@ -47,7 +47,7 @@ public class DependentDAO {
                 String depenName = rs.getString("Dependent Name");
                 String gender = rs.getString("gender");
                 Date dob = rs.getDate("dob");
-                String relationship = rs.getString("ralationship");
+                String relationship = rs.getString("relationship");
                 DependentDTO dependent = new DependentDTO(idDepen, depenName, gender, dob, relationship, idEmp, empName);
                 listDependent.add(dependent);
             }
@@ -114,7 +114,7 @@ public class DependentDAO {
                     String depenName = rs.getString("Dependent Name");
                     String gender = rs.getString("gender");
                     Date dob = rs.getDate("dob");
-                    String relationship = rs.getString("ralationship");
+                    String relationship = rs.getString("relationship");
                     DependentDTO oj = new DependentDTO(idDepen, depenName, gender, dob, relationship, idEmp, empName);
                     depenObject.add(oj);
                 }

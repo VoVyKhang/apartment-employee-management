@@ -129,7 +129,7 @@
 
 
                             <sql:query dataSource = "${snapshot}" var = "listdepen">
-                                select idDepen, name, gender, dob, ralationship
+                                select idDepen, name, gender, dob, relationship
                                 from Dependent
                                 where idEmp = ${requestScope.Employee.idEmp}
                             </sql:query>
