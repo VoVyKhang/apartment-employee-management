@@ -30,13 +30,13 @@
 
 
                     <div class="row">
-                        <div class="col-12"><h6><img class="align-self-center img-fluid" src='${requestScope.Employee.imgPath}'style="width: 150px; height: 150px"></h6></div>
-                    </div>
-                    
-                    <div class="row" style="margin-top: 32px">
+                        <div class="col-12"><h6><img class="align-self-center img-fluid" src='images/${requestScope.Employee.imgPath}'style="width: 150px; height: 150px"></h6></div>
+                </div>
+
+                <div class="row" style="margin-top: 32px">
                     <div class="col-6"><h6 >Name: ${requestScope.Employee.name}</h6></div>
                     <div class="col-6"><h6 >Address: ${requestScope.Employee.address}</h6></div>
-                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-6"><h6 >Age: ${requestScope.Employee.age}</h6></div>
@@ -49,15 +49,20 @@
                 </div>
 
                 <div class="row">
-                    
+
                     <div class="col-6"><h6 >Join Day: ${requestScope.Employee.joinDate}</h6></div>
                     <div class="col-6"><h6 >Position: ${requestScope.Employee.posName}</h6></div>
                 </div>
 
                 <div class="row">
                     <div class="col-6"><h6 >Department: ${requestScope.Employee.depName}</h6></div>
-                    
+
                 </div>
+                <div class="row">
+                    <div class="col-6"><h6 >Email: ${requestScope.Employee.email}</h6></div>
+                    <div class="col-6"><h6 >Password: ${requestScope.Employee.password}</h6></div>
+                </div>
+
             </div>
 
 
@@ -154,13 +159,68 @@
                                             <td>${rowdepen.name}</td>
                                             <td>${rowdepen.gender}</td>
                                             <td>${rowdepen.dob}</td>
-                                            <td>${rowdepen.ralationship}</td>
+                                            <td>${rowdepen.relationship}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
 
 
+                        </div>
+                    </div>
+                </div>
+
+                <!--Item 3-->
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Contract
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <sql:query dataSource = "${snapshot}" var = "listcontract">
+                                select idContract,  t.name, signDay, expDay, status
+                                from Contract as c, TypeContract as t
+                                where c.idTypeCon = t.idTypeCon and c.idEmp = ${requestScope.Employee.idEmp}
+                            </sql:query>
+
+
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Contract</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Sign Day</th>
+                                        <th scope="col">Expiration Day</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <c:forEach var = "rowcon" items = "${listcontract.rows}">
+                                        <tr>
+                                            <td>${rowcon.idContract}</td>
+                                            <td>${rowcon.name}</td>
+                                            <td>${rowcon.signDay}</td>
+                                            <td>${rowcon.expDay}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${rowcon.status eq 1}">
+                                                        <p style="color:green">OK</p>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <p style="color:red">Expired</p>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

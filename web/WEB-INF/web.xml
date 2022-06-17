@@ -144,6 +144,10 @@
         <servlet-name>saveDependentController</servlet-name>
         <servlet-class>management.controllers.saveDependentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>newEmpController</servlet-name>
+        <servlet-class>management.controllers.newEmpController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -268,7 +272,7 @@
         <servlet-name>saveDependentController</servlet-name>
         <url-pattern>/saveDependentController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>    
+    <servlet-mapping>
         <servlet-name>pushSessionController</servlet-name>
         <url-pattern>/pushSessionController</url-pattern>
     </servlet-mapping>
@@ -286,7 +290,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateNewRpController</servlet-name>
-        <url-pattern>/CreateNewRpController</url-pattern>   
+        <url-pattern>/CreateNewRpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newEmpController</servlet-name>
+        <url-pattern>/newEmpController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -296,5 +304,4 @@
     <welcome-file-list>
         <welcome-file>Hall.jsp</welcome-file>
     </welcome-file-list>
-
 </web-app>

@@ -4,10 +4,118 @@
  */
 package management.regex;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import management.dao.EmployeeDAO;
+
 /**
  *
  * @author lehon
  */
 public class RegexEmp {
-    
+
+    //Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30(Check name)
+    public static boolean checkEmpName(String name) {
+        boolean check = name.matches("[a-zA-Z][a-zA-Z ]*");
+        if ((name.length() > 30 || name.length() < 4) || (check == false)) {
+            return false;
+        }
+        return true;
+    }
+
+    //Length 5 -> 40(Check address)
+    public static boolean checkEmpAddress(String add) {
+        if (add.length() < 5 || add.length() > 40) {
+            return false;
+        }
+        return true;
+    }
+
+    //only contain only number(Check age and phone)
+    public static boolean checkOnlyNumber(String test) {
+        return test.matches("^[0-9]*$");
+    }
+
+    //Check age contain only number and between 15 -> 65 
+    public static boolean checkAge(String age) {
+        boolean check = checkOnlyNumber(age);
+        if (check) {
+            if (Integer.parseInt(age) >= 15 && Integer.parseInt(age) <= 65) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+    //Check number contain only number and length between 5 - > 15
+    public static boolean checkPhone(String phone) {
+        boolean check = checkOnlyNumber(phone);
+        if ((phone.length() > 4) && (phone.length() < 16) && (check == true)) {
+            return true;
+        }
+        return false;
+    }
+
+    //Check dob of employee
+    public static boolean checkValidationDob(String dob) {
+        try {
+            if (EmployeeDAO.checkValidDobDay(dob)) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexEmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    //check valid email
+    public static boolean checkValidEmail(String email) {
+        boolean check = email.matches("^[\\w.+\\-]+@fpt\\.edu\\.vn$");
+        if ((email.length() < 12) || (email.length() > 30) || (check == false)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //check valid password
+    public static boolean checkValidPass(String pass) {
+        if (pass.length() < 8 || pass.length() > 25) {
+            return false;
+        }
+        return true;
+    }
+
+    //Check field null of employee
+    public static boolean chekcEmpFieldNull(String name, String add, String age, String phone, String dob, String email, String pass) {
+        if (name.equals("") || name == null
+                || add.equals("") || add == null
+                || age.equals("") || age == null
+                || phone.equals("") || phone == null
+                || dob.equals("") || dob == null
+                || email.equals("") || email == null
+                || pass.equals("") || pass == null) {
+            return true;
+        }
+        return false;
+    }
+
+    //check all
+    public static boolean checkEmpValidation(String name, String add, String age, String phone, String dob, String email, String pass) {
+        if (checkEmpName(name)
+                && checkEmpAddress(add)
+                && checkAge(age)
+                && checkPhone(phone)
+                && checkValidationDob(dob)
+                && checkValidEmail(email)
+                && checkValidPass(pass)) {
+            return true;
+        }
+        return false;
+
+    }
+
 }

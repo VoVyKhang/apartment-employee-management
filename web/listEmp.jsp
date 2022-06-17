@@ -45,7 +45,7 @@
 
                                     <td scope="row">${listEmp.idEmp}</td>     
                                     <td>
-                                        <img class="align-self-center img-fluid" src='${listEmp.imgPath}' style="width: 100px; height: 100px">
+                                        <img class="align-self-center img-fluid" src='images/${listEmp.imgPath}' style="width: 100px; height: 100px">
                                     </td>
 
                                     <td>${listEmp.name}</td>

@@ -5,11 +5,13 @@
 package management.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import management.dto.EmployeeDTO;
 import management.utils.DBUtils;
 
@@ -26,9 +28,11 @@ public class EmployeeDAO {
             + "hd.status = 1 and hp.status = 1 and\n"
             + "statusLog = 1 and role = 0";
 
-    private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, a.role\n"
-            + "from Employee as e, Account as a , Department as d, Position as p\n"
-            + "where e.idEmp = a.idEmp and e.depNum = d.depNum and e.idPos = p.idPos and a.role = 0 and e.idEmp = ?";
+    private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "hd.status = 1 and hp.status = 1 and e.idEmp = ?";
 
     private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
@@ -40,6 +44,24 @@ public class EmployeeDAO {
     private static final String CHANGE_DEP_BY_IDEMP = "update Employee\n"
             + "set depNum = ?\n"
             + "where idEmp = ?";
+
+    private static final String CHECK_DOB = "DECLARE @today date, @dob date;\n"
+            + "SET @today = CAST( GETDATE() AS date);\n"
+            + "SET @dob = ?;\n"
+            + "IF  @dob <= @today\n"
+            + "SELECT 'true' as flag\n"
+            + "ELSE SELECT 'false' as flag";
+
+    private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(name, address, age, gender, phoneNum, dob, imgPath, joinDate, email, password, statusLog, role)"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String SELECT_IDEMP_INSERTED = "SELECT TOP 1 idEmp FROM Employee order by idEmp desc";
+
+    private static final String INSERT_NEW_HIS_DEP = "INSERT INTO HistoryDep(idEmp, depNum, deliveryDate, status)"
+            + " VALUES (?, ?, ?, ?)";
+
+    private static final String INSERT_NEW_HIS_POS = "INSERT INTO HistoryPos(idEmp, idPos, deliveryDate, status, type)"
+            + " VALUES (?, ?, ?, ?, ?)";
 
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
@@ -199,6 +221,40 @@ public class EmployeeDAO {
         return emp;
     }
 
+    //Check day of birth of employee by dof input
+    public static boolean checkValidDobDay(String dob) throws SQLException {
+        String check = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_DOB);
+                ptm.setString(1, dob);
+                rs = ptm.executeQuery();
+                if (rs != null && rs.next()) {
+                    check = rs.getString("flag");
+                    if (check.equals("true")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+
     //Change department of employee by idemp
     public static boolean changeDepByIDEmp(String idemp, String iddep) throws SQLException {
         try {
@@ -230,4 +286,81 @@ public class EmployeeDAO {
         return false;
     }
 
+    //Insert new employee
+    public static boolean inserNewEmp(String name, String address, String age, String gender, String phoneNum, String dob, String imgPath, String depNum, String idPos, String email, String password) throws SQLException {
+        boolean result = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                int empid = 0;
+                conn.setAutoCommit(false);
+                Date d = new Date(System.currentTimeMillis());
+
+                // Insert employee first   
+                ptm = conn.prepareStatement(INSERT_EMPLOYEE);
+                ptm.setString(1, name);
+                ptm.setString(2, address);
+                ptm.setInt(3, Integer.parseInt(age));
+                ptm.setString(4, gender);
+                ptm.setString(5, phoneNum);
+                ptm.setString(6, dob);
+                ptm.setString(7, imgPath);
+                ptm.setDate(8, d);
+                ptm.setString(9, email);
+                ptm.setString(10, password);
+                ptm.setInt(11, 1);
+                ptm.setInt(12, 0);
+                ptm.executeUpdate();
+
+                //Get the idEmp just inserted
+                ptm = conn.prepareStatement(SELECT_IDEMP_INSERTED);
+                rs = ptm.executeQuery();
+                if (rs != null && rs.next()) {
+                    empid = rs.getInt("idEmp");
+                }
+
+                //Insert HistoryDep
+                ptm = conn.prepareStatement(INSERT_NEW_HIS_DEP);
+                ptm.setInt(1, empid);
+                ptm.setInt(2, Integer.parseInt(depNum));
+                ptm.setDate(3, d);
+                ptm.setInt(4, 1);
+                ptm.executeUpdate();
+
+                //Insert HistoryPos
+                ptm = conn.prepareStatement(INSERT_NEW_HIS_POS);
+                ptm.setInt(1, empid);
+                ptm.setInt(2, Integer.parseInt(idPos));
+                ptm.setDate(3, d);
+                ptm.setInt(4, 1);
+                ptm.setInt(5, 1);
+                ptm.executeUpdate();
+                conn.commit();
+                conn.setAutoCommit(true);
+
+                return true;
+            } else {
+                System.out.println("can not insert employee");
+            }
+        } catch (Exception e) {
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            result = false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }
