@@ -21,12 +21,16 @@ public class EmployeeDTO {
     private String joinDate;
     private String depName;
     private String posName;
+    private String email;
+    private String password;
+    private int statusLog;
     private int role;
 
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(int idEmp, String name, String address, int age, String gender, String phoneNum, String dob, String imgPath, String joinDate, String depName, String posName, int role) {
+    public EmployeeDTO(int idEmp, String name, String address, int age, String gender, String phoneNum, String dob, String imgPath, String joinDate, String depName, String posName,
+            String email, String password, int statusLog, int role) {
         this.idEmp = idEmp;
         this.name = name;
         this.address = address;
@@ -38,6 +42,9 @@ public class EmployeeDTO {
         this.joinDate = joinDate;
         this.depName = depName;
         this.posName = posName;
+        this.email = email;
+        this.password = password;
+        this.statusLog = statusLog;
         this.role = role;
     }
 
@@ -135,6 +142,30 @@ public class EmployeeDTO {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getStatusLog() {
+        return statusLog;
+    }
+
+    public void setStatusLog(int statusLog) {
+        this.statusLog = statusLog;
     }
 
 }

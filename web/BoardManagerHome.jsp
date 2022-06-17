@@ -16,7 +16,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
-        <c:if test="${sessionScope.USER_LOGGIN == null or sessionScope.USER_LOGGIN.role ne 2}">
+        <c:if test="${sessionScope.USER_LOGGIN == null or sessionScope.USER_LOGGIN.role ne 1}">
             <c:redirect url="Hall.jsp">
 
             </c:redirect>

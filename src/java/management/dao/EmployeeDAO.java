@@ -18,23 +18,29 @@ import management.utils.DBUtils;
  * @author DELL
  */
 public class EmployeeDAO {
-    
-    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, a.role\n"
-            + "from Employee as e, Account as a , Department as d, Position as p\n"
-            + "where e.idEmp = a.idEmp and e.depNum = d.depNum and e.idPos = p.idPos and a.role = 0";
-    
+
+    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "hd.status = 1 and hp.status = 1 and\n"
+            + "statusLog = 1 and role = 0";
+
     private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, a.role\n"
             + "from Employee as e, Account as a , Department as d, Position as p\n"
             + "where e.idEmp = a.idEmp and e.depNum = d.depNum and e.idPos = p.idPos and a.role = 0 and e.idEmp = ?";
-    
-    private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, a.role\n"
-            + "from Employee as e, Account as a , Department as d, Position as p\n"
-            + "where e.idEmp = a.idEmp and e.depNum = d.depNum and e.idPos = p.idPos and a.email = ?";
-    
+
+    private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "hd.status = 1 and hp.status = 1 and\n"
+            + "statusLog = 1 and email = ?";
+
     private static final String CHANGE_DEP_BY_IDEMP = "update Employee\n"
             + "set depNum = ?\n"
             + "where idEmp = ?";
-    
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -66,10 +72,13 @@ public class EmployeeDAO {
                     }
                     String depName = rs.getString("depName");
                     String posName = rs.getString("posName");
+                    String mail = rs.getString("email");
+                    String password = rs.getString("password");
+                    int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    EmployeeDTO emp = new EmployeeDTO(id, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, role);
+                    EmployeeDTO emp = new EmployeeDTO(id, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
                     list.add(emp);
-                    
+
                 }
             }
         } catch (Exception e) {
@@ -115,9 +124,12 @@ public class EmployeeDAO {
                     }
                     String depName = rs.getString("depName");
                     String posName = rs.getString("posName");
+                    String mail = rs.getString("email");
+                    String password = rs.getString("password");
+                    int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, role);
-                    
+                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+
                 }
             }
         } catch (Exception e) {
@@ -163,9 +175,12 @@ public class EmployeeDAO {
                     }
                     String depName = rs.getString("depName");
                     String posName = rs.getString("posName");
+                    String mail = rs.getString("email");
+                    String password = rs.getString("password");
+                    int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, role);
-                    
+                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+
                 }
             }
         } catch (Exception e) {
@@ -214,5 +229,5 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
+
 }

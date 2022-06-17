@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package management.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import management.dao.AccountDAO;
-import static management.dao.AccountDAO.checkAccountGoogle;
 import management.dao.EmployeeDAO;
-import management.dto.AccountDTO;
 import management.dto.EmployeeDTO;
 import management.dto.UserGoogleDTO;
 import management.utils.Constants;
@@ -49,19 +46,19 @@ public class LoginGoogleController extends HttpServlet {
         String code = request.getParameter("code");
         String accessToken = getToken(code);
         UserGoogleDTO user = getUserInfo(accessToken);
-        int result = checkAccountGoogle(user.getEmail());
+        
         EmployeeDTO emp = null;
         try {
             emp = EmployeeDAO.getEmpByEmail(user.getEmail());
         } catch (SQLException ex) {
             Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (result == 1 && emp.getRole() == 1) {
+        if (emp != null && emp.getRole() == 1) {
             HttpSession ss = request.getSession(true);
             ss.setAttribute("USER_LOGGIN", emp);
             RequestDispatcher rd = request.getRequestDispatcher("listHallManagerController");
             rd.forward(request, response);
-        } else if (result == 1 && emp.getRole() == 0) {
+        } else if (emp != null  && emp.getRole() == 0) {
             HttpSession ss = request.getSession(true);
             ss.setAttribute("USER_LOGGIN", emp);
             RequestDispatcher rd = request.getRequestDispatcher("EmployeeHome.jsp");
@@ -69,7 +66,7 @@ public class LoginGoogleController extends HttpServlet {
         } else {
 
             request.setAttribute("accountNotValid", "account not valid");
-            RequestDispatcher rd = request.getRequestDispatcher("Hall.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
             rd.forward(request, response);
         }
     }
