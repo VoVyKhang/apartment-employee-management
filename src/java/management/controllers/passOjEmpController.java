@@ -22,20 +22,16 @@ import management.dto.EmployeeDTO;
  */
 public class passOjEmpController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String UPDATE = "updateEmp.jsp";
+    private static final String DETAIL = "detailEmployee.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = "error.jsp";
         try ( PrintWriter out = response.getWriter()) {
             String empid = request.getParameter("empid");
+            String type = request.getParameter("type");
             EmployeeDTO emp = null;
             try {
                 emp = EmployeeDAO.showEmpByID(Integer.parseInt(empid));
@@ -44,7 +40,13 @@ public class passOjEmpController extends HttpServlet {
             }
             if (emp != null) {
                 request.setAttribute("Employee", emp);
-                request.getRequestDispatcher("detailEmployee.jsp").forward(request, response);
+                if (type.equals("detail")) {
+                    url = DETAIL;
+                } else {
+                    url = UPDATE;
+                }
+
+                request.getRequestDispatcher(url).forward(request, response);
             }
         }
     }

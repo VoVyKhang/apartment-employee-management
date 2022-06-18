@@ -148,6 +148,10 @@
         <servlet-name>newEmpController</servlet-name>
         <servlet-class>management.controllers.newEmpController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateEmpController</servlet-name>
+        <servlet-class>management.controllers.updateEmpController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -295,6 +299,10 @@
     <servlet-mapping>
         <servlet-name>newEmpController</servlet-name>
         <url-pattern>/newEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateEmpController</servlet-name>
+        <url-pattern>/updateEmpController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

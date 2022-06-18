@@ -95,10 +95,12 @@ public class mainController extends HttpServlet {
                 url = "pushSessionController";
             } else if (action.equals("DeleteRp")) {
                 url = "DeleteRpController";
-            } else if (action.equals("CreateNewRp")){
+            } else if (action.equals("CreateNewRp")) {
                 url = "CreateNewRpController";
-            }else if(action.equals("createEmp")){
+            } else if (action.equals("createEmp")) {
                 url = "newEmpController";
+            } else if (action.equals("updateEmp")) {
+                url = "updateEmpController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

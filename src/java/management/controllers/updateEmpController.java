@@ -28,9 +28,10 @@ import management.regex.RegexEmp;
  * @author lehon
  */
 @MultipartConfig
-public class newEmpController extends HttpServlet {
+public class updateEmpController extends HttpServlet {
 
-    private static final String DONE = "createNewEmp.jsp";
+    private static String RETURN = "updateEmp.jsp";
+    private static final String DONE_UPDATE = "mainController?action=showlist&type=emp";
     private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -38,51 +39,56 @@ public class newEmpController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
         try ( PrintWriter out = response.getWriter()) {
+            String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
             String address = request.getParameter("empadd");
             String age = request.getParameter("empage");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
-
-            String iddep = request.getParameter("empdep");
-            String idpos = request.getParameter("emppos");
-            String email = request.getParameter("empmail");
-            String password = request.getParameter("emppass");
-
+            String oldimg = request.getParameter("oldimg");
             Part part = request.getPart("empimg");
             String fileName = extractFileName(part);
-            boolean checkInsert = false;
+            boolean checkUpdate = false;
 
-            if (RegexEmp.chekcEmpFieldNull(name, address, age, phone, dob, email, password)) {
-                url = DONE;
+            if (RegexEmp.checkFieldNullUpdate(name, address, age, phone, dob)) {
+                url = RETURN;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidation(name, address, age, phone, dob, email, password)) {
+                if (RegexEmp.checkEmpValidationUpdate(name, address, age, phone, dob)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
+                        //Remove old file image
+                        File deletefile = new File(PATH_IMG + oldimg);
+                        deletefile.delete();
+
+                        //Add new file image
                         String savePath = PATH_IMG + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
+
+                        //Update with new image
+                        try {
+                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, address, age, gender, phone, dob, fileName, idemp);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                     } else {
-                        fileName = "...";
+
+                        try {
+                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, address, age, gender, phone, dob, idemp);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
 
-                    try {
-                        checkInsert = EmployeeDAO.inserNewEmp(name, address, age, gender, phone, dob, fileName, iddep, idpos, email, password);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    if (checkInsert) {
+                    if (checkUpdate) {
                         request.setAttribute("COMPLETED", "Successful");
-                        url = DONE;
-                        request.getRequestDispatcher(url).forward(request, response);
-                    } else {
-                        request.getRequestDispatcher(url).forward(request, response);
+                        url = DONE_UPDATE;
                     }
-
                 } else {
-                    url = DONE;
+                    url = RETURN;
                     if (RegexEmp.checkEmpName(name) == false) {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
                     }
@@ -103,27 +109,21 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("WARNINGDOB", "Choose a birthday from today or earlier");
                     }
 
-                    if (RegexEmp.checkValidEmail(email) == false) {
-                        request.setAttribute("WARNINGMAIL", "Enter following format someone@fpt.edu.vn and length 12 to 30");
-                    }
-
-                    if (RegexEmp.checkValidPass(password) == false) {
-                        request.setAttribute("WARNINGPASS", "Password length 8 to 25");
-                    }
                 }
             }
 
-            request.setAttribute("namereg", name);
-            request.setAttribute("addreg", address);
-            request.setAttribute("agereg", age);
-            request.setAttribute("genreg", gender);
-            request.setAttribute("phonereg", phone);
-            request.setAttribute("dobreg", dob);
-            request.setAttribute("depreg", iddep);
-            request.setAttribute("posreg", idpos);
-            request.setAttribute("emailreg", email);
-            request.setAttribute("passreg", password);
+            if (!url.equals(DONE_UPDATE)) {
+                request.setAttribute("namereg", name);
+                request.setAttribute("addreg", address);
+                request.setAttribute("agereg", age);
+                request.setAttribute("genreg", gender);
+                request.setAttribute("phonereg", phone);
+                request.setAttribute("dobreg", dob);
+                request.setAttribute("imgreg", oldimg);
+                request.setAttribute("idreg", idemp);
+            }
             request.getRequestDispatcher(url).forward(request, response);
+
         }
     }
 

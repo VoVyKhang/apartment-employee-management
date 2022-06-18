@@ -19,6 +19,8 @@
 
             <div style="margin: 0 32px" class="list-employee">
                 <a href="createNewEmp.jsp">Create New Employee</a>
+                <div> <p style="color: green">${requestScope.COMPLETED}</p>
+                </div>
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
                     <table class="table table-striped">
@@ -55,13 +57,7 @@
                                     <td>${listEmp.posName}</td>
 
                                     <td>
-                                        <c:url var="update" value="mainController">
-                                            <c:param name="action" value="Update"> </c:param>
-
-                                            <c:param name="id" value="${listEmp.idEmp}"> </c:param>
-                                        </c:url>
-                                        <a href="${update}"><i class="fas fa-edit"></i></a>
-
+                                        <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=update"><i class="fas fa-edit"></i></a>
                                     </td>
 
                                     <td>
@@ -84,7 +80,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="mainController?action=passidemp&empid=${listEmp.idEmp}"><i class="fas fa-address-card"></i></a>
+                                         <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=detail"><i class="fas fa-address-card"></i></a>
                                     </td>
 
                                 </tr>
