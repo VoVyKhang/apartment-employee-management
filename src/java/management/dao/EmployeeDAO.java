@@ -20,57 +20,54 @@ import management.utils.DBUtils;
  * @author DELL
  */
 public class EmployeeDAO {
-    
+
     private static final String LIST_ALL_EMP = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             + "hd.status = 1 and hp.status = 1 and\n"
-            + "statusLog = 1 and role = 0";
-    
+            + "statusLog = 1 and role = 0"
+            + "order by idEmp ASC";
+
     private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             + "hd.status = 1 and hp.status = 1 and e.idEmp = ?";
-    
+
     private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             + "hd.status = 1 and hp.status = 1 and\n"
             + "statusLog = 1 and email = ?";
-    
-    private static final String CHANGE_DEP_BY_IDEMP = "update Employee\n"
-            + "set depNum = ?\n"
-            + "where idEmp = ?";
-    
+
     private static final String CHECK_DOB = "DECLARE @today date, @dob date;\n"
             + "SET @today = CAST( GETDATE() AS date);\n"
             + "SET @dob = ?;\n"
             + "IF  @dob <= @today\n"
             + "SELECT 'true' as flag\n"
             + "ELSE SELECT 'false' as flag";
-    
+
     private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(name, address, age, gender, phoneNum, dob, imgPath, joinDate, email, password, statusLog, role)"
             + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
+
     private static final String SELECT_IDEMP_INSERTED = "SELECT TOP 1 idEmp FROM Employee order by idEmp desc";
-    
+
     private static final String INSERT_NEW_HIS_DEP = "INSERT INTO HistoryDep(idEmp, depNum, deliveryDate, status)"
             + " VALUES (?, ?, ?, ?)";
-    
+
     private static final String INSERT_NEW_HIS_POS = "INSERT INTO HistoryPos(idEmp, idPos, deliveryDate, status, type)"
             + " VALUES (?, ?, ?, ?, ?)";
-    
+
     private static final String UPDATE_EMP_NO_IMG = "UPDATE Employee\n"
             + "SET name = ?, address = ?, age = ?, gender = ?, phoneNum = ?, dob = ?\n"
             + "WHERE idEmp = ?";
-    
+
     private static final String UPDATE_EMP_IMG = "UPDATE Employee\n"
             + "SET name = ?, address = ?, age = ?, gender = ?, phoneNum = ?, dob = ?, imgPath = ?\n"
             + "WHERE idEmp = ?";
-    
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -108,7 +105,7 @@ public class EmployeeDAO {
                     int role = rs.getInt("role");
                     EmployeeDTO emp = new EmployeeDTO(id, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
                     list.add(emp);
-                    
+
                 }
             }
         } catch (Exception e) {
@@ -159,7 +156,7 @@ public class EmployeeDAO {
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
                     emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
-                    
+
                 }
             }
         } catch (Exception e) {
@@ -210,7 +207,7 @@ public class EmployeeDAO {
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
                     emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
-                    
+
                 }
             }
         } catch (Exception e) {
@@ -245,37 +242,6 @@ public class EmployeeDAO {
                     } else {
                         return false;
                     }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return false;
-    }
-
-    //Change department of employee by idemp
-    public static boolean changeDepByIDEmp(String idemp, String iddep) throws SQLException {
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(CHANGE_DEP_BY_IDEMP);
-                ptm.setInt(1, Integer.parseInt(iddep));
-                ptm.setInt(2, Integer.parseInt(idemp));
-                int result = ptm.executeUpdate();
-                if (result > 0) {
-                    return true;
-                } else {
-                    return false;
                 }
             }
         } catch (Exception e) {
@@ -345,7 +311,7 @@ public class EmployeeDAO {
                 ptm.executeUpdate();
                 conn.commit();
                 conn.setAutoCommit(true);
-                
+
                 return true;
             } else {
                 System.out.println("can not insert employee");
@@ -405,7 +371,7 @@ public class EmployeeDAO {
                 conn.close();
             }
         }
-        
+
         return false;
     }
 
@@ -445,4 +411,6 @@ public class EmployeeDAO {
         }
         return false;
     }
+
+    //Change status of old department before move to new department
 }

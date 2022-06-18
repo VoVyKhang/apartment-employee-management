@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import management.dao.DepartmentDAO;
 import management.dao.EmployeeDAO;
-import management.dao.HistoryDAO;
+import management.dao.HistoryDepDAO;
 
 /**
  *
@@ -26,36 +26,24 @@ public class changeDepController extends HttpServlet {
     private static String URL = "error.jsp";
     private static final String SUCCESS_CHANGE_DEP = "mainController?action=showlist&type=changedep";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             String idemp = request.getParameter("idemp");
-            String iddep = request.getParameter("iddep");
-            String olddep = request.getParameter("old");
-            String description = request.getParameter("des");
-            String newdep = "gggg";
-
-            boolean checkChange = false;
-            boolean checkHis = false;
+            String newdep = request.getParameter("iddep");
+            String oldep = request.getParameter("olddep");
+            boolean checkChangeStatus = false;
+            boolean checkInsert = false;
+            int iddepold = 0;
             try {
-                checkChange = EmployeeDAO.changeDepByIDEmp(idemp, iddep);
-                newdep = DepartmentDAO.getNameDepByID(iddep);
-                checkHis = HistoryDAO.insertNewHistory(description, idemp, olddep, newdep);
-
+                iddepold = DepartmentDAO.getDepNumByName(oldep);
+                checkChangeStatus = HistoryDepDAO.updateDep(idemp, iddepold);
+                checkInsert = HistoryDepDAO.inserNewDep(idemp, newdep);
             } catch (SQLException ex) {
                 Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (checkChange == true && checkHis == true) {
+            if (checkChangeStatus == true && checkInsert == true) {
                 request.setAttribute("WARNING", "Completed");
                 URL = SUCCESS_CHANGE_DEP;
             }

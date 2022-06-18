@@ -45,7 +45,7 @@
 
                                 <td>${listEmp.idEmp}</td>     
                                 <td>
-                                    <img class="align-self-center img-fluid" src='${listEmp.imgPath}' width="120"
+                                    <img class="align-self-center img-fluid" src='images/${listEmp.imgPath}' width="120"
                                          height="120">
                                 </td>
 
@@ -60,9 +60,10 @@
                                                        user = "sa"  password = "12345"/>
 
                                     <sql:query dataSource = "${snapshot}" var = "result">
-                                        select DISTINCT d.depNum, depName
-                                        from Department as d, Employee as e
-                                        where d.depNum <> e.depNum and e.depNum = (
+                                        select DISTINCT d.depNum, d.depName
+                                        from HistoryDep as hd, Department as d
+                                        where hd.depNum <> d.depNum
+                                        and hd.depNum = (
                                         select depNum
                                         from Department
                                         where depName = '${listEmp.depName}'
@@ -79,8 +80,7 @@
                                         </br>
                                         </br>
 
-                                        <label>Description</label>
-                                        <input type="text" name="des">
+                                        
                                         </td>
                                         <td>${listEmp.posName}</td>
 
@@ -88,7 +88,7 @@
 
                                             <input type="hidden" name="idemp" value="${listEmp.idEmp}">
                                             <input type="hidden" name="action" value="changeDep" >
-                                            <input type="hidden" name="old" value="${listEmp.depName}">
+                                            <input type="hidden" name="olddep" value="${listEmp.depName}">
                                             <input class="btn btn-secondary btn-sm" type="submit" value="Change">
                                     </form>
 
@@ -103,7 +103,7 @@
         <div class="changedep-btn">
             <p style="color:green">${requestScope.WARNING}</p>
             <a href="mainController?action=history&typehis=hisdep">History of change department</a>
-            
+
         </div>
     </div>
 </body>

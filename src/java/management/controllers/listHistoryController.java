@@ -14,8 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.HistoryDAO;
-import management.dto.HistoryDTO;
+import management.dao.HistoryDepDAO;
+import management.dto.HistoryDepDTO;
 
 /**
  *
@@ -24,34 +24,25 @@ import management.dto.HistoryDTO;
 public class listHistoryController extends HttpServlet {
 
     private static String URL = "error.jsp";
-    private static final String  LIST_HISTORY_DEP = "historyChangeDep.jsp";
+    private static final String LIST_HISTORY_DEP = "historyChangeDep.jsp";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             String typehis = request.getParameter("typehis");
             if (typehis.equals("hisdep")) {
-                ArrayList<HistoryDTO> listhisdep = null;
+                ArrayList<HistoryDepDTO> listhisdep = null;
                 try {
-                    listhisdep = HistoryDAO.getAllHisDep();
+                    listhisdep = HistoryDepDAO.listHisDep();
                 } catch (SQLException ex) {
                     Logger.getLogger(listHistoryController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 request.setAttribute("listHisDep", listhisdep);
                 URL = LIST_HISTORY_DEP;
             }
-            
+
             request.getRequestDispatcher(URL).forward(request, response);
         }
     }

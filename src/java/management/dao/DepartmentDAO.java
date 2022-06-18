@@ -46,6 +46,10 @@ public class DepartmentDAO {
             + "from Department\n"
             + "where depNum = ?";
 
+    private static final String GET_IDDEP_BY_NAME = "select depNum\n"
+            + "from Department\n"
+            + "where depName = ?";
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -249,5 +253,35 @@ public class DepartmentDAO {
             }
         }
         return dep;
+    }
+
+    //Get depNum by depname
+    public static int getDepNumByName(String name) throws SQLException {
+        int id = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_IDDEP_BY_NAME);
+                ptm.setString(1, name);
+                rs = ptm.executeQuery();
+                if (rs != null && rs.next()) {
+                    id = rs.getInt("depNum");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return id;
+
     }
 }

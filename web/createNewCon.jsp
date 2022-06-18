@@ -83,7 +83,7 @@
                         <div style="margin-bottom: 8px">Choose Employee</div>
                         <select name="idemp" class="certificate-select">
                             <c:forEach var = "rowemp" items = "${resultemp.rows}">
-                                <option value="${rowemp.idEmp}">${rowemp.name}</option>
+                                <option value="${rowemp.idEmp}">ID:${rowemp.idEmp}-${rowemp.name}</option>
                             </c:forEach>
                         </select>
 
