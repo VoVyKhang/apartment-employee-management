@@ -68,6 +68,10 @@ public class EmployeeDAO {
             + "SET name = ?, address = ?, age = ?, gender = ?, phoneNum = ?, dob = ?, imgPath = ?\n"
             + "WHERE idEmp = ?";
 
+    private static final String CHECK_MAIL_EXIST = "select email\n"
+            + "from Employee\n"
+            + "where email = ?";
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -412,5 +416,36 @@ public class EmployeeDAO {
         return false;
     }
 
-    //Change status of old department before move to new department
+    //Check exist of email
+    public static boolean checkMailExist(String email) throws SQLException {
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_MAIL_EXIST);
+                ptm.setString(1, email);
+
+                rs = ptm.executeQuery();
+                rs.next();
+                if (rs != null && rs.getString(1).equals(email)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
 }

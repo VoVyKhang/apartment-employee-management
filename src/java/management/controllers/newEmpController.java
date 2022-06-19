@@ -107,6 +107,10 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("WARNINGMAIL", "Enter following format someone@fpt.edu.vn and length 12 to 30");
                     }
 
+                    if (RegexEmp.checkMailNotExist(email) == false) {
+                        request.setAttribute("WARNINGMAILS", "This email already exists");
+                    }
+
                     if (RegexEmp.checkValidPass(password) == false) {
                         request.setAttribute("WARNINGPASS", "Password length 8 to 25");
                     }

@@ -89,6 +89,21 @@ public class RegexEmp {
         return true;
     }
 
+    //check mail not exits
+    public static boolean checkMailNotExist(String email) {
+        boolean check = false;
+        try {
+            check = EmployeeDAO.checkMailExist(email);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexEmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (check) {
+            return false;
+        }
+        return true;
+    }
+
     //Check field null of employee
     public static boolean chekcEmpFieldNull(String name, String add, String age, String phone, String dob, String email, String pass) {
         if (name.equals("") || name == null
@@ -123,6 +138,7 @@ public class RegexEmp {
                 && checkPhone(phone)
                 && checkValidationDob(dob)
                 && checkValidEmail(email)
+                && checkMailNotExist(email)
                 && checkValidPass(pass)) {
             return true;
         }

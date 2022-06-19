@@ -111,6 +111,7 @@
                         <input class="form-control" id="formGroupExampleInput8" type="text" name="empmail" 
                                <c:if test="${not empty requestScope.emailreg}">value="${requestScope.emailreg}"</c:if>></br>
                         <p style="color:red">${requestScope.WARNINGMAIL}</p>
+                        <p style="color:red">${requestScope.WARNINGMAILS}</p>
 
                     </div>
                     <div class="col-6">
@@ -136,7 +137,7 @@
 
                         <div style="margin-bottom: 9px">Department</div> 
                         <fmt:parseNumber var="iddep" type="number" value="${requestScope.depreg}"></fmt:parseNumber>
-                        <select name="empdep" class="select-options">
+                            <select name="empdep" class="select-options">
                             <c:forEach var = "rowdep" items = "${listdep.rows}">
                                 <option value="${rowdep.depNum}"
                                         <c:if test="${rowdep.depNum eq iddep}">selected=""</c:if>>${rowdep.depName}</option>
@@ -153,7 +154,7 @@
 
                         <div style="margin-bottom: 9px">Position</div> 
                         <fmt:parseNumber var="idpos" type="number" value="${requestScope.posreg}"></fmt:parseNumber>
-                        <select name="emppos" class="select-options" >
+                            <select name="emppos" class="select-options" >
                             <c:forEach var = "rowpos" items = "${listpos.rows}">
                                 <option value="${rowpos.idPos}"
                                         <c:if test="${rowpos.idPos eq idpos}">selected=""</c:if>>${rowpos.posName}</option>
