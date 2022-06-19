@@ -22,20 +22,23 @@
             <form action="mainController" method="POST" class="form-position" style="margin: 0 32px; width: 100%">
                 <div class="form-group">
                     <label for="formGroupExampleInput">Name</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" name="depname" placeholder="Enter name...">
-                    <p style="color:red">${requestScope.messName}</p>
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="depname" placeholder="Enter name..."
+                    <c:if test="${not empty requestScope.namereg}">value="${requestScope.namereg}"</c:if>></br>
+                <p style="color:red">${requestScope.messName}</p>
 
             </div>
 
             <div class="form-group">
                 <label for="formGroupExampleInput2">Description</label>
-                <input type="text" name="depdes" class="form-control" id="formGroupExampleInput2" placeholder="Enter description...">
+                <input type="text" name="depdes" class="form-control" id="formGroupExampleInput2" placeholder="Enter description..."
+                       <c:if test="${not empty requestScope.desreg}">value="${requestScope.desreg}"</c:if>></br>
                 <p style="color:red">${requestScope.messDes}</p>
             </div>
 
             <div class="form-group">
                 <label for="formGroupExampleInput2">Location</label>
-                <input type="text" name="deploc" class="form-control" id="formGroupExampleInput2" placeholder="Enter location...">
+                <input type="text" name="deploc" class="form-control" id="formGroupExampleInput2" placeholder="Enter location..."
+                       <c:if test="${not empty requestScope.locreg}">value="${requestScope.locreg}"</c:if>></br>
                 <p style="color:red"> ${requestScope.messLoc}</p>
 
             </div>

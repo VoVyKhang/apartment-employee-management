@@ -44,7 +44,7 @@
             where e.idEmp not in (
             select e.idEmp
             from Employee as e, Contract as c
-            where c.idEmp = e.idEmp )
+            where c.idEmp = e.idEmp ) and role = 0
         </sql:query>
 
         <sql:query dataSource = "${snapshot}" var = "resulttype">
@@ -83,7 +83,7 @@
                         <div style="margin-bottom: 8px">Choose Employee</div>
                         <select name="idemp" class="certificate-select">
                             <c:forEach var = "rowemp" items = "${resultemp.rows}">
-                                <option value="${rowemp.idEmp}">ID:${rowemp.idEmp}-${rowemp.name}</option>
+                                <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
                             </c:forEach>
                         </select>
 

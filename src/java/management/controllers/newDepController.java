@@ -23,20 +23,12 @@ import management.regex.RegexDep;
 public class newDepController extends HttpServlet {
 
 //    private static String CREATE_DEP_PAGE = "createNewDep.jsp";
-    private static String url = "createNewDep.jsp";
+    private static String RETRY = "createNewDep.jsp";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = "error.jsp";
         try ( PrintWriter out = response.getWriter()) {
             String depName = request.getParameter("depname");
             String depDes = request.getParameter("depdes");
@@ -50,12 +42,14 @@ public class newDepController extends HttpServlet {
                 Logger.getLogger(newDepController.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (RegexDep.checkDepFieldNull(depName, depDes, depLoc)) {
+                url = RETRY;
                 request.setAttribute("WARNING", "You have not filled in the information completely");
-                request.getRequestDispatcher(url).forward(request, response);
+
             } else {
                 if (checkExist == true) {
+                    url = RETRY;
                     request.setAttribute("WARNING", "Department already exists");
-                    request.getRequestDispatcher(url).forward(request, response);
+
                 } else {
                     if (RegexDep.checkDepValidation(depName, depDes, depLoc)) {
                         try {
@@ -65,11 +59,12 @@ public class newDepController extends HttpServlet {
                         }
                         if (checkInsert) {
                             request.setAttribute("SUCCESS", "Completed");
+                            url = RETRY;
                             request.getRequestDispatcher(url).forward(request, response);
-                        } else {
-                            request.getRequestDispatcher("error.jsp").forward(request, response);
+
                         }
                     } else {
+                        url = RETRY;
                         // print each error of user input to createNewDep.jsp
                         if (RegexDep.checkDepName(depName) == false) {
                             request.setAttribute("messName", "Names consist of letters only and can be between 4 and 30 characters long");
@@ -81,11 +76,14 @@ public class newDepController extends HttpServlet {
                             request.setAttribute("messLoc", "length from 3 to 10 characters");
                         }
 
-                        request.getRequestDispatcher(url).forward(request, response);
                     }
                 }
             }
 
+            request.setAttribute("namereg", depName);
+            request.setAttribute("desreg", depDes);
+            request.setAttribute("locreg", depLoc);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

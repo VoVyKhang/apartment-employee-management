@@ -23,18 +23,9 @@ import management.regex.RegexDep;
  */
 public class editDepController extends HttpServlet {
 
-    private static String FAIL_UPDATE_DEP = "mainController?action=passiddep&iddep=";
-    private static String DONE_UPDATE_DEP = "mainController?action=backdeplist";
+    private static String FAIL_UPDATE_DEP = "updateDep.jsp";
+    private static String DONE_UPDATE_DEP = "mainController?action=showlist&type=dep";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -44,54 +35,51 @@ public class editDepController extends HttpServlet {
             String depDes = request.getParameter("depdes");
             String depLoc = request.getParameter("deploc");
             String depnum = request.getParameter("depnum");
-
-            boolean checkExist = false;
             boolean checkUpdate = false;
-            try {
-                checkExist = DepartmentDAO.checkDepExist(depName);
-            } catch (SQLException ex) {
-                Logger.getLogger(newDepController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
             if (RegexDep.checkDepFieldNull(depName, depDes, depLoc)) {
                 request.setAttribute("WARNING", "You have not filled in the information completely");
-                url = FAIL_UPDATE_DEP + depnum;
-                request.getRequestDispatcher(url).forward(request, response);
-            } else {
-                if (checkExist == true) {
-                    url = FAIL_UPDATE_DEP + depnum;
-                    request.setAttribute("WARNING", "Same name as another department");
-                    request.getRequestDispatcher(url).forward(request, response);
-                } else {
-                    if (RegexDep.checkDepValidation(depName, depDes, depLoc)) {
-                        try {
-                            checkUpdate = DepartmentDAO.updateDep(depName, depDes, depLoc, depnum);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(editDepController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        if (checkUpdate) {
-                            url = DONE_UPDATE_DEP;
-                            request.setAttribute("WARNING", "Completed");
-                            request.getRequestDispatcher(url).forward(request, response);
-                        } else {
-                            request.getRequestDispatcher(url).forward(request, response);
-                        }
-                    } else {
-                        // print each error of user input to createNewDep.jsp
-                        if (RegexDep.checkDepName(depName) == false) {
-                            request.setAttribute("messName", "Names consist of letters only and can be between 4 and 30 characters long");
-                        }
-                        if (RegexDep.checkDepDes(depDes) == false) {
-                            request.setAttribute("messDes", "length from 8 to 20 characters");
-                        }
-                        if (RegexDep.checkDepLoc(depLoc) == false) {
-                            request.setAttribute("messLoc", "length from 3 to 10 characters");
-                        }
+                url = FAIL_UPDATE_DEP;
 
-                        url = FAIL_UPDATE_DEP + depnum;
+            } else {
+                if (RegexDep.checkDepValidation(depName, depDes, depLoc)) {
+                    try {
+                        checkUpdate = DepartmentDAO.updateDep(depName, depDes, depLoc, depnum);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(editDepController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (checkUpdate) {
+                        url = DONE_UPDATE_DEP;
+                        request.setAttribute("WARNING", "Completed");
                         request.getRequestDispatcher(url).forward(request, response);
                     }
+                } else {
+
+                    // print each error of user input to createNewDep.jsp
+                    if (RegexDep.checkDepName(depName) == false) {
+                        request.setAttribute("messName", "Names consist of letters only and can be between 4 and 30 characters long");
+                    }
+                    if (RegexDep.checkDepDes(depDes) == false) {
+                        request.setAttribute("messDes", "description length from 8 to 20 characters");
+                    }
+                    if (RegexDep.checkDepLoc(depLoc) == false) {
+                        request.setAttribute("messLoc", "location length from 3 to 10 characters");
+                    }
+
+                    if (RegexDep.checkExistDep(depName) == false) {
+                        request.setAttribute("WARNINGEXIST", "Same name as another department");
+                    }
+                    url = FAIL_UPDATE_DEP;
+
                 }
+
             }
+
+            request.setAttribute("namereg", depName);
+            request.setAttribute("desreg", depDes);
+            request.setAttribute("locreg", depLoc);
+            request.setAttribute("idreg", depnum);
+            request.getRequestDispatcher(url).forward(request, response);
 
         }
     }

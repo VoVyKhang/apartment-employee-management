@@ -4,7 +4,11 @@
  */
 package management.regex;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import management.dao.DepartmentDAO;
 
 /**
  *
@@ -12,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class RegexDep {
 
+    //check name dep
     public static boolean checkDepName(String name) {
 
         boolean check = name.matches("[a-zA-Z][a-zA-Z ]*");
@@ -21,10 +26,12 @@ public class RegexDep {
         return true;
     }
 
+    //check exist
     public static String removeAllTrim(String name) {
         return name.replaceAll("\\s\\s+", " ").trim().toLowerCase();
     }
 
+    //check description
     public static boolean checkDepDes(String des) {
         if (des.length() < 8 || des.length() > 40) {
             return false;
@@ -32,6 +39,7 @@ public class RegexDep {
         return true;
     }
 
+    //location
     public static boolean checkDepLoc(String location) {
         if (location.length() < 3 || location.length() > 10) {
             return false;
@@ -39,6 +47,7 @@ public class RegexDep {
         return true;
     }
 
+    //check field null of department
     public static boolean checkDepFieldNull(String name, String des, String loc) {
         if (name.equals("") || name == null || des.equals("") || des == null || loc.equals("") || loc == null) {
             return true;
@@ -46,8 +55,25 @@ public class RegexDep {
         return false;
     }
 
+    //check exist of department
+    public static boolean checkExistDep(String name) {
+        try {
+            if (DepartmentDAO.checkDepExist(name)) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexDep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
+    //check validation of all field
     public static boolean checkDepValidation(String name, String des, String location) {
-        if (checkDepName(name) && checkDepDes(des) && checkDepLoc(location)) {
+        if (checkDepName(name)
+                && checkDepDes(des)
+                && checkDepLoc(location)
+                && checkExistDep(name)) {
             return true;
         }
         return false;
