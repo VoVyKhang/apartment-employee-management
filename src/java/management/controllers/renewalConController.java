@@ -24,15 +24,7 @@ public class renewalConController extends HttpServlet {
     private static final String DONE_RENEWAL = "mainController?action=showlist&type=con";
     private static final String FAIL_RENEWAL = "mainController?action=passidcon&idcon=";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

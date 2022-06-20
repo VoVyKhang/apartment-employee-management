@@ -70,27 +70,27 @@
                                         );
                                     </sql:query>
 
-                                    <form action="mainController" method="POST">
-                                        <label>New department:</label>
-                                        <select name="iddep">
-                                            <c:forEach var = "row" items = "${result.rows}">
-                                                <option selected="" value="${row.depNum}">${row.depName}</option>
-                                            </c:forEach>
-                                        </select>
-                                        </br>
-                                        </br>
 
-                                        
-                                        </td>
-                                        <td>${listEmp.posName}</td>
+                                    <label>New department:</label>
+                                    <select name="iddep">
+                                        <c:forEach var = "row" items = "${result.rows}">
+                                            <option selected="" value="${row.depNum}">${row.depName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    </br>
+                                    </br>
 
-                                        <td>
 
-                                            <input type="hidden" name="idemp" value="${listEmp.idEmp}">
-                                            <input type="hidden" name="action" value="changeDep" >
-                                            <input type="hidden" name="olddep" value="${listEmp.depName}">
-                                            <input class="btn btn-secondary btn-sm" type="submit" value="Change">
-                                    </form>
+                                </td>
+                                <td>${listEmp.posName}</td>
+
+                                <td>
+
+                                    <input type="hidden" name="idemp" value="${listEmp.idEmp}">
+                                    <input type="hidden" name="action" value="changeDep" >
+                                    <input type="hidden" name="olddep" value="${listEmp.depName}">
+                                    <input class="btn btn-secondary btn-sm" type="submit" value="Change">
+
 
                                 </td>
                             </tr>
@@ -101,7 +101,10 @@
             </c:if>
         </c:if>
         <div class="changedep-btn">
-            <p style="color:green">${requestScope.WARNING}</p>
+            <c:if test="${not empty sessionScope.WARNING}">
+                <p style="color:green">${sessionScope.WARNING}</p>
+                <c:remove var="WARNING" scope="session" />
+            </c:if>
             <a href="mainController?action=history&typehis=hisdep">History of change department</a>
 
         </div>

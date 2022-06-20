@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import management.dao.DepartmentDAO;
 import management.dao.EmployeeDAO;
 import management.dao.HistoryDepDAO;
@@ -44,11 +45,12 @@ public class changeDepController extends HttpServlet {
                 Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (checkChangeStatus == true && checkInsert == true) {
-                request.setAttribute("WARNING", "Completed");
+                HttpSession session = request.getSession(false);
+                session.setAttribute("WARNING", "Completed");
                 URL = SUCCESS_CHANGE_DEP;
             }
 
-            request.getRequestDispatcher(URL).forward(request, response);
+            response.sendRedirect(URL);
 
         }
     }
