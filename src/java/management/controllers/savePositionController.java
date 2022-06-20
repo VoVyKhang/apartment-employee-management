@@ -13,7 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.HistoryDAO;
+import javax.servlet.http.HttpSession;
+import management.dao.HistoryPosDAO;
 import management.dao.PositionDAO;
 
 /**
@@ -35,32 +36,20 @@ public class savePositionController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-      
+            HttpSession ss = request.getSession();
+            int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
             int idPos = Integer.parseInt(request.getParameter("idPos"));
             int idEmp = Integer.parseInt(request.getParameter("idEmp"));
-
-            String reasonPosition = request.getParameter("reasonPosition");
-            String oldPosName = request.getParameter("oldPosName");
-            String newPosName = null;
-            if (idPos == 1) {
-                newPosName = "Manager";
-            } else if (idPos == 2) {
-                newPosName = "Deputy";
+            int type = Integer.parseInt(request.getParameter("type"));
+            
+            boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
+            boolean result = HistoryPosDAO.insertNewPos(idEmp, idPos, type);
+            if (result && resultUpdateOldPos == true) { 
+                ss.setAttribute("updateSuccess", "Update success");
+                response.sendRedirect("promoteAndDemoteController");            
             } else {
-                newPosName = "Employee";
-            }
-            boolean resultHisPos = HistoryDAO.insertNewHisPosition(reasonPosition, idEmp, newPosName, oldPosName);
-            boolean result = PositionDAO.changePosition(idPos, idEmp);
-
-            if (result && resultHisPos == true) {
-                
-
-                    request.setAttribute("updateSuccess", "Update success");
-                    request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
-
-                } else {
-                    request.setAttribute("updateFail", "Update fail");
-                    request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
+                request.setAttribute("updateFail", "Update fail");
+                request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
                 
             }
         }

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import management.dto.EmployeeDTO;
 import management.dto.PositionDTO;
 import management.utils.DBUtils;
 
@@ -25,6 +26,10 @@ public class PositionDAO {
             + "SET posName = ?, description =?\n"
             + "WHERE idPos = ?";
     private static final String CHANGE_POSITION = "UPDATE Employee SET idPos = ? WHERE idEmp = ?";
+    
+    private static final String LIST_EMP_POS = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n"
+            + "			WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n"
+            + "			and e.idEmp = hp.idEmp and hp.idPos = p.idPos";
     private static Connection cn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -120,5 +125,39 @@ public class PositionDAO {
             }
         }
         return false;
+    }
+
+    public static ArrayList<EmployeeDTO> listEmpPos() throws SQLException {
+        ArrayList<EmployeeDTO> listEmpPos = new ArrayList<>();
+        try {
+            cn = DBUtils.getConnection();
+            st = cn.createStatement();
+            rs = st.executeQuery(LIST_EMP_POS);
+            while (rs != null && rs.next()) {
+                int idEmp = rs.getInt("idEmp");
+                String imgPath = rs.getString("imgPath");
+                String name = rs.getString("name");
+                String gender = rs.getString("gender");
+                String dob = rs.getString("dob");
+                String depName = rs.getString("depName");
+                String posName = rs.getString("posName");
+                int idPos = rs.getInt("idPos");
+                EmployeeDTO e = new EmployeeDTO(idEmp, name, gender, dob, imgPath, depName, posName, idPos);
+                listEmpPos.add(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return listEmpPos;
     }
 }
