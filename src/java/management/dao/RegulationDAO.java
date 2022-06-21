@@ -26,6 +26,9 @@ public class RegulationDAO {
             + "where [idReg] = ?";
     private static final String CREATE_REG = "INSERT INTO [dbo].[Regulation]([name],[status])\n"
             + "VALUES (?,?)";
+    private static final String LIST_REG_BY_ID = "select idReg, name, status\n"
+            + "from Regulation\n"
+            + "where status = ?";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -118,5 +121,36 @@ public class RegulationDAO {
             }
         }
         return false;
+    }
+    public static ArrayList<RegulationDTO> listRegById(String idReg) throws SQLException {
+        ArrayList<RegulationDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_REG_BY_ID);
+                ptm.setString(1, idReg);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int IDReg = rs.getInt("idReg");
+                    String name = rs.getString("name");
+                    int status = rs.getInt("status");
+                    RegulationDTO reg = new RegulationDTO(IDReg, name, status);
+                    list.add(reg);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

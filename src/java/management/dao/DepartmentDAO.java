@@ -49,7 +49,9 @@ public class DepartmentDAO {
     private static final String GET_IDDEP_BY_NAME = "select depNum\n"
             + "from Department\n"
             + "where depName = ?";
-
+    private static final String GET_DEP_BY_LOCATION = "select depNum, depName, description, location, dateCreate, creator\n"
+            + "from Department\n"
+            + "where location = ?";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -282,6 +284,41 @@ public class DepartmentDAO {
             }
         }
         return id;
+
+    }
+    public static ArrayList<DepartmentDTO> getDepNumByLocation(String location) throws SQLException {
+        ArrayList<DepartmentDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DEP_BY_LOCATION);
+                ptm.setString(1, location);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int depNum = rs.getInt("depNum");
+                    String depName = rs.getString("depName");
+                    String description = rs.getString("description");
+                    String locationDep = rs.getString("location");
+                    String dateCreate = rs.getString("dateCreate");
+                    String creator = rs.getString("creator");
+                    DepartmentDTO dep = new DepartmentDTO(depNum, depName, description, locationDep, dateCreate, creator);
+                    list.add(dep);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
 
     }
 }

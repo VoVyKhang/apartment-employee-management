@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,9 +19,30 @@
         <c:import url="sidebar.jsp"></c:import>
 
 
-        <div>
+            <div>
             <c:if test="${requestScope.listDep != null}">
                 <c:if test="${not empty requestScope.listDep}">
+                    <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                                       user = "sa"  password = "12345"/>
+
+                    <sql:query dataSource = "${snapshot}" var = "listLocation">
+                        select location
+                        from Department
+                    </sql:query>
+                    <form action="mainController" method="POST">
+                        <div style="margin-bottom: 4px">Location:</div>
+                        <div class="form-group ">
+                            <select name="locationDep">
+                                <option value="allDep">All</option>
+                                <c:forEach var="listLocation" items="${listLocation.rows}">
+                                    <option value="${listLocation.location}" ><c:out value="${listLocation.location}"/></option>                       
+                                </c:forEach>
+                            </select>
+                            <input type="submit" value="Filter"/>
+                            <input type="hidden" name="action" value="filterDepByLocation"/>
+                        </div>
+                    </form>
                     <div style="margin: 0 32px" class="list-dep">
                         <table class="table table-striped">
                             <thead>

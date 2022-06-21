@@ -89,6 +89,13 @@
                         </ul>
                         <ul>
                             <li>
+                                <a href="mainController?action=listRewPenEmp">
+                                    Reward and Penalty
+                                </a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
                                 Change Password
                             </li>
                         </ul>
