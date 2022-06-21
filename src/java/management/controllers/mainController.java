@@ -101,6 +101,10 @@ public class mainController extends HttpServlet {
                 url = "newEmpController";
             } else if (action.equals("updateEmp")) {
                 url = "updateEmpController";
+            }else if(action.equals("addNewDependent")){
+                url = "addNewDependentController";
+            }else if(action.equals("saveNewDependent")){
+                url = "saveNewDependentController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

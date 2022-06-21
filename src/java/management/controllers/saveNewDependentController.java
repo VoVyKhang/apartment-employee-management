@@ -7,23 +7,19 @@ package management.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.CertificateDAO;
-import management.dao.EmployeeDAO;
-import management.dto.CertificateDTO;
-import management.dto.EmployeeDTO;
+import management.dao.DependentDAO;
 
 /**
  *
  * @author AD
  */
-public class addNewCertificateController extends HttpServlet {
+public class saveNewDependentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,11 +35,28 @@ public class addNewCertificateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
-            ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
-            request.setAttribute("listTypeCer", listTypeCer);
-            request.setAttribute("listEmp", listEmp);
-            request.getRequestDispatcher("AddNewCertificate.jsp").forward(request, response);
+            String name = request.getParameter("name");
+            String gender = request.getParameter("gender");
+            String dob = request.getParameter("dob");
+            String relationship = request.getParameter("relationship");
+            String idEmp = request.getParameter("idEmp");
+                        
+            int i = 0;
+            if (name.equals("") || dob.equals("0000-00-00")|| gender.equals("")|| relationship.equals("") || idEmp.equals("")) {
+                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                i++;
+            }
+            if (i == 0) {
+                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
+                if (result == true) {
+                    request.setAttribute("Success", "Success");
+                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                } else {
+                    request.setAttribute("Fail", "Fail");
+                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                }
+            }
         }
     }
 
@@ -62,7 +75,7 @@ public class addNewCertificateController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(saveNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -80,7 +93,7 @@ public class addNewCertificateController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(saveNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

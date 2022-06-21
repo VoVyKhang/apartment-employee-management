@@ -14,16 +14,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.CertificateDAO;
+import management.dao.DependentDAO;
 import management.dao.EmployeeDAO;
-import management.dto.CertificateDTO;
 import management.dto.EmployeeDTO;
 
 /**
  *
  * @author AD
  */
-public class addNewCertificateController extends HttpServlet {
+public class addNewDependentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,11 +38,9 @@ public class addNewCertificateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
-            ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
-            request.setAttribute("listTypeCer", listTypeCer);
+            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();                        
             request.setAttribute("listEmp", listEmp);
-            request.getRequestDispatcher("AddNewCertificate.jsp").forward(request, response);
+            request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
         }
     }
 
@@ -62,7 +59,7 @@ public class addNewCertificateController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -80,7 +77,7 @@ public class addNewCertificateController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

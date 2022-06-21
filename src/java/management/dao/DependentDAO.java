@@ -31,6 +31,8 @@ public class DependentDAO {
             + "WHERE idEmp = ? AND idDepen = ?;";
     private static final String OBJECT_DEPENDENT = "SELECT e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e \n"
             + "WHERE e.idEmp = ? AND d.idDepen = ?";
+    private static final String INSERT_DEPENDENT = "INSERT INTO Dependent(name,  gender, dob,relationship, idEmp)\n" +
+"  VALUES(?,?,?,?,?)";
 
     public static ArrayList<DependentDTO> listDependent() throws SQLException {
         ArrayList<DependentDTO> listDependent = new ArrayList<>();
@@ -131,5 +133,35 @@ public class DependentDAO {
         }
         return depenObject;
 
+    }
+    
+    public static boolean insertDependent(String name, String gender, String dob, String relationship, String idEmp) throws SQLException {
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                pst = cn.prepareStatement(INSERT_DEPENDENT);
+                pst.setString(1, name);
+                pst.setString(2, gender);
+                pst.setString(3, dob);
+                pst.setString(4, relationship);
+                 pst.setString(5, idEmp);
+                int result = pst.executeUpdate();
+                if (result > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+        return false;
     }
 }
