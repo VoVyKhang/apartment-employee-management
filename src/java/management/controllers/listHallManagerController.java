@@ -115,7 +115,7 @@ public class listHallManagerController extends HttpServlet {
                         request.setAttribute("message", noti);
                     }
                     request.setAttribute("listReg", listReg);
-                    url = LIST_REG;
+                    url = LIST_REG; 
 
                 }
             }
