@@ -25,7 +25,7 @@ public class mainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             String action = request.getParameter("action");
             if (action.equals("showlist")) {
                 url = "listHallManagerController";
@@ -101,6 +101,22 @@ public class mainController extends HttpServlet {
                 url = "newEmpController";
             } else if (action.equals("updateEmp")) {
                 url = "updateEmpController";
+            } else if (action.equals("accountInfo")) {
+                url = "AccountInfoController";
+            } else if (action.equals("updateEmpPage")) {
+                url = "UpdateEmpPageController";
+            } else if (action.equals("updateEmpInfo")) {
+                url = "UpdateEmpInfoController";
+            } else if (action.equals("listCertEmp")) {
+                url = "listCertEmpController";
+            } else if (action.equals("updateCertPage")) {
+                url = "UpdateCertPageController";
+            } else if (action.equals("saveCertEmp")) {
+                url = "SaveCertEmpController";
+            } else if (action.equals("addNewCertPage")) {
+                url = "AddNewCertPageController";
+            } else if (action.equals("addNewCertEmp")) {
+                url = "AddNewCertEmpController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

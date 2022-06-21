@@ -152,6 +152,38 @@
         <servlet-name>updateEmpController</servlet-name>
         <servlet-class>management.controllers.updateEmpController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountInfoController</servlet-name>
+        <servlet-class>management.controllers.AccountInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateEmpInfoController</servlet-name>
+        <servlet-class>management.controllers.UpdateEmpInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateEmpPageController</servlet-name>
+        <servlet-class>management.controllers.UpdateEmpPageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listCertEmpController</servlet-name>
+        <servlet-class>management.controllers.listCertEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCertPageController</servlet-name>
+        <servlet-class>management.controllers.UpdateCertPageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveCertEmpController</servlet-name>
+        <servlet-class>management.controllers.SaveCertEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewCertPageController</servlet-name>
+        <servlet-class>management.controllers.AddNewCertPageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewCertEmpController</servlet-name>
+        <servlet-class>management.controllers.AddNewCertEmpController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -303,6 +335,38 @@
     <servlet-mapping>
         <servlet-name>updateEmpController</servlet-name>
         <url-pattern>/updateEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountInfoController</servlet-name>
+        <url-pattern>/AccountInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateEmpInfoController</servlet-name>
+        <url-pattern>/UpdateEmpInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateEmpPageController</servlet-name>
+        <url-pattern>/UpdateEmpPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listCertEmpController</servlet-name>
+        <url-pattern>/listCertEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCertPageController</servlet-name>
+        <url-pattern>/UpdateCertPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveCertEmpController</servlet-name>
+        <url-pattern>/SaveCertEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewCertPageController</servlet-name>
+        <url-pattern>/AddNewCertPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewCertEmpController</servlet-name>
+        <url-pattern>/AddNewCertEmpController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
