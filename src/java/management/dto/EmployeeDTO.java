@@ -25,6 +25,7 @@ public class EmployeeDTO {
     private String password;
     private int statusLog;
     private int role;
+    private int idPos;
 
     public EmployeeDTO() {
     }
@@ -47,6 +48,21 @@ public class EmployeeDTO {
         this.statusLog = statusLog;
         this.role = role;
     }
+
+    public EmployeeDTO(int idEmp, String name, String gender, String dob, String imgPath, String depName, String posName, int idPos) {
+        this.idEmp = idEmp;
+        this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.imgPath = imgPath;
+        this.depName = depName;
+        this.posName = posName;
+        this.idPos = idPos;
+    }
+
+    
+
+    
 
     public int getIdEmp() {
         return idEmp;
@@ -168,4 +184,9 @@ public class EmployeeDTO {
         this.statusLog = statusLog;
     }
 
+    public int getIdPos() {
+        return idPos;
+    }
+
+    
 }

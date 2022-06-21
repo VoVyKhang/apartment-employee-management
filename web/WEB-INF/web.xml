@@ -152,6 +152,14 @@
         <servlet-name>updateEmpController</servlet-name>
         <servlet-class>management.controllers.updateEmpController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addNewDependentController</servlet-name>
+        <servlet-class>management.controllers.addNewDependentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveNewDependentController</servlet-name>
+        <servlet-class>management.controllers.saveNewDependentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -303,6 +311,14 @@
     <servlet-mapping>
         <servlet-name>updateEmpController</servlet-name>
         <url-pattern>/updateEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addNewDependentController</servlet-name>
+        <url-pattern>/addNewDependentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveNewDependentController</servlet-name>
+        <url-pattern>/saveNewDependentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

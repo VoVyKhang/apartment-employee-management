@@ -7,21 +7,22 @@ package management.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import management.dao.HistoryPosDAO;
-import management.dao.PositionDAO;
+import management.dao.DependentDAO;
+import management.dao.EmployeeDAO;
+import management.dto.EmployeeDTO;
 
 /**
  *
  * @author AD
  */
-public class savePositionController extends HttpServlet {
+public class addNewDependentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,22 +37,10 @@ public class savePositionController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
-            int idPos = Integer.parseInt(request.getParameter("idPos"));
-            int idEmp = Integer.parseInt(request.getParameter("idEmp"));
-            int type = Integer.parseInt(request.getParameter("type"));
-            
-            boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
-            boolean result = HistoryPosDAO.insertNewPos(idEmp, idPos, type);
-            if (result && resultUpdateOldPos == true) { 
-                ss.setAttribute("updateSuccess", "Update success");
-                response.sendRedirect("promoteAndDemoteController");            
-            } else {
-                request.setAttribute("updateFail", "Update fail");
-                request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
-                
-            }
+            /* TODO output your page here. You may use following sample code. */
+            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();                        
+            request.setAttribute("listEmp", listEmp);
+            request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
         }
     }
 
@@ -70,7 +59,7 @@ public class savePositionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +77,7 @@ public class savePositionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

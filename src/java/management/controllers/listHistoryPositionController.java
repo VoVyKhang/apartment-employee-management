@@ -14,8 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.HistoryDAO;
-import management.dto.HistoryDTO;
+import management.dao.HistoryPosDAO;
+import management.dto.HistoryPositionDTO;
 
 /**
  *
@@ -37,9 +37,9 @@ public class listHistoryPositionController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<HistoryDTO> listHistoryPosition = new ArrayList<>();
-            listHistoryPosition = HistoryDAO.getAllHisPosition();
-            request.setAttribute("listHistoryPosition", listHistoryPosition);
+            ArrayList<HistoryPositionDTO> listHisPos = new ArrayList<>();
+            listHisPos= HistoryPosDAO.listHisPos();
+            request.setAttribute("listHisPos", listHisPos);
             request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);
         }
     }

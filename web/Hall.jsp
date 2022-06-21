@@ -12,16 +12,24 @@
         <title>Welcome Page</title>
 
         <style>
+            body{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box
+            }
+            
             .hall-img{
                 position: relative;
-                background-image: url(images/waitingscreen.jpg);
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
+            }
+            
+            .hall-img img{
+                width: 100%;
+                height: 100vh
             }
 
             .hall-link{
@@ -64,7 +72,7 @@
     <body>
         <div>
             <div class="hall-img">
-
+                <img src="./images/waitingscreen.jpg" alt="alt"/>
             </div>
 
             <div class="hall-title">

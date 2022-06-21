@@ -13,41 +13,57 @@
         <title>History Promote and demote</title>
     </head>
     <body>
-        
-            <c:import url="header.jsp"></c:import>
-            <c:import url="sidebar.jsp"></c:import>
-       
-        
-           
-            <div style="margin: 0 16px; width: 100%">
-                <c:if test="${requestScope.listHistoryPosition != null}">
-            
-                <table class="table table-striped list-position">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID </th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Old Position</th>
-                            <th scope="col">New Position</th>
-                            <th scope="col">Name Of Employee</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="listHistoryPosition" items="${requestScope.listHistoryPosition}">    
-                            <tr>
-                                <td scope="row">${listHistoryPosition.idHis}</td>                            
-                                <td>${listHistoryPosition.des}</td>
-                                <td>${listHistoryPosition.deliveryDate}</td>
-                                <td>${listHistoryPosition.oldDep}</td>
-                                <td>${listHistoryPosition.newDep}</td>
-                                <td>${listHistoryPosition.nameEmp}</td>
-                            </tr>                        
-                        </c:forEach>
-                    </tbody>
-                </table>
-            
+        <c:import url="header.jsp"></c:import>
+        <c:import url="sidebar.jsp"></c:import> 
+
+        <c:if test="${requestScope.listHisPos != null}">
+            <c:if test="${not empty requestScope.listHisPos}">
+                <div style="margin: 0 32px; width: 100%">
+                    <table class="table table-striped">
+                        <thead >
+                            <tr style="text-align: center">
+                                <th scope="col">ID History</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="listHisPos" varStatus="counter" items="${requestScope.listHisPos}">    
+                                <tr style="text-align: center">
+
+
+                                    <td>${listHisPos.idHisPos}</td>                            
+                                    <td>${listHisPos.nameEmp}</td>
+                                    <td>${listHisPos.posName}</td>
+                                    <td>${listHisPos.deliveryDate}</td>
+                                    <td> <c:choose>
+                                            <c:when test="${listHisPos.type eq 0}">
+                                                Promote
+                                            </c:when>
+                                            <c:otherwise>
+                                                Demote
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${listHisPos.status eq 1}">
+                                                <p style="color:green">Active</p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p style="color:red">Inactive</p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>                        
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
         </c:if>
-            </div>
     </body>
 </html>

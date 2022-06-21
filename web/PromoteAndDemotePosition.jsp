@@ -21,9 +21,9 @@
                     <a href="mainController?action=hisPromoteAndDemote" >History of promotion and demotion</a>
                 </div>
 
-
-            <c:if test="${requestScope.listEmp != null}">
-                <c:if test="${not empty requestScope.listEmp}">
+<%HttpSession ss = request.getSession();%>
+            <c:if test="${requestScope.listEmpPos != null}">
+                <c:if test="${not empty requestScope.listEmpPos}">
 
                     <div style="margin: 0 16px" >
                         <table class="table table-striped list-position" >
@@ -33,31 +33,36 @@
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Gender</th>
-                                    <th scope="col">DOB</th>
+                                    <th scope="col">Date of birth</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Current Positon</th>
-                                    <th scope="col">Reason</th>
+                                    <th scope="col">Type</th>
                                     <th scope="col">New Position</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="listEmp" varStatus="counter" items="${requestScope.listEmp}">
+                                <c:forEach var="listEmpPos" varStatus="counter" items="${requestScope.listEmpPos}">
                                 <form action="mainController">
                                     <tr>
-                                        <td scope="row">${listEmp.idEmp}</td>     
+                                        <td scope="row">${listEmpPos.idEmp}</td>     
                                         <td>
-                                            <img class="align-self-center img-fluid" src='${listEmp.imgPath}' width="120"
+                                            <img class="align-self-center img-fluid" src='images/${listEmpPos.imgPath}' width="120"
                                                  height="120">
                                         </td>
-                                        <td>${listEmp.name}</td>
-                                        <td>${listEmp.gender}</td>
-                                        <td>${listEmp.dob}</td>
-                                        <td>${listEmp.depName}</td>                               
-                                        <td>${listEmp.posName}</td>
+                                        <td>${listEmpPos.name}</td>
+                                        <td>${listEmpPos.gender}</td>
+                                        <td>${listEmpPos.dob}</td>
+                                        <td>${listEmpPos.depName}</td>                               
+                                        <td>${listEmpPos.posName}</td>
 
-                                        <td> <input name="reasonPosition"> </td>
+                                        <td> 
+                                            <select name="type">
+                                                <option value="0">Promote</option>
+                                                <option value="1">Demote</option>                                               
+                                            </select>
+                                        </td>
 
 
                                         <td>
@@ -70,10 +75,10 @@
 
                                         <td> 
 
-                                            <input value="${listEmp.posName}" type="hidden" name="oldPosName">
+                                            <input value="${listEmpPos.idPos}" type="hidden" name="oldIdPos">
 
-
-                                            <input value="${listEmp.idEmp}" type="hidden" name="idEmp"> 
+                                            
+                                            <input value="${listEmpPos.idEmp}" type="hidden" name="idEmp"> 
                                             <input class="btn btn-secondary btn-sm"  type="submit" name="action" value="SavePosition">                                                                                                        
                                         </td>
                                     </tr>
@@ -85,9 +90,12 @@
 
                 </c:if>
             </c:if>
-            <c:if test="${requestScope.updateSuccess != null}">
-                <c:out value="${requestScope.updateSuccess}"/>
+            <c:if test="${sessionScope.updateSuccess != null}">
+                <h4 style="color: green" ><c:out value="${sessionScope.updateSuccess}"/></h4> 
             </c:if>
+                <%                 
+                ss.removeAttribute("updateSuccess");
+                %>
         </div>
     </body>
 

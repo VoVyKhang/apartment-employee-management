@@ -13,15 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import management.dao.HistoryPosDAO;
-import management.dao.PositionDAO;
+import management.dao.DependentDAO;
 
 /**
  *
  * @author AD
  */
-public class savePositionController extends HttpServlet {
+public class saveNewDependentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +34,28 @@ public class savePositionController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
-            int idPos = Integer.parseInt(request.getParameter("idPos"));
-            int idEmp = Integer.parseInt(request.getParameter("idEmp"));
-            int type = Integer.parseInt(request.getParameter("type"));
-            
-            boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
-            boolean result = HistoryPosDAO.insertNewPos(idEmp, idPos, type);
-            if (result && resultUpdateOldPos == true) { 
-                ss.setAttribute("updateSuccess", "Update success");
-                response.sendRedirect("promoteAndDemoteController");            
-            } else {
-                request.setAttribute("updateFail", "Update fail");
-                request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
-                
+            /* TODO output your page here. You may use following sample code. */
+            String name = request.getParameter("name");
+            String gender = request.getParameter("gender");
+            String dob = request.getParameter("dob");
+            String relationship = request.getParameter("relationship");
+            String idEmp = request.getParameter("idEmp");
+                        
+            int i = 0;
+            if (name.equals("") || dob.equals("0000-00-00")|| gender.equals("")|| relationship.equals("") || idEmp.equals("")) {
+                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                i++;
+            }
+            if (i == 0) {
+                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
+                if (result == true) {
+                    request.setAttribute("Success", "Success");
+                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                } else {
+                    request.setAttribute("Fail", "Fail");
+                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                }
             }
         }
     }
@@ -70,7 +75,7 @@ public class savePositionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(saveNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +93,7 @@ public class savePositionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(saveNewDependentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
