@@ -13,8 +13,8 @@
         <title>Employee Page</title>
     </head>
     <body>
-        <h1>Welcome back to Employee Home</h1>
-        <h3><a href="logoutController?action=logout">Log out</a> </h3>
+        <c:import url="header.jsp"></c:import>
+        <c:import url="sidebarEmp.jsp"></c:import>
         <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>
     </body>
 </html>
