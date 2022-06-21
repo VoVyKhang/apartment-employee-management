@@ -11,81 +11,55 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome Page</title>
 
-        <style>
-            body{
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box
-            }
-            
-            .hall-img{
-                position: relative;
-                top: 0;
-                left: 0;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-            
-            .hall-img img{
-                width: 100%;
-                height: 100vh
-            }
+        <link rel="stylesheet" href="./css/welcomepage.css"/>
 
-            .hall-link{
-                position: absolute;
-                top: 40px;
-                right: 60px;
-                font-size: 24px;
-                padding: 4px 12px;
-                background-color: #fff;
-                border-radius: 4px
-            }
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"/>
 
-            .hall-link a{
-                text-decoration: none;
-                color: #1c3c53;
-                font-weight: 600
-            }
-
-            .hall-link a:hover{
-                cursor: pointer;
-                opacity: 0.7
-            }
-
-
-            .hall-title{
-                position: absolute;
-                top: 24px;
-                left: 10px;
-                font-size: 24px;
-                border: 2px solid #fff;
-                padding: 10px 56px
-            }
-
-            .hall-title h3{
-                margin: 0;
-                color: #fff
-            }
-        </style>
     </head>
     <body>
         <div>
-            <div class="hall-img">
-                <img src="./images/waitingscreen.jpg" alt="alt"/>
-            </div>
+            <section class="body">
+                <div class="container">
+                    <div class="login-box">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="logo">
+                                    <span class="logo-font">Vie</span>Building
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">             
+                            <div class="col-sm-6">
+                                <br>
+                                <h3 class="header-title">LOGIN</h3>
 
-            <div class="hall-title">
-                <h3>HAPPINESS DEPARTMENT</h3>
-            </div>
+                                <div class="form-group">
+                                    <div class="carousel-item active">
+                                        <div class="slider-feature-card card-custom">
+                                            <img src="./images/avatar.svg" alt="">
+                                            <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:3030/apartment-employee-management/LoginGoogleController&response_type=code
+                                               &client_id=981322887444-l8jbe7meq63lgooss90ks3o1en14nom3.apps.googleusercontent.com&approval_prompt=force" class="btn btn-primary btn-block">
+                                                Login 
+                                            </a>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="carousel-item active">
+                                    <div class="slider-feature-card">
+                                        <img src="./images/logo.jpg" alt="">
+                                        <h3 class="slider-title">VieBuilding</h3>
+                                        <p class="slider-description">Always listening always understanding!</p>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="hall-link">
-                <a  href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:3030/apartment-employee-management/LoginGoogleController&response_type=code
-                    &client_id=981322887444-l8jbe7meq63lgooss90ks3o1en14nom3.apps.googleusercontent.com&approval_prompt=force">
-                    Login 
-                </a>
-            </div>    
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </body>
 </html>
