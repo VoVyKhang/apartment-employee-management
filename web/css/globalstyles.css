@@ -132,50 +132,7 @@ Regulation
 Waiting Screen
 */
 
-.hall-img{
-    position: relative;
-    background-image: url(../images/waitingscreen.jpg);
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
-.hall-link{
-    position: absolute;
-    top: 40px;
-    right: 60px;
-    font-size: 24px;
-    padding: 4px 12px;
-    background-color: #fff;
-    border-radius: 4px
-}
-
-.hall-link a{
-    text-decoration: none;
-    color: #1c3c53;
-    font-weight: 600
-}
-
-.hall-link a:hover{
-    cursor: pointer;
-    opacity: 0.7
-}
-    
-
-.hall-title{
-    position: absolute;
-    top: 24px;
-    left: 10px;
-    font-size: 24px;
-    border: 2px solid #fff;
-    padding: 10px 56px
-}
-
-.hall-title h3{
-    margin: 0;
-    color: #fff
-}
 
 /*
 LIST POSITION

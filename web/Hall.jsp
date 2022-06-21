@@ -10,23 +10,82 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome Page</title>
-        <link rel="stylesheet" href="css/globalstyles.css"/>
+
+        <style>
+            body{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box
+            }
+            
+            .hall-img{
+                position: relative;
+                top: 0;
+                left: 0;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            
+            .hall-img img{
+                width: 100%;
+                height: 100vh
+            }
+
+            .hall-link{
+                position: absolute;
+                top: 40px;
+                right: 60px;
+                font-size: 24px;
+                padding: 4px 12px;
+                background-color: #fff;
+                border-radius: 4px
+            }
+
+            .hall-link a{
+                text-decoration: none;
+                color: #1c3c53;
+                font-weight: 600
+            }
+
+            .hall-link a:hover{
+                cursor: pointer;
+                opacity: 0.7
+            }
+
+
+            .hall-title{
+                position: absolute;
+                top: 24px;
+                left: 10px;
+                font-size: 24px;
+                border: 2px solid #fff;
+                padding: 10px 56px
+            }
+
+            .hall-title h3{
+                margin: 0;
+                color: #fff
+            }
+        </style>
     </head>
     <body>
-        <div class="hall-img">
-            
+        <div>
+            <div class="hall-img">
+                <img src="./images/waitingscreen.jpg" alt="alt"/>
+            </div>
+
+            <div class="hall-title">
+                <h3>HAPPINESS DEPARTMENT</h3>
+            </div>
+
+
+            <div class="hall-link">
+                <a  href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:3030/apartment-employee-management/LoginGoogleController&response_type=code
+                    &client_id=981322887444-l8jbe7meq63lgooss90ks3o1en14nom3.apps.googleusercontent.com&approval_prompt=force">
+                    Login 
+                </a>
+            </div>    
         </div>
-        
-        <div class="hall-title">
-            <h3>HAPPINESS DEPARTMENT</h3>
-        </div>
-        
-      
-        <div class="hall-link">
-            <a  href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:3030/apartment-employee-management/LoginGoogleController&response_type=code
-		   &client_id=981322887444-l8jbe7meq63lgooss90ks3o1en14nom3.apps.googleusercontent.com&approval_prompt=force">
-                Login 
-            </a>
-        </div>    
     </body>
 </html>

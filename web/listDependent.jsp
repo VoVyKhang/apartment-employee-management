@@ -26,6 +26,8 @@
                 <c:if test="${requestScope.updateSuccess != null}" >
                     <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
                 </c:if>
+                    <a href="mainController?action=addNewDependent" >Add new dependent</a>
+                    <h3>List dependent</h3>
                 <table class="table table-striped">
                     <thead>
                         <tr style="text-align: center">
