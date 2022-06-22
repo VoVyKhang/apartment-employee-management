@@ -157,7 +157,7 @@
                                     </br>
 
                                     <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                                       url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                                                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                                        user = "sa"  password = "12345"/>
 
                                     <sql:query dataSource = "${snapshot}" var = "result">
