@@ -78,7 +78,15 @@ public class EmployeeDAO {
     private static final String CHECK_MAIL_EXIST = "select email\n"
             + "from Employee\n"
             + "where email = ?";
-
+    
+    private static final String SEARCH_DEP="select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n" 
+            +"from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n" 
+            +"where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            +"e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            +"hd.status = 1 and hp.status = 1 and\n"
+            +"statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n" 
+            +"order by idEmp ASC";
+    
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -493,6 +501,59 @@ public class EmployeeDAO {
 
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    //List all employee filter department
+    public static ArrayList<EmployeeDTO> showEmpByDep(String depname, String posname, String empname) throws SQLException {
+        ArrayList<EmployeeDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                     ptm = conn.prepareStatement(SEARCH_DEP);
+                     ptm.setString(1,"%" + depname + "%" );
+                     ptm.setString(2,"%" + posname + "%" );
+                     ptm.setString(3,"%" + empname + "%" );
+                     rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int idS = rs.getInt("idEmp");
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    int age = rs.getInt("age");
+                    String gender = rs.getString("gender");
+                    String phoneNum = rs.getString("phoneNum");
+                    String dob = rs.getString("dob");
+                    if (dob == null) {
+                        dob = "0000-00-00";
+                    }
+                    String imgPath = rs.getString("imgPath");
+                    String joinDate = rs.getString("joinDate");
+                    if (joinDate == null) {
+                        joinDate = "0000-00-00";
+                    }
+                    String depName = rs.getString("depName");
+                    String posName = rs.getString("posName");
+                    String mail = rs.getString("email");
+                    String password = rs.getString("password");
+                    int statuslog = rs.getInt("statusLog");
+                    int role = rs.getInt("role");
+                    EmployeeDTO emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    list.add(emp);
+                }
+                 } 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
