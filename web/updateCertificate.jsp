@@ -59,7 +59,8 @@
                                 <td>
                                     <input type="hidden" name="cerID" value="${listCerObject.cerId}">
                                     <input type="hidden" name="idEmp" value="${listCerObject.idEmp}">
-                                    <input class="btn btn-secondary btn-sm" type="submit" name="action" value="SaveChange">
+                                    <input type="hidden" name="action" value="SaveChange">
+                                    <input class="btn btn-secondary btn-sm" type="submit" value="Save">
                                 </td>
                             </tr>                        
                         </c:forEach>

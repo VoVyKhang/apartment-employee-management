@@ -23,6 +23,7 @@ public class FilterChangeDepController extends HttpServlet {
 
     private final String SUCCESS = "changeDep.jsp";
     private final String ERROR = "changDep.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,29 +44,29 @@ public class FilterChangeDepController extends HttpServlet {
             String depName = request.getParameter("depName");
             String posEmp = request.getParameter("posEmp");
             ArrayList<EmployeeDTO> list = new ArrayList<>();
-            if(depName == null || posEmp == null || txtSearchName == null){
-                url="Hall.jsp";
-            }else{
-                if(posEmp.trim().equals("allPos") && depName.trim().equals("allDep")){
-                    list=dao.listChangeEmp(txtSearchName.trim(), "", "");
-                }else if(posEmp.trim().equals("allPos") && !depName.trim().equals("allDep")){
-                    list=dao.listChangeEmp(txtSearchName.trim(), depName.trim(), "");
-                }else if(!posEmp.trim().equals("allPos") && depName.trim().equals("allDep")){
-                    list=dao.listChangeEmp(txtSearchName.trim(), "", posEmp.trim());
-                }else{
-                    list=dao.listChangeEmp(txtSearchName.trim(), depName.trim(), posEmp.trim());
+            if (depName == null || posEmp == null || txtSearchName == null) {
+                url = "Hall.jsp";
+            } else {
+                if (posEmp.trim().equals("allPos") && depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), "", "");
+                } else if (posEmp.trim().equals("allPos") && !depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), depName.trim(), "");
+                } else if (!posEmp.trim().equals("allPos") && depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), "", posEmp.trim());
+                } else {
+                    list = dao.listChangeEmp(txtSearchName.trim(), depName.trim(), posEmp.trim());
                 }
-                if(list.isEmpty()){
+                if (list.isEmpty()) {
                     request.setAttribute("listEmp", list);
                     request.setAttribute("SearchRS", "No Match");
-                    url=SUCCESS;
-                }else{
+                    url = SUCCESS;
+                } else {
                     request.setAttribute("listEmp", list);
-                    url=SUCCESS;
+                    url = SUCCESS;
                 }
             }
         } catch (Exception e) {
-        } finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();
         }

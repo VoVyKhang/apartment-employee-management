@@ -74,7 +74,8 @@
                     </div>
                     <div style="margin-top: 20px">
                         
-                        <input class="btn btn-secondary btn-sm" name="action" type="submit" value="saveNewCertificate">
+                        <input class="btn btn-secondary btn-sm" type="submit" value="Save">
+                        <input type="hidden" name="action" value="saveNewCertificate">
                     </div>
 
                 </form>

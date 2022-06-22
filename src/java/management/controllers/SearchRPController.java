@@ -54,12 +54,10 @@ public class SearchRPController extends HttpServlet {
             } else {
                 if (keywordidemp.trim().isEmpty() && keywordname.trim().isEmpty() && depName.equals("allDep")) {
                     listrp = dao.listRpForAll("", "", "");
-                } else if (!keywordidemp.trim().isEmpty() || !keywordname.trim().isEmpty()) {
-                    if (depName.trim().equals("allDep")) {
-                        listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), "");
-                    } else {
-                        listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), depName);
-                    }
+                } else if (depName.trim().equals("allDep")) {
+                    listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), "");
+                } else {
+                    listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), depName);
                 }
             }
             if (listrp.isEmpty()) {

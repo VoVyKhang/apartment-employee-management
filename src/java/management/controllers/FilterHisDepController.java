@@ -23,6 +23,7 @@ public class FilterHisDepController extends HttpServlet {
 
     private final String SUCCESS = "historyChangeDep.jsp";
     private final String ERROR = "historyChangeDep.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,30 +44,30 @@ public class FilterHisDepController extends HttpServlet {
             String depName = request.getParameter("depName");
             String status = request.getParameter("status");
             String txtSearchName = request.getParameter("txtSearchName");
-            if(depName == null || status == null || txtSearchName == null){
-                url="Hall.jsp";
-            }else{
-                if(status.trim().equals("allStatus") && depName.trim().equals("allDep")){
-                    list=dao.listHisDepFilter(txtSearchName.trim(), "", "");
-                }else if(status.trim().equals("allStatus") && !depName.trim().equals("allDep")){
-                    list=dao.listHisDepFilter(txtSearchName.trim(), depName.trim(), "");
-                }else if(!status.trim().equals("allStatus") && depName.trim().equals("allDep")){
-                    list=dao.listHisDepFilter(txtSearchName.trim(), "", status.trim());
-                }else{
-                    list=dao.listHisDepFilter(txtSearchName.trim(), depName.trim(), status.trim());
+            if (depName == null || status == null || txtSearchName == null) {
+                url = "Hall.jsp";
+            } else {
+                if (status.trim().equals("allStatus") && depName.trim().equals("allDep")) {
+                    list = dao.listHisDepFilter(txtSearchName.trim(), "", "");
+                } else if (status.trim().equals("allStatus") && !depName.trim().equals("allDep")) {
+                    list = dao.listHisDepFilter(txtSearchName.trim(), depName.trim(), "");
+                } else if (!status.trim().equals("allStatus") && depName.trim().equals("allDep")) {
+                    list = dao.listHisDepFilter(txtSearchName.trim(), "", status.trim());
+                } else {
+                    list = dao.listHisDepFilter(txtSearchName.trim(), depName.trim(), status.trim());
                 }
-                if(list.isEmpty()){
+                if (list.isEmpty()) {
                     request.setAttribute("listHisDep", list);
                     request.setAttribute("SearchRS", "No Match");
-                    url=SUCCESS;
-                }else{
+                    url = SUCCESS;
+                } else {
                     request.setAttribute("listHisDep", list);
-                    url=SUCCESS;
+                    url = SUCCESS;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();
         }

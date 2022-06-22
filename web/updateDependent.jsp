@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Update Dependent</title>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -55,7 +55,8 @@
                                 <td><input name="relationship" value="${depenObject.relationship}">
                                     <input type="hidden" name="idEmp" value="${depenObject.idEmp}">
                                     <input type="hidden" name="idDepen" value="${depenObject.idDepen}"></td>
-                                <td><input class="btn btn-secondary btn-sm" type="submit" name="action" value="Save Dependent"></td>
+                                    <input type="hidden" name="action" value="Save Dependent"></td>
+                                <td><input class="btn btn-secondary btn-sm" type="submit" value="Save"></td>
                             </tr>                        
                         </c:forEach>
                     </form>

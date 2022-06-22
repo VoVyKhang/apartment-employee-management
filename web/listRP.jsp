@@ -102,20 +102,21 @@
                             <td>${listrp.reason}</td> 
                             <td>${listrp.depName}</td>
                             <td>
-                                <form action="mainController" method="POST">
-                                    <input type="hidden" value="${listrp.idEmp}" name="idemp">
-                                    <input type="hidden" value="${listrp.name}" name="nameemp">
-                                    <input type="hidden" value="${listrp.idReg}" name="idreg">
-                                    <input type="hidden" name="updatetype" value="updaterp">
-                                    <input type="hidden" name="action" value="pushss" >
-                                    <input type="submit" value="UpdateRp">
-                                </form>
+                                <c:url var="update" value="mainController">
+                                    <c:param name="action" value="pushss"> </c:param>
+                                    <c:param name="updatetype" value="updaterp"> </c:param>
+                                    <c:param name="idreg" value="${listrp.idReg}"> </c:param>
+                                    <c:param name="nameemp" value="${listrp.name}"> </c:param>
+                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                </c:url>
+                                <a href="${update}"><i class="fas fa-trash-alt"></i></i></a>
                             </td>
                             <td>
-                                <form action="mainController" method="POST">
-                                    <input type="hidden" value="${listrp.idEmp}" name="idemp">
-                                    <input type="submit" name="action" value="DeleteRp">
-                                </form>
+                                <c:url var="delete" value="mainController">
+                                    <c:param name="action" value="DeleteRp"> </c:param>
+                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                </c:url>
+                                <a href="${delete}"><i class="fas fa-trash-alt"></i></i></a>
                             </td>
                         </tr>
                     </c:forEach>

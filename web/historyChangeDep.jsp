@@ -21,87 +21,87 @@
         <c:import url="sidebar.jsp"></c:import> 
 
         <c:if test="${requestScope.listHisDep != null}">
-                <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                   url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                                   user = "sa"  password = "12345"/>
+            <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                               url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                               user = "sa"  password = "12345"/>
 
-                <sql:query dataSource = "${snapshot}" var = "listDep">
-                    select depName
-                    from Department
-                </sql:query>
-                <div style="margin: 0 32px; width: 100%">
-                    <form action="mainController" method="POST" class="form-reward-penalty">
-                        <div class="row filter-row">
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-floating mb-3 mt-3">
-                                    <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name" name="txtSearchName">
-                                    <label for="name">Employee Name</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3"> 
-                                <div class="form-group form-focus select-focus">
-                                    <label >Status</label>
-                                    <select name="status" class="form-select form-select-md-5 mb-1 list-options" >
-                                        <option value="allStatus">All</option>
-                                        <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3"> 
-                                <div class="form-group form-focus select-focus">
-                                    <label >Department</label>
-                                    <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
-                                        <option value="allDep">All</option>
-                                        <c:forEach var="listDep" items="${listDep.rows}">
-                                            <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3 ">
-                                <input type="submit" value="Filter"/>
-                                <input type="hidden" name="action" value="filterHisDep"/>
+            <sql:query dataSource = "${snapshot}" var = "listDep">
+                select depName
+                from Department
+            </sql:query>
+            <div style="margin: 0 32px; width: 100%">
+                <form action="mainController" method="POST" class="form-reward-penalty">
+                    <div class="row filter-row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name" name="txtSearchName">
+                                <label for="name">Employee Name</label>
                             </div>
                         </div>
-                    </form>
-                    <h5>${requestScope.SearchRS}</h5>
-                    <table class="table table-striped">
-                        <thead >
+                        <div class="col-sm-6 col-md-3"> 
+                            <div class="form-group form-focus select-focus">
+                                <label >Status</label>
+                                <select name="status" class="form-select form-select-md-5 mb-1 list-options" >
+                                    <option value="allStatus">All</option>
+                                    <option value="0">Inactive</option>
+                                    <option value="1">Active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3"> 
+                            <div class="form-group form-focus select-focus">
+                                <label >Department</label>
+                                <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
+                                    <option value="allDep">All</option>
+                                    <c:forEach var="listDep" items="${listDep.rows}">
+                                        <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 ">
+                            <input type="submit" value="Filter"/>
+                            <input type="hidden" name="action" value="filterHisDep"/>
+                        </div>
+                    </div>
+                </form>
+                <h5>${requestScope.SearchRS}</h5>
+                <table class="table table-striped">
+                    <thead >
+                        <tr style="text-align: center">
+                            <th scope="col">ID History</th>
+                            <th scope="col">Employee</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
                             <tr style="text-align: center">
-                                <th scope="col">ID History</th>
-                                <th scope="col">Employee</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Delivery Date</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
-                                <tr style="text-align: center">
 
 
-                                    <td>${listHisDep.idHidDep}</td>                            
-                                    <td>${listHisDep.nameEmp}</td>
-                                    <td>${listHisDep.nameDep}</td>
-                                    <td>${listHisDep.deliveryDate}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${listHisDep.status eq 1}">
-                                                <p style="color:green">Active</p>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <p style="color:red">Inactive</p>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
+                                <td>${listHisDep.idHidDep}</td>                            
+                                <td>${listHisDep.nameEmp}</td>
+                                <td>${listHisDep.nameDep}</td>
+                                <td>${listHisDep.deliveryDate}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${listHisDep.status eq 1}">
+                                            <p style="color:green">Active</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p style="color:red">Inactive</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
 
 
-                                </tr>                        
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </c:if>
+                            </tr>                        
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </c:if>
     </body>
 </html>
