@@ -40,16 +40,24 @@ public class FilterDepByLocationController extends HttpServlet {
         try {
             DepartmentDAO dao = new DepartmentDAO();
             String location = request.getParameter("locationDep");
-            if(location == null){
+            String txtSearchName = request.getParameter("txtSearchName");
+            ArrayList<DepartmentDTO> list = new ArrayList<>();
+            if(location == null || txtSearchName == null){
                 url=ERROR;
-            }else if(location.trim().equals("allDep")){
-                ArrayList<DepartmentDTO> listDep = dao.listDep();
-                request.setAttribute("listDep", listDep);
-                url=SUCCESS;
-            } else {
-                ArrayList<DepartmentDTO> listDep = dao.getDepNumByLocation(location);
-                request.setAttribute("listDep", listDep);
-                url=SUCCESS;
+            }else{
+                if(location.trim().equals("allDep")){
+                    list= dao.getDepNumForAll("", txtSearchName.trim());
+                }else{
+                    list= dao.getDepNumForAll(location.trim(), txtSearchName.trim());
+                }
+                if(list.isEmpty()){
+                    request.setAttribute("listDep", list);
+                    request.setAttribute("SearchRS", "No Match");
+                    url=SUCCESS;
+                }else{
+                    request.setAttribute("listDep", list);
+                    url=SUCCESS;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
