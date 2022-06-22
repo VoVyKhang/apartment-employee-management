@@ -43,7 +43,7 @@ public class addNewCertificateController extends HttpServlet {
             ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
             request.setAttribute("listTypeCer", listTypeCer);
             request.setAttribute("listEmp", listEmp);
-            request.getRequestDispatcher("AddNewCertificate.jsp").forward(request, response);
+            request.getRequestDispatcher("addNewCertificate.jsp").forward(request, response);
         }
     }
 

@@ -7,25 +7,22 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.RewardPenaltyDAO;
-import management.dto.RewardPenaltyDTO;
+import management.dao.EmployeeDAO;
+import management.dto.EmployeeDTO;
 
 /**
  *
- * @author Admin
+ * @author VyNT
  */
-public class SearchRPController extends HttpServlet {
+public class FilterChangeDepController extends HttpServlet {
 
-    private final String SUCCESS = "listRP.jsp";
-    private final String ERROR = "listRP.jsp";
+    private final String SUCCESS = "changeDep.jsp";
+    private final String ERROR = "changDep.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,40 +34,38 @@ public class SearchRPController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String url = ERROR;
         try {
-            /* TODO output your page here. You may use following sample code. */
-            String keywordidemp = request.getParameter("txtSearchIdemp");
-            String keywordname = request.getParameter("txtSearchName");
+            EmployeeDAO dao = new EmployeeDAO();
+            String txtSearchName = request.getParameter("txtSearchName");
             String depName = request.getParameter("depName");
-            RewardPenaltyDAO dao = new RewardPenaltyDAO();
-            ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
-            if (keywordidemp == null || keywordname == null || depName == null) {
-                listrp = RewardPenaltyDAO.listRpForAll("", "", "");
-                url = SUCCESS;
+            String posEmp = request.getParameter("posEmp");
+            ArrayList<EmployeeDTO> list = new ArrayList<>();
+            if (depName == null || posEmp == null || txtSearchName == null) {
+                url = "Hall.jsp";
             } else {
-                if (keywordidemp.trim().isEmpty() && keywordname.trim().isEmpty() && depName.equals("allDep")) {
-                    listrp = dao.listRpForAll("", "", "");
-                } else if (depName.trim().equals("allDep")) {
-                    listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), "");
+                if (posEmp.trim().equals("allPos") && depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), "", "");
+                } else if (posEmp.trim().equals("allPos") && !depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), depName.trim(), "");
+                } else if (!posEmp.trim().equals("allPos") && depName.trim().equals("allDep")) {
+                    list = dao.listChangeEmp(txtSearchName.trim(), "", posEmp.trim());
                 } else {
-                    listrp = dao.listRpForAll(keywordidemp.trim(), keywordname.trim(), depName);
+                    list = dao.listChangeEmp(txtSearchName.trim(), depName.trim(), posEmp.trim());
+                }
+                if (list.isEmpty()) {
+                    request.setAttribute("listEmp", list);
+                    request.setAttribute("SearchRS", "No Match");
+                    url = SUCCESS;
+                } else {
+                    request.setAttribute("listEmp", list);
+                    url = SUCCESS;
                 }
             }
-            if (listrp.isEmpty()) {
-                request.setAttribute("listrp", listrp);
-                request.setAttribute("SearchRS", "No Match");
-                url = ERROR;
-            } else {
-                request.setAttribute("listrp", listrp);
-                url = SUCCESS;
-            }
-
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();
@@ -89,11 +84,7 @@ public class SearchRPController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchRPController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -107,11 +98,7 @@ public class SearchRPController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchRPController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

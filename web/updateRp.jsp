@@ -33,7 +33,8 @@
             <p>Time <input type="number" pattern="[0-9\/]*" name="timerp" min="2" max="100" required/></br></p>          
             <p>
                 <input type="hidden" value="${sessionScope.id}" name="idemp">
-                <input type="submit" name="action" value="UpdateRp"> 
+                <input type="hidden" name="action" value="UpdateRp"> 
+                <input type="submit" value="Update"> 
             </p>
             <c:if test="${requestScope.updateSuccess != null}">
                 <c:out value="${requestScope.updateSuccess}"/>

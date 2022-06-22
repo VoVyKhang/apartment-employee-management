@@ -77,7 +77,8 @@
                     </div>
                     <div style="margin-top: 20px">
 
-                        <input class="btn btn-secondary btn-sm" name="action" type="submit" value="saveNewDependent">
+                        <input class="btn btn-secondary btn-sm" type="submit" value="Save">
+                        <input type="hidden" name="action" value="saveNewDependent"
                     </div>
 
                 </form>

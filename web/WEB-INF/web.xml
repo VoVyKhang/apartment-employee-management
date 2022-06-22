@@ -204,6 +204,14 @@
         <servlet-name>SearchDependentController</servlet-name>
         <servlet-class>management.controllers.SearchDependentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterHisDepController</servlet-name>
+        <servlet-class>management.controllers.FilterHisDepController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterChangeDepController</servlet-name>
+        <servlet-class>management.controllers.FilterChangeDepController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -407,6 +415,14 @@
     <servlet-mapping>
         <servlet-name>SearchDependentController</servlet-name>
         <url-pattern>/SearchDependentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterHisDepController</servlet-name>
+        <url-pattern>/FilterHisDepController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterChangeDepController</servlet-name>
+        <url-pattern>/FilterChangeDepController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -21,7 +21,7 @@
                     <a href="mainController?action=hisPromoteAndDemote" >History of promotion and demotion</a>
                 </div>
 
-<%HttpSession ss = request.getSession();%>
+            <%HttpSession ss = request.getSession();%>
             <c:if test="${requestScope.listEmpPos != null}">
                 <c:if test="${not empty requestScope.listEmpPos}">
 
@@ -74,12 +74,12 @@
                                         </td>
 
                                         <td> 
-
-                                            <input value="${listEmpPos.idPos}" type="hidden" name="oldIdPos">
-
-                                            
-                                            <input value="${listEmpPos.idEmp}" type="hidden" name="idEmp"> 
-                                            <input class="btn btn-secondary btn-sm"  type="submit" name="action" value="SavePosition">                                                                                                        
+                                            <c:url var="save" value="mainController">
+                                                <c:param name="action" value="SavePosition"> </c:param>
+                                                <c:param name="oldIdPos" value="${listEmpPos.idPos}"> </c:param>
+                                                <c:param name="idEmp" value="${listEmpPos.idEmp}"> </c:param>
+                                            </c:url>
+                                            <a href="${save}"><i class="fas fa-trash-alt"></i></i></a>
                                         </td>
                                     </tr>
                                 </form> 
@@ -93,9 +93,9 @@
             <c:if test="${sessionScope.updateSuccess != null}">
                 <h4 style="color: green" ><c:out value="${sessionScope.updateSuccess}"/></h4> 
             </c:if>
-                <%                 
+            <%
                 ss.removeAttribute("updateSuccess");
-                %>
+            %>
         </div>
     </body>
 
