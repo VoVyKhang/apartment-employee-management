@@ -26,11 +26,11 @@
                 
                 <div class="header__user">
                     <img 
-                        src="./images/sun.jpg" 
+                        src="images/${sessionScope.USER_LOGGIN.imgPath}" 
                         alt="" 
                         class="header__user-img"
                     >
-                    <span class="header__user-name">Xuan Bach</span>
+                    <span class="header__user-name"><c:out value="${sessionScope.USER_LOGGIN.name}"/></span>
                       
                       <ul class="header__user-menu">
                         
@@ -39,6 +39,7 @@
                         </li>
                       </ul>
                     
+       
                 </div>
             </div>
         </div>

@@ -118,8 +118,6 @@
                                     where depName = '${listEmp.depName}'
                                     );
                                 </sql:query>
-
-
                                 <label>New department:</label>
                                 <select name="iddep">
                                     <c:forEach var = "row" items = "${result.rows}">
@@ -128,19 +126,14 @@
                                 </select>
                                 </br>
                                 </br>
-
-
                             </td>
                             <td>${listEmp.posName}</td>
 
                             <td>
-
                                 <input type="hidden" name="idemp" value="${listEmp.idEmp}">
                                 <input type="hidden" name="action" value="changeDep" >
                                 <input type="hidden" name="olddep" value="${listEmp.depName}">
                                 <input class="btn btn-secondary btn-sm" type="submit" value="Change">
-
-
                             </td>
                         </tr>
 <<<<<<< HEAD
@@ -220,7 +213,6 @@
                 <c:remove var="WARNING" scope="session" />
             </c:if>
             <a href="mainController?action=history&typehis=hisdep">History of change department</a>
-
         </div>
     </div>
 </body>

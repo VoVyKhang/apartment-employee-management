@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Management Hall Page</title>    
-        
+
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -19,10 +19,13 @@
 
         <c:if test="${sessionScope.USER_LOGGIN == null or sessionScope.USER_LOGGIN.role ne 1}">
             <c:redirect url="Hall.jsp">
-
             </c:redirect>
         </c:if>
+
 <!--        <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>-->
+
+          
+
         <section style="width: 100%; overflow: hidden">
 
             <div class="container">
@@ -70,7 +73,7 @@
                             <p class="card-item_number">
                                 ${requestScope.lengthReg}
                             </p>
-                            
+
                             <a                         
                                 class="card-item_link"
                                 href="mainController?action=showlist&type=reg">
@@ -84,7 +87,7 @@
                 </div>
             </div>
 
-            
+
 
         </section>
 
