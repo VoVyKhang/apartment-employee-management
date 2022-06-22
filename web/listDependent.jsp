@@ -11,6 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dependent</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="css/globalstyles.css"/>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -26,8 +29,29 @@
                 <c:if test="${requestScope.updateSuccess != null}" >
                     <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
                 </c:if>
-                    <a href="mainController?action=addNewDependent" >Add new dependent</a>
-                    <h3>List dependent</h3>
+                <a href="mainController?action=addNewDependent" >Add new dependent</a>
+                <h3>List dependent</h3>
+                <form action="mainController" method="post" class="form-reward-penalty">
+                    <div class="row filter-row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">
+                                <label for="ID">Employee ID</label>
+                            </div>
+                        </div>  
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter email" name="txtSearchName">
+                                <label for="name">Employee Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 ">
+                            <input type="hidden" name="action" value="searchDependent"/>
+                            <input type="submit" value="Search"  class="btn btn-secondary btn-sm">
+                        </div>
+                    </div>  
+                </form>
+                <h5>${requestScope.SearchRS}</h5>
                 <table class="table table-striped">
                     <thead>
                         <tr style="text-align: center">

@@ -200,6 +200,10 @@
         <servlet-name>FilterDepByLocationController</servlet-name>
         <servlet-class>management.controllers.FilterDepByLocationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchDependentController</servlet-name>
+        <servlet-class>management.controllers.SearchDependentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -399,6 +403,10 @@
     <servlet-mapping>
         <servlet-name>FilterDepByLocationController</servlet-name>
         <url-pattern>/FilterDepByLocationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchDependentController</servlet-name>
+        <url-pattern>/SearchDependentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

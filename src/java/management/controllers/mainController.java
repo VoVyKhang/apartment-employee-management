@@ -127,6 +127,10 @@ public class mainController extends HttpServlet {
                 url = "FilterRegController";
             } else if (action.equals("filterDepByLocation")) {
                 url = "FilterDepByLocationController";
+            } else if (action.equals("searchRP")) {
+                url = "SearchRPController";
+            } else if (action.equals("searchDependent")) {
+                url = "SearchDependentController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);
