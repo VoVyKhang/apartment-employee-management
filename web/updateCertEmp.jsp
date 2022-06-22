@@ -16,20 +16,14 @@
     <body>
 
         <c:import url="header.jsp"></c:import>
-        <c:import url="sidebar.jsp"></c:import>
+        <c:import url="sidebarEmp.jsp"></c:import>
         <c:if test="${requestScope.filedBlank != null}" >
-            <h3 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h3>
+            <h6 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h6>
         </c:if>
-
-
-        <c:if test="${requestScope.listCerObject != null}">
-
             <div style="margin: 0 32px; width: 100%">
                 <table class="table table-striped list-certificate">
                     <thead>
-                        <tr>
-                            <th scope="col">ID employee</th>
-                            <th scope="col">Employee name</th>                      
+                        <tr>                    
                             <th scope="col">Certificate ID</th>
                             <th scope="col">Certificate name</th>
                             <th scope="col">Date of issue</th>
@@ -38,14 +32,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <form action="mainController">
-                        <c:forEach var="listCerObject" items="${requestScope.listCerObject}">    
-                            <tr>
-                                <td scope="row">${listCerObject.idEmp}</td>
-                                <td>${listCerObject.empName}</td>                            
-                                <td>${listCerObject.cerId}</td>
-                                <td><input name="cerName" value="${listCerObject.cerName}"></td>
-                                <td><input name="doi" type="date" value="${listCerObject.doi}"></td>
+                    <form action="mainController">   
+                            <tr>                            
+                                <td>${requestScope.cerID}</td>
+                            <td><input type="text" name="cerName" value="${requestScope.cerName}"></td>
+                                <td><input name="cerDoi" type="date" value="${requestScope.cerDoi}"></td>
                                 <td>
                                     <select name="idTypeCer" >
                                         <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">                                       
@@ -57,17 +48,15 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="hidden" name="cerID" value="${listCerObject.cerId}">
-                                    <input type="hidden" name="idEmp" value="${listCerObject.idEmp}">
-                                    <input type="hidden" name="action" value="SaveChange">
+                                    <input type="hidden" name="cerID" value="${requestScope.cerID}">
+                                    <input type="hidden" name="empID" value="${sessionScope.USER_LOGGIN.idEmp}">
+                                    <input type="hidden" name="action" value="saveCertEmp">
                                     <input class="btn btn-secondary btn-sm" type="submit" value="Save">
                                 </td>
                             </tr>                        
-                        </c:forEach>
                     </form>
                     </tbody>
                 </table>
             </div>
-        </c:if>
     </body>
 </html>

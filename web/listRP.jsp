@@ -8,6 +8,7 @@
 <%@page import="management.dto.RewardPenaltyDTO"%>
 <%@page import="management.dao.RewardPenaltyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,12 +23,20 @@
             <%@include file="header.jsp" %>
         </header>
         <c:import url="sidebar.jsp"></c:import>
-            <div style="margin: 0 32px" class="list-employee">
-                <form action="mainController" method="post" class="form-reward-penalty">
-                    <div class="row filter-row">
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
+
+        <sql:query dataSource = "${snapshot}" var = "listDep">
+            select depName
+            from Department
+        </sql:query>
+        <div style="margin: 0 32px" class="list-employee">
+            <form action="mainController" method="post" class="form-reward-penalty">
+                <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">
                             <label for="ID">Employee ID</label>
                         </div>
                     </div>  
@@ -40,21 +49,21 @@
                     <div class="col-sm-6 col-md-3"> 
                         <div class="form-group form-focus select-focus">
                             <label >Department</label>
-                            <select class="form-select form-select-md-5 mb-1 list-options"> 
-                                <option>Select Department</option>
-                                <option>Web Developer</option>
-                                <option>Web Designer</option>
-                                <option>Android Developer</option>
-                                <option>Ios Developer</option>
+                            <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
+                                <option value="allDep">All</option>
+                                <c:forEach var="listDep" items="${listDep.rows}">
+                                    <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
+                                </c:forEach>
                             </select>
                         </div>
                     </div>        
                     <div class="col-sm-6 col-md-3 ">
-                        <input type="submit" value="searchID" name="action" class="btn btn-secondary btn-sm">
+                        <input type="submit" value="Search"  class="btn btn-secondary btn-sm">
+                        <input type="hidden" name="action" value="searchRP"/>
                     </div>
                 </div>  
             </form>               
-
+            <h5>${requestScope.SearchRS}</h5>
             <table  class="table table-striped">
                 <thead>
                     <tr>
@@ -93,20 +102,21 @@
                             <td>${listrp.reason}</td> 
                             <td>${listrp.depName}</td>
                             <td>
-                                <form action="mainController" method="POST">
-                                    <input type="hidden" value="${listrp.idEmp}" name="idemp">
-                                    <input type="hidden" value="${listrp.name}" name="nameemp">
-                                    <input type="hidden" value="${listrp.idReg}" name="idreg">
-                                    <input type="hidden" name="updatetype" value="updaterp">
-                                    <input type="hidden" name="action" value="pushss" >
-                                    <input type="submit" value="UpdateRp">
-                                </form>
+                                <c:url var="update" value="mainController">
+                                    <c:param name="action" value="pushss"> </c:param>
+                                    <c:param name="updatetype" value="updaterp"> </c:param>
+                                    <c:param name="idreg" value="${listrp.idReg}"> </c:param>
+                                    <c:param name="nameemp" value="${listrp.name}"> </c:param>
+                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                </c:url>
+                                <a href="${update}"><i class="fas fa-trash-alt"></i></i></a>
                             </td>
                             <td>
-                                <form action="mainController" method="POST">
-                                    <input type="hidden" value="${listrp.idEmp}" name="idemp">
-                                    <input type="submit" name="action" value="DeleteRp">
-                                </form>
+                                <c:url var="delete" value="mainController">
+                                    <c:param name="action" value="DeleteRp"> </c:param>
+                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                </c:url>
+                                <a href="${delete}"><i class="fas fa-trash-alt"></i></i></a>
                             </td>
                         </tr>
                     </c:forEach>

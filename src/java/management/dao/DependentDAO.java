@@ -26,13 +26,15 @@ public class DependentDAO {
     private static ResultSet rs = null;
     private static final String LIST_DEPENDENT = "SELECT  e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e \n"
             + "WHERE d.idEmp = e.idEmp";
+    private static final String LIST_DEPENDENT_FOR_ALL = "SELECT  e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e\n"
+            + "WHERE d.idEmp = e.idEmp and e.name like ? and e.idEmp like ?";
     private static final String UPDATE_DEPENDENT = "UPDATE Dependent\n"
             + "SET name = ?, gender =?, dob =? , relationship =?\n"
             + "WHERE idEmp = ? AND idDepen = ?;";
     private static final String OBJECT_DEPENDENT = "SELECT e.idEmp, e.name as 'Employee Name', d.idDepen, d.name as 'Dependent Name', d.gender, d.dob, d.relationship FROM Dependent as d, Employee as e \n"
             + "WHERE e.idEmp = ? AND d.idDepen = ?";
-    private static final String INSERT_DEPENDENT = "INSERT INTO Dependent(name,  gender, dob,relationship, idEmp)\n" +
-"  VALUES(?,?,?,?,?)";
+    private static final String INSERT_DEPENDENT = "INSERT INTO Dependent(name,  gender, dob,relationship, idEmp)\n"
+            + "  VALUES(?,?,?,?,?)";
 
     public static ArrayList<DependentDTO> listDependent() throws SQLException {
         ArrayList<DependentDTO> listDependent = new ArrayList<>();
@@ -134,7 +136,7 @@ public class DependentDAO {
         return depenObject;
 
     }
-    
+
     public static boolean insertDependent(String name, String gender, String dob, String relationship, String idEmp) throws SQLException {
         try {
             cn = DBUtils.getConnection();
@@ -144,7 +146,7 @@ public class DependentDAO {
                 pst.setString(2, gender);
                 pst.setString(3, dob);
                 pst.setString(4, relationship);
-                 pst.setString(5, idEmp);
+                pst.setString(5, idEmp);
                 int result = pst.executeUpdate();
                 if (result > 0) {
                     return true;
@@ -163,5 +165,42 @@ public class DependentDAO {
             }
         }
         return false;
+    }
+
+    public static ArrayList<DependentDTO> listDependentForAll(String empId, String nameEmp) throws SQLException {
+        ArrayList<DependentDTO> listDependent = new ArrayList<>();
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                pst = cn.prepareStatement(LIST_DEPENDENT_FOR_ALL);
+                pst.setString(1, "%" + nameEmp + "%");
+                pst.setString(2, "%" + empId + "%");
+                rs = pst.executeQuery();
+            }
+            while (rs != null && rs.next()) {
+                int idEmp = rs.getInt("idEmp");
+                String empName = rs.getString("Employee Name");
+                int idDepen = rs.getInt("idDepen");
+                String depenName = rs.getString("Dependent Name");
+                String gender = rs.getString("gender");
+                Date dob = rs.getDate("dob");
+                String relationship = rs.getString("relationship");
+                DependentDTO dependent = new DependentDTO(idDepen, depenName, gender, dob, relationship, idEmp, empName);
+                listDependent.add(dependent);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return listDependent;
     }
 }

@@ -1,29 +1,27 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.CertificateDAO;
-import management.dao.EmployeeDAO;
-import management.dto.CertificateDTO;
+import javax.servlet.http.HttpSession;
 import management.dto.EmployeeDTO;
 
 /**
  *
- * @author AD
+ * @author VyNT
  */
-public class addNewCertificateController extends HttpServlet {
+public class listCertEmpController extends HttpServlet {
+
+    private final String SUCCESS = "listCertEmp.jsp";
+    private final String ERROR = "Hall.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +33,22 @@ public class addNewCertificateController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
-            ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
-            request.setAttribute("listTypeCer", listTypeCer);
-            request.setAttribute("listEmp", listEmp);
-            request.getRequestDispatcher("addNewCertificate.jsp").forward(request, response);
+        PrintWriter out = response.getWriter();
+        String url = ERROR;
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("USER_LOGGIN") != null) {
+                EmployeeDTO emp = (EmployeeDTO) session.getAttribute("USER_LOGGIN");
+                request.setAttribute("Employee", emp);
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+            out.close();
         }
     }
 
@@ -59,11 +64,7 @@ public class addNewCertificateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -77,11 +78,7 @@ public class addNewCertificateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(addNewCertificateController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

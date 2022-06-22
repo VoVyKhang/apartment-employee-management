@@ -70,13 +70,13 @@
 
                                     </td>
                                     <td>
-                                        <form action="mainController" method="POST">
-                                            <input type="hidden" value="${listEmp.idEmp}" name="idemp">
-                                            <input type="hidden" value="${listEmp.name}" name="nameemp">
-                                            <input type="hidden" name="updatetype" value="createnewrp">
-                                            <input type="hidden" name="action" value="pushss" >
-                                            <input type="submit" class="btn btn-secondary btn-sm" value="CreateNewRp">
-                                        </form>
+                                        <c:url var="create" value="mainController">
+                                            <c:param name="action" value="pushss"> </c:param>
+                                            <c:param name="idemp" value="${listEmp.idEmp}"> </c:param>
+                                            <c:param name="updatetype" value="createnewrp"> </c:param>
+                                            <c:param name="nameemp" value="${listEmp.name}"> </c:param>
+                                        </c:url>
+                                        <a href="${create}"><i class="fas fa-trash-alt"></i></i></a>
                                     </td>
 
                                     <td>

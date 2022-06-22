@@ -21,25 +21,28 @@ import management.dto.RewardPenaltyDTO;
 public class RewardPenaltyDAO {
 
     private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
-            + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
-            + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.idEmp like ?  ";
-
+            + "            from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re \n"
+            + "            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.idEmp like ?";
+    private static String LIST_RP_FOR_ALL = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
+            + "from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos\n"
+            + "and e.idEmp like ? and e.name like ? and d.depName like ?";
     private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ?  ";
-     
+
     private static String LIST_RP_NAMEEMP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ? and e.idEmp like ? ";
-    
-    private static String UPDATE_RP ="update RewardAndPenalty set idReg = ? ,times = ? \n" 
+
+    private static String UPDATE_RP = "update RewardAndPenalty set idReg = ? ,times = ? \n"
             + "where idEmp = ?";
-    
-    private static String CREATE_NEW_RP="INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp)\n" 
+
+    private static String CREATE_NEW_RP = "INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp)\n"
             + "VALUES(?, ?, ?, ?)";
-    
-    private static String DELETE_RP="DELETE FROM RewardAndPenalty WHERE idEmp=?";
-    
+
+    private static String DELETE_RP = "DELETE FROM RewardAndPenalty WHERE idEmp=?";
+
     //List all Reward & Penalty
     public static ArrayList<RewardPenaltyDTO> listrp(String keywordidemp) throws SQLException {
         ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
@@ -83,8 +86,8 @@ public class RewardPenaltyDAO {
             return listrp;
         }
     }
-    
-     //List all Reward & Penalty by Name
+
+    //List all Reward & Penalty by Name
     public static ArrayList<RewardPenaltyDTO> listrpdep(String keywordname) throws SQLException {
         ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
         Connection cn = null;
@@ -127,9 +130,9 @@ public class RewardPenaltyDAO {
             return listrp;
         }
     }
-    
+
     //Search all Reward & Penalty by Name and IDEmp
-    public static ArrayList<RewardPenaltyDTO> listrpdepemp(String keywordname,String keywordidemp) throws SQLException {
+    public static ArrayList<RewardPenaltyDTO> listrpdepemp(String keywordname, String keywordidemp) throws SQLException {
         ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
         Connection cn = null;
         try {
@@ -174,7 +177,7 @@ public class RewardPenaltyDAO {
     }
 
     //Update Reward & Penalty
-    public static boolean updateRP( int idReg, int times, int idEmp) {
+    public static boolean updateRP(int idReg, int times, int idEmp) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -202,25 +205,25 @@ public class RewardPenaltyDAO {
             }
         }
     }
-    
+
     //Create New Reward & Penalty
-    public static boolean createnewRP(int idReg,int times,int idEmp){
-         Connection cn = null; 
+    public static boolean createnewRP(int idReg, int times, int idEmp) {
+        Connection cn = null;
         try {
             //buoc 1: mo ket noi
             cn = (Connection) DBUtils.getConnection();
             //buoc 2: viet query va execute    
-            if (cn != null){
+            if (cn != null) {
                 Date d = new Date(System.currentTimeMillis());
                 PreparedStatement pst = cn.prepareStatement(CREATE_NEW_RP);
-                 pst.setInt(1, idReg);
-                 pst.setDate(2, d);
-                 pst.setInt(3, times);
-                 pst.setInt(4, idEmp);
-                 pst.executeUpdate();
+                pst.setInt(1, idReg);
+                pst.setDate(2, d);
+                pst.setInt(3, times);
+                pst.setInt(4, idEmp);
+                pst.executeUpdate();
             }
             return true;
-         }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -235,19 +238,19 @@ public class RewardPenaltyDAO {
     }
 
     //Delete Reward & Penalty
-    public static boolean deleteRP(int idEmp){
-         Connection cn = null; 
+    public static boolean deleteRP(int idEmp) {
+        Connection cn = null;
         try {
             //buoc 1: mo ket noi
             cn = (Connection) DBUtils.getConnection();
             //buoc 2: viet query va execute    
-            if (cn != null){
+            if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(DELETE_RP);
-                 pst.setInt(1, idEmp);
-                 pst.executeUpdate();
+                pst.setInt(1, idEmp);
+                pst.executeUpdate();
             }
             return true;
-         }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -258,6 +261,50 @@ public class RewardPenaltyDAO {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+    public static ArrayList<RewardPenaltyDTO> listRpForAll(String idEmpText, String nameEmp, String depName) throws SQLException {
+        ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
+        Connection cn = null;
+        try {
+            //buoc 1: mo ket noi
+            cn = DBUtils.getConnection();
+            //buoc 2: viet query va execute    
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(LIST_RP_FOR_ALL);
+                pst.setString(1, "%" + idEmpText + "%");
+                pst.setString(2, "%" + nameEmp + "%");
+                pst.setString(3, "%" + depName + "%");
+                ResultSet rs = pst.executeQuery();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int idRP = rs.getInt("IDRp");
+                        int idEmp = rs.getInt("IDEmp");
+                        String imgPath = rs.getString("ImgPath");
+                        String name = rs.getString("Name");
+                        String gender = rs.getString("Gender");
+                        int status = rs.getInt("Status");
+                        int times = rs.getInt("Times");
+                        Date applicableDate = rs.getDate("ApplicableDate");
+                        String reason = rs.getString("Reason");
+                        String nameDep = rs.getString("DepName");
+                        int idReg = rs.getInt("IDReg");
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, nameDep, idRP, reason, status, times, applicableDate, idReg);
+                        listrp.add(rp);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return listrp;
         }
     }
 }

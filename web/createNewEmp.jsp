@@ -32,6 +32,10 @@
                 margin-right: 16px;
                 padding: 6px 30px !important
             }
+            
+            p{
+                margin-bottom: 0
+            }
         </style>
     </head>
     <body>
@@ -56,7 +60,6 @@
                     </div>
                 </div>
 
-
                 <div class="row form-group" >
                     <div class="col-6">
                         <label for="formGroupExampleInput2">Age</label> 
@@ -76,7 +79,6 @@
                             </select></br>
                         </div>
                     </div>
-
 
                     <div class="row form-group" >
                         <div class="col-6">
@@ -164,14 +166,15 @@
                 </div>
 
                 <div class="row">
-                    <p style="color:red">${requestScope.WARNINGFIELD}</p>
-                    <p style="color:green">${requestScope.COMPLETED}</p>
-                    <p style="color: red">${requestScope.FAILINSERT}</p>
+                    <div class="col-6">
+                        <p style="color:red">${requestScope.WARNINGFIELD}</p>
+                        <p style="color:green">${requestScope.COMPLETED}</p>
+                        <p style="color: red">${requestScope.FAILINSERT}</p>
+                    </div>
                 </div>
                 </br>
 
                 <div class="row">
-
                     <div class="col-6">
                         <input type="hidden" name="action" value="createEmp">
                         <input class="btn btn-secondary btn-xl emp-button" type="submit" value="Create">
