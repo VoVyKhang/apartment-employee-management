@@ -73,10 +73,12 @@ span {
     justify-content: space-around;
     align-items: center;
     background-color: #fff;
-    color: #333;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    color: #262626;
     font-weight: 600;
     padding: 30px 0; 
+    border: 1px solid #ededed;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
+    font-size: 20px
 }
 
 .card-item_employee{
@@ -88,7 +90,13 @@ span {
     width: 100%;
     text-align: center;
     font-size: 30px;
+    font-weight: 600;
     color: #333
+}
+
+.card-item_link:hover{
+    opacity: 0.8;
+    transform: translateY(-0.25rem)
 }
 
 /* ---------------------------------------------------
@@ -103,7 +111,7 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #333;
+    background: #34444c;
     color: #fff;
     transition: all 0.3s;
 }
@@ -155,7 +163,7 @@ span {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #333;
+    background: #34444c;
 }
 
 #sidebar .sidebar-header strong {
@@ -226,13 +234,13 @@ a.download {
 
 a.article,
 a.article:hover {
-    background: #333 !important;
+    background: #34444c !important;
     color: #fff !important;
 }
 
 .btn.btn-info{
-    background-color: #333 !important;
-    border-color: #333 !important
+    background-color: #34444c !important;
+    border-color: #34444c !important
 }
 
 .title a,
