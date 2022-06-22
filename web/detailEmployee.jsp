@@ -26,10 +26,10 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Emplyee Records</h3>
+                            <h3 class="page-title">Employee Records</h3>
                             <ul class="breadcrumb ">
                                 <li class="breadcrumb-item"><a href="BoardManagerHome.jsp">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Employee</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=emp">Employee</a></li>
                                 <li class="breadcrumb-item active">Profile</li>
                             </ul>
                         </div>
@@ -223,7 +223,7 @@
                     </div>
                 </div>
             </div>             
-                                        
+
             <div style="height: 20px; background-color: #fff"></div>
 
         </div>

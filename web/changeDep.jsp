@@ -136,71 +136,9 @@
                                 <input class="btn btn-secondary btn-sm" type="submit" value="Change">
                             </td>
                         </tr>
+
                         
-                    </thead>
-                    <tbody>
-                        <c:forEach var="listEmp" varStatus="counter" items="${requestScope.listEmp}">
-                        <form action="mainController">
-                            <tr>
-
-
-                                <td>${listEmp.idEmp}</td>     
-                                <td>
-                                    <img class="align-self-center img-fluid" src='images/${listEmp.imgPath}' width="120"
-                                         height="120">
-                                </td>
-
-                                <td class="nameEmp">${listEmp.name}</td>
-                                <td>${listEmp.gender}</td>
-                                <td>${listEmp.dob}</td>
-                                <td class="exception">Old department: ${listEmp.depName}</br>
-                                    </br>
-
-                                    <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                                                       user = "sa"  password = "12345"/>
-
-                                    <sql:query dataSource = "${snapshot}" var = "result">
-                                        select DISTINCT d.depNum, d.depName
-                                        from HistoryDep as hd, Department as d
-                                        where hd.depNum <> d.depNum
-                                        and hd.depNum = (
-                                        select depNum
-                                        from Department
-                                        where depName = '${listEmp.depName}'
-                                        );
-                                    </sql:query>
-
-
-                                    <label>New department:</label>
-                                    <select name="iddep">
-                                        <c:forEach var = "row" items = "${result.rows}">
-                                            <option selected="" value="${row.depNum}">${row.depName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    </br>
-                                    </br>
-
-
-                                </td>
-                                <td>${listEmp.posName}</td>
-
-                                <td>
-
-                                    <input type="hidden" name="idemp" value="${listEmp.idEmp}">
-                                    <input type="hidden" name="action" value="changeDep" >
-                                    <input type="hidden" name="olddep" value="${listEmp.depName}">
-                                    <input class="btn btn-secondary btn-sm" type="submit" value="Change">
-
-
-                                </td>
-                            </tr>
-                        </form> 
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
-
+                   
                     </form> 
                 </c:forEach>
                 </tbody>
