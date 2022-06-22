@@ -30,7 +30,9 @@ public class HistoryDepDAO {
     private static final String LIST_ALL_HIS_DEP = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, status\n"
             + "from Employee as e, HistoryDep as hd, Department as d\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum";
-
+    private static final String LIST_ALL_FILTER = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, status\n"
+            + "from Employee as e, HistoryDep as hd, Department as d\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and e.name like ? and d.depName like ? and status like ?";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -140,5 +142,48 @@ public class HistoryDepDAO {
             }
         }
         return false;
+    }
+
+    public static ArrayList<HistoryDepDTO> listHisDepFilter(String empName, String depName, String status) throws SQLException {
+        ArrayList<HistoryDepDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_ALL_FILTER);
+                ptm.setString(1, "%" + empName + "%");
+                ptm.setString(2, "%" + depName + "%");
+                ptm.setString(3, "%" + status + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("idHisDep");
+                    int idemp = rs.getInt("idEmp");
+                    String nameemp = rs.getString("name");
+                    int iddep = rs.getInt("depNum");
+                    String namedep = rs.getString("depName");
+                    String deliveryDate = rs.getString("deliveryDate");
+                    if (deliveryDate == null) {
+                        deliveryDate = "0000-00-00";
+                    }
+
+                    int hisStatus = rs.getInt("status");
+                    HistoryDepDTO his = new HistoryDepDTO(id, idemp, nameemp, iddep, namedep, deliveryDate.substring(0, 10), hisStatus);
+                    list.add(his);
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }
