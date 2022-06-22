@@ -136,7 +136,7 @@
                                 <input class="btn btn-secondary btn-sm" type="submit" value="Change">
                             </td>
                         </tr>
-<<<<<<< HEAD
+                        
                     </thead>
                     <tbody>
                         <c:forEach var="listEmp" varStatus="counter" items="${requestScope.listEmp}">
@@ -200,12 +200,12 @@
                     </tbody>
                 </table>
             </c:if>
-=======
+
                     </form> 
                 </c:forEach>
                 </tbody>
             </table>
->>>>>>> 302352fc3dfb37b5793701a54b6ac104bba01822
+
         </c:if>
         <div class="changedep-btn">
             <c:if test="${not empty sessionScope.WARNING}">

@@ -93,7 +93,7 @@
             </div>
 
             <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                               url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                               url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
 
             <div class="tab-content">
@@ -194,7 +194,7 @@
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                                           url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                                                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                                            user = "sa"  password = "12345"/>
 
                                         <sql:query dataSource = "${snapshot}" var = "listcer">
