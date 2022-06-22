@@ -54,7 +54,7 @@
                     <div class="col-sm-6 col-md-3"> 
                         </br>
                         <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
-                            <option value="" >Select Department</option>
+                            <option value="" >All Department</option>
                             <c:forEach var="listDep" items="${listDep.rows}">
                                 <option value="${listDep.depName}">${listDep.depName}</option>
                             </c:forEach>
@@ -63,7 +63,7 @@
                     <div class="col-sm-6 col-md-3">
                         </br>
                         <select class="form-select form-select-md-5 mb-1 list-options" name="posname"> 
-                            <option value="" >Select Position</option>
+                            <option value="" >All Position</option>
                             <c:forEach var="listPos" items="${listPos.rows}">
                                 <option value="${listPos.posName}">${listPos.posName}</option>
                             </c:forEach>

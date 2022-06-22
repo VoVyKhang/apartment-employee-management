@@ -6,22 +6,65 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List Certificate</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
 
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
 
+        <sql:query dataSource = "${snapshot}" var = "listCer">
+            select name
+            from TypeCertificate
+        </sql:query>
+            
         <div style="width: 100%">
+            <div style="margin: 0 32px">
                 <div>
                     <a href="mainController?action=add new certificate">Add new Certificate</a>
                 </div>
+
+                <form action="mainController" method="post" >
+                    <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empid") == null) ? "" : request.getParameter("empid")%>" placeholder="Enter email" name="empid">
+                            <label for="ID">Employee ID</label>
+                        </div>
+                    </div> 
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
+                                <label for="name">Employee Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            </br>
+                            <select class="form-select form-select-md-5 mb-1 list-options" name="typecer"> 
+                                <option value="" >All Certificate</option>
+                                <c:forEach var="listCer" items="${listCer.rows}">
+                                    <option value="${listCer.name}">${listCer.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div> 
+                        <div class="col-sm-6 col-md-3 ">
+                            </br>
+                            <input type="submit" value="searchCer" name="action" class="btn btn-secondary btn-sm">
+                        </div>
+                    </div>
+                </form>
+                                
             <c:if test="${updateSuccess != null}" >
                 <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
             </c:if>
@@ -29,7 +72,7 @@
                 <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
             </c:if>
             <c:if test="${requestScope.listCer != null}">
-                <div style="margin: 0 32px">
+                
                     <table class="table table-striped">
                         <thead>
                             <tr>

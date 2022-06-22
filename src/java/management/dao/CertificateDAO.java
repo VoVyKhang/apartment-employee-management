@@ -33,6 +33,10 @@ public class CertificateDAO {
     private static final String SAVE_CHANGE_CERTIFICATE = "UPDATE Certificate\n"
             + "SET cerName = ?, doi = ?, idTypeCer = ?\n"
             + "WHERE cerID = ? AND idEmp = ?";
+    
+    private static final String SEARCH_CER ="SELECT e.idEmp, e.name, c.cerID, c.cerName, c.doi, t.name as cerType, t.idTypeCer\n" 
+            +"FROM Employee as e, Certificate as c, TypeCertificate as t\n" 
+            +"WHERE e.idEmp = c.idEmp AND c.idTypeCer = t.idTypeCer and e.idEmp like ?  and t.name like ? and e.name like ?";
     private static Connection cn = null;
     private static PreparedStatement pst = null;
     private static Statement st = null;
@@ -198,4 +202,43 @@ public class CertificateDAO {
         }
         return false;
     }
+    
+    //List all certificate filter 
+    public static ArrayList<CertificateDTO> filterCer(String empid, String typecer, String empname) throws SQLException {
+        ArrayList<CertificateDTO> list = new ArrayList<>();
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                     pst = cn.prepareStatement(SEARCH_CER);
+                     pst.setString(1,"%" + empid + "%" );
+                     pst.setString(2,"%" + typecer + "%" );
+                     pst.setString(3,"%" + empname + "%" );
+                     rs = pst.executeQuery();
+                while (rs.next()) {
+                int idEmp = rs.getInt("idEmp");
+                String name = rs.getString("name");
+                int cerID = rs.getInt("cerID");
+                String cerName = rs.getString("cerName");
+                Date doi = rs.getDate("doi");
+                String type = rs.getString("cerType");
+                int idTypeCer = rs.getInt("idTypeCer");
+                CertificateDTO cer = new CertificateDTO(name, cerID, cerName, doi, type, idEmp, idTypeCer);
+                list.add(cer);
+                }
+                 } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return list;
+    }    
 }

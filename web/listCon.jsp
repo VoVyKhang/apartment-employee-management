@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <title>List Contract</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -52,7 +51,7 @@
                         <div class="col-sm-6 col-md-3"> 
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typecon"> 
-                                <option value="" >Select Type</option>
+                                <option value="" >All Type</option>
                                 <c:forEach var="listTyCon" items="${listTyCon.rows}">
                                     <option value="${listTyCon.name}">${listTyCon.name}</option>
                                 </c:forEach>
@@ -61,7 +60,7 @@
                         <div class="col-sm-6 col-md-3">
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
-                                <option value="" >Select Status</option>
+                                <option value="" >All Contract</option>
                                 <c:forEach var="listCon" items="${listCon.rows}">
                                     <option value="${listCon.status}">${listCon.status}</option>
                                 </c:forEach>

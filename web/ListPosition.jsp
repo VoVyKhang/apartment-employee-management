@@ -32,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <a href="mainController?action=promoteAndDemote">Promote/demote</a>
+                    <a href="mainController?action=searchPro">Promote/demote</a>
                     <c:forEach var="listPosition" items="${requestScope.listPosition}">
                         <tr>
                             <td>${listPosition.posName}</td>                            
