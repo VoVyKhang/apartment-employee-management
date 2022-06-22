@@ -54,6 +54,10 @@ public class ContractDAO {
             + "set expDay = ?\n"
             + "where idContract = ?";
 
+    private static final String SEARCH_CON = "select idContract, tc.name as type, signDay, expDay, e.name, status\n" 
+            +"from Contract as c, Employee as e, TypeContract as tc\n" 
+            +"where c.idEmp = e.idEmp and c.idTypeCon = tc.idTypeCon and tc.name like ? and c.status like ?  and e.name like ?";
+    
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -334,4 +338,51 @@ public class ContractDAO {
         }
         return false;
     }
+
+    //List all contract filter 
+    public static ArrayList<ContractDTO> filterCon(String typecon, String statuscon, String empname) throws SQLException {
+        ArrayList<ContractDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                    ptm = conn.prepareStatement(SEARCH_CON);
+                     ptm.setString(1,"%" + typecon + "%" );
+                     ptm.setString(2,"%" + statuscon + "%" );
+                     ptm.setString(3,"%" + empname + "%" );
+                     rs = ptm.executeQuery();
+                 if (rs != null) {
+                     while (rs.next()) {
+                    int id = rs.getInt("idContract");
+                    String type = rs.getString("type");
+                    String signDay = rs.getString("signDay");
+                    if (signDay == null) {
+                        signDay = "0000-00-00";
+                    }
+                    String expDay = rs.getString("expDay");
+                    if (expDay == null) {
+                        expDay = "0000-00-00";
+                    }
+                    String nameEmp = rs.getString("name");
+                    int status = rs.getInt("status");
+                    ContractDTO con = new ContractDTO(id, type, signDay, expDay, nameEmp, status);
+                    list.add(con);
+                }
+                 }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }    
 }
