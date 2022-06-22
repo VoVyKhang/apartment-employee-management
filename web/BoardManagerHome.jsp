@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Management Hall Page</title>     
+        <title>Management Hall Page</title>    
+        
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -21,8 +22,7 @@
 
             </c:redirect>
         </c:if>
-<!--        <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>
-        <h3><a href="logoutController?action=logout">Log out</a> </h3>-->
+<!--        <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>-->
         <section style="width: 100%; overflow: hidden">
 
             <div class="container">
@@ -30,7 +30,7 @@
 
                     <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
                         <div class="card-item_employee">
-                            <i class="fas fa-building"></i>
+                            <i style="color: #00c5fb" class="fas fa-building"></i>
                         </div>
 
                         <div>
@@ -39,7 +39,7 @@
                             </p>
                             <a 
                                 class="card-item_link"
-                                href="mainController?action=showlist&type=dep">List of Department</a>
+                                href="mainController?action=showlist&type=dep">Department</a>
                         </div>
 
                     </div>
@@ -47,7 +47,7 @@
 
                     <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
                         <div class="card-item_employee">
-                            <i class="fas fa-user"></i>
+                            <i style="color: #00c5fb" class="fas fa-user"></i>
                         </div>
 
                         <div>
@@ -56,23 +56,26 @@
                             </p>
                             <a 
                                 class="card-item_link"
-                                href="mainController?action=showlist&type=emp">List of employee</a>
+                                href="mainController?action=showlist&type=emp">Employee</a>
                         </div>    
                     </div>
                     <div style="width: 20px"></div>
 
                     <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
                         <div class="card-item_employee">
-                            <i class="fas fa-book-open"></i>
+                            <i style="color: #00c5fb" class="fas fa-book-open"></i>
                         </div>
 
                         <div>
                             <p class="card-item_number">
                                 ${requestScope.lengthReg}
                             </p>
-                            <a 
+                            
+                            <a                         
                                 class="card-item_link"
-                                href="mainController?action=showlist&type=reg">List of Regulation</a>
+                                href="mainController?action=showlist&type=reg">
+                                Regulation
+                            </a>
                         </div>    
                     </div>
 

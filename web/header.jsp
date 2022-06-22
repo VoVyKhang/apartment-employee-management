@@ -12,22 +12,35 @@
         <title>Header Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width= device-width, initial-scale = 1.0">
-        <link rel="stylesheet" href="css/mycss.css" type = "text/css"/>
+        <link rel="stylesheet" href="./css/header.css"/>
 
     </head>
     <body>
-        <header>
-            <nav class="header">
-                <ul class="clearfix">
-                    <li >
-                        <a  href="mainController?action=showlist"><img style="margin-bottom: 5px" src="images/logo.jpg" id="logo" ></a>
-                    </li>
-                            
-                    <li class="logout" style="float: right; margin-right: 16px">
-                            <a href="logoutController?action=logout">Log out</a> 
-                        </li>    
-                </ul>
-            </nav>
-        </header>
+        <div class="header__container">
+            <div class="header__navbar">
+                <div class="header__logo">
+                    <a  href="mainController?action=showlist">
+                        <img src="images/logo.jpg" class="header__logo-img">
+                    </a>
+                </div>
+                
+                <div class="header__user">
+                    <img 
+                        src="./images/sun.jpg" 
+                        alt="" 
+                        class="header__user-img"
+                    >
+                    <span class="header__user-name">Xuan Bach</span>
+                      
+                      <ul class="header__user-menu">
+                        
+                        <li class="header__user-item">
+                          <a href="logoutController?action=logout">Logout</a>
+                        </li>
+                      </ul>
+                    
+                </div>
+            </div>
+        </div>
     </body>
 </html>
