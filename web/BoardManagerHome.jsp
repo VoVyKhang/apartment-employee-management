@@ -18,11 +18,10 @@
 
         <c:if test="${sessionScope.USER_LOGGIN == null or sessionScope.USER_LOGGIN.role ne 1}">
             <c:redirect url="Hall.jsp">
-
             </c:redirect>
         </c:if>
-<!--        <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>
-        <h3><a href="logoutController?action=logout">Log out</a> </h3>-->
+       <h2><c:out value="${sessionScope.USER_LOGGIN.name}"/></h2>
+       <a href=""><img src="images/${sessionScope.USER_LOGGIN.imgPath}" style= "height: 40px"></a>  
         <section style="width: 100%; overflow: hidden">
 
             <div class="container">
