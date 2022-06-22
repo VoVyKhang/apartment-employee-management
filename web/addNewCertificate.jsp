@@ -13,7 +13,7 @@
         <title>Add new Certificate</title>
         <style>
             .certificate-select{
-                
+
                 padding: 0.375rem 0.75rem;
                 font-size: 1rem;
                 line-height: 1.5;
@@ -31,26 +31,33 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-        <c:if test="${filedBlank != null}">
-            <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
-        </c:if>
-        <c:if test="${Success != null}">
-            <h3 style="color: green" ><c:out value="${Success}"/></h3> 
-        </c:if>
-        <c:if test="${Fail != null}">
-            <c:out value="${Fail}"/>
-        </c:if>
+
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%">
+                <c:if test="${filedBlank != null}">
+                    <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
+                </c:if>
+                <c:if test="${Success != null}">
+                    <h3 style="color: green" ><c:out value="${Success}"/></h3> 
+                </c:if>
+                <c:if test="${Fail != null}">
+                    <c:out value="${Fail}"/>
+                </c:if>
                 <form action="mainController" style="margin: 0 32px" class="form-position">            
 
                     <div class="form-group">
                         <span> Name certificate</span>
-                        <input class="form-control" name="nameCer" value="${param.nameCer}">              
+                        <input class="form-control" name="nameCer" value="${param.nameCer}">   
+                        <c:if test="${nameInvalid != null}">
+                            <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <span>Date of isuess</span>
-                        <input class="form-control" name="doi" type="date" value="${param.doi}">                  
+                        <input class="form-control" name="doi" type="date" value="${param.doi}"> 
+                        <c:if test="${requestScope.checkDoi != null}" >
+                            <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
+                        </c:if>
                     </div>
                     <div class="form-group ">
                         <div style="margin-bottom: 4px">Type</div>
@@ -73,7 +80,7 @@
 
                     </div>
                     <div style="margin-top: 20px">
-                        
+
                         <input class="btn btn-secondary btn-sm" type="submit" value="Save">
                         <input type="hidden" name="action" value="saveNewCertificate">
                     </div>

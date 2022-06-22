@@ -28,7 +28,7 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">Employee Records</h3>
                             <ul class="breadcrumb ">
-                                <li class="breadcrumb-item"><a href="BoardManagerHome.jsp">Home</a></li>
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                 <li class="breadcrumb-item"><a href="mainController?action=showlist&type=emp">Employee</a></li>
                                 <li class="breadcrumb-item active">Profile</li>
                             </ul>
