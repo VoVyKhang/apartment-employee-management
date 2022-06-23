@@ -38,20 +38,19 @@
                 <form action="mainController" method="post" >
                     <div class="row filter-row">
                     <div class="col-sm-6 col-md-3">
-                        <div class="form-floating mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empid") == null) ? "" : request.getParameter("empid")%>" placeholder="Enter email" name="empid">
+                        <div class="form-group mb-3 mt-3">
                             <label for="ID">Employee ID</label>
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empid") == null) ? "" : request.getParameter("empid")%>" placeholder="Enter email" name="empid">                           
                         </div>
                     </div> 
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
+                            <div class="form-group mb-3 mt-3">
                                 <label for="name">Employee Name</label>
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">                              
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            </br>
-                            <select class="form-select form-select-md-5 mb-1 list-options" name="typecer"> 
+                            <div class="col-sm-6 col-md-3" style="margin-top: 48px">
+                            <select class="form-select form-select-md-5 mb-1 list-option form-controls" name="typecer"> 
                                 <option value="" >All Certificate</option>
                                 <c:forEach var="listCer" items="${listCer.rows}">
                                     <option value="${listCer.name}">${listCer.name}</option>
@@ -60,7 +59,7 @@
                         </div> 
                         <div class="col-sm-6 col-md-3 ">
                             </br>
-                            <input type="submit" value="searchCer" name="action" class="btn btn-secondary btn-sm">
+                            <input style="margin-top: 22px" type="submit" value="searchCer" name="action" class="btn btn-primary">
                         </div>
                     </div>
                 </form>

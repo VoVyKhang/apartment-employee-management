@@ -34,7 +34,7 @@
         <c:import url="sidebar.jsp"></c:import>
         <c:if test="${requestScope.listDep != null}">
             <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                               url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                               url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
 
             <sql:query dataSource = "${snapshot}" var = "listLocation">
