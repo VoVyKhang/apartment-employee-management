@@ -76,7 +76,7 @@
                         <th>Times</th>
                         <th>Date</th>
                         <th>Reason </th>
-                        <th>Deparment </th>
+                        <th>Department </th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -94,8 +94,8 @@
                             <td>${listrp.name}</td>
                             <td>${listrp.gender}</td>
                             <td><c:choose>
-                                    <c:when test="${listrp.status eq  1}">thuong</c:when>
-                                    <c:otherwise>Phat</c:otherwise>
+                                    <c:when test="${listrp.status eq  1}">Reward</c:when>
+                                    <c:otherwise>Penalty</c:otherwise>
                                 </c:choose></td>
                             <td>${listrp.times}</td>
                             <td>${listrp.applicableDate}</td>
