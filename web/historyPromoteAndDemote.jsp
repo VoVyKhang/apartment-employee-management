@@ -18,21 +18,8 @@
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
-
-        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                           user = "sa"  password = "12345"/>
-
-        <sql:query dataSource = "${snapshot}" var = "listHisPos1">
-            select status
-            from HistoryPos
-        </sql:query>
-
-        <sql:query dataSource = "${snapshot}" var = "listHisPos2">
-            select type
-            from HistoryPos
-        </sql:query>
-         <div style="margin: 0 32px; width: 100%">
+        
+        <div style="margin: 0 32px; width: 100%">
              
                         <form action="mainController" method="post" >
                     <div class="row filter-row">
@@ -46,18 +33,16 @@
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
                                 <option value="" >All Type</option>
-                                <c:forEach var="listHisPos2" items="${listHisPos2.rows}">
-                                    <option value="${listHisPos2.type}">${listHisPos2.type}</option>
-                                </c:forEach>
+                                <option value="0" >Promote</option>
+                                <option value="1" >Demote</option>
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statushispos"> 
                                 <option value="" >All Status</option>
-                                <c:forEach var="listHisPos1" items="${listHisPos1.rows}">
-                                    <option value="${listHisPos1.status}" >${listHisPos1.status}</option>
-                                </c:forEach>
+                                <option value="1" >Active</option>
+                                <option value="0" >Inactive</option>
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">

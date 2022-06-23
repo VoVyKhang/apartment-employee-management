@@ -23,11 +23,6 @@
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
 
-        <sql:query dataSource = "${snapshot}" var = "listCon">
-            select status
-            from Contract
-        </sql:query>
-
         <sql:query dataSource = "${snapshot}" var = "listTyCon">
             select name
             from TypeContract
@@ -61,9 +56,8 @@
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
                                 <option value="" >All Contract</option>
-                                <c:forEach var="listCon" items="${listCon.rows}">
-                                    <option value="${listCon.status}">${listCon.status}</option>
-                                </c:forEach>
+                                <option value="0" >Expired</option>
+                                <option value="1" >OK</option>
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">
