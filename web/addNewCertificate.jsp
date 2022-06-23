@@ -43,7 +43,7 @@
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
                 </c:if>
-                <form action="mainController" style="margin: 0 32px" class="form-position">            
+                <form action="mainController" style="margin: 0 16px" class="form-position">            
 
                     <div class="form-group">
                         <span> Name certificate</span>

@@ -17,6 +17,15 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/globalstyles.css"/>
+        <style>
+            .title{
+                margin-top: 14px
+            }
+            
+            .btn-primary{
+                margin-top: 44px
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -31,25 +40,25 @@
             select depName
             from Department
         </sql:query>
-        <div style="margin: 0 32px" class="list-employee">
+        <div style="margin: 0 16px" class="list-employee">
             <form action="mainController" method="post" class="form-reward-penalty">
                 <div class="row filter-row">
                     <div class="col-sm-6 col-md-3">
-                        <div class="form-floating mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">
+                        <div class="form-group mb-3 mt-3">
                             <label for="ID">Employee ID</label>
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">                          
                         </div>
                     </div>  
                     <div class="col-sm-6 col-md-3">
-                        <div class="form-floating mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter email" name="txtSearchName">
+                        <div class="form-group mb-3 mt-3">
                             <label for="name">Employee Name</label>
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter email" name="txtSearchName">                           
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3"> 
                         <div class="form-group form-focus select-focus">
-                            <label >Department</label>
-                            <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
+                            <label class="title">Department</label>
+                            <select name="depName" class="form-select form-select-md-5 mb-1 list-options form-control" > 
                                 <option value="allDep">All</option>
                                 <c:forEach var="listDep" items="${listDep.rows}">
                                     <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
@@ -58,7 +67,7 @@
                         </div>
                     </div>        
                     <div class="col-sm-6 col-md-3 ">
-                        <input type="submit" value="Search"  class="btn btn-secondary btn-sm">
+                        <input class="btn btn-primary" type="submit" value="Search"  class="btn btn-secondary btn-sm">
                         <input type="hidden" name="action" value="searchRP"/>
                     </div>
                 </div>  
@@ -77,9 +86,9 @@
                         <th>Date</th>
                         <th>Name</th>
                         <th>Reason </th>
-                        <th>Deparment </th>
+                        <th>Department </th>
                         <th>Edit</th>
-                        <th>Delete</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -111,15 +120,9 @@
                                     <c:param name="nameemp" value="${listrp.name}"> </c:param>
                                     <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
                                 </c:url>
-                                <a href="${update}"><i class="fas fa-trash-alt"></i></i></a>
+                                <a href="${update}"><i class="fas fa-edit"></i></a>
                             </td>
-                            <td>
-                                <c:url var="delete" value="mainController">
-                                    <c:param name="action" value="DeleteRp"> </c:param>
-                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
-                                </c:url>
-                                <a href="${delete}"><i class="fas fa-trash-alt"></i></i></a>
-                            </td>
+                            
                         </tr>
                     </c:forEach>
                     </tbody>

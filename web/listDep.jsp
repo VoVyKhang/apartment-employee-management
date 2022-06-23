@@ -15,6 +15,17 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <title>List Department</title>
+        <style>
+            .btn-primary{
+                background-color: #01a3ed !important;
+                border: 1px solid #01a3ed !important;
+                border-radius: 20px !important;
+                font-size: 18px;
+                font-weight: 600;
+                min-width: 150px;
+                padding: 10px 20px;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -32,15 +43,15 @@
             </sql:query>
             <div style="margin: 0 32px" class="list-employee">
                 <form action="mainController" method="POST" class="form-reward-penalty">
-                    <div class="row filter-row">
-
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter Name" name="txtSearchName">
-                                <label for="name">Department Name</label>
+                    <div class="row filter-row" style="margin-left: 16px">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group mb-3 mt-3">
+                                <label>Department Name</label>
+                                <input type="text" class="form-control " id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" name="txtSearchName">
+                                
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3"> 
+                        <div class="col-sm-6 col-md-4 mt-3"> 
                             <div class="form-group form-focus select-focus">
                                 <label >Location</label>
                                 <select name="locationDep" class="form-select form-select-md-5 mb-1 list-options" > 
@@ -51,9 +62,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3 ">
-                            <input type="submit" value="Filter"/>
-                            <input type="hidden" name="action" value="filterDepByLocation"/>
+                             <div class="col-sm-6 col-md-4 " style="margin-top: 48px">
+                            <input class="btn btn-primary" type="submit" value="Filter"/>
+                            <input  type="hidden" name="action" value="filterDepByLocation"/>
                         </div>
                     </div>
                 </form>
@@ -76,8 +87,6 @@
                             <c:forEach var="listDep" varStatus="counter" items="${requestScope.listDep}">
                             <form action="mainController">
                                 <tr>
-
-
                                     <td>${listDep.depNum}</td>                            
                                     <td>${listDep.depName}</td>
                                     <td>${listDep.description}</td>
@@ -97,12 +106,9 @@
                                             <c:param name="id" value="${listDep.depNum}"> </c:param>
                                         </c:url>
                                         <a href="${delete}"><i class="fas fa-trash-alt"></i></a>
-
                                     </td>
-
                                 </tr>
                             </form> 
-
                         </c:forEach>
                         </tbody>
                     </table>
@@ -111,7 +117,6 @@
             <div class="dep-btn">
                 <p style="color:green">${requestScope.WARNING}<p>
                     <a href="createNewDep.jsp">Create New Department</a>
-
                     <a href="mainController?action=showlist&type=changedep">Change Department</a>
             </div>
         </div>

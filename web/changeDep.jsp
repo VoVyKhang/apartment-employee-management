@@ -15,15 +15,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Change Department</title>
         <link rel="stylesheet" href="css/globalstyles.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <a></a>
+        <style>
+            .btn-primary{
+                background-color: #01a3ed !important;
+                border: 1px solid #01a3ed !important;
+                border-radius: 10px !important;
+                font-size: 18px;
+                font-weight: 600;
+                min-width: 100px;
+                padding: 10px 20px;
+                margin-top: 48px
+            }
+            
+            
+        </style>
 </head>
 <body>
     <c:import url="header.jsp"></c:import>
     <c:import url="sidebar.jsp"></c:import>  
     <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                       url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
                        user = "sa"  password = "12345"/>
 
     <sql:query dataSource = "${snapshot}" var = "listDep">
@@ -39,15 +50,16 @@
             <form action="mainController" method="post" class="form-reward-penalty">
                 <div class="row filter-row">  
                     <div class="col-sm-6 col-md-3">
-                        <div class="form-floating mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter Name" name="txtSearchName">
+                        <div class="form-group mb-3 mt-3">
                             <label for="name">Employee Name</label>
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>"  name="txtSearchName">
+                            
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3"> 
+                    <div class="col-sm-6 col-md-3 mt-3"> 
                         <div class="form-group form-focus select-focus">
                             <label >Department</label>
-                            <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
+                            <select name="depName" class="form-select form-select-md-5 mb-1 list-options form-control" > 
                                 <option value="allDep">All</option>
                                 <c:forEach var="listDep" items="${listDep.rows}">
                                     <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
@@ -55,11 +67,13 @@
                             </select>
                         </div>
                     </div>     
-                    <div class="col-sm-6 col-md-3"> 
+                    <div class="col-sm-6 col-md-3 mt-3"> 
                         <div class="form-group form-focus select-focus">
-                            <label >Position</label>
-                            <select name="posEmp" class="form-select form-select-md-5 mb-1 list-options" > 
-                                <option value="allPos">All</option>
+                            <div style="margin-bottom: 8px" >Position</div>
+                            <select name="posEmp" class="form-select form-select-md-5 mb-1 list-options form-control" > 
+                                <option value="allPos">
+                                    All
+                                </option>
                                 <c:forEach var="listPos" items="${listPos.rows}">
                                     <option value="${listPos.posName}" ><c:out value="${listPos.posName}"/></option>                       
                                 </c:forEach>
@@ -67,7 +81,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 ">
-                        <input type="submit" value="Filter"  class="btn btn-secondary btn-sm">
+                        <input type="submit" value="Filter"  class="btn btn-primary">
                         <input type="hidden" name="action" value="filterChangeDep"/>
                     </div>
                 </div>  
@@ -105,7 +119,7 @@
                                 </br>
 
                                 <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                                   url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                                                   url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
                                                    user = "sa"  password = "12345"/>
 
                                 <sql:query dataSource = "${snapshot}" var = "result">
@@ -137,8 +151,13 @@
                             </td>
                         </tr>
 
+<<<<<<< HEAD
+
+
+=======
                         
                    
+>>>>>>> f4902f3146ef73f69dff32c7861c544fba5adbe1
                     </form> 
                 </c:forEach>
                 </tbody>

@@ -14,12 +14,13 @@
         <title>List Employee</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/styles.css"/>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
-        
+
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
@@ -28,29 +29,57 @@
             select depName
             from Department
         </sql:query>
-            
+
         <sql:query dataSource = "${snapshot}" var = "listPos">
             select posName
             from Position
         </sql:query>
-            
-            <div class="list__employee">
 
+        <div class="list__employee">
+
+            <div>
                 <h3 class="list__employee-title">Employee</h3>
-                <a class="list__employee-link add-btn" href="createNewEmp.jsp">
+                <a class="list__employee-link add-btn" style="margin-top: 16px" href="createNewEmp.jsp">
                     <i class="ri-add-fill list__employee-icon"></i>
                     Add Employee
                 </a>
-                <div> <p style="color: green">${requestScope.COMPLETED}</p></div>
-            
-        <form action="mainController" method="post" >
-                <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-floating mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
-                            <label for="name">Employee Name</label>
+                <div> 
+                    <p style="color: green">${requestScope.COMPLETED}</p>
+                </div>
+            </div>
+
+            <div>
+                <form action="mainController" method="post" >
+                    <div class="row filter-row">
+                        <div class="col-sm-6 col-md-3" style="margin-top: 8px">
+                            <div class="form-group mb-3 mt-3" >
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter name..." name="empname">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3"> 
+                            </br>
+                            <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
+                                <option value="" >All Department</option>
+                                <c:forEach var="listDep" items="${listDep.rows}">
+                                    <option value="${listDep.depName}">${listDep.depName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            </br>
+                            <select class="form-select form-select-md-5 mb-1 list-options" name="posname"> 
+                                <option value="" >All Position</option>
+                                <c:forEach var="listPos" items="${listPos.rows}">
+                                    <option value="${listPos.posName}">${listPos.posName}</option>
+                                </c:forEach>
+                            </select>
+                        </div> 
+                        <div class="col-sm-6 col-md-3 ">
+                            </br>
+                            <input type="submit" value="searchEmp" name="action" class="btn btn-secondary btn-sm">
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="col-sm-6 col-md-3"> 
                         </br>
                         <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
@@ -78,6 +107,11 @@
                 </div>
             </form>
                             
+=======
+                </form>
+            </div>
+
+>>>>>>> 17fe9170490fdb3bfe2e349af728388f9f47dc9b
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
                     <table class="table table-striped list__employee-table">
@@ -87,6 +121,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">DOB</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Department</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Reward - Penalty</th>
@@ -110,6 +145,7 @@
 
                                     <td>${listEmp.gender}</td>
                                     <td>${listEmp.dob}</td>
+                                    <td>${listEmp.email}</td>
                                     <td>${listEmp.depName}</td>
 
                                     <td>
@@ -118,7 +154,7 @@
                                         </a>
                                     </td>
 
-                                  
+
                                     <td>
                                         <c:url var="create" value="mainController">
                                             <c:param name="action" value="pushss"> </c:param>
@@ -131,7 +167,7 @@
 
                                     <td>
                                         <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=detail">
-                                        <i class="fas fa-address-card"></i></a>
+                                            <i class="fas fa-address-card"></i></a>
                                     </td>
 
                                 </tr>

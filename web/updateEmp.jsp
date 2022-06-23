@@ -17,195 +17,239 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Employee</title>
+        <style>
+            .form__title{
+                padding: 4px 0
+            }
+
+            .form__select{
+                width: 586.6px !important;
+                height: 38px !important;
+                background-clip: padding-box;
+                border: 1px solid #ced4da;
+            }
+
+            .day-of-birth{
+                margin-left: 15px
+            }
+
+            .image{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%
+            }
+
+            .btn-primary{
+                background-color: #01a3ed !important;
+                border: 1px solid #01a3ed !important;
+                border-radius: 20px !important;
+                font-size: 18px;
+                font-weight: 600;
+                min-width: 150px;
+                padding: 10px 20px;
+                margin-top: 16px
+            }
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="container">
+            <div class="modal-content" style="margin: 0 16px">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Employee</h5>
+                </div>
+
+                <div>
+                    <div>
+                        <p style="margin: 16px 16px 0 16px">The employee being updated is: ${requestScope.Employee.name}</p>
+                </div>
+            </div>
+
+            <div class="modal-body">
                 <form action="mainController" method="post" enctype="multipart/form-data">
                     <div class="row">
-                        <h1 style="text-align:center">Update Employee</h1>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Name</label>
+                                <input class="form-control" type="text" name="empname"
+                                       <c:choose>
+                                           <c:when test="${not empty requestScope.Employee.name}">
+                                               value="${requestScope.Employee.name}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               value="${requestScope.namereg}"
+                                           </c:otherwise>
+                                       </c:choose>                                                  
+                                       >
+                                <p style="color: red">${requestScope.WARNINGNAME}</p>    
+                            </div>                  
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Address</label>
+                                <input class="form-control" type="text" name="empadd"
+                                       <c:choose>
+                                           <c:when test="${not empty requestScope.Employee.address}">
+                                               value="${requestScope.Employee.address}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               value="${requestScope.addreg}"
+                                           </c:otherwise>  
+                                       </c:choose> 
+                                       >
+                                <p style="color:red">${requestScope.WARNINGADD}</p>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="row">
-                        <div class="col-6"><p>The employee being updated is: ${requestScope.Employee.name}</p></div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Phone</label> 
+                                <input class="form-control" type="text" name="empphone"
+                                       <c:choose>
+                                           <c:when test="${not empty requestScope.Employee.phoneNum}">
+                                               value="${requestScope.Employee.phoneNum}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               value="${requestScope.phonereg}"
+                                           </c:otherwise>
+                                       </c:choose>                                                                                                                        
+                                       >
+                                <p style="color:red">${requestScope.WARNINGPHONE}</p>
+                            </div>
+                        </div>
 
-                </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-form-label form__title">Gender</div>  
+                                <select name="empgen  " class="form__select">
+                                    <option value="Male" 
+                                            <c:choose>
+                                                <c:when test="${not empty requestScope.Employee.gender}">
+                                                    <c:if test="${requestScope.Employee.gender == 'Male'}">selected=""</c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>
+                                                </c:otherwise>
+                                            </c:choose>                                    
+                                            >
+                                        Male
+                                    </option>
 
+                                    <option value="Female" 
+                                            <c:choose>
+                                                <c:when test="${not empty requestScope.Employee.gender}">
+                                                    <c:if test="${requestScope.Employee.gender == 'Female'}">selected=""</c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${requestScope.genreg == 'Female'}">selected=""</c:if>
+                                                </c:otherwise>
+                                            </c:choose>                            
+                                            >Female
+                                    </option>
 
-                <div class="row" >
-                    <div class="col-6">Name: <input type="text" name="empname"
-                                                    <c:choose>
-                                                        <c:when test="${not empty requestScope.Employee.name}">
-                                                            value="${requestScope.Employee.name}"
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            value="${requestScope.namereg}"
-                                                        </c:otherwise>
-                                                    </c:choose>                                                  
-                                                    ></br>
+                                    <option value="Other" 
+                                            <c:choose>
+                                                <c:when test="${not empty requestScope.Employee.gender}">
+                                                    <c:if test="${requestScope.Employee.gender == 'Other'}">selected=""</c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${requestScope.genreg == 'Other'}">selected=""</c:if>
+                                                </c:otherwise>
+                                            </c:choose>                                                                                                     
+                                            >Other
+                                    </option>
 
-                        <p style="color: red">${requestScope.WARNINGNAME}</p>                      
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-6">Address <input type="text" name="empadd"
-                                                      <c:choose>
-                                                          <c:when test="${not empty requestScope.Employee.address}">
-                                                              value="${requestScope.Employee.address}"
-                                                          </c:when>
-                                                          <c:otherwise>
-                                                              value="${requestScope.addreg}"
-                                                          </c:otherwise>  
-                                                      </c:choose> 
-                                                      ></br>
 
-                        <p style="color:red">${requestScope.WARNINGADD}</p>
-                    </div>
-                </div>    
-                </br>
 
-                <div class="row">
-                    <div class="col-6">Age: <input type="text" name="empage"
-                                                   <c:choose>
-                                                       <c:when test="${not empty requestScope.Employee.age}">
-                                                           value="${requestScope.Employee.age}"
-                                                       </c:when>
-                                                       <c:otherwise>
-                                                           value="${requestScope.agereg}"
-                                                       </c:otherwise>
-                                                   </c:choose>
-                                                   ></br>
-
-                        <p style="color: red">${requestScope.WARNINGAGE}</p>
+                    <div class="row">
+                        <div class="form-group day-of-birth">
+                            <label class="col-form-label">Day of birth</label>
+                            <input class="form-control form__select" type="date" name="empdob"
+                                   <c:choose>
+                                       <c:when test="${not empty requestScope.Employee.dob}">
+                                           value="${requestScope.Employee.dob}"
+                                       </c:when>
+                                       <c:otherwise>
+                                           value="${requestScope.dobreg}"
+                                       </c:otherwise>
+                                   </c:choose>    
+                                   >
+                            <p style="color:red">${requestScope.WARNINGDOB}</p>
+                        </div>
                     </div>
 
-                    <div class="col-6">Gender: 
-                        <select name="empgen">
-                            <option value="Male" 
-                                    <c:choose>
-                                        <c:when test="${not empty requestScope.Employee.gender}">
-                                            <c:if test="${requestScope.Employee.gender == 'Male'}">selected=""</c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>
-                                        </c:otherwise>
-                                    </c:choose>                                    
-                                    >Male</option>
 
-                            <option value="Female" 
-                                    <c:choose>
-                                        <c:when test="${not empty requestScope.Employee.gender}">
-                                            <c:if test="${requestScope.Employee.gender == 'Female'}">selected=""</c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:if test="${requestScope.genreg == 'Female'}">selected=""</c:if>
-                                        </c:otherwise>
-                                    </c:choose>                            
-                                    >Female</option>
-
-                            <option value="Other" 
-                                    <c:choose>
-                                        <c:when test="${not empty requestScope.Employee.gender}">
-                                            <c:if test="${requestScope.Employee.gender == 'Other'}">selected=""</c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:if test="${requestScope.genreg == 'Other'}">selected=""</c:if>
-                                        </c:otherwise>
-                                    </c:choose>                                                                                                     
-                                    >Other</option>
-
-                        </select></br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <label class="col-form-label">Current image</label>
+                                <img class="align-self-center img-fluid image" 
+                                     <c:choose>
+                                         <c:when test="${not empty requestScope.Employee.imgPath}">
+                                             src='images/${requestScope.Employee.imgPath}'
+                                         </c:when> 
+                                         <c:otherwise>
+                                             src='images/${requestScope.imgreg}'
+                                         </c:otherwise>
+                                     </c:choose>           
+                                     >
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-form-label">New Image</div>
+                                <input class="form-control" type="file" name="empimg" value="" accept="image/*">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </br>
 
-
-                <div class="row">
-                    <div class="col-6">Phone: <input type="text" name="empphone"
-                                                     <c:choose>
-                                                         <c:when test="${not empty requestScope.Employee.phoneNum}">
-                                                             value="${requestScope.Employee.phoneNum}"
-                                                         </c:when>
-                                                         <c:otherwise>
-                                                             value="${requestScope.phonereg}"
-                                                         </c:otherwise>
-                                                     </c:choose>                                                                                                                        
-                                                     ></br>
-
-                        <p style="color:red">${requestScope.WARNINGPHONE}</p>
+                    <div>
+                        <p style="color:red">${requestScope.WARNINGFIELD}</p>
+                        <p style="color:green">${requestScope.COMPLETED}</p>
+                        <p style="color: red">${requestScope.FAILINSERT}</p>
                     </div>
-                    <div class="col-6">Date of birth <input type="date" name="empdob"
-                                                            <c:choose>
-                                                                <c:when test="${not empty requestScope.Employee.dob}">
-                                                                    value="${requestScope.Employee.dob}"
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    value="${requestScope.dobreg}"
-                                                                </c:otherwise>
-                                                            </c:choose>    
-                                                            ></br>
 
-                        <p style="color:red">${requestScope.WARNINGDOB}</p>
+                    <div>
+                        <input type="hidden" name="action" value="updateEmp">
+                        <input type="hidden" name="oldimg"
+                               <c:choose>
+                                   <c:when test="${not empty requestScope.Employee.imgPath}">
+                                       value="${requestScope.Employee.imgPath}"
+                                   </c:when>
+                                   <c:otherwise>
+                                       value="${requestScope.imgreg}"
+                                   </c:otherwise>
+                               </c:choose>    
+                               >
+                        <input type="hidden" name="idemp"
+                               <c:choose>
+                                   <c:when test="${not empty requestScope.Employee.idEmp}">
+                                       value="${requestScope.Employee.idEmp}"
+                                   </c:when>
+                                   <c:otherwise>
+                                       value="${requestScope.idreg}"
+                                   </c:otherwise>
+                               </c:choose>   
+                               >
+                        <div>
+                            <input class="btn btn-primary" type="submit" value="Update">
+                            <input class="btn btn-primary" type="reset" value="Reset">
+                        </div>
                     </div>
-                </div>
-                </br>
-
-
-                <div class="row">
-
-                    <div class="col-6">Image: <img class="align-self-center img-fluid" 
-                                                   <c:choose>
-                                                       <c:when test="${not empty requestScope.Employee.imgPath}">
-                                                           src='images/${requestScope.Employee.imgPath}'
-                                                       </c:when> 
-                                                       <c:otherwise>
-                                                           src='images/${requestScope.imgreg}'
-                                                       </c:otherwise>
-                                                   </c:choose>           
-
-                                                   width="120"
-                                                   height="120"></div>
-                    <div class="col-6">New Image: <input type="file" name="empimg" value="" accept="image/*"></div>
-                </div>
-                </br>
-
-
-                <div class="row"><p style="color:red">${requestScope.WARNINGFIELD}</p>
-                    <p style="color:green">${requestScope.COMPLETED}</p>
-                    <p style="color: red">${requestScope.FAILINSERT}</p>
-                </div>
-                </br>
-
-
-                <div class="row">
-                    <input type="hidden" name="action" value="updateEmp">
-                    <input type="hidden" name="oldimg"
-                           <c:choose>
-                               <c:when test="${not empty requestScope.Employee.imgPath}">
-                                   value="${requestScope.Employee.imgPath}"
-                               </c:when>
-                               <c:otherwise>
-                                   value="${requestScope.imgreg}"
-                               </c:otherwise>
-                           </c:choose>    
-                           >
-
-                    <input type="hidden" name="idemp"
-
-                           <c:choose>
-                               <c:when test="${not empty requestScope.Employee.idEmp}">
-                                   value="${requestScope.Employee.idEmp}"
-                               </c:when>
-                               <c:otherwise>
-                                   value="${requestScope.idreg}"
-                               </c:otherwise>
-                           </c:choose>   
-                           >
-                    <div class="col-6"><input type="submit" value="Update"></div>
-                    <div class="col-6"><input type="reset" value="Reset"></div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+
     </body>
 </html>

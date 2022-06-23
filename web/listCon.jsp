@@ -38,13 +38,13 @@
                 <form action="mainController" method="post" >
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
+                            <div class="form-group mb-3 mt-3">
                                 <label for="name">Employee Name</label>
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
+                                
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3"> 
-                            </br>
+                                <div class="col-sm-6 col-md-3" style="margin-top: 48px"> 
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typecon"> 
                                 <option value="" >All Type</option>
                                 <c:forEach var="listTyCon" items="${listTyCon.rows}">
@@ -53,17 +53,21 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            </br>
+                        <div class="col-sm-6 col-md-3" style="margin-top: 48px">
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
+<<<<<<< HEAD
                                 <option value="" <c:if test="${null eq sessionScope.statuscon}">selected=""</c:if>>All Contract</option>
                                 <option value="0" <c:if test="${0 eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option>
                                 <option value="1" <c:if test="${1 eq sessionScope.statuscon}">selected="1"</c:if>>OK</option>
+=======
+                                <option value="" >All Contract</option>
+                                <option value="0" >Expired</option>
+                                <option value="1" >Active</option>
+>>>>>>> 17fe9170490fdb3bfe2e349af728388f9f47dc9b
                             </select>
                         </div> 
-                        <div class="col-sm-6 col-md-3 ">
-                            </br>
-                            <input type="submit" value="searchCon" name="action" class="btn btn-secondary btn-sm">
+                        <div class="col-sm-6 col-md-3 " style="margin-top: 46px">
+                            <input type="submit" value="searchCon" name="action" class="btn btn-primary">
                         </div>
                     </div>
                 </form>

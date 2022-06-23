@@ -20,8 +20,8 @@
         <c:import url="sidebar.jsp"></c:import>   
 
 
-            <div>
-                <form action="mainController" method="POST" style="margin: 0 32px; width: 100%">
+        <div style="width: 100%">
+                <form action="mainController" method="POST" style="margin: 0 32px" class="form-position">
 
                 <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                    url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
@@ -32,37 +32,51 @@
                     from TypeContract
                 </sql:query>
 
-
-
                 <p>Contract of employee : ${requestScope.Contract.nameEmp} </p>
                 <p style="color:red">${requestScope.WARNING}</p>
-                <label>Type of contract</label>
-                <select name="typecon">
-                    <c:forEach var = "rowlist" items = "${listtype.rows}">
+                
+                    <div class="form-group">
+                        <label>Type of contract</label>
+                        <select name="typecon" class="form-control">
+                            <c:forEach var = "rowlist" items = "${listtype.rows}">
 
-                        <option value="${rowlist.idTypeCon}"
-                                <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
-                                    selected=""
-                                </c:if>
-                                >${rowlist.name}</option>
-                    </c:forEach>
-                </select>
-                </br>
-                Sign Day <input type="text" readonly="" value="${requestScope.Contract.signDay}"/></br>
-                Expiration Day <input type="date" value="${requestScope.Contract.expDay}" name="expday"/></br>
+                                <option value="${rowlist.idTypeCon}"
+                                        <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
+                                            selected=""
+                                        </c:if>
+                                        >${rowlist.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                
+
+                <div>
+                    <div class="form-group">
+                        <span>
+                            Sign Day
+                        </span> 
+                        <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
+                    </div>
+                    <div class="form-group">
+                        <span>
+                            Expiration Day 
+                        </span>
+                        <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
+                    </div>
+                </div>
                 <c:choose>
                     <c:when test="${requestScope.Contract.status eq 1}">
-                        Status: <p style="color:green">OK</p>
+                        Status: <p style="color:green">Active</p>
                     </c:when>
                     <c:otherwise>
                         Status: <p style="color:red">Expired</p>
                     </c:otherwise>
                 </c:choose>
 
-                <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-                <input type="submit" name="action" value="updateCon"/> 
-                
-
+                <div>
+                    <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
+                    <input class="btn btn-primary" type="submit" name="action" value="updateCon"/> 
+                </div>
             </form>
         </div>
     </body>
