@@ -53,7 +53,7 @@
                                                 <a href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=renewal">Renewal</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <p style="color:green">OK</p>
+                                                <p style="color:green">Active</p>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>

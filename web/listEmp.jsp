@@ -36,6 +36,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">DOB</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Department</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Reward - Penalty</th>
@@ -59,6 +60,7 @@
 
                                     <td>${listEmp.gender}</td>
                                     <td>${listEmp.dob}</td>
+                                    <td>${listEmp.email}</td>
                                     <td>${listEmp.depName}</td>
 
                                     <td>

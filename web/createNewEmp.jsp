@@ -17,24 +17,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create New Employee</title>
         <style>
-            .select-options{
-                width: 540px;
-                height: 41.5px;
+            /*Create new employee*/
+            .form__select{
+                width: 602.6px;
+                height: 38px;
                 border: 1px solid #ced4da;
                 border-radius: 0.25rem;
-                padding: 0 4px;
-                font-size: 1rem;
-                color: #495057;
-
             }
 
-            .emp-button{
-                margin-right: 16px;
-                padding: 6px 30px !important
+            .form__title-gender{
+                margin-top: 10px;
+                padding: 2px 0;
             }
-            
-            p{
-                margin-bottom: 0
+
+            .form__title{
+                padding: 4px 0;
+            }
+
+            .btn-primary{
+                background-color: #01a3ed !important;
+                border: 1px solid #01a3ed !important;
+                border-radius: 20px !important;
+                font-size: 18px;
+                font-weight: 600;
+                min-width: 150px;
+                padding: 10px 20px;
             }
         </style>
     </head>
@@ -42,148 +49,148 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="container">
-                <form action="mainController" method="post" enctype="multipart/form-data" class="form-position" style=" width: 100%">
-
-                    <div class="row form-group" >
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Name</label>
-                            <input class="form-control" id="formGroupExampleInput" type="text" name="empname"
-                            <c:if test="${not empty requestScope.namereg}">value="${requestScope.namereg}"</c:if>></br>
-                        <p style="color: red">${requestScope.WARNINGNAME}</p>
-                    </div>
-                    <div class="col-6">
-                        <label for="formGroupExampleInput1">Address</label> 
-                        <input class="form-control" id="formGroupExampleInput1" type="text" name="empadd"
-                               <c:if test="${not empty requestScope.addreg}">value="${requestScope.addreg}"</c:if>></br>
-                        <p style="color:red">${requestScope.WARNINGADD}</p>
-                    </div>
+            <div class="modal-content" style="margin: 0 16px">           
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Employee</h5>
                 </div>
 
-                <div class="row form-group" >
-                    <div class="col-6">
-                        <label for="formGroupExampleInput2">Age</label> 
-                        <input class="form-control" type="text" id="formGroupExampleInput2" name="empage"
-                               <c:if test="${not empty requestScope.agereg}">value="${requestScope.agereg}"</c:if>></br>
-                        <p style="color: red">${requestScope.WARNINGAGE}</p>
-                    </div>
-                    <div class="col-6">
-                        <label for="formGroupExampleInput3">Gender</label> 
-                        <select name="empgen" class="form-control" id="formGroupExampleInput3">
-                            <option value="Male" 
-                                    <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>>Male</option>
-                                    <option value="Female" 
-                                    <c:if test="${requestScope.genreg == 'Female'}">selected=""</c:if>>Female</option>
-                                    <option value="Other" 
-                                    <c:if test="${requestScope.genreg == 'Other'}">selected=""</c:if>>Other</option>
-                            </select></br>
+                <div class="modal-body">
+                    <form action="mainController" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Name</label>
+                                    <input class="form-control"  type="text" name="empname"
+                                    <c:if test="${not empty requestScope.namereg}">value="${requestScope.namereg}"</c:if>>
+                                <p style="color: red">${requestScope.WARNINGNAME}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Address</label>
+                                <input class="form-control" type="text" name="empadd"
+                                       <c:if test="${not empty requestScope.addreg}">value="${requestScope.addreg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGADD}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Phone </label>
+                                <input class="form-control" type="text" name="empphone"
+                                       <c:if test="${not empty requestScope.phonereg}">value="${requestScope.phonereg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGPHONE}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Day of birth </label>
+                                <input class="form-control" type="date" name="empdob"
+                                       <c:if test="${not empty requestScope.dobreg}">value="${requestScope.dobreg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGDOB}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Image</label>
+                                <input class="form-control" name="empimg" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <%Date d = new Date();%>
+                                <label class="col-form-label">Join Day</label>
+                                <input class="form-control" type="text" name="empjoin" readonly="" value="<%=d%>">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">  
+                            <div class="form-group">
+                                <label class="col-form-label">Password</label>
+                                <input type="text" class="form-control" name="emppass" 
+                                       <c:if test="${not empty requestScope.passreg}">value="${requestScope.passreg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGPASS}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form__title-gender">Gender</div>
+                                <select class="form__select" name="empgen">
+
+                                    <option value="Male" 
+                                            <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>>Male
+                                            </option>
+
+                                            <option value="Female" 
+                                            <c:if test="${requestScope.genreg == 'Female'}">selected=""</c:if>>Female
+                                            </option>
+
+                                            <option value="Other" 
+                                            <c:if test="${requestScope.genreg == 'Other'}">selected=""</c:if>>Other
+                                            </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                                           url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                                           user = "sa"  password = "12345"/>
+
+                        <!--list department-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <sql:query dataSource = "${snapshot}" var = "listdep">
+                                    select depNum, depName
+                                    from Department
+                                </sql:query>
+                                <div class="form__title">Department</div>
+                                <select name="empdep" class="form__select">
+                                    <c:forEach var = "rowdep" items = "${listdep.rows}">
+                                        <option value="${rowdep.depNum}"
+                                                <c:if test="${rowdep.depNum eq iddep}">selected=""</c:if>>${rowdep.depName}
+                                                </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--list position-->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <sql:query dataSource = "${snapshot}" var = "listpos">
+                                    select idPos, posName
+                                    from Position
+                                </sql:query>
+                                <div class="form__title">Position</div>
+                                <fmt:parseNumber var="idpos" type="number" value="${requestScope.posreg}"></fmt:parseNumber>
+                                    <select name="emppos" class="form__select" >
+                                    <c:forEach var = "rowpos" items = "${listpos.rows}">
+                                        <option value="${rowpos.idPos}"
+                                                <c:if test="${rowpos.idPos eq idpos}">selected=""</c:if>>${rowpos.posName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row form-group" >
-                        <div class="col-6">
-                            <label for="formGroupExampleInput4">Phone</label> 
-                            <input class="form-control" id="formGroupExampleInput4" type="text" name="empphone"
-                            <c:if test="${not empty requestScope.phonereg}">value="${requestScope.phonereg}"</c:if>></br>
-                        <p style="color:red">${requestScope.WARNINGPHONE}</p>
-                    </div>
-                    <div class="col-6">
-                        <label for="formGroupExampleInput5">Day of birth</label> 
-                        <input class="form-control" id="formGroupExampleInput5" type="date" name="empdob"
-                               <c:if test="${not empty requestScope.dobreg}">value="${requestScope.dobreg}"</c:if>></br>
-                        <p style="color:red">${requestScope.WARNINGDOB}</p>
-                    </div>
-                </div>
-                </br>
-
-                <div class="row form-group" >
-                    <div class="col-6">
-                        <label for="formGroupExampleInput6">Image</label> 
-                        <input class="form-control" id="formGroupExampleInput6" type="file" name="empimg" accept="image/*"></div>
-                    <div class="col-6">
-                        <%Date d = new Date();%>
-                        <label for="formGroupExampleInput7">Join Day</label> 
-                        <input class="form-control"  id="formGroupExampleInput7" type="text" name="empjoin" readonly="" value="<%=d%>"></div>
-                </div>
-                </br>
-
-                <div class="row form-group" >
-                    <div class="col-6">
-                        <label for="formGroupExampleInput8">Email</label> 
-                        <input class="form-control" id="formGroupExampleInput8" type="text" name="empmail" 
-                               <c:if test="${not empty requestScope.emailreg}">value="${requestScope.emailreg}"</c:if>></br>
-                        <p style="color:red">${requestScope.WARNINGMAIL}</p>
-                        <p style="color:red">${requestScope.WARNINGMAILS}</p>
-
-                    </div>
-                    <div class="col-6">
-
-                        <label for="formGroupExampleInput9">Password</label> 
-                        <input class="form-control"  id="formGroupExampleInput9" type="text" name="emppass" 
-                               <c:if test="${not empty requestScope.passreg}">value="${requestScope.passreg}"</c:if>></br>
-                        <p style="color:red">${requestScope.WARNINGPASS}</p>
-                    </div>    
-                </div>
-
-                <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                   url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                                   user = "sa"  password = "12345"/>
-                <div class="row">
-
-                    <!--list department-->
-                    <div class="col-6">
-                        <sql:query dataSource = "${snapshot}" var = "listdep">
-                            select depNum, depName
-                            from Department
-                        </sql:query>
-
-                        <div style="margin-bottom: 9px">Department</div> 
-                        <fmt:parseNumber var="iddep" type="number" value="${requestScope.depreg}"></fmt:parseNumber>
-                            <select name="empdep" class="select-options">
-                            <c:forEach var = "rowdep" items = "${listdep.rows}">
-                                <option value="${rowdep.depNum}"
-                                        <c:if test="${rowdep.depNum eq iddep}">selected=""</c:if>>${rowdep.depName}</option>
-                            </c:forEach>
-                        </select>
+                    <div>
+                        <div >
+                            <p style="color:red">${requestScope.WARNINGFIELD}</p>
+                            <p style="color:green">${requestScope.COMPLETED}</p>
+                            <p style="color: red">${requestScope.FAILINSERT}</p>
+                        </div>
                     </div>
 
-                    <!--list position-->
-                    <div class="col-6">
-                        <sql:query dataSource = "${snapshot}" var = "listpos">
-                            select idPos, posName
-                            from Position
-                        </sql:query>
-
-                        <div style="margin-bottom: 9px">Position</div> 
-                        <fmt:parseNumber var="idpos" type="number" value="${requestScope.posreg}"></fmt:parseNumber>
-                            <select name="emppos" class="select-options" >
-                            <c:forEach var = "rowpos" items = "${listpos.rows}">
-                                <option value="${rowpos.idPos}"
-                                        <c:if test="${rowpos.idPos eq idpos}">selected=""</c:if>>${rowpos.posName}</option>
-                            </c:forEach>
-                        </select>
+                    <div>
+                        <div >
+                            <input type="hidden" name="action" value="createEmp">
+                            <input class="btn btn-primary" type="submit" value="Create">
+                            <input class="btn btn-primary" type="reset" value="Reset">
+                        </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <p style="color:red">${requestScope.WARNINGFIELD}</p>
-                        <p style="color:green">${requestScope.COMPLETED}</p>
-                        <p style="color: red">${requestScope.FAILINSERT}</p>
-                    </div>
-                </div>
-                </br>
-
-                <div class="row">
-                    <div class="col-6">
-                        <input type="hidden" name="action" value="createEmp">
-                        <input class="btn btn-secondary btn-xl emp-button" type="submit" value="Create">
-                        <input class="btn btn-secondary btn-xl emp-button" type="reset" value="Reset">
-                    </div>
-
-
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+
     </body>
 </html>

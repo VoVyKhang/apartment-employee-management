@@ -14,6 +14,27 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/globalstyles.css"/>
+        <style>
+            .btn-primary{
+                background-color: #01a3ed !important;
+                border: 1px solid #01a3ed !important;
+                border-radius: 20px !important;
+                font-size: 18px;
+                font-weight: 600;
+                min-width: 150px;
+                padding: 6px 20px !important;
+                margin-top: 48px;
+            }
+            
+            .dependent__link{
+                font-size: 18px;
+                font-weight: 600
+            }
+            
+            .dependent__link:hover{
+                opacity: 0.8
+            }
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -29,25 +50,24 @@
                 <c:if test="${requestScope.updateSuccess != null}" >
                     <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
                 </c:if>
-                <a href="mainController?action=addNewDependent" >Add new dependent</a>
-                <h3>List dependent</h3>
+                <a class="dependent__link" href="mainController?action=addNewDependent" >Add new dependent</a>
                 <form action="mainController" method="post" class="form-reward-penalty">
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">
+                            <div class="form-group mb-3 mt-3">
                                 <label for="ID">Employee ID</label>
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter email" name="txtSearchIdemp">                               
                             </div>
                         </div>  
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter email" name="txtSearchName">
+                            <div class="form-group mb-3 mt-3">
                                 <label for="name">Employee Name</label>
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter email" name="txtSearchName">                               
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 ">
                             <input type="hidden" name="action" value="searchDependent"/>
-                            <input type="submit" value="Search"  class="btn btn-secondary btn-sm">
+                            <input type="submit" value="Search"  class="btn btn-primary btn-sm">
                         </div>
                     </div>  
                 </form>

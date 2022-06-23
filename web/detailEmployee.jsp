@@ -130,7 +130,7 @@
                                         <li>
                                             <c:choose>
                                                 <c:when test="${rowcon.status eq 1}">
-                                                    <p style="color:green">OK</p>
+                                                    <p style="color:green">Active</p>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <p style="color:red">Expired</p>

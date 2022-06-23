@@ -20,14 +20,21 @@
             <div style="margin: 0 32px" class="list-regulation">
             <c:if test="${requestScope.listReg != null}">
                 <c:if test="${not empty requestScope.listReg}">
-                    <form action="mainController" method="POST">
-                        Type: <select name="regType">
-                            <option value="2" selected>All</option>
-                            <option value="1">Reward</option>
-                            <option value="0">Penalty</option>
-                        </select>
-                        <input type="submit" value="Filter"/>
-                        <input type="hidden" name="action" value="filterReg"/>
+                    <form action="mainController" method="POST" class="form-position">
+                        <div class="form-group">
+                            <div style="margin-bottom: 8px">
+                                Type 
+                            </div>
+                            <select name="regType" class="form-control" style="width: 20%">
+                                <option value="2" selected>All</option>
+                                <option value="1">Reward</option>
+                                <option value="0">Penalty</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: -6px; margin-bottom: 16px">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Filter"/>
+                            <input type="hidden" name="action" value="filterReg"/>
+                        </div>
                     </form>
                     <table class="table table-striped">
                         <thead>

@@ -16,7 +16,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
-            <div>
+        <div style="width: 100%">
                 <div>
                     <a href="mainController?action=hisPromoteAndDemote" >History of promotion and demotion</a>
                 </div>
@@ -35,10 +35,10 @@
                                     <th scope="col">Gender</th>
                                     <th scope="col">Date of birth</th>
                                     <th scope="col">Department</th>
-                                    <th scope="col">Current Positon</th>
+                                    <th scope="col">Current Position</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">New Position</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Update</th>
 
                                 </tr>
                             </thead>
@@ -79,7 +79,7 @@
                                                 <c:param name="oldIdPos" value="${listEmpPos.idPos}"> </c:param>
                                                 <c:param name="idEmp" value="${listEmpPos.idEmp}"> </c:param>
                                             </c:url>
-                                            <a href="${save}"><i class="fas fa-trash-alt"></i></i></a>
+                                            <a href="${save}"><i class="fas fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 </form> 
