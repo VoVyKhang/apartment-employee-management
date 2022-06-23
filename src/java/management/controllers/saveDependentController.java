@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import management.dao.DependentDAO;
 import management.dto.DependentDTO;
+import management.regex.RegexEmp;
 
 /**
  *
@@ -45,6 +46,10 @@ public class saveDependentController extends HttpServlet {
             String gender = request.getParameter("gender");
             String name = request.getParameter("name");
             int i = 0;
+            boolean checkName = RegexEmp.checkEmpName(name);
+            boolean checkRelationship = RegexEmp.checkEmpName(relationship);
+            boolean checkDob = RegexEmp.checkValidationDob(dob);
+
             if (name.equals("") || relationship.equals("") || dob.equals("0000-00-00")) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
@@ -52,6 +57,28 @@ public class saveDependentController extends HttpServlet {
                 request.getRequestDispatcher("updateDependent.jsp").forward(request, response);
                 i++;
             }
+            if (checkName == false) {
+                ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
+                request.setAttribute("depenObject", depenObject);
+                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("updateDependent.jsp").forward(request, response);
+                i++;
+            }
+            if (checkRelationship == false) {
+                ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
+                request.setAttribute("depenObject", depenObject);
+                request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("updateDependent.jsp").forward(request, response);
+                i++;
+            }
+            if (checkDob == false) {
+                ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
+                request.setAttribute("depenObject", depenObject);
+                request.setAttribute("nameInvalid", "Can only enter the date before today");
+                request.getRequestDispatcher("updateDependent.jsp").forward(request, response);
+                i++;
+            }
+
             if (i == 0) {
                 boolean result = DependentDAO.updateDependent(name, gender, dob, relationship, idEmp, idDepen);
                 if (result == true) {

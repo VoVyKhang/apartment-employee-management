@@ -23,6 +23,16 @@
                 <c:if test="${requestScope.filedBlank != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h3>
                 </c:if>
+                <c:if test="${requestScope.checkDob != null}" >
+                    <h3 style="color: red" ><c:out value="${requestScope.checkDob}" /></h3>
+                </c:if>
+
+                <c:if test="${requestScope.checkRelationship != null}" >
+                    <h3 style="color: red" ><c:out value="${requestScope.checkRelationship}" /></h3>
+                </c:if>
+                <c:if test="${requestScope.nameInvalid != null}" >
+                    <h3 style="color: red" ><c:out value="${requestScope.nameInvalid}" /></h3>
+                </c:if>
                 <table class="table table-striped list-certificate">
                     <thead>
                         <tr style="text-align: center">
@@ -43,7 +53,7 @@
                                 <td scope="row">${depenObject.idEmp}</td>
                                 <td>${depenObject.empName}</td>                            
                                 <td>${depenObject.idDepen}</td>
-                                <td><input name="name" value="${depenObject.name}"></td>
+                                <td><input name="name" value="${depenObject.name}"></td>                                
                                 <td>
                                     <select name="gender">
                                         <option value="Male" <c:if test="${depenObject.gender eq 'Male'}">selected="${Male}"</c:if>>Male</option>
@@ -51,12 +61,15 @@
                                         <option value="Other" <c:if test="${depenObject.gender eq 'Other'}">selected="${Other}"</c:if>>Other</option>
                                         </select>                                    
                                     </td>
-                                    <td><input type="date" name="dob" value="${depenObject.dob}"></td>
+                                    <td><input type="date" name="dob" value="${depenObject.dob}">
+
+                                </td>
                                 <td><input name="relationship" value="${depenObject.relationship}">
+
                                     <input type="hidden" name="idEmp" value="${depenObject.idEmp}">
                                     <input type="hidden" name="idDepen" value="${depenObject.idDepen}"></td>
-                                    <input type="hidden" name="action" value="Save Dependent"></td>
-                                <td><input class="btn btn-secondary btn-sm" type="submit" value="Save"></td>
+                            <input type="hidden" name="action" value="Save Dependent"></td>
+                            <td><input class="btn btn-secondary btn-sm" type="submit" value="Save"></td>
                             </tr>                        
                         </c:forEach>
                     </form>

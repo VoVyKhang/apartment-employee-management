@@ -43,17 +43,21 @@ public class mainController extends HttpServlet {
                 url = "sessionPositionController";
             } else if (action.equals("updatePosition")) {
                 url = "updatePositionController";
-            } else if (action.equals("promoteAndDemote")) {
-                url = "promoteAndDemoteController";
-            } else if (action.equals("SavePosition")) {
+            }
+//            else if (action.equals("promoteAndDemote")) {
+//                url = "promoteAndDemoteController";
+//            } 
+            else if (action.equals("SavePosition")) {
                 url = "savePositionController";
             } else if (action.equals("history")) {
                 url = "listHistoryController";
             } else if (action.equals("createcon")) {
                 url = "newConController";
-            } else if (action.equals("hisPromoteAndDemote")) {
-                url = "listHistoryPositionController";
-            } else if (action.equals("listCertificate")) {
+            } 
+//            else if (action.equals("hisPromoteAndDemote")) {
+//                url = "listHistoryPositionController";
+//            } 
+            else if (action.equals("listCertificate")) {
                 url = "listCertificateController";
             } else if (action.equals("add new certificate")) {
                 url = "addNewCertificateController";
@@ -135,6 +139,16 @@ public class mainController extends HttpServlet {
                 url = "FilterHisDepController";
             } else if (action.equals("filterChangeDep")) {
                 url = "FilterChangeDepController";
+            } else if (action.equals("searchEmp")) {
+                url = "SearchEmpController";
+            } else if (action.equals("searchCon")) {
+                url = "SearchConController";
+            } else if (action.equals("searchCer")) {
+                url = "SearchCerController";
+            } else if (action.equals("searchHisPos")) {
+                url = "SearchHisPosController";
+            } else if (action.equals("searchPro")) {
+                url = "SearchProController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

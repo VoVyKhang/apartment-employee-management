@@ -33,6 +33,8 @@ public class HistoryPosDAO {
     private static final String LIST_ALL_HIS_POS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n" +
 "  WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos";
 
+    private static final String SEARCH_HISPOS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n" +
+"WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and hp.type like ? and hp.status like ? and e.name like ?";
     public static boolean insertNewPos(int idEmp, int idPos, int type) throws SQLException {
         try {
             conn = DBUtils.getConnection();
@@ -131,5 +133,45 @@ public class HistoryPosDAO {
         }
         return listHisPos;
     }
-
+     
+     //List all contract filter 
+    public static ArrayList<HistoryPositionDTO> filterHisPo(String typehispos, String statushispos, String empname) throws SQLException {
+        ArrayList<HistoryPositionDTO> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                    ptm = conn.prepareStatement(SEARCH_HISPOS);
+                     ptm.setString(1,"%" + typehispos + "%" );
+                     ptm.setString(2,"%" + statushispos + "%" );
+                     ptm.setString(3,"%" + empname + "%" );
+                     rs = ptm.executeQuery();
+                 if (rs != null) {
+                     while (rs.next()) {
+                    int idHisPos = rs.getInt("idHisPos");                  
+                    String nameEmp = rs.getString("name");
+                    String posName = rs.getString("posName");
+                    String deliveryDate = rs.getString("deliveryDate");
+                    int type = rs.getInt("type");
+                    int status = rs.getInt("status");
+                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos,nameEmp,posName,deliveryDate,status,type);
+                    list.add(his);
+                }
+                 }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }    
 }

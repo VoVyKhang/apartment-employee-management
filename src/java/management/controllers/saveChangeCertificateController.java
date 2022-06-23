@@ -18,6 +18,7 @@ import management.dao.CertificateDAO;
 import management.dao.DependentDAO;
 import management.dto.CertificateDTO;
 import management.dto.DependentDTO;
+import management.regex.RegexEmp;
 
 /**
  *
@@ -45,10 +46,33 @@ public class saveChangeCertificateController extends HttpServlet {
             String idEmp = request.getParameter("idEmp");
             String idTypeCer = request.getParameter("idTypeCer");
             int i = 0;
+            boolean checkName = RegexEmp.checkEmpName(cerName);
+            boolean checkDoi = RegexEmp.checkValidationDob(doi);
             if (cerName.equals("") || doi.equals("0000-00-00")) {
                 ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
+                request.setAttribute("listTypeCer", listTypeCer);
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.getRequestDispatcher("updateCertificate.jsp").forward(request, response);
+                i++;
+            }
+            if (checkName == false) {
+                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
+                request.setAttribute("listCerObject", listCerObject);
+                request.setAttribute("listTypeCer", listTypeCer);
+                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("updateCertificate.jsp").forward(request, response);
+                i++;
+            }
+
+            if (checkDoi == false) {
+                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
+                request.setAttribute("listCerObject", listCerObject);
+                request.setAttribute("listTypeCer", listTypeCer);
+                request.setAttribute("checkDoi", "Can only enter the date before today");
                 request.getRequestDispatcher("updateCertificate.jsp").forward(request, response);
                 i++;
             }

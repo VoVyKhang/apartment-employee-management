@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package management.controllers;
 
@@ -14,16 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import management.dao.EmployeeDAO;
-import management.dao.PositionDAO;
-import management.dto.EmployeeDTO;
+import management.dao.ContractDAO;
+import management.dto.ContractDTO;
 
 /**
  *
- * @author AD
+ * @author Admin
  */
-public class promoteAndDemoteController extends HttpServlet {
+public class SearchConController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,12 +36,30 @@ public class promoteAndDemoteController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmpPos = PositionDAO.listEmpPos();
-            
-            request.setAttribute("listEmpPos", listEmpPos);
-            request.getRequestDispatcher("PromoteAndDemotePosition.jsp").forward(request, response);
+            String typecon = request.getParameter("typecon");
+            String statuscon = request.getParameter("statuscon");
+            String empname = request.getParameter("empname");
+            ArrayList<ContractDTO> listCon;
+            if(typecon == null && statuscon == null && empname == null) {
+                listCon = ContractDAO.filterCon("","","");
+            } else if(typecon != null && statuscon == null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon,"","");
+            } else if(typecon == null && statuscon != null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon,"","");
+            } else if(typecon == null && statuscon == null && empname != null) {
+                listCon = ContractDAO.filterCon("","",empname);
+            } else if(typecon != null && statuscon != null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon,statuscon,"");
+            } else if(typecon == null && statuscon != null && empname != null) {
+                listCon = ContractDAO.filterCon("",statuscon,empname);
+            } else if(typecon != null && statuscon == null && empname != null) {
+                listCon = ContractDAO.filterCon(typecon,"",empname);
+            } else    
+            listCon = ContractDAO.filterCon(typecon,statuscon,empname);
+            request.setAttribute("listCon", listCon);
+            request.getRequestDispatcher("listCon.jsp").forward(request, response);
         }
     }
 
@@ -61,7 +78,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchConController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -79,7 +96,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchConController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

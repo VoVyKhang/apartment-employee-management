@@ -25,6 +25,12 @@
         <c:if test="${requestScope.listCerObject != null}">
 
             <div style="margin: 0 32px; width: 100%">
+                <c:if test="${nameInvalid != null}">
+                    <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                </c:if>
+                <c:if test="${requestScope.checkDoi != null}" >
+                    <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
+                </c:if>
                 <table class="table table-striped list-certificate">
                     <thead>
                         <tr>

@@ -212,6 +212,26 @@
         <servlet-name>FilterChangeDepController</servlet-name>
         <servlet-class>management.controllers.FilterChangeDepController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchEmpController</servlet-name>
+        <servlet-class>management.controllers.SearchEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchConController</servlet-name>
+        <servlet-class>management.controllers.SearchConController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCerController</servlet-name>
+        <servlet-class>management.controllers.SearchCerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchHisPosController</servlet-name>
+        <servlet-class>management.controllers.SearchHisPosController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProController</servlet-name>
+        <servlet-class>management.controllers.SearchProController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -423,6 +443,26 @@
     <servlet-mapping>
         <servlet-name>FilterChangeDepController</servlet-name>
         <url-pattern>/FilterChangeDepController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchEmpController</servlet-name>
+        <url-pattern>/SearchEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchConController</servlet-name>
+        <url-pattern>/SearchConController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCerController</servlet-name>
+        <url-pattern>/SearchCerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchHisPosController</servlet-name>
+        <url-pattern>/SearchHisPosController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProController</servlet-name>
+        <url-pattern>/SearchProController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

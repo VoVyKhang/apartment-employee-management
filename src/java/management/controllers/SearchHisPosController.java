@@ -1,29 +1,28 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import management.dao.EmployeeDAO;
-import management.dao.PositionDAO;
-import management.dto.EmployeeDTO;
+import java.util.ArrayList;
+import management.dao.HistoryPosDAO;
+import management.dto.HistoryPositionDTO;
 
 /**
  *
- * @author AD
+ * @author Admin
  */
-public class promoteAndDemoteController extends HttpServlet {
+public class SearchHisPosController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,12 +36,30 @@ public class promoteAndDemoteController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmpPos = PositionDAO.listEmpPos();
-            
-            request.setAttribute("listEmpPos", listEmpPos);
-            request.getRequestDispatcher("PromoteAndDemotePosition.jsp").forward(request, response);
+            String typehispos = request.getParameter("typehispos");
+            String statushispos = request.getParameter("statushispos");
+            String empname = request.getParameter("empname");
+            ArrayList<HistoryPositionDTO> listHisPos;
+            if(typehispos == null && statushispos == null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo("","","");
+            } else if(typehispos != null && statushispos == null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"","");
+            } else if(typehispos == null && statushispos != null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"","");
+            } else if(typehispos == null && statushispos == null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo("","",empname);
+            } else if(typehispos != null && statushispos != null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos,statushispos,"");
+            } else if(typehispos == null && statushispos != null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo("",statushispos,empname);
+            } else if(typehispos != null && statushispos == null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"",empname);
+            } else    
+            listHisPos = HistoryPosDAO.filterHisPo(typehispos,statushispos,empname);
+            request.setAttribute("listHisPos", listHisPos);
+            request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);    
         }
     }
 
@@ -61,7 +78,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchHisPosController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -79,7 +96,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchHisPosController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -6,18 +6,34 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List Employee</title>
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="./css/styles.css"/>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
+        
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
 
+        <sql:query dataSource = "${snapshot}" var = "listDep">
+            select depName
+            from Department
+        </sql:query>
+            
+        <sql:query dataSource = "${snapshot}" var = "listPos">
+            select posName
+            from Position
+        </sql:query>
+            
             <div class="list__employee">
 
                 <h3 class="list__employee-title">Employee</h3>
@@ -26,7 +42,40 @@
                     Add Employee
                 </a>
                 <div> <p style="color: green">${requestScope.COMPLETED}</p></div>
-
+            
+        <form action="mainController" method="post" >
+                <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
+                            <label for="name">Employee Name</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3"> 
+                        </br>
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
+                            <option value="" >All Department</option>
+                            <c:forEach var="listDep" items="${listDep.rows}">
+                                <option value="${listDep.depName}">${listDep.depName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        </br>
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="posname"> 
+                            <option value="" >All Position</option>
+                            <c:forEach var="listPos" items="${listPos.rows}">
+                                <option value="${listPos.posName}">${listPos.posName}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+                    <div class="col-sm-6 col-md-3 ">
+                        </br>
+                        <input type="submit" value="searchEmp" name="action" class="btn btn-secondary btn-sm">
+                    </div>
+                </div>
+            </form>
+                            
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
                     <table class="table table-striped list__employee-table">

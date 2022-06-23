@@ -7,6 +7,7 @@ package management.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import management.dao.DependentDAO;
+import management.dto.DependentDTO;
+import management.regex.RegexEmp;
 
 /**
  *
@@ -40,13 +43,34 @@ public class saveNewDependentController extends HttpServlet {
             String dob = request.getParameter("dob");
             String relationship = request.getParameter("relationship");
             String idEmp = request.getParameter("idEmp");
-                        
             int i = 0;
-            if (name.equals("") || dob.equals("0000-00-00")|| gender.equals("")|| relationship.equals("") || idEmp.equals("")) {
+            boolean checkName = RegexEmp.checkEmpName(name);
+            boolean checkRelationship = RegexEmp.checkEmpName(relationship);
+            boolean checkDob = RegexEmp.checkValidationDob(dob);
+            if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
+
+            if (checkName == false) {
+                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                i++;
+            }
+
+            if (checkRelationship == false) {
+                request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                i++;
+            }
+
+            if (checkDob == false) {
+                request.setAttribute("checkDob", "Can only enter the date before today");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                i++;
+            }
+
             if (i == 0) {
                 boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
                 if (result == true) {

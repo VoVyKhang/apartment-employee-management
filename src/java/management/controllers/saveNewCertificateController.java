@@ -7,6 +7,7 @@ package management.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import management.dao.CertificateDAO;
+import management.dto.CertificateDTO;
+import management.regex.RegexEmp;
 
 /**
  *
@@ -39,12 +42,27 @@ public class saveNewCertificateController extends HttpServlet {
             String doi = request.getParameter("doi");
             String type = request.getParameter("type");
             String idEmp = request.getParameter("idEmp");
+            boolean checkName = RegexEmp.checkEmpName(nameCer);
+            boolean checkDoi = RegexEmp.checkValidationDob(doi);
             int i = 0;
             if (nameCer.equals("") || doi.equals("0000-00-00")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             }
+
+            if (checkName == false) {
+                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.getRequestDispatcher("addNewCertificateController").forward(request, response);
+                i++;
+            }
+
+            if (checkDoi == false) {
+                request.setAttribute("checkDoi", "Can only enter the date before today");
+                request.getRequestDispatcher("addNewCertificateController").forward(request, response);
+                i++;
+            }
+
             if (i == 0) {
                 boolean result = CertificateDAO.insertCertificate(nameCer, doi, idEmp, type);
                 if (result == true) {

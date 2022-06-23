@@ -30,6 +30,10 @@ public class PositionDAO {
     private static final String LIST_EMP_POS = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n"
             + "			WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n"
             + "			and e.idEmp = hp.idEmp and hp.idPos = p.idPos";
+    
+    private static final String SEARCH_PRO = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n" 
+            +"WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n" 
+            +"and e.idEmp = hp.idEmp and hp.idPos = p.idPos and d.depName like ? and p.posName like ? and e.name like ?";
     private static Connection cn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -159,5 +163,45 @@ public class PositionDAO {
             }
         }
         return listEmpPos;
+    }
+    
+    //List all promote and demote filter 
+    public static ArrayList<EmployeeDTO> filterpro(String depname, String posname, String empname) throws SQLException {
+        ArrayList<EmployeeDTO> list = new ArrayList<>();
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                     ptm = cn.prepareStatement(SEARCH_PRO);
+                     ptm.setString(1,"%" + depname + "%" );
+                     ptm.setString(2,"%" + posname + "%" );
+                     ptm.setString(3,"%" + empname + "%" );
+                     rs = ptm.executeQuery();
+                while (rs.next()) {
+                int idEmp = rs.getInt("idEmp");
+                String imgPath = rs.getString("imgPath");
+                String name = rs.getString("name");
+                String gender = rs.getString("gender");
+                String dob = rs.getString("dob");
+                String depName = rs.getString("depName");
+                String posName = rs.getString("posName");
+                int idPos = rs.getInt("idPos");
+                EmployeeDTO e = new EmployeeDTO(idEmp, name, gender, dob, imgPath, depName, posName, idPos);
+                list.add(e);
+                }
+                 } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return list;
     }
 }
