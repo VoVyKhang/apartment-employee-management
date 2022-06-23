@@ -20,26 +20,26 @@ import management.dto.RewardPenaltyDTO;
  */
 public class RewardPenaltyDAO {
 
-    private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
+    private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "            from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re \n"
             + "            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.idEmp like ?";
-    private static String LIST_RP_FOR_ALL = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
+    private static String LIST_RP_FOR_ALL = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos\n"
             + "and e.idEmp like ? and e.name like ? and d.depName like ?";
-    private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
+    private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ?  ";
 
-    private static String LIST_RP_NAMEEMP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as reason,d.depName,r.idReg\n"
+    private static String LIST_RP_NAMEEMP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ? and e.idEmp like ? ";
 
-    private static String UPDATE_RP = "update RewardAndPenalty set idReg = ? ,times = ? \n"
+    private static String UPDATE_RP = "update RewardAndPenalty set idReg = ? ,times = ?, reason = ? \n"
             + "where idEmp = ?";
 
-    private static String CREATE_NEW_RP = "INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp)\n"
-            + "VALUES(?, ?, ?, ?)";
+    private static String CREATE_NEW_RP = "INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp,reason)\n"
+            + "VALUES(?, ?, ?, ?,?)";
 
     private static String DELETE_RP = "DELETE FROM RewardAndPenalty WHERE idEmp=?";
 
@@ -65,10 +65,11 @@ public class RewardPenaltyDAO {
                         int status = rs.getInt("Status");
                         int times = rs.getInt("Times");
                         Date applicableDate = rs.getDate("ApplicableDate");
+                        String namere = rs.getString("Namere");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
                         int idReg = rs.getInt("IDReg");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, namere, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -109,10 +110,11 @@ public class RewardPenaltyDAO {
                         int status = rs.getInt("Status");
                         int times = rs.getInt("Times");
                         Date applicableDate = rs.getDate("ApplicableDate");
+                        String namere = rs.getString("Namere");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
                         int idReg = rs.getInt("IDReg");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, namere, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -154,10 +156,11 @@ public class RewardPenaltyDAO {
                         int status = rs.getInt("Status");
                         int times = rs.getInt("Times");
                         Date applicableDate = rs.getDate("ApplicableDate");
+                        String namere = rs.getString("Namere");
                         String reason = rs.getString("Reason");
                         String depName = rs.getString("DepName");
                         int idReg = rs.getInt("IDReg");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, status, times, applicableDate, idReg);
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName, idRP, reason, namere, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }
@@ -177,7 +180,7 @@ public class RewardPenaltyDAO {
     }
 
     //Update Reward & Penalty
-    public static boolean updateRP(int idReg, int times, int idEmp) {
+    public static boolean updateRP(int idReg, int times, int idEmp, String reason) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -188,7 +191,8 @@ public class RewardPenaltyDAO {
                 //gan data vao dau cham ?
                 pst.setInt(1, idReg);
                 pst.setInt(2, times);
-                pst.setInt(3, idEmp);
+                pst.setString(3, reason);
+                pst.setInt(4, idEmp);
                 pst.executeUpdate();
             }
             return true;
@@ -207,7 +211,7 @@ public class RewardPenaltyDAO {
     }
 
     //Create New Reward & Penalty
-    public static boolean createnewRP(int idReg, int times, int idEmp) {
+    public static boolean createnewRP(int idReg, int times, int idEmp, String reason) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -220,6 +224,7 @@ public class RewardPenaltyDAO {
                 pst.setDate(2, d);
                 pst.setInt(3, times);
                 pst.setInt(4, idEmp);
+                pst.setString(5, reason);
                 pst.executeUpdate();
             }
             return true;
@@ -263,6 +268,7 @@ public class RewardPenaltyDAO {
             }
         }
     }
+    
     public static ArrayList<RewardPenaltyDTO> listRpForAll(String idEmpText, String nameEmp, String depName) throws SQLException {
         ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
         Connection cn = null;
@@ -286,10 +292,11 @@ public class RewardPenaltyDAO {
                         int status = rs.getInt("Status");
                         int times = rs.getInt("Times");
                         Date applicableDate = rs.getDate("ApplicableDate");
+                        String namere = rs.getString("Namere");
                         String reason = rs.getString("Reason");
-                        String nameDep = rs.getString("DepName");
+                        String depName1 = rs.getString("DepName");
                         int idReg = rs.getInt("IDReg");
-                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, nameDep, idRP, reason, status, times, applicableDate, idReg);
+                        RewardPenaltyDTO rp = new RewardPenaltyDTO(idEmp, name, gender, imgPath, depName1, idRP, reason, namere, status, times, applicableDate, idReg);
                         listrp.add(rp);
                     }
                 }

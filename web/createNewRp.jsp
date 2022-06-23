@@ -26,7 +26,7 @@
             <p>ID Employee:  ${sessionScope.id}</p>
             <p>Name: ${sessionScope.name} </p>
             <p>Reason: 
-                <select name="reasonrp" >
+                <select name="idReg" >
                     <c:forEach var="list" items="${requestScope.list}">
                         <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
                             ${list.name}
@@ -36,6 +36,7 @@
             </p>
             <%Date d = new Date();%>
             <p>Date Create <input type="text" name="daterp" value="<%=d%>" readonly=""/></p>
+            <p><textarea rows="4" cols="40" name="reasonrp" form="usrform"> Enter reason here...</textarea></p>
             <p>Time <input type="number" name="timerp" value="1" readonly=""/></p>
             <p>
                 <input type="hidden" value="${sessionScope.id}" name="idemp">

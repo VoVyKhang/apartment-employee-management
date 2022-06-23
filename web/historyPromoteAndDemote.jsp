@@ -32,17 +32,17 @@
                         <div class="col-sm-6 col-md-3"> 
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
-                                <option value="" >All Type</option>
-                                <option value="0" >Promote</option>
-                                <option value="1" >Demote</option>
+                                <option value="" <c:if test="${null eq sessionScope.typehispos}">selected=""</c:if>>All Type</option>
+                                <option value="0" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
+                                <option value="1" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             </br>
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statushispos"> 
-                                <option value="" >All Status</option>
-                                <option value="1" >Active</option>
-                                <option value="0" >Inactive</option>
+                                <option value="" <c:if test="${null eq sessionScope.statushispos}">selected=""</c:if>>All Status</option>
+                                <option value="1" <c:if test="${1 eq sessionScope.statushispos}">selected="1"</c:if>>Active</option>
+                                <option value="0" <c:if test="${0 eq sessionScope.statushispos}">selected="0"</c:if>>Inactive</option>
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">

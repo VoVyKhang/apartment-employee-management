@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import management.dao.ContractDAO;
 import management.dto.ContractDTO;
 
@@ -38,6 +39,7 @@ public class SearchConController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);
             String typecon = request.getParameter("typecon");
             String statuscon = request.getParameter("statuscon");
             String empname = request.getParameter("empname");
@@ -58,6 +60,8 @@ public class SearchConController extends HttpServlet {
                 listCon = ContractDAO.filterCon(typecon,"",empname);
             } else    
             listCon = ContractDAO.filterCon(typecon,statuscon,empname);
+            session.setAttribute("typecon", typecon);
+            session.setAttribute("statuscon", statuscon);
             request.setAttribute("listCon", listCon);
             request.getRequestDispatcher("listCon.jsp").forward(request, response);
         }

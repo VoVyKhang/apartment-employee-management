@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import management.dao.HistoryPosDAO;
 import management.dto.HistoryPositionDTO;
 
@@ -38,6 +39,7 @@ public class SearchHisPosController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);
             String typehispos = request.getParameter("typehispos");
             String statushispos = request.getParameter("statushispos");
             String empname = request.getParameter("empname");
@@ -58,6 +60,8 @@ public class SearchHisPosController extends HttpServlet {
                 listHisPos = HistoryPosDAO.filterHisPo(typehispos,"",empname);
             } else    
             listHisPos = HistoryPosDAO.filterHisPo(typehispos,statushispos,empname);
+            session.setAttribute("typehispos", typehispos);
+            session.setAttribute("statushispos", statushispos);
             request.setAttribute("listHisPos", listHisPos);
             request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);    
         }

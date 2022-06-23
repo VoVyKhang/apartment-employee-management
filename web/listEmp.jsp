@@ -56,7 +56,8 @@
                         <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
                             <option value="" >All Department</option>
                             <c:forEach var="listDep" items="${listDep.rows}">
-                                <option value="${listDep.depName}">${listDep.depName}</option>
+                                <option value="${listDep.depName}"
+                                        <c:if test="${listDep.depName eq sessionScope.depname}">selected="${listDep.depName}"</c:if>>${listDep.depName}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -65,7 +66,8 @@
                         <select class="form-select form-select-md-5 mb-1 list-options" name="posname"> 
                             <option value="" >All Position</option>
                             <c:forEach var="listPos" items="${listPos.rows}">
-                                <option value="${listPos.posName}">${listPos.posName}</option>
+                                <option value="${listPos.posName}"
+                                        <c:if test="${listPos.posName eq sessionScope.posname}">selected="${listPos.posname}"</c:if>>${listPos.posName}</option>
                             </c:forEach>
                         </select>
                     </div> 
