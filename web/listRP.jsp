@@ -88,7 +88,7 @@
                             <td>${listrp.idRP}</td>
                             <td>${listrp.idEmp}</td> 
                             <td>
-                                <img class="align-self-center img-fluid" src='${listrp.imgPath}' width="120"
+                                <img class="align-self-center img-fluid" src='images/${listrp.imgPath}' width="120"
                                      height="120">
                             </td>
                             <td>${listrp.name}</td>

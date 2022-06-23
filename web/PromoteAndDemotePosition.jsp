@@ -124,12 +124,10 @@
                                         </td>
 
                                         <td> 
-                                            <c:url var="save" value="mainController">
-                                                <c:param name="action" value="SavePosition"> </c:param>
-                                                <c:param name="oldIdPos" value="${listEmpPos.idPos}"> </c:param>
-                                                <c:param name="idEmp" value="${listEmpPos.idEmp}"> </c:param>
-                                            </c:url>
-                                            <a href="${save}"><i class="fas fa-trash-alt"></i></i></a>
+                                            <input type="submit" value="Save"/>
+                                            <input type="hidden" name="action" value="SavePosition"/>
+                                            <input type="hidden" name="oldIdPos" value="${listEmpPos.idPos}"/>
+                                            <input type="hidden" name="idEmp" value="${listEmpPos.idEmp}"/>
                                         </td>
                                     </tr>
                                 </form> 
