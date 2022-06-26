@@ -49,6 +49,10 @@
                 padding: 10px 20px;
                 margin-top: 16px
             }
+            
+            .btn-primary:hover{
+                transform: scale(0.9)
+            }
         </style>
     </head>
     <body>
@@ -64,8 +68,8 @@
                 <div>
                     <div>
                         <p style="margin: 16px 16px 0 16px">The employee being updated is: ${requestScope.Employee.name}</p>
+                    </div>
                 </div>
-            </div>
 
             <div class="modal-body">
                 <form action="mainController" method="post" enctype="multipart/form-data">

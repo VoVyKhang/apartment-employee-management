@@ -40,7 +40,6 @@ public class newEmpController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             String name = request.getParameter("empname");
             String address = request.getParameter("empadd");
-            String age = request.getParameter("empage");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
@@ -54,11 +53,11 @@ public class newEmpController extends HttpServlet {
             String fileName = extractFileName(part);
             boolean checkInsert = false;
 
-            if (RegexEmp.chekcEmpFieldNull(name, address, age, phone, dob, email, password)) {
+            if (RegexEmp.chekcEmpFieldNull(name, address, phone, dob, email, password)) {
                 url = DONE;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidation(name, address, age, phone, dob, email, password)) {
+                if (RegexEmp.checkEmpValidation(name, address, phone, dob, email, password)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         String savePath = PATH_IMG + File.separator + fileName;
@@ -69,16 +68,15 @@ public class newEmpController extends HttpServlet {
                     }
 
                     try {
-                        checkInsert = EmployeeDAO.inserNewEmp(name, address, age, gender, phone, dob, fileName, iddep, idpos, email, password);
+                        checkInsert = EmployeeDAO.inserNewEmp(name, address, gender, phone, dob, fileName, iddep, idpos, email, password);
                     } catch (SQLException ex) {
                         Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     if (checkInsert) {
                         request.setAttribute("COMPLETED", "Successful");
                         url = DONE;
-                        request.getRequestDispatcher(url).forward(request, response);
                     } else {
-                        request.getRequestDispatcher(url).forward(request, response);
+                        url=DONE;
                     }
 
                 } else {
@@ -91,9 +89,6 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     }
 
-                    if (RegexEmp.checkAge(age) == false) {
-                        request.setAttribute("WARNINGAGE", "Age contain only letters and between 15 and 65");
-                    }
 
                     if (RegexEmp.checkPhone(phone) == false) {
                         request.setAttribute("WARNINGPHONE", "Phone contain only letters and length 5 to 15");
@@ -119,7 +114,6 @@ public class newEmpController extends HttpServlet {
 
             request.setAttribute("namereg", name);
             request.setAttribute("addreg", address);
-            request.setAttribute("agereg", age);
             request.setAttribute("genreg", gender);
             request.setAttribute("phonereg", phone);
             request.setAttribute("dobreg", dob);

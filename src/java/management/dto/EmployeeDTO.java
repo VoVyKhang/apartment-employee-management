@@ -13,7 +13,6 @@ public class EmployeeDTO {
     private int idEmp;
     private String name;
     private String address;
-    private int age;
     private String gender;
     private String phoneNum;
     private String dob;
@@ -30,12 +29,11 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(int idEmp, String name, String address, int age, String gender, String phoneNum, String dob, String imgPath, String joinDate, String depName, String posName,
+    public EmployeeDTO(int idEmp, String name, String address, String gender, String phoneNum, String dob, String imgPath, String joinDate, String depName, String posName,
             String email, String password, int statusLog, int role) {
         this.idEmp = idEmp;
         this.name = name;
         this.address = address;
-        this.age = age;
         this.gender = gender;
         this.phoneNum = phoneNum;
         this.dob = dob;
@@ -88,13 +86,7 @@ public class EmployeeDTO {
         this.address = address;
     }
 
-    public int getAge() {
-        return age;
-    }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getGender() {
         return gender;

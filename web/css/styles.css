@@ -1,16 +1,15 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Jun 22, 2022, 11:26:09 AM
-    Author     : DELL
-*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f7f7;
 }
 
 .table td, .table th{
@@ -22,13 +21,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* ============= EMPLOYEE ============ */
 .list__employee{
     width: 100%;
-    margin: 0 16px;
+    margin: 0 32px;
     font-size: 16px;
     text-align: center
-}
-
-.list__employee-table{
-
 }
 
 .list__employee-title{
@@ -92,6 +87,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     text-decoration: none;
     cursor: pointer;
     padding: 4px 10px;
+    display: flex;
 }
 
 .list__employee-link{
@@ -102,5 +98,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .list__employee-icon{
     margin-right: 4px;
     margin-left: 0
+}
+
+.breadcrumb{
+    background-color: #f7f7f7 !important;
+    display: inline-flex !important;
+    float: left !important
+}
+
+.page-title{
+    text-align: initial !important;
+    margin-left: 16px !important
+}
+
+.list-employee__actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
