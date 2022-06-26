@@ -87,7 +87,11 @@ body{
     text-decoration: none;
     cursor: pointer;
     padding: 4px 10px;
+<<<<<<< HEAD
     display: flex;
+=======
+    
+>>>>>>> d2841a57520fe58c305380098d1076cb6806c453
 }
 
 .list__employee-link{

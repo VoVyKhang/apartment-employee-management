@@ -53,7 +53,8 @@
                             <select class="form-select form-select-md-5 mb-1 list-option form-controls" name="typecer"> 
                                 <option value="" >All Certificate</option>
                                 <c:forEach var="listCer" items="${listCer.rows}">
-                                    <option value="${listCer.name}">${listCer.name}</option>
+                                    <option value="${listCer.name}"
+                                            <c:if test="${listCer.name eq sessionScope.typecer}">selected="${listCer.name}"</c:if>>${listCer.name}</option>
                                 </c:forEach>
                             </select>
                         </div> 

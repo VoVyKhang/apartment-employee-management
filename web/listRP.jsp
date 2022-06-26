@@ -84,6 +84,7 @@
                         <th>Type </th>
                         <th>Times</th>
                         <th>Date</th>
+                        <th>Name</th>
                         <th>Reason </th>
                         <th>Department </th>
                         <th>Edit</th>
@@ -108,6 +109,7 @@
                                 </c:choose></td>
                             <td>${listrp.times}</td>
                             <td>${listrp.applicableDate}</td>
+                            <td>${listrp.namere}</td> 
                             <td>${listrp.reason}</td> 
                             <td>${listrp.depName}</td>
                             <td>

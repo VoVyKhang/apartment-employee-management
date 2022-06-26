@@ -48,15 +48,16 @@
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typecon"> 
                                 <option value="" >All Type</option>
                                 <c:forEach var="listTyCon" items="${listTyCon.rows}">
-                                    <option value="${listTyCon.name}">${listTyCon.name}</option>
+                                    <option value="${listTyCon.name}"
+                                            <c:if test="${listTyCon.name eq sessionScope.typecon}">selected="${listTyCon.name}"</c:if>>${listTyCon.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-3" style="margin-top: 48px">
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
-                                <option value="" >All Contract</option>
-                                <option value="0" >Expired</option>
-                                <option value="1" >Active</option>
+                                <option value="" <c:if test="${null eq sessionScope.statuscon}">selected=""</c:if>>All Contract</option>
+                                <option value="1" <c:if test="${1 eq sessionScope.statuscon}">selected="1"</c:if>>Active</option>
+                                <option value="0" <c:if test="${0 eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option> 
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 " style="margin-top: 46px">
@@ -89,7 +90,6 @@
                                         <td>${listCon.signDay}</td>
                                         <td>${listCon.expDay}</td>
                                         <td>${listCon.nameEmp}</td>
-
                                         <td>
                                             <c:choose>
                                                 <c:when test="${listCon.status eq 0}">

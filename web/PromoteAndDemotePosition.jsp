@@ -23,9 +23,7 @@
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
 
-<<<<<<< HEAD
         <div style="width: 100%">
-=======
         <sql:query dataSource = "${snapshot}" var = "listDep">
             select depName
             from Department
@@ -37,7 +35,6 @@
         </sql:query>
             <div style="margin: 0 16px" >
             <div>
->>>>>>> f4902f3146ef73f69dff32c7861c544fba5adbe1
                 <div>
                     <a href="mainController?action=searchHisPos" >History of promotion and demotion</a>
                 </div>
@@ -55,7 +52,8 @@
                         <select class="form-select form-select-md-5 mb-1 list-options" name="depname"> 
                             <option value="" >All Department</option>
                             <c:forEach var="listDep" items="${listDep.rows}">
-                                <option value="${listDep.depName}">${listDep.depName}</option>
+                                <option value="${listDep.depName}"
+                                        <c:if test="${listDep.depName eq sessionScope.depname}">selected="${listDep.depName}"</c:if>>${listDep.depName}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -64,7 +62,8 @@
                         <select class="form-select form-select-md-5 mb-1 list-options" name="posname"> 
                             <option value="" >All Position</option>
                             <c:forEach var="listPos" items="${listPos.rows}">
-                                <option value="${listPos.posName}">${listPos.posName}</option>
+                                <option value="${listPos.posName}"
+                                        <c:if test="${listPos.posName eq sessionScope.posname}">selected="${listPos.posName}"</c:if>>${listPos.posName}</option>
                             </c:forEach>
                         </select>
                     </div> 
@@ -128,19 +127,16 @@
                                         </td>
 
                                         <td> 
-<<<<<<< HEAD
                                             <c:url var="save" value="mainController">
                                                 <c:param name="action" value="SavePosition"> </c:param>
                                                 <c:param name="oldIdPos" value="${listEmpPos.idPos}"> </c:param>
                                                 <c:param name="idEmp" value="${listEmpPos.idEmp}"> </c:param>
                                             </c:url>
                                             <a href="${save}"><i class="fas fa-edit"></i></a>
-=======
                                             <input type="submit" value="Save"/>
                                             <input type="hidden" name="action" value="SavePosition"/>
                                             <input type="hidden" name="oldIdPos" value="${listEmpPos.idPos}"/>
                                             <input type="hidden" name="idEmp" value="${listEmpPos.idEmp}"/>
->>>>>>> f4902f3146ef73f69dff32c7861c544fba5adbe1
                                         </td>
                                     </tr>
                                 </form> 

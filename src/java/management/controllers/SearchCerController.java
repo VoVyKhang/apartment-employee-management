@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import management.dao.CertificateDAO;
 
 /**
@@ -37,6 +38,7 @@ public class SearchCerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);
             String empid = request.getParameter("empid");
             String typecer = request.getParameter("typecer");
             String empname = request.getParameter("empname");
@@ -57,6 +59,7 @@ public class SearchCerController extends HttpServlet {
                 listCer = CertificateDAO.filterCer(empid,"",empname);
             } else    
             listCer = CertificateDAO.filterCer(empid,typecer,empname);
+            session.setAttribute("typecer", typecer);
             request.setAttribute("listCer", listCer);
             request.getRequestDispatcher("listCertificate.jsp").forward(request, response);
         }

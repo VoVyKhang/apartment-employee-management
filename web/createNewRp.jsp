@@ -39,6 +39,7 @@
             <%@include file="header.jsp" %>
         </header>
         <c:import url="sidebar.jsp"></c:import>
+<<<<<<< HEAD
             <div 
                 style="margin: 0 16px; 
                 width: 100%; 
@@ -57,6 +58,39 @@
                     </div>
                 </div>
                     <div class="modal-body" style="padding-top: 0">       
+=======
+<<<<<<< HEAD
+        <div style="margin: 0 32px" class="list-employee">
+            <h1>Create Reward - Penalty </h1>
+        <form action="mainController" method="post">
+            <p>ID Employee:  ${sessionScope.id}</p>
+            <p>Name: ${sessionScope.name} </p>
+            <p>Reason: 
+                <select name="idReg" >
+                    <c:forEach var="list" items="${requestScope.list}">
+                        <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
+                            ${list.name}
+                        </option>
+                    </c:forEach>  
+                </select>
+            </p>
+            <%Date d = new Date();%>
+            <p>Date Create <input type="text" name="daterp" value="<%=d%>" readonly=""/></p>
+            <p><textarea rows="4" cols="40" name="reasonrp" form="usrform"> Enter reason here...</textarea></p>
+            <p>Time <input type="number" name="timerp" value="1" readonly=""/></p>
+            <p>
+                <input type="hidden" value="${sessionScope.id}" name="idemp">
+                <input type="submit" name="action" value="CreateNewRp"> 
+            </p>
+            <c:if test="${requestScope.updateSuccess != null}">
+                <c:out value="${requestScope.updateSuccess}"/>
+            </c:if>
+        </form>
+=======
+            <div style="margin: 0 32px; width: 100%">
+                <h4>Create Reward - Penalty </h4>
+
+>>>>>>> d2841a57520fe58c305380098d1076cb6806c453
                 <form action="mainController" method="post" class="form-position">
                     <div>
                         <p class="title"></p>
@@ -85,6 +119,7 @@
                         <input class="form-control" type="number" name="timerp" value="1" readonly=""/>
                     </div>
 
+<<<<<<< HEAD
                     <div>
                         <input type="hidden" value="${sessionScope.id}" name="idemp">
                         <input class="btn btn-primary" type="submit" name="action" value="CreateNewRp"> 
@@ -94,6 +129,17 @@
                     </c:if>
                 </form>
             </div>
+=======
+                <div>
+                    <input type="hidden" value="${sessionScope.id}" name="idemp">
+                    <input class="btn btn-primary" type="submit" name="action" value="CreateNewRp"> 
+                </div>
+                <c:if test="${requestScope.updateSuccess != null}">
+                    <c:out value="${requestScope.updateSuccess}"/>
+                </c:if>
+            </form>
+>>>>>>> 17fe9170490fdb3bfe2e349af728388f9f47dc9b
+>>>>>>> d2841a57520fe58c305380098d1076cb6806c453
         </div>
     </body>
 </html>

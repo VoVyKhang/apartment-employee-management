@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import management.dao.PositionDAO;
 import management.dto.EmployeeDTO;
 
@@ -38,6 +39,7 @@ public class SearchProController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);
             String depname = request.getParameter("depname");
             String posname = request.getParameter("posname");
             String empname = request.getParameter("empname");
@@ -58,6 +60,8 @@ public class SearchProController extends HttpServlet {
                 listEmpPos = PositionDAO.filterpro(depname,"",empname);
             } else    
             listEmpPos = PositionDAO.filterpro(depname,posname,empname);
+            session.setAttribute("depname", depname);
+            session.setAttribute("posname", posname);
             request.setAttribute("listEmpPos", listEmpPos);
             request.getRequestDispatcher("PromoteAndDemotePosition.jsp").forward(request, response);
         }

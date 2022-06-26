@@ -22,7 +22,7 @@
             <p>ID Employee is being updated:  ${sessionScope.id}</p>
             <p>Name is being updated: ${sessionScope.name} </p>
             <p>
-                <select name="reasonrp" >
+                <select name="idReg" >
                     <c:forEach var="list" items="${requestScope.list}">
                         <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
                             ${list.name}
@@ -30,6 +30,7 @@
                     </c:forEach>  
                 </select>
             </p>
+            <p><textarea rows="4" cols="40" name="reasonrp" form="usrform"> Enter reason here...</textarea></p>
             <p>Time <input type="number" pattern="[0-9\/]*" name="timerp" min="2" max="100" required/></br></p>          
             <p>
                 <input type="hidden" value="${sessionScope.id}" name="idemp">

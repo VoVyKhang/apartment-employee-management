@@ -19,6 +19,7 @@ public class RewardPenaltyDTO {
     private String depName;
     private int idRP;
     private String reason;
+    private String namere;
     private int status;
     private int times;
     private Date applicableDate;
@@ -27,7 +28,7 @@ public class RewardPenaltyDTO {
     public RewardPenaltyDTO() {
     }
 
-    public RewardPenaltyDTO(int idEmp, String name, String gender, String imgPath, String depName, int idRP, String reason, int status, int times, Date applicableDate, int idReg) {
+    public RewardPenaltyDTO(int idEmp, String name, String gender, String imgPath, String depName, int idRP, String reason, String namere, int status, int times, Date applicableDate, int idReg) {
         this.idEmp = idEmp;
         this.name = name;
         this.gender = gender;
@@ -35,10 +36,19 @@ public class RewardPenaltyDTO {
         this.depName = depName;
         this.idRP = idRP;
         this.reason = reason;
+        this.namere = namere;
         this.status = status;
         this.times = times;
         this.applicableDate = applicableDate;
         this.idReg = idReg;
+    }
+
+    public String getNamere() {
+        return namere;
+    }
+
+    public void setNamere(String namere) {
+        this.namere = namere;
     }
 
     public int getIdReg() {
