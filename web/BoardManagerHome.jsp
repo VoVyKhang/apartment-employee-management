@@ -11,7 +11,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Management Hall Page</title>    
-
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -21,11 +20,7 @@
             <c:redirect url="Hall.jsp">
             </c:redirect>
         </c:if>
-
-<!--        <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>-->
-
           
-
         <section style="width: 100%; overflow: hidden">
 
             <div class="container">

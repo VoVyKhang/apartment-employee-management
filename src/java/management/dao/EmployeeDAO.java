@@ -78,8 +78,7 @@ public class EmployeeDAO {
     private static final String CHECK_MAIL_EXIST = "select email\n"
             + "from Employee\n"
             + "where email = ?";
-    
-<<<<<<< HEAD
+ 
     private static final String SEARCH_DEP="select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n" 
             +"from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n" 
             +"where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
@@ -88,8 +87,7 @@ public class EmployeeDAO {
             +"statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n" 
             +"order by idEmp ASC";
     
-=======
->>>>>>> d2841a57520fe58c305380098d1076cb6806c453
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -516,7 +514,6 @@ public class EmployeeDAO {
         }
         return list;
     }
-<<<<<<< HEAD
     
     //List all employee filter department
     public static ArrayList<EmployeeDTO> showEmpByDep(String depname, String posname, String empname) throws SQLException {
@@ -569,6 +566,4 @@ public class EmployeeDAO {
         }
         return list;
     }
-=======
->>>>>>> d2841a57520fe58c305380098d1076cb6806c453
 }

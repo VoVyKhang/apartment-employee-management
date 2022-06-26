@@ -34,7 +34,7 @@
     <c:import url="header.jsp"></c:import>
     <c:import url="sidebar.jsp"></c:import>  
     <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                       url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                        user = "sa"  password = "12345"/>
 
     <sql:query dataSource = "${snapshot}" var = "listDep">
@@ -119,7 +119,7 @@
                                 </br>
 
                                 <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                                   url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                                                   url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                                    user = "sa"  password = "12345"/>
 
                                 <sql:query dataSource = "${snapshot}" var = "result">
@@ -151,13 +151,6 @@
                             </td>
                         </tr>
 
-<<<<<<< HEAD
-
-
-=======
-                        
-                   
->>>>>>> f4902f3146ef73f69dff32c7861c544fba5adbe1
                     </form> 
                 </c:forEach>
                 </tbody>

@@ -35,13 +35,18 @@
             }
 
             .btn-primary{
-                background-color: #01a3ed !important;
+                background: linear-gradient(to right, #00c0f9, #0255cd);
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
                 font-weight: 600;
                 min-width: 150px;
                 padding: 10px 20px;
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.9);
+                opacity: 0.9
             }
         </style>
     </head>

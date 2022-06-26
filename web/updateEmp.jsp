@@ -40,7 +40,7 @@
             }
 
             .btn-primary{
-                background-color: #01a3ed !important;
+                background: linear-gradient(to right, #00c0f9, #0255cd);
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
