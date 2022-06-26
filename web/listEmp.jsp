@@ -70,6 +70,8 @@
             .dataTables_info{
                 display: flex;
             }
+            
+            
         </style>
 
     </head>

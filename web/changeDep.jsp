@@ -46,6 +46,7 @@
         from Position
     </sql:query>
     <div style="margin: 0 32px; width: 100%" class="change-department">
+        
         <c:if test="${requestScope.listEmp != null}">
             <form action="mainController" method="post" class="form-reward-penalty">
                 <div class="row filter-row">  
@@ -108,8 +109,8 @@
 
                             <td>${listEmp.idEmp}</td>     
                             <td>
-                                <img class="align-self-center img-fluid" src='images/${listEmp.imgPath}' width="120"
-                                     height="120">
+                                <img class="align-self-center img-fluid" src='images/${listEmp.imgPath}' style="width: 100px;
+                                     height: 100px; border-radius: 50%">
                             </td>
 
                             <td class="nameEmp">${listEmp.name}</td>

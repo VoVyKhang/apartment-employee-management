@@ -18,7 +18,7 @@ body {
 }
 
 .list-dep table{
-    font-size: 16px
+    font-size: 14px
 }
 
 .location{
@@ -106,12 +106,12 @@ LIST EMPLOYEE
 }
 
 .list-employee table thead tr th{
-    text-align: center;
+
     vertical-align: middle
 }
 
 .list-employee table tbody  tr td{
-    text-align: center;
+
     vertical-align: middle;
     font-size: 14px
 }
