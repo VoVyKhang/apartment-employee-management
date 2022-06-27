@@ -58,9 +58,15 @@
                         </a>
                     </li>
                     <li>
-                        <a  href="mainController?action=showlist">
+                        <a  href="mainController?action=listDependentEmp">
                             <i class="fas fa-briefcase"></i>
-                            Salary
+                            Dependent
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="mainController?action=showDepartmentEmp">
+                            <i class="fas fa-briefcase"></i>
+                            Department
                         </a>
                     </li>
                     <li>
@@ -84,11 +90,6 @@
                         </ul>
                         <ul>
                             <li>
-                                Department
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
                                 <a href="mainController?action=listRewPenEmp">
                                     Reward and Penalty
                                 </a>
@@ -96,12 +97,16 @@
                         </ul>
                         <ul>
                             <li>
-                                Change Password
+                                <a href="changePassEmp.jsp">
+                                    Change Password
+                                </a>
                             </li>
                         </ul>
-                        <ul>
+                        <ul> 
                             <li>
-                                Logout
+                                <a href="logoutController?action=logout">
+                                    Log Out
+                                </a>
                             </li>
                         </ul>
                     </li>

@@ -43,20 +43,18 @@ public class mainController extends HttpServlet {
                 url = "sessionPositionController";
             } else if (action.equals("updatePosition")) {
                 url = "updatePositionController";
-            }
-//            else if (action.equals("promoteAndDemote")) {
-//                url = "promoteAndDemoteController";
-//            } 
+            } //            else if (action.equals("promoteAndDemote")) {
+            //                url = "promoteAndDemoteController";
+            //            } 
             else if (action.equals("SavePosition")) {
                 url = "savePositionController";
             } else if (action.equals("history")) {
                 url = "listHistoryController";
             } else if (action.equals("createcon")) {
                 url = "newConController";
-            } 
-//            else if (action.equals("hisPromoteAndDemote")) {
-//                url = "listHistoryPositionController";
-//            } 
+            } //            else if (action.equals("hisPromoteAndDemote")) {
+            //                url = "listHistoryPositionController";
+            //            } 
             else if (action.equals("listCertificate")) {
                 url = "listCertificateController";
             } else if (action.equals("add new certificate")) {
@@ -149,6 +147,22 @@ public class mainController extends HttpServlet {
                 url = "SearchHisPosController";
             } else if (action.equals("searchPro")) {
                 url = "SearchProController";
+            } else if (action.equals("changePassEmp")) {
+                url = "ChangePassController";
+            } else if (action.equals("listDependentEmp")) {
+                url = "ListDependentEmpController";
+            } else if (action.equals("updateDependentEmp")) {
+                url = "updateDependentEmpController";
+            } else if (action.equals("SaveDependentEmp")) {
+                url = "saveDependentEmpController";
+            } else if (action.equals("saveNewDependentEmp")) {
+                url = "saveNewDependentEmpController";
+            } else if (action.equals("showDepartmentEmp")) {
+                url = "showDepartmentEmpController";
+            } else if(action.equals("showHisDepEmp")){
+                url = "showHisDepEmpController";
+            } else if(action.equals("showHisPosEmp")){
+                url = "showHisPosEmpController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -92,7 +92,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Image</label>
-                                <input class="form-control" name="empimg" accept="image/*">
+                                <input class="form-control" name="empimg" type="file" accept="image/*">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -133,7 +133,7 @@
                             </div>
 
                         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                           url = "jdbc:sqlserver://localhost:1433;databaseName=ApartmentEmployeeManagement"
+                                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                            user = "sa"  password = "12345"/>
 
                         <!--list department-->

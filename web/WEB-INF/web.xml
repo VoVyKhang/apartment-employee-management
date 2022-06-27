@@ -232,6 +232,42 @@
         <servlet-name>SearchProController</servlet-name>
         <servlet-class>management.controllers.SearchProController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listRewPenEmpController</servlet-name>
+        <servlet-class>management.controllers.listRewPenEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassController</servlet-name>
+        <servlet-class>management.controllers.ChangePassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListDependentEmpController</servlet-name>
+        <servlet-class>management.controllers.ListDependentEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateDependentEmpController</servlet-name>
+        <servlet-class>management.controllers.updateDependentEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveDependentEmpController</servlet-name>
+        <servlet-class>management.controllers.saveDependentEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveNewDependentEmpController</servlet-name>
+        <servlet-class>management.controllers.saveNewDependentEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showDepartmentEmpController</servlet-name>
+        <servlet-class>management.controllers.showDepartmentEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showHisDepEmpController</servlet-name>
+        <servlet-class>management.controllers.showHisDepEmpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showHisPosEmpController</servlet-name>
+        <servlet-class>management.controllers.showHisPosEmpController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -463,6 +499,42 @@
     <servlet-mapping>
         <servlet-name>SearchProController</servlet-name>
         <url-pattern>/SearchProController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listRewPenEmpController</servlet-name>
+        <url-pattern>/listRewPenEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassController</servlet-name>
+        <url-pattern>/ChangePassController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListDependentEmpController</servlet-name>
+        <url-pattern>/ListDependentEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateDependentEmpController</servlet-name>
+        <url-pattern>/updateDependentEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveDependentEmpController</servlet-name>
+        <url-pattern>/saveDependentEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveNewDependentEmpController</servlet-name>
+        <url-pattern>/saveNewDependentEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showDepartmentEmpController</servlet-name>
+        <url-pattern>/showDepartmentEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showHisDepEmpController</servlet-name>
+        <url-pattern>/showHisDepEmpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showHisPosEmpController</servlet-name>
+        <url-pattern>/showHisPosEmpController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

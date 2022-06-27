@@ -86,7 +86,9 @@ public class EmployeeDAO {
             +"hd.status = 1 and hp.status = 1 and\n"
             +"statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n" 
             +"order by idEmp ASC";
-    
+    private static final String UPDATE_PASS_EMP = "UPDATE Employee\n"
+            + "SET password = ?\n"
+            + "WHERE idEmp = ?";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -568,5 +570,32 @@ public class EmployeeDAO {
             }
         }
         return list;
+    }
+    public static boolean changePass(String password, String idEmp) throws SQLException{
+        boolean check = false;
+        try {
+            conn = DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(UPDATE_PASS_EMP);
+                ptm.setString(1, password);
+                ptm.setString(2, idEmp);
+                int rs=ptm.executeUpdate();
+                if(rs > 0){
+                    check= true;
+                }
+            }
+        } catch (Exception e) {
+        }finally{
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

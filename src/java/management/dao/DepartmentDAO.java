@@ -55,6 +55,10 @@ public class DepartmentDAO {
     private static final String GET_DEP_FOR_ALL = "select depNum, depName, description, location, dateCreate, creator\n"
             + "from Department\n"
             + "where location like ? and depName like ?";
+    private static final String GET_DEP_BY_EMPID = "Select top 1 dp.depNum , dp.depName, dp.description, dp.location, dp.dateCreate, dp.creator, hd.deliveryDate\n"
+            + "From HistoryDep hd, Employee e, Department dp\n"
+            + "Where hd.idEmp = e.idEmp and hd.depNum = dp.depNum and hd.idEmp = ?\n"
+            + "Order by hd.deliveryDate desc";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -361,5 +365,38 @@ public class DepartmentDAO {
         }
         return list;
 
+    }
+    public static DepartmentDTO getDepartmentByEmpId(String empID) throws SQLException{
+        DepartmentDTO dep = new DepartmentDTO();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DEP_BY_ID);
+                ptm.setString(1, empID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int depNum = rs.getInt("depNum");
+                    String depName = rs.getString("depName");
+                    String description = rs.getString("description");
+                    String locationDep = rs.getString("location");
+                    String dateCreate = rs.getString("dateCreate");
+                    String creator = rs.getString("creator");
+                    dep = new DepartmentDTO(depNum, depName, description, locationDep, dateCreate, creator);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return dep;
     }
 }
