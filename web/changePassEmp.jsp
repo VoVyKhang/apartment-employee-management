@@ -19,13 +19,13 @@
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
-        <form action="mainController">
-            Current Password:<input type="password" name="oldPass" /><h6>${requestScope.checkOldPass}</h6></br>
-            New Password:<input type="password" name="newPass"/><h6>${requestScope.checkNewPass}</h6></br>
-            Confirm Password:<input type="password" name="confirmPass"/><h6>${requestScope.checkPass}</h6></br>
+            <form action="mainController">
+                Current Password:<input type="password" name="oldPass" /><h6>${requestScope.checkOldPass}</h6></br>
+                New Password:<input type="password" name="newPass"/><h6>${requestScope.checkNewPass}</h6></br>
+                Confirm Password:<input type="password" name="confirmPass"/><h6>${requestScope.checkPass}</h6></br>
             <input type="submit" value="Save"/>
             <input type="hidden" name="action" value="changePassEmp"/>
-        </form>
-            <h6>${requestScope.Warning}</h6>
+            </form>
+        <h6>${requestScope.Warning}</h6>
     </body>
 </html>

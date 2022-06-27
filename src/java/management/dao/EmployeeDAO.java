@@ -86,14 +86,10 @@ public class EmployeeDAO {
             +"hd.status = 1 and hp.status = 1 and\n"
             +"statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n" 
             +"order by idEmp ASC";
-<<<<<<< HEAD
+
     private static final String UPDATE_PASS_EMP = "UPDATE Employee\n"
             + "SET password = ?\n"
             + "WHERE idEmp = ?";
-=======
-    
-
->>>>>>> a16ed350a634b21b27756971e3e119c3120c41d6
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;

@@ -46,7 +46,7 @@ public class ListDependentEmpController extends HttpServlet {
             if (emp == null) {
                 url = ERROR;
             } else {
-                ArrayList<DependentDTO> listDependent = DependentDAO.listDependentForAll(String.valueOf(emp.getIdEmp()),emp.getName() );
+                ArrayList<DependentDTO> listDependent = DependentDAO.listDependentForAll(String.valueOf(emp.getIdEmp()), emp.getName());
                 request.setAttribute("listDependent", listDependent);
                 url = SUCCESS;
             }

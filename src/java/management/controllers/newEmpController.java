@@ -5,7 +5,9 @@
 package management.controllers;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,6 +28,8 @@ import management.regex.RegexEmp;
 @MultipartConfig
 public class newEmpController extends HttpServlet {
 
+    private static final int DEFAULT_BUFFER_SIZE = 8192;
+    private static final String URL_SAVE_IMAGE = "/images/";
     private static final String DONE = "createNewEmp.jsp";
     private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
 
@@ -56,6 +60,7 @@ public class newEmpController extends HttpServlet {
                 if (RegexEmp.checkEmpValidation(name, address, phone, dob, email, password)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
+                        writeImage(request, fileName, part);
                         String savePath = PATH_IMG + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
@@ -169,6 +174,27 @@ public class newEmpController extends HttpServlet {
             }
         }
         return "";
+    }
+    public static void writeImage(HttpServletRequest request, String imageName, Part filePart) throws IOException, ServletException {
+        InputStream fileContent = filePart.getInputStream();
+        String path = request.getServletContext().getRealPath("/");
+        FileOutputStream fos = new FileOutputStream(path + URL_SAVE_IMAGE + imageName, false);
+
+        try {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = fileContent.read(bytes)) != -1) {
+                fos.write(bytes, 0, read);
+            }
+        } finally {
+            if (fos != null) {
+                fos.close();
+            }
+            if (fileContent != null) {
+                fileContent.close();
+            }
+        }
+
     }
 
             }

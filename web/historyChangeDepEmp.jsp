@@ -33,36 +33,36 @@
         <c:import url="sidebarEmp.jsp"></c:import> 
 
         <c:if test="${requestScope.listHisDep != null}">
-                <table class="table table-striped">
-                    <thead >
+            <table class="table table-striped">
+                <thead >
+                    <tr style="text-align: center">
+                        <th scope="col">Employee</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Delivery Date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
                         <tr style="text-align: center">
-                            <th scope="col">Employee</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
-                            <tr style="text-align: center">
-                                <td>${listHisDep.nameEmp}</td>
-                                <td>${listHisDep.nameDep}</td>
-                                <td>${listHisDep.deliveryDate}</td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${listHisDep.status eq 1}">
-                                            <p style="color:green">Active</p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p style="color:red">Inactive</p>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>                        
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </c:if>
-    </body>
+                            <td>${listHisDep.nameEmp}</td>
+                            <td>${listHisDep.nameDep}</td>
+                            <td>${listHisDep.deliveryDate}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${listHisDep.status eq 1}">
+                                        <p style="color:green">Active</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p style="color:red">Inactive</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>                        
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
+</body>
 </html>

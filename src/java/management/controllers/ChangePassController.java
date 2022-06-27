@@ -24,6 +24,7 @@ public class ChangePassController extends HttpServlet {
 
     private final String SUCCESS = "changePassEmp.jsp";
     private final String ERROR = "changePassEmp.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,26 +46,26 @@ public class ChangePassController extends HttpServlet {
             String newPass = request.getParameter("newPass");
             String confirmPass = request.getParameter("confirmPass");
             EmployeeDAO dao = new EmployeeDAO();
-            if(oldPass == null || newPass == null || confirmPass == null){
-                url="Hall.jsp";
-            }else{
-                if(!RegexEmp.checkValidPass(oldPass.trim()) || !oldPass.trim().equals(emp.getPassword())){
+            if (oldPass == null || newPass == null || confirmPass == null) {
+                url = "Hall.jsp";
+            } else {
+                if (!RegexEmp.checkValidPass(oldPass.trim()) || !oldPass.trim().equals(emp.getPassword())) {
                     request.setAttribute("checkOldPass", "Please check the current pass!");
-                    url= ERROR;
-                }else{
-                    if(!RegexEmp.checkValidPass(newPass)){
+                    url = ERROR;
+                } else {
+                    if (!RegexEmp.checkValidPass(newPass)) {
                         request.setAttribute("checkNewPass", "Please check the new pass!");
-                        url=ERROR;
-                    }else if(!newPass.trim().equals(confirmPass.trim())){
+                        url = ERROR;
+                    } else if (!newPass.trim().equals(confirmPass.trim())) {
                         request.setAttribute("checkPass", "Confirm Pass not match!");
-                        url=ERROR;
-                    }else{
+                        url = ERROR;
+                    } else {
                         boolean changePass = dao.changePass(newPass, String.valueOf(emp.getIdEmp()));
-                        if(changePass){
+                        if (changePass) {
                             url = SUCCESS;
                             request.setAttribute("Warning", "Update success");
-                        }else{
-                            url= ERROR;
+                        } else {
+                            url = ERROR;
                             request.setAttribute("Warning", "Change Password false!");
                         }
                     }
@@ -72,7 +73,7 @@ public class ChangePassController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();
         }

@@ -25,12 +25,12 @@
                 padding: 6px 20px !important;
                 margin-top: 48px;
             }
-            
+
             .dependent__link{
                 font-size: 18px;
                 font-weight: 600
             }
-            
+
             .dependent__link:hover{
                 opacity: 0.8
             }

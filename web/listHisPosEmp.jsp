@@ -18,10 +18,10 @@
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
-        
-        <div style="margin: 0 32px; width: 100%">
-        <c:if test="${requestScope.listHisPos != null}">
-            <c:if test="${not empty requestScope.listHisPos}">
+
+            <div style="margin: 0 32px; width: 100%">
+            <c:if test="${requestScope.listHisPos != null}">
+                <c:if test="${not empty requestScope.listHisPos}">
                     <table class="table table-striped">
                         <thead >
                             <tr style="text-align: center">
