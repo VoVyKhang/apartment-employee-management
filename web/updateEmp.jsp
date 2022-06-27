@@ -51,7 +51,8 @@
             }
             
             .btn-primary:hover{
-                transform: scale(0.9)
+                transform: scale(0.9);
+                opacity: 0.9
             }
         </style>
     </head>
