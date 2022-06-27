@@ -38,7 +38,7 @@
 
         <div class="modal-content" style="margin: 0 8px">
                 <div class="modal-header" style="margin-bottom: 16px">
-                    <h5 class="modal-title">Update Department</h5>
+                    <h5 class="modal-title">Create new department</h5>
                 </div>
 
                 <form action="mainController" method="POST" class="form-position" style="margin: 0 16px">
