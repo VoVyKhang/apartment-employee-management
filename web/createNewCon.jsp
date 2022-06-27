@@ -16,8 +16,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create new contract Page</title>
         <style>
-            .certificate-select{
-                
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            .certificate-select{             
                 padding: 0.375rem 0.75rem;
                 font-size: 1rem;
                 line-height: 1.5;
@@ -27,6 +31,22 @@
                 border-radius: 0.25rem;
                 width: 100%;
                 height: 42px
+            }
+            
+            .btn-primary{
+                background: linear-gradient(to right, #00c0f9, #0255cd);
+                border: 1px solid #01a3ed !important;
+                border-radius: 10px !important;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 5px 10px;
+                margin-top: 16px;
+                width: 100%
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.99);
+                opacity: 0.9
             }
         </style>
     </head>
@@ -54,8 +74,12 @@
 
 
         <c:if test="${result.rowCount != 0}">
-            <div style="width: 100%">
-                <form action="mainController" method="post" style="margin: 0 32px" class="form-position">
+            <div style="width: 100%; margin: 0 8px" class="modal-content">
+                <div class="modal-header" style="margin-bottom: 16px">
+                    <h5 class="modal-title">Create new contract</h5>
+                </div>
+                
+                <form action="mainController" method="post" style="margin: 0 16px" class="form-position">
                     <div class="form-group">
                         <div style="margin-bottom: 8px">Type of contract</div>
                         <select name="typecon" class="certificate-select">
@@ -93,7 +117,7 @@
                     <p style="color:green">${requestScope.COMPLETE}</p>  
 
                     <input type="hidden" name="action" value="createcon">
-                    <input class="btn btn-secondary btn-sm" type="submit" value="Create New"> 
+                    <input class="btn btn-primary" type="submit" value="Create New"> 
                 </form>
             </div>
         </c:if>

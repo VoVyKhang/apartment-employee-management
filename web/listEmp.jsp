@@ -43,7 +43,7 @@
             }
             .search-btn{
                 border: 1px solid #00c5fb;
-                border-radius: 50px;
+                border-radius: 5px;
                 color: #fff;
                 font-weight: 500;
                 text-decoration: none;

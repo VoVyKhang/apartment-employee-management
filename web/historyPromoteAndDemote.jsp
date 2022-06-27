@@ -49,7 +49,7 @@
                 <div>
                     <h4 style="margin-left: -12px" class="page-title">History of promote and demote</h4>
                 </div>
-            </div>
+                </div>
                 
                 
                 <form action="mainController" method="post" >
