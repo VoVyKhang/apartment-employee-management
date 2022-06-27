@@ -35,7 +35,6 @@
         <nav id="sidebar">
             <nav class="navbar-expand-lg">
                 <div class="container-fluid">
-
                     <button type="button" id="sidebarCollapse" class="btn btn-info ">
                         <i class="fas fa-align-left"></i>
                     </button>
@@ -45,9 +44,8 @@
                 </div>
             </nav>
             <div class="sidebar-header">
-                
-                <h3>HAPPINESS</h3>
-                <strong>H</strong>
+                <div style="border: 1px solid #fff; width: 100%"></div>
+                <strong>V</strong>
             </div>
 
             <ul class="list-unstyled components task-list">

@@ -10,6 +10,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Dependent</title>
+        <style>
+             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
+            .page-title{
+                text-align: initial !important;
+                margin-left: 16px !important;
+                margin-top: 8px;
+                margin-bottom: 16px
+            }
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
@@ -18,8 +32,12 @@
 
         <c:if test="${requestScope.depenObject != null}">
 
-
-            <div style=" width: 100%; margin: 0 8px">
+            <div style=" width: 100%; margin: 0 16px">
+                <div class="page-header">
+                <div class="row">
+                    <h4 class="page-title">Update Dependent</h4>   
+                </div>
+                
                 <c:if test="${requestScope.filedBlank != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h3>
                 </c:if>
@@ -33,12 +51,12 @@
                 <c:if test="${requestScope.nameInvalid != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.nameInvalid}" /></h3>
                 </c:if>
-                <table class="table table-striped list-certificate">
+                    <table class="table table-striped list-certificate" style="font-size: 14px">
                     <thead>
                         <tr style="text-align: center">
-                            <th scope="col">ID employee</th>
+                            <th scope="col">EmployeeID</th>
                             <th scope="col">Employee name</th>                      
-                            <th scope="col">ID dependent</th>
+                            <th scope="col">Dependent ID</th>
                             <th scope="col">Dependent name</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Date of birth</th>

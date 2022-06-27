@@ -12,6 +12,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Certificate</title>
         <link rel="stylesheet" href="css/globalstyles.css"/>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
+            .page-title{
+                text-align: initial !important;
+                margin-left: 16px !important;
+                margin-top: 8px
+            }
+            
+        </style>
     </head>
     <body>
 
@@ -24,14 +38,20 @@
 
         <c:if test="${requestScope.listCerObject != null}">
 
-            <div style="margin: 0 32px; width: 100%">
+            <div style="margin: 0 16px; width: 100%" >
+                <div class="page-header">
+                <div class="row">
+                    <h4 class="page-title">Update certificate</h4>
+                </div>
+            </div>
+                
                 <c:if test="${nameInvalid != null}">
                     <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
                 </c:if>
                 <c:if test="${requestScope.checkDoi != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
                 </c:if>
-                <table class="table table-striped list-certificate">
+                    <table class="table table-striped list-certificate">
                     <thead>
                         <tr>
                             <th scope="col">ID employee</th>

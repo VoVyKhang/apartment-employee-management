@@ -14,46 +14,73 @@
         <title>History Promote and demote</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            .search-btn{
+                border: 1px solid #00c5fb;
+                border-radius: 50px;
+                color: #fff;
+                font-weight: 500;
+                text-decoration: none;
+                cursor: pointer;
+                width: 100%;
+                height: 38px;
+                background-color: #55ce63;
+                text-transform: uppercase;
+                margin-top: 15px
+            }
+
+            .search-btn:hover{
+                transform: scale(0.9)
+            }
+            
+            .pd-body td{
+                padding: 0 !important;
+                vertical-align: middle !important
+            }
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
-        
-        <div style="margin: 0 32px; width: 100%">
-             
-                        <form action="mainController" method="post" >
-                    <div class="row filter-row">
+
+            <div style="margin: 0 16px; width: 100%">
+                
+                <div class="modal-header">
+                <div>
+                    <h4 style="margin-left: -12px" class="page-title">History of promote and demote</h4>
+                </div>
+                </div>
+                
+                
+                <form action="mainController" method="post" >
+                    <div class="row filter-row" style="margin-bottom: 8px">
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter email" name="empname">
-                                <label for="name">Employee Name</label>
-                            </div>
+                            <div class="form-group mb-3 mt-3">
+                                <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter employee name..." name="empname">
                         </div>
-                        <div class="col-sm-6 col-md-3"> 
-                            </br>
-                            <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
-                                <option value="" <c:if test="${null eq sessionScope.typehispos}">selected=""</c:if>>All Type</option>
-                                <option value="0" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
-                                <option value="1" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mt-3">
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
+                            <option value="" <c:if test="${null eq sessionScope.typehispos}">selected=""</c:if>>All Type</option>
+                            <option value="0" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
+                            <option value="1" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
                             </select>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            </br>
+                        <div class="col-sm-6 col-md-3 mt-3">
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statushispos"> 
                                 <option value="" <c:if test="${null eq sessionScope.statushispos}">selected=""</c:if>>All Status</option>
-                                <option value="1" <c:if test="${1 eq sessionScope.statushispos}">selected="1"</c:if>>Active</option>
-                                <option value="0" <c:if test="${0 eq sessionScope.statushispos}">selected="0"</c:if>>Inactive</option>
+                            <option value="1" <c:if test="${1 eq sessionScope.statushispos}">selected="1"</c:if>>Active</option>
+                            <option value="0" <c:if test="${0 eq sessionScope.statushispos}">selected="0"</c:if>>Inactive</option>
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">
-                            </br>
-                            <input type="submit" value="searchHisPos" name="action" class="btn btn-secondary btn-sm">
+                            <input type="submit" value="searchHisPos" name="action" class="btn search-btn">
                         </div>
                     </div>
                 </form>
-                                
-        <c:if test="${requestScope.listHisPos != null}">
-            <c:if test="${not empty requestScope.listHisPos}">
+
+            <c:if test="${requestScope.listHisPos != null}">
+                <c:if test="${not empty requestScope.listHisPos}">
                     <table class="table table-striped">
                         <thead >
                             <tr style="text-align: center">
@@ -65,11 +92,8 @@
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
                             <c:forEach var="listHisPos" varStatus="counter" items="${requestScope.listHisPos}">    
-                                <tr style="text-align: center">
-
-
+                                <tr style="text-align: center" class="pd-body">
                                     <td>${listHisPos.idHisPos}</td>                            
                                     <td>${listHisPos.nameEmp}</td>
                                     <td>${listHisPos.posName}</td>

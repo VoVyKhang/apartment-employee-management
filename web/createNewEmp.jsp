@@ -35,13 +35,18 @@
             }
 
             .btn-primary{
-                background-color: #01a3ed !important;
+                background: linear-gradient(to right, #00c0f9, #0255cd);
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
                 font-weight: 600;
                 min-width: 150px;
                 padding: 10px 20px;
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.9);
+                opacity: 0.9
             }
         </style>
     </head>
@@ -95,11 +100,14 @@
                                 <input class="form-control" name="empimg" type="file" accept="image/*">
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6">  
                             <div class="form-group">
-                                <%Date d = new Date();%>
-                                <label class="col-form-label">Join Day</label>
-                                <input class="form-control" type="text" name="empjoin" readonly="" value="<%=d%>">
+                                <label class="col-form-label">Email</label>
+                                <input type="text" class="form-control" name="empmail" 
+                                       <c:if test="${not empty requestScope.emailreg}">value="${requestScope.emailreg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGMAIL}</p>
+                                <p style="color:red">${requestScope.WARNINGMAILS}</p>
+
                             </div>
                         </div>
                         <div class="col-sm-6">  
@@ -171,6 +179,14 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <%Date d = new Date();%>
+                                <label class="col-form-label">Join Day</label>
+                                <input class="form-control" type="text" name="empjoin" readonly="" value="<%=d%>">
+                            </div>
+                        </div>     
                     </div>
 
                     <div>

@@ -16,14 +16,39 @@
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <title>List Department</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+
             .btn-primary{
-                background-color: #01a3ed !important;
-                border: 1px solid #01a3ed !important;
-                border-radius: 20px !important;
+                background-color: #55ce63 !important;
+                border: 1px solid #55ce63 !important;
+                border-radius: 5px !important;
                 font-size: 18px;
                 font-weight: 600;
-                min-width: 150px;
-                padding: 10px 20px;
+                padding: 5px 10px;
+                width: 100%
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.96);
+                opacity: 0.9
+            }
+
+            .breadcrumb{
+                background-color: #f7f7f7 !important;
+                margin-left: -16px;           
+            }
+
+            .page-title{
+                margin-top: 8px
+            }
+            
+            .list-employee__actions{
+                display: flex;
+                justify-content: space-between;
             }
         </style>
     </head>
@@ -41,19 +66,34 @@
                 select location
                 from Department
             </sql:query>
-            <div style="margin: 0 32px" class="list-employee">
+            <div style="margin: 0 20px" class="list-employee">
+                <div class="page-header">
+                    <div class="row">
+                        <h3 class="page-title">Department</h3>
+                        <div class="col-sm-12 list-employee__actions">                       
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                    <li class="breadcrumb-item active">Department</li>
+                                </ul>
+                            </div>
+                            <div class="dep-btn">
+                                <p style="color:green">${requestScope.WARNING}<p>
+                                    <a href="createNewDep.jsp">Create New Department</a>
+                                    <a href="mainController?action=showlist&type=changedep">Change Department</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <form action="mainController" method="POST" class="form-reward-penalty">
-                    <div class="row filter-row" style="margin-left: 16px">
+                    <div class="row filter-row" >
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group mb-3 mt-3">
-                                <label>Department Name</label>
-                                <input type="text" class="form-control " id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" name="txtSearchName">
-                                
+                                <input placeholder="Enter department name..." type="text" class="form-control " id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" name="txtSearchName">        
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4 mt-3"> 
                             <div class="form-group form-focus select-focus">
-                                <label >Location</label>
                                 <select name="locationDep" class="form-select form-select-md-5 mb-1 list-options" > 
                                     <option value="allDep">All</option>
                                     <c:forEach var="listLocation" items="${listLocation.rows}">
@@ -62,18 +102,18 @@
                                 </select>
                             </div>
                         </div>
-                             <div class="col-sm-6 col-md-4 " style="margin-top: 48px">
+                        <div class="col-sm-6 col-md-4 " style="margin-top: 14px">
                             <input class="btn btn-primary" type="submit" value="Filter"/>
                             <input  type="hidden" name="action" value="filterDepByLocation"/>
                         </div>
                     </div>
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <div style="margin: 0 32px" class="list-dep">
-                    <table class="table table-striped">
+                <div class="list-dep">
+                    <table class="table table-striped" style="font-size: 14px">
                         <thead>
                             <tr>
-                                <th scope="col">DepNum</th>
+                                <th scope="col">Dep No.</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Location</th>
@@ -114,11 +154,7 @@
                     </table>
                 </div>
             </c:if>
-            <div class="dep-btn">
-                <p style="color:green">${requestScope.WARNING}<p>
-                    <a href="createNewDep.jsp">Create New Department</a>
-                    <a href="mainController?action=showlist&type=changedep">Change Department</a>
-            </div>
+
         </div>
     </body>
 </html>

@@ -105,10 +105,9 @@ public class RegexEmp {
     }
 
     //Check field null of employee
-    public static boolean chekcEmpFieldNull(String name, String add, String age, String phone, String dob, String email, String pass) {
+    public static boolean chekcEmpFieldNull(String name, String add, String phone, String dob, String email, String pass) {
         if (name.equals("") || name == null
                 || add.equals("") || add == null
-                || age.equals("") || age == null
                 || phone.equals("") || phone == null
                 || dob.equals("") || dob == null
                 || email.equals("") || email == null
@@ -119,10 +118,9 @@ public class RegexEmp {
     }
 
     //Check field null when update
-    public static boolean checkFieldNullUpdate(String name, String add, String age, String phone, String dob) {
+    public static boolean checkFieldNullUpdate(String name, String add, String phone, String dob) {
         if (name.equals("") || name == null
                 || add.equals("") || add == null
-                || age.equals("") || age == null
                 || phone.equals("") || phone == null
                 || dob.equals("") || dob == null) {
             return true;
@@ -131,10 +129,9 @@ public class RegexEmp {
     }
 
     //check all
-    public static boolean checkEmpValidation(String name, String add, String age, String phone, String dob, String email, String pass) {
+    public static boolean checkEmpValidation(String name, String add, String phone, String dob, String email, String pass) {
         if (checkEmpName(name)
                 && checkEmpAddress(add)
-                && checkAge(age)
                 && checkPhone(phone)
                 && checkValidationDob(dob)
                 && checkValidEmail(email)
@@ -147,10 +144,9 @@ public class RegexEmp {
     }
 
     //check all when update 
-    public static boolean checkEmpValidationUpdate(String name, String add, String age, String phone, String dob) {
+    public static boolean checkEmpValidationUpdate(String name, String add, String phone, String dob) {
         if (checkEmpName(name)
                 && checkEmpAddress(add)
-                && checkAge(age)
                 && checkPhone(phone)
                 && checkValidationDob(dob)) {
             return true;

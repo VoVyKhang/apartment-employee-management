@@ -45,7 +45,6 @@ public class UpdateEmpInfoController extends HttpServlet {
             String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
             String address = request.getParameter("empadd");
-            String age = request.getParameter("empage");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
@@ -54,11 +53,11 @@ public class UpdateEmpInfoController extends HttpServlet {
             String fileName = extractFileName(part);
             boolean checkUpdate = false;
 
-            if (RegexEmp.checkFieldNullUpdate(name, address, age, phone, dob)) {
+            if (RegexEmp.checkFieldNullUpdate(name, address, phone, dob)) {
                 url = RETURN;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidationUpdate(name, address, age, phone, dob)) {
+                if (RegexEmp.checkEmpValidationUpdate(name, address, phone, dob)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
@@ -72,7 +71,7 @@ public class UpdateEmpInfoController extends HttpServlet {
 
                         //Update with new image
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, address, age, gender, phone, dob, fileName, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, address, gender, phone, dob, fileName, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -80,7 +79,7 @@ public class UpdateEmpInfoController extends HttpServlet {
                     } else {
 
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, address, age, gender, phone, dob, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, address, gender, phone, dob, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -107,9 +106,6 @@ public class UpdateEmpInfoController extends HttpServlet {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     }
 
-                    if (RegexEmp.checkAge(age) == false) {
-                        request.setAttribute("WARNINGAGE", "Age contain only letters and between 15 and 65");
-                    }
 
                     if (RegexEmp.checkPhone(phone) == false) {
                         request.setAttribute("WARNINGPHONE", "Phone contain only letters and length 5 to 15");
@@ -125,7 +121,6 @@ public class UpdateEmpInfoController extends HttpServlet {
             if (!url.equals(DONE_UPDATE)) {
                 request.setAttribute("namereg", name);
                 request.setAttribute("addreg", address);
-                request.setAttribute("agereg", age);
                 request.setAttribute("genreg", gender);
                 request.setAttribute("phonereg", phone);
                 request.setAttribute("dobreg", dob);

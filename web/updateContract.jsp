@@ -14,14 +14,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Contract Page</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            .btn-primary{
+                background: linear-gradient(to right, #00c0f9, #0255cd);
+                border: 1px solid #01a3ed !important;
+                border-radius: 10px !important;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 5px 10px;
+                margin-top: 16px;
+                width: 100%
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.99);
+                opacity: 0.9
+            }
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>   
 
 
-        <div style="width: 100%">
-                <form action="mainController" method="POST" style="margin: 0 32px" class="form-position">
+        <div style="width: 100%; margin: 0 8px" class="modal-content">
+            <div class="modal-header" style="margin-bottom: 16px">
+                <h5 class="modal-title">Update contract</h5>
+            </div>
+            
+                <form action="mainController" method="POST" style="margin: 0 16px" class="form-position">
 
                 <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                    url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"

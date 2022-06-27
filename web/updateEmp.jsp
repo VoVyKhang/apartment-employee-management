@@ -40,7 +40,7 @@
             }
 
             .btn-primary{
-                background-color: #01a3ed !important;
+                background: linear-gradient(to right, #00c0f9, #0255cd);
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
@@ -48,6 +48,11 @@
                 min-width: 150px;
                 padding: 10px 20px;
                 margin-top: 16px
+            }
+            
+            .btn-primary:hover{
+                transform: scale(0.9);
+                opacity: 0.9
             }
         </style>
     </head>
@@ -64,8 +69,8 @@
                 <div>
                     <div>
                         <p style="margin: 16px 16px 0 16px">The employee being updated is: ${requestScope.Employee.name}</p>
+                    </div>
                 </div>
-            </div>
 
             <div class="modal-body">
                 <form action="mainController" method="post" enctype="multipart/form-data">

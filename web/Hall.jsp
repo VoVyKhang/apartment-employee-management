@@ -11,9 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome Page</title>
 
-        <link rel="stylesheet" href="./css/welcomepage.css"/>
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./css/welcomepage.css"/>
 
     </head>
     <body>
@@ -49,7 +48,7 @@
                             <div class="col-sm-6">
                                 <div class="carousel-item active">
                                     <div class="slider-feature-card">
-                                        <img src="./images/logo.jpg" alt="">
+                                        <img class="logo-building" src="./images/logo.jpg" alt="">
                                         <h3 class="slider-title">VieBuilding</h3>
                                         <p class="slider-description">Always listening always understanding!</p>
                                     </div>

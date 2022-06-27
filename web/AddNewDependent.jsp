@@ -13,7 +13,6 @@
         <title>Add new Dependent</title>
         <style>
             .certificate-select{
-
                 padding: 0.375rem 0.75rem;
                 font-size: 1rem;
                 line-height: 1.5;
@@ -24,6 +23,22 @@
                 width: 100%;
                 height: 42px
             }
+
+            .btn-primary{
+                background: linear-gradient(to right, #00c0f9, #0255cd);
+                border: 1px solid #01a3ed !important;
+                border-radius: 10px !important;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 5px 10px;
+                margin-top: 16px;
+                width: 100%
+            }
+
+            .btn-primary:hover{
+                transform: scale(0.99);
+                opacity: 0.9
+            }
         </style>
     </head>
     <body>
@@ -31,11 +46,11 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-
-
-
         <c:if test="${requestScope.listEmp != null}">          
-            <div style="width: 100%">
+            <div style="width: 100%; margin: 0 8px" class="modal-content">
+                <div class="modal-header" style="margin-bottom: 16px">
+                    <h5 class="modal-title">Create new department</h5>
+                </div>
                 <c:if test="${filedBlank != null}">
                     <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
                 </c:if>
@@ -45,7 +60,7 @@
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
                 </c:if>
-                <form action="mainController" style="margin: 0 32px" class="form-position">            
+                <form action="mainController" style="margin: 0 16px" class="form-position">            
 
                     <div class="form-group">
                         <span>Dependent name</span>
@@ -56,7 +71,7 @@
                     </div>
                     <div class="form-group">
                         <span>Gender</span>                        
-                        <select name="gender">
+                        <select name="gender" class="form-control">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
@@ -88,13 +103,12 @@
                     </div>
                     <div style="margin-top: 20px">
 
-                        <input class="btn btn-secondary btn-sm" type="submit" value="Save">
-                        <input type="hidden" name="action" value="saveNewDependent"
-                               </div>
-
-                        </form>
+                        <input class="btn btn-primary" type="submit" value="Save">
+                        <input type="hidden" name="action" value="saveNewDependent">               
                     </div>
+                </form>
 
-                </c:if>
-                </body>
-                </html>
+            </div>
+        </c:if>
+    </body>
+</html>

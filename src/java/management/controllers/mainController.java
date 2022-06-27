@@ -137,8 +137,6 @@ public class mainController extends HttpServlet {
                 url = "FilterHisDepController";
             } else if (action.equals("filterChangeDep")) {
                 url = "FilterChangeDepController";
-            } else if (action.equals("searchEmp")) {
-                url = "SearchEmpController";
             } else if (action.equals("searchCon")) {
                 url = "SearchConController";
             } else if (action.equals("searchCer")) {

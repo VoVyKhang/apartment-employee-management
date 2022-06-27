@@ -21,14 +21,14 @@ import management.utils.DBUtils;
  */
 public class EmployeeDAO {
 
-    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             + "hd.status = 1 and hp.status = 1 and\n"
             + "statusLog = 1 and role = 0"
             + "order by idEmp ASC";
-    private static final String LIST_CHANGE_EMP = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+    private static final String LIST_CHANGE_EMP = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and name like ? and d.depName like ? and p.posName like ? and\n"
@@ -36,13 +36,13 @@ public class EmployeeDAO {
             + "statusLog = 1 and role = 0"
             + "order by idEmp ASC";
 
-    private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+    private static final String SHOW_EMP_BY_ID = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             + "hd.status = 1 and hp.status = 1 and e.idEmp = ?";
 
-    private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
+    private static final String GET_EMP_BY_EMAIL = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
@@ -56,8 +56,8 @@ public class EmployeeDAO {
             + "SELECT 'true' as flag\n"
             + "ELSE SELECT 'false' as flag";
 
-    private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(name, address, age, gender, phoneNum, dob, imgPath, joinDate, email, password, statusLog, role)"
-            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_EMPLOYEE = "INSERT INTO Employee(name, address, gender, phoneNum, dob, imgPath, joinDate, email, password, statusLog, role)"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_IDEMP_INSERTED = "SELECT TOP 1 idEmp FROM Employee order by idEmp desc";
 
@@ -68,27 +68,32 @@ public class EmployeeDAO {
             + " VALUES (?, ?, ?, ?, ?)";
 
     private static final String UPDATE_EMP_NO_IMG = "UPDATE Employee\n"
-            + "SET name = ?, address = ?, age = ?, gender = ?, phoneNum = ?, dob = ?\n"
+            + "SET name = ?, address = ?, gender = ?, phoneNum = ?, dob = ?\n"
             + "WHERE idEmp = ?";
 
     private static final String UPDATE_EMP_IMG = "UPDATE Employee\n"
-            + "SET name = ?, address = ?, age = ?, gender = ?, phoneNum = ?, dob = ?, imgPath = ?\n"
+            + "SET name = ?, address = ?, gender = ?, phoneNum = ?, dob = ?, imgPath = ?\n"
             + "WHERE idEmp = ?";
 
     private static final String CHECK_MAIL_EXIST = "select email\n"
             + "from Employee\n"
             + "where email = ?";
-    
-    private static final String SEARCH_DEP="select e.idEmp, name, address, age, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n" 
+ 
+    private static final String SEARCH_DEP="select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n" 
             +"from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n" 
             +"where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             +"e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
             +"hd.status = 1 and hp.status = 1 and\n"
             +"statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n" 
             +"order by idEmp ASC";
+<<<<<<< HEAD
     private static final String UPDATE_PASS_EMP = "UPDATE Employee\n"
             + "SET password = ?\n"
             + "WHERE idEmp = ?";
+=======
+    
+
+>>>>>>> a16ed350a634b21b27756971e3e119c3120c41d6
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -106,7 +111,7 @@ public class EmployeeDAO {
                     int id = rs.getInt("idEmp");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int age = rs.getInt("age");
+               
                     String gender = rs.getString("gender");
                     String phoneNum = rs.getString("phoneNum");
                     String dob = rs.getString("dob");
@@ -124,7 +129,7 @@ public class EmployeeDAO {
                     String password = rs.getString("password");
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    EmployeeDTO emp = new EmployeeDTO(id, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    EmployeeDTO emp = new EmployeeDTO(id, name, address, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
                     list.add(emp);
 
                 }
@@ -158,7 +163,7 @@ public class EmployeeDAO {
                     int idS = rs.getInt("idEmp");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int age = rs.getInt("age");
+                
                     String gender = rs.getString("gender");
                     String phoneNum = rs.getString("phoneNum");
                     String dob = rs.getString("dob");
@@ -176,7 +181,7 @@ public class EmployeeDAO {
                     String password = rs.getString("password");
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    emp = new EmployeeDTO(idS, name, address, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
 
                 }
             }
@@ -209,7 +214,7 @@ public class EmployeeDAO {
                     int idS = rs.getInt("idEmp");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int age = rs.getInt("age");
+                
                     String gender = rs.getString("gender");
                     String phoneNum = rs.getString("phoneNum");
                     String dob = rs.getString("dob");
@@ -227,7 +232,7 @@ public class EmployeeDAO {
                     String password = rs.getString("password");
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    emp = new EmployeeDTO(idS, name, address, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
 
                 }
             }
@@ -282,7 +287,7 @@ public class EmployeeDAO {
     }
 
     //Insert new employee
-    public static boolean inserNewEmp(String name, String address, String age, String gender, String phoneNum, String dob, String imgPath, String depNum, String idPos, String email, String password) throws SQLException {
+    public static boolean inserNewEmp(String name, String address, String gender, String phoneNum, String dob, String imgPath, String depNum, String idPos, String email, String password) throws SQLException {
         boolean result = false;
         try {
             conn = DBUtils.getConnection();
@@ -295,16 +300,16 @@ public class EmployeeDAO {
                 ptm = conn.prepareStatement(INSERT_EMPLOYEE);
                 ptm.setString(1, name);
                 ptm.setString(2, address);
-                ptm.setInt(3, Integer.parseInt(age));
-                ptm.setString(4, gender);
-                ptm.setString(5, phoneNum);
-                ptm.setString(6, dob);
-                ptm.setString(7, imgPath);
-                ptm.setDate(8, d);
-                ptm.setString(9, email);
-                ptm.setString(10, password);
-                ptm.setInt(11, 1);
-                ptm.setInt(12, 0);
+                
+                ptm.setString(3, gender);
+                ptm.setString(4, phoneNum);
+                ptm.setString(5, dob);
+                ptm.setString(6, imgPath);
+                ptm.setDate(7, d);
+                ptm.setString(8, email);
+                ptm.setString(9, password);
+                ptm.setInt(10, 1);
+                ptm.setInt(11, 0);
                 ptm.executeUpdate();
 
                 //Get the idEmp just inserted
@@ -360,17 +365,16 @@ public class EmployeeDAO {
     }
 
     //Update employee without new image
-    public static boolean UpdateEmpNoImg(String name, String address, String age, String gender, String phoneNum, String dob, String idemp) throws SQLException {
+    public static boolean UpdateEmpNoImg(String name, String address, String gender, String phoneNum, String dob, String idemp) throws SQLException {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_EMP_NO_IMG);
                 ptm.setString(1, name);
                 ptm.setString(2, address);
-                ptm.setInt(3, Integer.parseInt(age));
-                ptm.setString(4, gender);
-                ptm.setString(5, phoneNum);
-                ptm.setString(6, dob);
+                ptm.setString(3, gender);
+                ptm.setString(4, phoneNum);
+                ptm.setString(5, dob);
                 ptm.setInt(7, Integer.parseInt(idemp));
                 int result = ptm.executeUpdate();
                 if (result > 0) {
@@ -397,19 +401,18 @@ public class EmployeeDAO {
     }
 
     //Update employee with new image
-    public static boolean UpdateEmpImg(String name, String address, String age, String gender, String phoneNum, String dob, String imgPath, String idemp) throws SQLException {
+    public static boolean UpdateEmpImg(String name, String address, String gender, String phoneNum, String dob, String imgPath, String idemp) throws SQLException {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_EMP_IMG);
                 ptm.setString(1, name);
                 ptm.setString(2, address);
-                ptm.setInt(3, Integer.parseInt(age));
-                ptm.setString(4, gender);
-                ptm.setString(5, phoneNum);
-                ptm.setString(6, dob);
-                ptm.setString(7, imgPath);
-                ptm.setInt(8, Integer.parseInt(idemp));
+                ptm.setString(3, gender);
+                ptm.setString(4, phoneNum);
+                ptm.setString(5, dob);
+                ptm.setString(6, imgPath);
+                ptm.setInt(7, Integer.parseInt(idemp));
                 int result = ptm.executeUpdate();
                 if (result > 0) {
                     return true;
@@ -480,7 +483,6 @@ public class EmployeeDAO {
                     int id = rs.getInt("idEmp");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int age = rs.getInt("age");
                     String gender = rs.getString("gender");
                     String phoneNum = rs.getString("phoneNum");
                     String dob = rs.getString("dob");
@@ -498,7 +500,7 @@ public class EmployeeDAO {
                     String password = rs.getString("password");
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    EmployeeDTO emp = new EmployeeDTO(id, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    EmployeeDTO emp = new EmployeeDTO(id, name, address, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
                     list.add(emp);
 
                 }
@@ -534,7 +536,6 @@ public class EmployeeDAO {
                     int idS = rs.getInt("idEmp");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
-                    int age = rs.getInt("age");
                     String gender = rs.getString("gender");
                     String phoneNum = rs.getString("phoneNum");
                     String dob = rs.getString("dob");
@@ -552,7 +553,7 @@ public class EmployeeDAO {
                     String password = rs.getString("password");
                     int statuslog = rs.getInt("statusLog");
                     int role = rs.getInt("role");
-                    EmployeeDTO emp = new EmployeeDTO(idS, name, address, age, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
+                    EmployeeDTO emp = new EmployeeDTO(idS, name, address, gender, phoneNum, dob.substring(0, 10), imgPath, joinDate.substring(0, 10), depName, posName, mail, password, statuslog, role);
                     list.add(emp);
                 }
                  } 
