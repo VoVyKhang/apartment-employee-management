@@ -23,9 +23,9 @@
             }
 
             .btn-primary{
-                background-color: #01a3ed !important;
-                border: 1px solid #01a3ed !important;
-                border-radius: 10px !important;
+                background-color: #55ce63 !important;
+                border: 1px solid #55ce63 !important;
+                border-radius: 5px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
@@ -33,7 +33,7 @@
             }
             
             .btn-primary:hover{
-                transform: scale(0.9);
+                transform: scale(0.96);
                 opacity: 0.9
             }
 
