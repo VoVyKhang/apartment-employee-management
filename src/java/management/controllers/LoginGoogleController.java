@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package management.controllers;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -56,21 +57,23 @@ public class LoginGoogleController extends HttpServlet {
         if (emp != null && emp.getRole() == 1) {
             HttpSession ss = request.getSession(true);
             ss.setAttribute("USER_LOGGIN", emp);
-            RequestDispatcher rd = request.getRequestDispatcher("listHallManagerController");
-            rd.forward(request, response);
-        } else if (emp != null  && emp.getRole() == 0) {
+//            RequestDispatcher rd = request.getRequestDispatcher("listHallManagerController");
+//            rd.forward(request, response);
+            response.sendRedirect("listHallManagerController");
+        } else if (emp != null && emp.getRole() == 0) {
             HttpSession ss = request.getSession(true);
             ss.setAttribute("USER_LOGGIN", emp);
-            RequestDispatcher rd = request.getRequestDispatcher("EmployeeHome.jsp");
-            rd.forward(request, response);
+//            RequestDispatcher rd = request.getRequestDispatcher("EmployeeHome.jsp");
+//            rd.forward(request, response);
+            response.sendRedirect("EmployeeHome.jsp");
         } else {
-
+            
             request.setAttribute("accountNotValid", "account not valid");
             RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
             rd.forward(request, response);
         }
     }
-
+    
     public static String getToken(String code) throws ClientProtocolException, IOException {
         // call api to get token
         String response = Request.Post(Constants.GOOGLE_LINK_GET_TOKEN)
@@ -79,18 +82,18 @@ public class LoginGoogleController extends HttpServlet {
                         .add("redirect_uri", Constants.GOOGLE_REDIRECT_URI).add("code", code)
                         .add("grant_type", Constants.GOOGLE_GRANT_TYPE).build())
                 .execute().returnContent().asString();
-
+        
         JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
         String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
         return accessToken;
     }
-
+    
     public static UserGoogleDTO getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
         String link = Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
         String response = Request.Get(link).execute().returnContent().asString();
-
+        
         UserGoogleDTO googlePojo = new Gson().fromJson(response, UserGoogleDTO.class);
-
+        
         return googlePojo;
     }
 
