@@ -30,6 +30,8 @@ import management.regex.RegexEmp;
 @MultipartConfig
 public class updateEmpController extends HttpServlet {
 
+    private static final int DEFAULT_BUFFER_SIZE = 8192;
+    private static final String URL_SAVE_IMAGE = "/images/";
     private static String RETURN = "updateEmp.jsp";
     private static final String DONE_UPDATE = "mainController?action=showlist&type=emp";
     private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
@@ -62,7 +64,9 @@ public class updateEmpController extends HttpServlet {
                         deletefile.delete();
 
                         //Add new file image
-                        String savePath = PATH_IMG + File.separator + fileName;
+                        writeImage(request, fileName, part);
+                        String path = request.getServletContext().getRealPath("/");
+                        String savePath = path + "\\images" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
 
@@ -95,8 +99,6 @@ public class updateEmpController extends HttpServlet {
                     if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     }
-
-              
 
                     if (RegexEmp.checkPhone(phone) == false) {
                         request.setAttribute("WARNINGPHONE", "Phone contain only letters and length 5 to 15");
@@ -173,4 +175,25 @@ public class updateEmpController extends HttpServlet {
         return "";
     }
 
+    public static void writeImage(HttpServletRequest request, String imageName, Part filePart) throws IOException, ServletException {
+        InputStream fileContent = filePart.getInputStream();
+        String path = request.getServletContext().getRealPath("/");
+        FileOutputStream fos = new FileOutputStream(path + URL_SAVE_IMAGE + imageName, false);
+
+        try {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = fileContent.read(bytes)) != -1) {
+                fos.write(bytes, 0, read);
+            }
+        } finally {
+            if (fos != null) {
+                fos.close();
+            }
+            if (fileContent != null) {
+                fileContent.close();
+            }
+        }
+
+    }
 }

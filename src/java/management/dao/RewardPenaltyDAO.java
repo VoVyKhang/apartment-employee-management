@@ -23,10 +23,10 @@ public class RewardPenaltyDAO {
     private static String LIST_RP = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "            from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re \n"
             + "            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.idEmp like ?";
-    private static String LIST_RP_FOR_ALL = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
-            + "from Employee as e,HistoryDep as hd, Department as d, Position as p,HistoryPos as hp,  RewardAndPenalty as r, Regulation as re\n"
-            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = hp.idEmp and hp.idPos = p.idPos\n"
-            + "and e.idEmp like ? and e.name like ? and d.depName like ?";
+    private static String LIST_RP_FOR_ALL = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n" +
+"            from Employee as e,HistoryDep as hd, Department as d,  RewardAndPenalty as r, Regulation as re\n" +
+"            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp\n" +
+"            and e.idEmp like ? and e.name like ? and d.depName like ? and hd.status = 1";
     private static String LIST_RP_NAME = "select r.idRP,e.idEmp,e.imgPath,e.name,e.gender,re.status,r.times,r.applicableDate,re.name as namere, r.reason,d.depName,r.idReg\n"
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ?  ";

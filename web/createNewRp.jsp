@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Description</div>
-                            <textarea class="form-control" rows="4" cols="40" name="reasonrp" form="usrform"> Enter description here...</textarea>
+                            <textarea class="form-control" rows="4" cols="40" name="reasonrp" > Enter description here...</textarea>
                         </div>
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Time</div> 
