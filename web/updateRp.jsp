@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Update Reward - Penalty</title>
         <style>
             .btn-primary{
                 background: linear-gradient(to right, #00c0f9, #0255cd);
@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea class="form-control" rows="4" cols="40" name="reasonrp" form="usrform" placeholder="Enter description here..."></textarea>
+                        <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here..."></textarea>
                     </div>
                     <div class="form-group">
                         <label>Time</label> 
