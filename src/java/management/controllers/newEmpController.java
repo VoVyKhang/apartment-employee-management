@@ -61,7 +61,8 @@ public class newEmpController extends HttpServlet {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         writeImage(request, fileName, part);
-                        String savePath = PATH_IMG + File.separator + fileName;
+                        String path = request.getServletContext().getRealPath("/");
+                        String savePath = path+ "\\images" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                     } else {
