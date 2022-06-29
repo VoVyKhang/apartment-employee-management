@@ -22,7 +22,7 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
@@ -112,6 +112,17 @@
                                        value="${requestScope.idreg}"
                                    </c:otherwise>
                                </c:choose> 
+                               >
+
+                        <input type="hidden" name="depcheck"
+                               <c:choose>
+                                   <c:when test="${not empty requestScope.Dep.depName}">
+                                       value="${requestScope.Dep.depName}"
+                                   </c:when>
+                                   <c:otherwise>
+                                       value="${requestScope.nameregcheck}"
+                                   </c:otherwise>
+                               </c:choose>
                                >
 
                         <input type="submit" class="btn btn-primary " name="action" value="Update"/> 

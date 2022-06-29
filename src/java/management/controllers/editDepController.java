@@ -35,6 +35,7 @@ public class editDepController extends HttpServlet {
             String depDes = request.getParameter("depdes");
             String depLoc = request.getParameter("deploc");
             String depnum = request.getParameter("depnum");
+            String depcheck = request.getParameter("depcheck");
             boolean checkUpdate = false;
 
             if (RegexDep.checkDepFieldNull(depName, depDes, depLoc)) {
@@ -42,7 +43,7 @@ public class editDepController extends HttpServlet {
                 url = FAIL_UPDATE_DEP;
 
             } else {
-                if (RegexDep.checkDepValidation(depName, depDes, depLoc)) {
+                if (RegexDep.checkDepValidationUpdate(depcheck, depName, depDes, depLoc)) {
                     try {
                         checkUpdate = DepartmentDAO.updateDep(depName, depDes, depLoc, depnum);
                     } catch (SQLException ex) {
@@ -51,7 +52,6 @@ public class editDepController extends HttpServlet {
                     if (checkUpdate) {
                         url = DONE_UPDATE_DEP;
                         request.setAttribute("WARNING", "Completed");
-                        request.getRequestDispatcher(url).forward(request, response);
                     }
                 } else {
 
@@ -66,7 +66,7 @@ public class editDepController extends HttpServlet {
                         request.setAttribute("messLoc", "location length from 3 to 10 characters");
                     }
 
-                    if (RegexDep.checkExistDep(depName) == false) {
+                    if (RegexDep.checkExistDepUpdate(depcheck, depName) == false) {
                         request.setAttribute("WARNINGEXIST", "Same name as another department");
                     }
                     url = FAIL_UPDATE_DEP;
@@ -75,10 +75,13 @@ public class editDepController extends HttpServlet {
 
             }
 
-            request.setAttribute("namereg", depName);
-            request.setAttribute("desreg", depDes);
-            request.setAttribute("locreg", depLoc);
-            request.setAttribute("idreg", depnum);
+            if (url.equals(FAIL_UPDATE_DEP)) {
+                request.setAttribute("namereg", depName);
+                request.setAttribute("desreg", depDes);
+                request.setAttribute("locreg", depLoc);
+                request.setAttribute("idreg", depnum);
+                request.setAttribute("nameregcheck", depcheck);
+            }
             request.getRequestDispatcher(url).forward(request, response);
 
         }

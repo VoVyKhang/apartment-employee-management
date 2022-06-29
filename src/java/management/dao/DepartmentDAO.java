@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import management.dto.DepartmentDTO;
 import management.regex.RegexDep;
 import management.utils.DBUtils;
@@ -49,16 +50,27 @@ public class DepartmentDAO {
     private static final String GET_IDDEP_BY_NAME = "select depNum\n"
             + "from Department\n"
             + "where depName = ?";
+
     private static final String GET_DEP_BY_LOCATION = "select depNum, depName, description, location, dateCreate, creator\n"
             + "from Department\n"
             + "where location = ?";
+
     private static final String GET_DEP_FOR_ALL = "select depNum, depName, description, location, dateCreate, creator\n"
             + "from Department\n"
             + "where location like ? and depName like ?";
+
     private static final String GET_DEP_BY_EMPID = "Select top 1 dp.depNum , dp.depName, dp.description, dp.location, dp.dateCreate, dp.creator, hd.deliveryDate\n"
             + "From HistoryDep hd, Employee e, Department dp\n"
             + "Where hd.idEmp = e.idEmp and hd.depNum = dp.depNum and hd.idEmp = ?\n"
             + "Order by hd.deliveryDate desc";
+
+    private static final String CHECK_EXIST_NAME_DEP = "select depName\n"
+            + "from  Department \n"
+            + "where depName not in(\n"
+            + "select depName\n"
+            + "from Department\n"
+            + "where depName = ?)";
+
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -99,7 +111,7 @@ public class DepartmentDAO {
         return list;
     }
 
-    //Check department is exists or not
+    //Check department is exists or not(Create)
     public static boolean checkDepExist(String name) throws SQLException {
         String names = RegexDep.removeAllTrim(name);
         try {
@@ -107,6 +119,38 @@ public class DepartmentDAO {
             if (conn != null) {
                 st = conn.createStatement();
                 rs = st.executeQuery(GET_NAME_DEP);
+                while (rs.next()) {
+                    String nameDep = rs.getString("depName");
+                    if (names.equals(RegexDep.removeAllTrim(nameDep))) {
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+
+    //Check department is exists or not(Update)
+    public static boolean checkDepExistUpdate(String oldname, String newname) throws SQLException {
+        String names = RegexDep.removeAllTrim(newname);
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_EXIST_NAME_DEP);
+                ptm.setString(1, oldname);
+                rs = ptm.executeQuery();
                 while (rs.next()) {
                     String nameDep = rs.getString("depName");
                     if (names.equals(RegexDep.removeAllTrim(nameDep))) {
@@ -170,7 +214,6 @@ public class DepartmentDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                Date d = new Date(System.currentTimeMillis());
                 ptm = conn.prepareStatement(UPDATE_DEP);
                 ptm.setString(1, name);
                 ptm.setString(2, des);
@@ -366,7 +409,8 @@ public class DepartmentDAO {
         return list;
 
     }
-    public static DepartmentDTO getDepartmentByEmpId(String empID) throws SQLException{
+
+    public static DepartmentDTO getDepartmentByEmpId(String empID) throws SQLException {
         DepartmentDTO dep = new DepartmentDTO();
         try {
             conn = DBUtils.getConnection();
@@ -398,5 +442,36 @@ public class DepartmentDAO {
             }
         }
         return dep;
+    }
+
+    //Check depname exits
+    public static ArrayList<String> GetDepName(String depname) throws SQLException {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_EXIST_NAME_DEP);
+                ptm.setString(1, depname);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("depName");
+                    list.add(name);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+
     }
 }
