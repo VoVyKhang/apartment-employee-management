@@ -76,7 +76,7 @@ public class DepartmentDAO {
     private static Statement st = null;
     private static ResultSet rs = null;
 
-    //List all department
+    //List all department to see
     public static ArrayList<DepartmentDTO> listDep() throws SQLException {
         ArrayList<DepartmentDTO> list = new ArrayList<>();
         try {
