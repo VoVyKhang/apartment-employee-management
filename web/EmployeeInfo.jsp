@@ -39,7 +39,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-6"><h6 >Age: ${sessionScope.USER_LOGGIN.age}</h6></div>
                     <div class="col-6"><h6 >Gender: ${sessionScope.USER_LOGGIN.gender}</h6></div>
                 </div>
 
