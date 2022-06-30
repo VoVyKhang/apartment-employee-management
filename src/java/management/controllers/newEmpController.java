@@ -29,7 +29,7 @@ import management.regex.RegexEmp;
 public class newEmpController extends HttpServlet {
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
-    private static final String URL_SAVE_IMAGE = "/images/";
+    private static final String URL_SAVE_IMAGE = "\\images\\";
     private static final String DONE = "createNewEmp.jsp";
     private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
 
@@ -62,7 +62,7 @@ public class newEmpController extends HttpServlet {
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         writeImage(request, fileName, part);
                         String path = request.getServletContext().getRealPath("/");
-                        String savePath = path+ "\\images" + File.separator + fileName;
+                        String savePath = path+ "\\images\\" + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                     } else {

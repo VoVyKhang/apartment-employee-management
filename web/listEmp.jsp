@@ -18,6 +18,11 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/styles.css"/>
+        <style>
+            .list__employee{
+                margin: 0 16px
+            }
+        </style>
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -118,7 +123,7 @@
                 </div>
             </div>
 
-            <form action="mainController" method="post" >
+            <form action="mainController" method="post">
                 <div class="row justify-content-end">
                     <div class="col-4" style="margin-top: 8px">
                         <div class="form-group mb-3 mt-3">
@@ -150,7 +155,7 @@
                 <c:if test="${not empty requestScope.listEmp}">
                     <table style="font-size: 14px" class="table table-striped list__employee-table" id="mydatatable">
                         <thead>
-                            <tr class="list__employee-header">
+                            <tr class="list__employee-header" style="font-size: 13px">
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Gender</th>
