@@ -143,7 +143,6 @@
                         <th>Date</th>
                         <th>Reason </th>
                         <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -177,14 +176,7 @@
                                     <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
                                 </c:url>
                                 <a href="${update}"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <c:url var="delete" value="mainController">
-                                    <c:param name="action" value="DeleteRp"> </c:param>
-                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
-                                </c:url>
-                                <a href="${delete}"><i class="fas fa-trash-alt"></i></a>    
-                            </td>
+                            </td>                    
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -84,7 +84,6 @@
                             <th scope="col">Creator</th>
                             <th scope="col">Date Create</th>
                             <th scope="col">Update</th>
-                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,14 +96,7 @@
                             <td>${listPosition.dateCreated}</td>                          
                             <td >  
                                 <a  href="mainController?action=ssPosition&&idPos=<c:out value="${listPosition.idPos}"/>&&posName=<c:out value="${listPosition.posName}"/>"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <c:url var="delete" value="mainController">
-                                    <c:param name="action" value="Delete"> </c:param>
-                                    <c:param name="id" value="${listDep.depNum}"> </c:param>
-                                </c:url>
-                                <a href="${delete}"><i class="fas fa-trash-alt"></i></a>
-                            </td>
+                            </td>                    
                         </tr>                           
                     </c:forEach>
                     </tbody>

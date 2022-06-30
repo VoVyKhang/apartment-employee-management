@@ -14,47 +14,82 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Renewal Contract</title>
+        <style>
+            .btn-primary{
+                background: linear-gradient(to right, #00c0f9, #0255cd);
+                border: 1px solid #01a3ed !important;
+                border-radius: 5px !important;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 5px 10px;
+                width: 100%;
+                margin-top: 10px;
+                text-transform: uppercase
+            }
+
+            .btn-primary:hover{
+                transform: scale(0.99);
+                cursor: pointer;
+                opacity: 0.9
+            }
+
+        </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
-            <h1>Renewal Contract</h1>
+        <c:import url="sidebar.jsp"></c:import>
+
+            <div class="modal-content" style="margin: 0 8px">
+                <div class="modal-header">
+                    <h5 class="modal-title">Renewal Contract</h5>
+                </div>
+
+                <div>
+                    <p style="margin: 16px 16px 0 16px">Contract of employee : ${requestScope.Contract.nameEmp}</p>
+            </div>
             <p style="color:red">${requestScope.WARNING}</p>
-        <form action="mainController" method="POST">
+            <div class="modal-body">
+                <form action="mainController" method="POST" class="form-position">
 
-            <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                               url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                               user = "sa"  password = "12345"/>
+                    <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                                       user = "sa"  password = "12345"/>
 
-            <sql:query dataSource = "${snapshot}" var = "listtype">
-                select idTypeCon, name
-                from TypeContract
-            </sql:query>
+                    <sql:query dataSource = "${snapshot}" var = "listtype">
+                        select idTypeCon, name
+                        from TypeContract
+                    </sql:query>
+                    <div class="form-group">
+                        <label>Type of contract</label>
+                        <c:forEach var = "rowlist" items = "${listtype.rows}">
+                            <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
+                                <input class="form-control" type="text" value="${rowlist.name}" readonly="">
+                            </c:if>
+                        </c:forEach>
+                    </div>
 
+                        <div class="form-group">
+                            <label>Sign Day </label>
+                            <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Expiration Day</label> 
+                            <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
+                        </div>
+                    <c:choose>
+                        <c:when test="${requestScope.Contract.status eq 1}">
+                            Status: <p style="color:green">OK</p>
+                        </c:when>
+                        <c:otherwise>
+                            Status: <p style="color:red">Expired</p>
+                        </c:otherwise>
+                    </c:choose>
 
+                    <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
+                    <input class="btn btn-primary" type="submit" name="action" value="renewal"/> 
 
-            <p>Contract of employee : ${requestScope.Contract.nameEmp} </p>
-            <label>Type of contract</label>
-            <c:forEach var = "rowlist" items = "${listtype.rows}">
-                <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
-                    <input type="text" value="${rowlist.name}" readonly="">
-                </c:if>
-            </c:forEach>
-
-            </br>
-            Sign Day <input type="text" readonly="" value="${requestScope.Contract.signDay}"/></br>
-            Expiration Day <input type="date" value="${requestScope.Contract.expDay}" name="expday"/></br>
-            <c:choose>
-                <c:when test="${requestScope.Contract.status eq 1}">
-                    Status: <p style="color:green">OK</p>
-                </c:when>
-                <c:otherwise>
-                    Status: <p style="color:red">Expired</p>
-                </c:otherwise>
-            </c:choose>
-
-            <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-            <input type="submit" name="action" value="renewal"/> 
-
-        </form>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
