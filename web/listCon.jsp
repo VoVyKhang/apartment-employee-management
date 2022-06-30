@@ -77,6 +77,16 @@
             .con-header th{
                 padding-left: 0 !important
             }
+            
+            .renewal{
+                display: flex;
+                align-items: center
+            }
+            
+            .renewal:hover{
+                opacity: 0.8;
+                text-decoration: underline
+            }
         </style>
     </head>
     <body>
@@ -173,14 +183,18 @@
                                             <c:choose>
                                                 <c:when test="${listCon.status eq 0}">
                                                     <p style="color:red; margin-bottom: 0">Expired</p>
-                                                    <a href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=renewal">Renewal</a>
+                                                    <a class="renewal" href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=renewal">
+                                                        <i class="fas fa-angle-double-right"></i>
+                                                        Renewal</a>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <p style="color:green; margin-bottom: 0">Active</p>
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td><a href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=update"><i class="fas fa-edit"></i></a></td>
+                                        <td>
+                                            <a href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=update">
+                                                <i class="fas fa-edit"></i></a></td>
                                     </tr>
                                 </form> 
                             </c:forEach>
