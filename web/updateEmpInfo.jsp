@@ -66,20 +66,6 @@
                 </br>
 
                 <div class="row">
-                    <div class="col-6">Age: <input type="text" name="empage"
-                                                   <c:choose>
-                                                       <c:when test="${not empty requestScope.Employee.age}">
-                                                           value="${requestScope.Employee.age}"
-                                                       </c:when>
-                                                       <c:otherwise>
-                                                           value="${requestScope.agereg}"
-                                                       </c:otherwise>
-                                                   </c:choose>
-                                                   ></br>
-
-                        <p style="color: red">${requestScope.WARNINGAGE}</p>
-                    </div>
-
                     <div class="col-6">Gender: 
                         <select name="empgen">
                             <option value="Male" 

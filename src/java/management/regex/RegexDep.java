@@ -55,7 +55,7 @@ public class RegexDep {
         return false;
     }
 
-    //check exist of department
+    //check exist of department create
     public static boolean checkExistDep(String name) {
         try {
             if (DepartmentDAO.checkDepExist(name)) {
@@ -68,12 +68,36 @@ public class RegexDep {
         return true;
     }
 
-    //check validation of all field
+    //check exist of department update
+    public static boolean checkExistDepUpdate(String oldname, String newname) {
+        try {
+            if (DepartmentDAO.checkDepExistUpdate(oldname, newname)) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexDep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
+    //check validation of all field create
     public static boolean checkDepValidation(String name, String des, String location) {
         if (checkDepName(name)
                 && checkDepDes(des)
                 && checkDepLoc(location)
                 && checkExistDep(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    //check validation of all field update
+    public static boolean checkDepValidationUpdate(String oldname, String newname, String des, String location) {
+        if (checkDepName(newname)
+                && checkDepDes(des)
+                && checkDepLoc(location)
+                && checkExistDepUpdate(oldname, newname)) {
             return true;
         }
         return false;

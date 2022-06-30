@@ -371,7 +371,7 @@ public class EmployeeDAO {
                 ptm.setString(3, gender);
                 ptm.setString(4, phoneNum);
                 ptm.setString(5, dob);
-                ptm.setInt(7, Integer.parseInt(idemp));
+                ptm.setInt(6, Integer.parseInt(idemp));
                 int result = ptm.executeUpdate();
                 if (result > 0) {
                     return true;
