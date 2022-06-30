@@ -142,6 +142,7 @@
                         <th>Times</th>
                         <th>Date</th>
                         <th>Reason </th>
+                        <th>Description</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -166,14 +167,15 @@
                                 </c:choose></td>
                             <td>${listrp.times}</td>
                             <td>${listrp.applicableDate}</td>
-                            <td>${listrp.reason}</td> 
+                            <td>${listrp.namere}</td>
+                            <td>${listrp.reason}</td>
                             <td>
                                 <c:url var="update" value="mainController">
                                     <c:param name="action" value="pushss"> </c:param>
                                     <c:param name="updatetype" value="updaterp"> </c:param>
                                     <c:param name="idreg" value="${listrp.idReg}"> </c:param>
                                     <c:param name="nameemp" value="${listrp.name}"> </c:param>
-                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>   
                                 </c:url>
                                 <a href="${update}"><i class="fas fa-edit"></i></a>
                             </td>                    
