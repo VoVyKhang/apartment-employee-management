@@ -161,6 +161,8 @@ public class mainController extends HttpServlet {
                 url = "showHisDepEmpController";
             } else if(action.equals("showHisPosEmp")){
                 url = "showHisPosEmpController";
+            } else if(action.equals("detailDep")){
+                url = "detailDepController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

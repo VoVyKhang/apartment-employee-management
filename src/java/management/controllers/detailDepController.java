@@ -1,27 +1,30 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import management.dao.ContractDAO;
-import management.dto.ContractDTO;
+import management.dao.DepartmentDAO;
+import management.dao.EmployeeDAO;
+import management.dto.DepartmentDTO;
+import management.dto.EmployeeDTO;
 
 /**
  *
- * @author lehon
+ * @author VyNT
  */
-public class passOjConController extends HttpServlet {
+public class detailDepController extends HttpServlet {
 
+    private final String SUCCESS = "detailDep.jsp";
+    private final String ERROR = "Hall.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,24 +37,24 @@ public class passOjConController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            String idcon = request.getParameter("idcon");
-            String nameEmp = request.getParameter("nameEmp");
-            String flag = request.getParameter("flag");
-            ContractDTO con = null;
-            try {
-                con = ContractDAO.getContractByID(idcon,nameEmp);
-            } catch (SQLException ex) {
-                Logger.getLogger(passOjConController.class.getName()).log(Level.SEVERE, null, ex);
+        PrintWriter out = response.getWriter();
+        String url= ERROR;
+        try {
+            String depNum = request.getParameter("iddep");
+            if(depNum == null){
+                url= ERROR;
+            }else{
+                DepartmentDTO dep = DepartmentDAO.getDepByDepnum(depNum);
+                ArrayList<EmployeeDTO> listEmp = EmployeeDAO.showEmpByDep(dep.getDepName(), "", "");
+                request.setAttribute("dep", dep);
+                request.setAttribute("listEmp", listEmp);
+                url=SUCCESS;
             }
-            if (con != null) {
-                request.setAttribute("Contract", con);
-                if (flag.equals("update")) {
-                    request.getRequestDispatcher("updateContract.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("renewalContract.jsp").forward(request, response);
-                }
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            request.getRequestDispatcher(url).forward(request, response);
+            out.close();
         }
     }
 

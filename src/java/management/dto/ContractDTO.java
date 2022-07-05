@@ -14,11 +14,30 @@ public class ContractDTO {
     private String typeCon;
     private String signDay;
     private String expDay;
+    private String filePath;
     private String nameEmp;
     private int status;
   
     
     public ContractDTO() {
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ContractDTO(int idCon, String typeCon, String signDay, String expDay, String filePath, String nameEmp, int status) {
+        this.idCon = idCon;
+        this.typeCon = typeCon;
+        this.signDay = signDay;
+        this.expDay = expDay;
+        this.filePath = filePath;
+        this.nameEmp = nameEmp;
+        this.status = status;
     }
 
     public ContractDTO(int idCon, String typeCon, String signDay, String expDay, String nameEmp, int status) {

@@ -104,9 +104,9 @@
                                 <h3 class="card-title">Contract informations</h3>
 
                                 <sql:query dataSource = "${snapshot}" var = "listcontract">
-                                    select idContract,  t.name, signDay, expDay, status
-                                    from Contract as c, TypeContract as t
-                                    where c.idTypeCon = t.idTypeCon and c.idEmp = ${requestScope.Employee.idEmp}
+                                    select c.idContract,  t.name, signDay, expDay, hc.status
+                                    from Contract as c, TypeContract as t, HistoryContract hc, Employee e
+                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp}
                                 </sql:query>
 
                                 <ul class="personal-info">

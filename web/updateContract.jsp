@@ -47,7 +47,7 @@
                 <h5 class="modal-title">Update contract</h5>
             </div>
             
-                <form action="mainController" method="POST" style="margin: 0 16px" class="form-position">
+            <form action="mainController" method="POST" style="margin: 0 16px" class="form-position" enctype="multipart/form-data">
 
                 <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                    url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
@@ -88,6 +88,15 @@
                             Expiration Day 
                         </span>
                         <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
+                    </div>
+                    <div>
+                        Current File: ${requestScope.Contract.filePath}
+                    </div>
+                    <div class="form-group">
+                        <span>
+                            New File
+                        </span>
+                        <input type="file" name="fileCon">
                     </div>
                 </div>
                 <c:choose>

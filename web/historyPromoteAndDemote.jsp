@@ -88,6 +88,7 @@
                                 <th scope="col">Employee</th>
                                 <th scope="col">Position</th>
                                 <th scope="col">Delivery Date</th>
+                                <th scope="col">Exact Date</th>
                                 <th scope="col">Type</th>
                                 <th scope="col">Status</th>
                             </tr>
@@ -98,6 +99,7 @@
                                     <td>${listHisPos.nameEmp}</td>
                                     <td>${listHisPos.posName}</td>
                                     <td>${listHisPos.deliveryDate}</td>
+                                    <td>${listHisPos.exactDate}</td>
                                     <td> <c:choose>
                                             <c:when test="${listHisPos.type eq 0}">
                                                 Promote
