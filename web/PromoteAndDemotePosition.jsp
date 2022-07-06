@@ -33,6 +33,17 @@
                 width: 100%;
             }
 
+            .breadcrumb{
+                background-color: #f7f7f7 !important;
+                margin-left: -16px
+            }
+
+            .actions{
+                display: flex;
+                justify-content: space-between;
+                width: 100%
+            }
+
             .btn-primary:hover{
                 transform: scale(0.9);
                 opacity: 0.9
@@ -86,6 +97,18 @@
                 padding: 2px 8px;
                 border-radius: 4px
             }
+
+            .history-btn{
+                background-color: #00a8ef;
+                border: 1px solid #00c5fb;
+                border-radius: 5px;
+                color: #fff;
+                font-weight: 500;
+                min-width: 140px;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 4px 10px;
+            }
         </style>
     </head>
     <body>
@@ -107,15 +130,26 @@
                 from Position
             </sql:query>
             <div style="margin: 0 16px" >
-                <div class="modal-header" style="margin: 0 0 20px -16px">
-                    <h5 class="modal-title">Promote/Demote</h5>
-                </div>
-
-                <div>
-                    <div>
-                        <a class="list-position__link" href="mainController?action=searchHisPos" >History of promotion and demotion</a>
+                <div class="modal-header" style="margin: 0 0 0 -16px">
+                    <div style="width: 100%">
+                        <div>
+                            <h5 class="modal-title">Promote/Demote</h5>
+                        </div>
+                        <div class="actions">
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                    <li class="breadcrumb-item "><a href="mainController?action=listPosition">Position</a></li>
+                                    <li class="breadcrumb-item active">Promote/Demote</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <a class="history-btn" href="mainController?action=searchHisPos" >History of promotion and demotion</a>
+                            </div>
+                        </div>
                     </div>
-
+                </div>
+                <div>
                     <form action="mainController" method="post" >
                         <div class="row filter-row" style="margin-bottom: 8px">
                             <div class="col-sm-6 col-md-3">

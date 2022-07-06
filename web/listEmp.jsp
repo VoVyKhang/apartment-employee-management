@@ -1,8 +1,3 @@
-<%-- 
-    Document   : listEmp
-    Created on : May 29, 2022, 8:06:21 PM
-    Author     : lehon
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -18,11 +13,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/styles.css"/>
-        <style>
-            .list__employee{
-                margin: 0 16px
-            }
-        </style>
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -59,11 +49,13 @@
                 background-color: #55ce63;
                 text-transform: uppercase
             }
-
             .search-btn:hover{
                 transform: scale(0.9)
             }
-
+            
+            .list__employee{
+                margin: 0 16px
+            }
         </style>
         
          <style>
@@ -85,7 +77,7 @@
         <c:import url="sidebar.jsp"></c:import> 
 
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement2"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
 
         <sql:query dataSource = "${snapshot}" var = "listDep">
@@ -238,7 +230,6 @@
                 var table = $("#listEmp");
                 var trs = table.find('tr');
                 trs.hide();
-
                 var filtered = trs.filter(function (index, elem) {
                     var tds = $(elem).find('td');
                     if (depname == "all" && posname == "all") {
@@ -247,19 +238,15 @@
                     if (tds.eq(5).text().trim().toLowerCase().indexOf(depname) != -1 && posname == "all") {
                         return true;
                     }
-
                     if (tds.eq(1).text().trim().toLowerCase().indexOf(posname) != -1 && depname == "all") {
                         return true;
                     }
-
                     if (tds.eq(5).text().trim().toLowerCase().indexOf(depname) != -1 &&
                             tds.eq(1).text().trim().toLowerCase().indexOf(posname) != -1) {
                         return true;
                     }
                 })
-
                 filtered.show();
-
                 if (filtered.length == 0) {
                     alert("No Records Found!!!");
                 }

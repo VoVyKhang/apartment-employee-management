@@ -17,6 +17,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create New Employee</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px
+            }
             /*Create new employee*/
             .form__select{
                 width: 602.6px;
@@ -43,11 +53,13 @@
                 min-width: 150px;
                 padding: 10px 20px;
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.9);
                 opacity: 0.9
             }
+
+            
         </style>
     </head>
     <body>
@@ -56,7 +68,16 @@
 
             <div class="modal-content" style="margin: 0 16px">           
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Employee</h5>
+                    <div>
+                        <h5 class="modal-title">Add Employee</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
+                                <li class="breadcrumb-item active">Add Employee</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-body">

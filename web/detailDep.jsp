@@ -18,11 +18,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/styles.css"/>
-        <style>
-            .list__employee{
-                margin: 0 16px
-            }
-        </style>
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -62,6 +57,10 @@
 
             .search-btn:hover{
                 transform: scale(0.9)
+            }
+            
+            .list__employee{
+                margin: 0 16px
             }
 
         </style>

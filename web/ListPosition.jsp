@@ -38,16 +38,17 @@
             }
             
             .position-link{
-                font-weight: 600;
-                padding: 4px 8px;
-                border: 1px solid #333;
-                border-radius: 5px
+               background-color: #00a8ef;
+                border: 1px solid #00c5fb;
+                border-radius: 5px;
+                color: #fff;
+                font-weight: 500;
+                min-width: 140px;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 4px 10px;
             }
-            
-            .position-link:hover{
-                background-color: #000;
-                color: #fff
-            }
+
         </style>
     </head>
     <body>

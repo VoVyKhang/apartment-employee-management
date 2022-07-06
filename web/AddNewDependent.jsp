@@ -39,6 +39,12 @@
                 transform: scale(0.99);
                 opacity: 0.9
             }
+            
+             .breadcrumb{
+                background-color: #fff !important;  
+                margin-bottom: 0 !important;
+                margin-left: -14px
+            }
         </style>
     </head>
     <body>
@@ -49,7 +55,16 @@
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 0 8px" class="modal-content">
                 <div class="modal-header" style="margin-bottom: 16px">
-                    <h5 class="modal-title">Create new department</h5>
+                    <div>
+                        <h5 class="modal-title">Create new dependent</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=listDependent">Dependent</a></li>
+                                <li class="breadcrumb-item active">Create new dependent</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <c:if test="${filedBlank != null}">
                     <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 

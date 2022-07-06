@@ -18,13 +18,18 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .page-title{
                 text-align: initial !important;
                 margin-left: 16px !important;
                 margin-top: 8px
             }
             
+             .breadcrumb{
+                background-color: #f7f7f7 !important;  
+                margin-bottom: 0 !important
+            }
+
         </style>
     </head>
     <body>
@@ -40,18 +45,25 @@
 
             <div style="margin: 0 16px; width: 100%" >
                 <div class="page-header">
-                <div class="row">
-                    <h4 class="page-title">Update certificate</h4>
+                    <div>
+                        <h4 class="page-title">Update certificate</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=listCertificate">Certificate</a></li>
+                                <li class="breadcrumb-item active">Update Certificate</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-                
+
                 <c:if test="${nameInvalid != null}">
                     <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
                 </c:if>
                 <c:if test="${requestScope.checkDoi != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
                 </c:if>
-                    <table class="table table-striped list-certificate">
+                <table class="table table-striped list-certificate">
                     <thead>
                         <tr>
                             <th scope="col">ID employee</th>

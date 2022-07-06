@@ -26,10 +26,34 @@
                 margin-top: 14px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.95);
                 opacity: 0.9
+            }
+
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -24px;
+                margin-bottom: 0 !important
+            }
+            
+            .actions{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .history-btn{
+                background-color: #00a8ef;
+                border: 1px solid #00c5fb;
+                border-radius: 5px;
+                color: #fff;
+                font-weight: 500;
+                min-width: 140px;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 4px 10px;
             }
         </style>
     </head>
@@ -50,10 +74,20 @@
         </sql:query>
         <div style="margin: 0 16px; width: 100%" class="change-department">
             <div class="modal-header">
-                <div>
+                <div style="width: 100%">
                     <h4 style="margin-left: -12px" class="page-title">Change department</h4>
+                    <div class="actions">
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                <li class="breadcrumb-item active">Change departmnet</li>
+                            </ul>
+                        </div>
+                        <a class="history-btn" href="mainController?action=history&typehis=hisdep">History of change department</a>
+                    </div>
                 </div>
-                </div>
+            </div>
 
             <c:if test="${requestScope.listEmp != null}">
                 <form action="mainController" method="post" class="form-reward-penalty">
@@ -168,7 +202,7 @@
                     <p style="color:green">${sessionScope.WARNING}</p>
                     <c:remove var="WARNING" scope="session" />
                 </c:if>
-                <a href="mainController?action=history&typehis=hisdep">History of change department</a>
+
             </div>
         </div>
     </body>

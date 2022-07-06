@@ -95,7 +95,7 @@
                         <div class="col-sm-6 col-md-4 mt-3"> 
                             <div class="form-group form-focus select-focus">
                                 <select name="locationDep" class="form-select form-select-md-5 mb-1 list-options" > 
-                                    <option value="allDep">All</option>
+                                    <option value="allDep">All Department</option>
                                     <c:forEach var="listLocation" items="${listLocation.rows}">
                                         <option value="${listLocation.location}" ><c:out value="${listLocation.location}"/></option>                       
                                     </c:forEach>

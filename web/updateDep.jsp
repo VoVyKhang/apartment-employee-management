@@ -27,6 +27,12 @@
                 transform: scale(0.99);
                 opacity: 0.9
             }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important
+            }
         </style>
     </head>
     <body>
@@ -35,7 +41,16 @@
 
             <div class="modal-content" style="margin: 0 8px">
                 <div class="modal-header" >
-                    <h5 class="modal-title">Update Department</h5>
+                    <div>
+                        <h5 class="modal-title">Update Department</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                <li class="breadcrumb-item active">Update Department</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div>

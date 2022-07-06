@@ -25,10 +25,16 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
+            }
+
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important
             }
         </style>
     </head>
@@ -36,9 +42,18 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>     
 
-        <div class="modal-content" style="margin: 0 8px">
+            <div class="modal-content" style="margin: 0 8px">
                 <div class="modal-header" style="margin-bottom: 16px">
-                    <h5 class="modal-title">Create new department</h5>
+                    <div>
+                        <h5 class="modal-title">Create new department</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                <li class="breadcrumb-item active">Create new departmnet</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <form action="mainController" method="POST" class="form-position" style="margin: 0 16px">
@@ -64,7 +79,7 @@
                 </div>
                 <%Date d = new Date();%>
                 <%EmployeeDTO emp = (EmployeeDTO) session.getAttribute("USER_LOGGIN");
-                String name = emp.getName();%>
+                    String name = emp.getName();%>
 
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Date Create</label>

@@ -22,10 +22,16 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.9);
                 opacity: 0.9
+            }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important
             }
         </style>
     </head>
@@ -35,7 +41,16 @@
         <c:import url="sidebar.jsp"></c:import> 
             <div style="margin: 0 8px" class="list-employee modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Reward - Penalty</h5>
+                    <div>
+                        <h5 class="modal-title">Update Reward - Penalty</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=rewardpenalty">Reward - Penalty</a></li>
+                                <li class="breadcrumb-item active">Update Reward - Penalty</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div>

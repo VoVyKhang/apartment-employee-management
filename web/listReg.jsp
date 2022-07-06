@@ -51,6 +51,24 @@
                 background-color: #000;
                 color: #fff
             }
+            
+            .filter__btn{
+                border: 1px solid #00c5fb;
+                border-radius: 5px;
+                color: #fff;
+                font-weight: 500;
+                text-decoration: none;
+                cursor: pointer;
+                width: 100%;
+                height: 38px;
+                background-color: #55ce63;
+                text-transform: uppercase
+            }
+            
+            .filter__btn:hover{
+                opacity: 0.9;
+                transform: scale(0.95)
+            }
 
         </style>
     </head>
@@ -72,13 +90,13 @@
                             <form action="mainController" method="POST" class="form-position form__regulation">
                                 <div class="form-group" style="width: 180px; margin-right: 20px">
                                     <select name="regType" class="form-control">
-                                        <option value="2" selected>All</option>
+                                        <option value="2" selected>All Type</option>
                                         <option value="1">Reward</option>
                                         <option value="0">Penalty</option>
                                     </select>
                                 </div>
                                 <div style="margin-top: -6px; margin-bottom: 16px">
-                                    <input style="width: 180px" class="btn btn-primary btn-sm" type="submit" value="Filter"/>
+                                    <input style="width: 180px" class="filter__btn" type="submit" value="Filter"/>
                                     <input type="hidden" name="action" value="filterReg"/>
                                 </div>
                             </form>

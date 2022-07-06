@@ -22,10 +22,16 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
+            }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;   
+                margin-bottom: 0 !important
             }
         </style>
     </head>
@@ -36,7 +42,16 @@
             <div class="modal-content" style="margin: 0 8px">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Regulation</h5>
+                    <div>
+                        <h5 class="modal-title">Update Regulation</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=reg">Regulation</a></li>
+                                <li class="breadcrumb-item active">Update Regulation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -61,9 +76,9 @@
                                         Type
                                     </label> 
                                     <select name="regType" class="form-control">
-                                    <option value="0" selected>Penalty</option>
-                                    <option value="1">Reward</option>
-                                </select>
+                                        <option value="0" selected>Penalty</option>
+                                        <option value="1">Reward</option>
+                                    </select>
                                 </div>
                             </c:when>
                             <c:otherwise>
@@ -81,7 +96,7 @@
                     <div class="form-position__btn">
                         <input type="hidden" name="idReg" value="${requestScope.idReg}"/>
                         <input class="btn btn-primary" type="submit" name="action" value="Update Regulation"/>
-                        
+
                     </div>
                 </form>
             </div>

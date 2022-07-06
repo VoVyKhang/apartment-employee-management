@@ -17,14 +17,23 @@
         <title>History Change Department</title>
         <style>
             .btn-primary{
-                background-color: #01a3ed !important;
-                border: 1px solid #01a3ed !important;
-                border-radius: 10px !important;
-                font-size: 18px;
-                font-weight: 600;
-                min-width: 150px;
-                padding: 10px 20px;
-                margin-top: 46px
+                border: 1px solid #00c5fb;
+                border-radius: 50px;
+                color: #fff;
+                font-weight: 500;
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                width: 100%;
+                height: 38px;
+                background-color: #55ce63;
+                text-transform: uppercase
+            }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -24px;
+                margin-bottom: 0 !important
             }
         </style>
     </head>
@@ -42,20 +51,32 @@
                 from Department
             </sql:query>
             <div style="margin: 0 32px; width: 100%">
+                <div class="modal-header">
+                <div style="width: 100%">
+                    <h4 style="margin-left: -12px" class="page-title">History change department</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=changedep">Change Department</a></li>
+                                <li class="breadcrumb-item active">History change departmnet</li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+                
                 <form action="mainController" method="POST" class="form-reward-penalty">
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group mb-3 mt-3">
-                                <label for="name">Employee Name</label>
                                 <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name" name="txtSearchName">
                                 
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3"> 
                             <div class="form-group form-focus select-focus">
-                                <label >Status</label>
                                 <select name="status" class="form-select form-select-md-5 mb-1 list-options" >
-                                    <option value="allStatus">All</option>
+                                    <option value="allStatus">All Status</option>
                                     <option value="0">Inactive</option>
                                     <option value="1">Active</option>
                                 </select>
@@ -63,9 +84,8 @@
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3"> 
                             <div class="form-group form-focus select-focus">
-                                <label >Department</label>
                                 <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
-                                    <option value="allDep">All</option>
+                                    <option value="allDep">All Department</option>
                                     <c:forEach var="listDep" items="${listDep.rows}">
                                         <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
                                     </c:forEach>
