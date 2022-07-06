@@ -9,10 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="mycss.css" type="text/css"/>
+        <title>Footer</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+        
     </head>
     <body>
-        <p style="color: white; text-align: center" > Copyright &copy;2022 </p>
+        
     </body>
 </html>

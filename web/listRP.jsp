@@ -86,7 +86,7 @@
             select depName
             from Department
         </sql:query>
-        <div style="margin: 0 32px" class="list-employee">
+        <div style="margin: 0 16px" class="list-employee">
 
             <div class="page-header">
                 <div class="row">

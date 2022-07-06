@@ -66,7 +66,7 @@
                 select location
                 from Department
             </sql:query>
-            <div style="margin: 0 20px" class="list-employee">
+            <div style="margin: 0 16px" class="list-employee">
                 <div class="page-header">
                     <div class="row">
                         <h3 class="page-title">Department</h3>
