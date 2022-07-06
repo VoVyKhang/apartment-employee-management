@@ -113,6 +113,7 @@ span {
     background: #34444c;
     color: #fff;
     transition: all 0.3s;
+    overflow: hidden !important
 }
 
 #sidebar.active {

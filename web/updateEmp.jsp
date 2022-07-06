@@ -29,6 +29,12 @@
                 border: 1px solid #ced4da;
             }
 
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important
+            }
+
             .day-of-birth{
                 margin-left: 15px
             }
@@ -49,7 +55,7 @@
                 padding: 10px 20px;
                 margin-top: 16px
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.9);
                 opacity: 0.9
@@ -63,14 +69,23 @@
             <div class="modal-content" style="margin: 0 16px">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Employee</h5>
+                    <div>
+                        <h5 class="modal-title">Update Employee</h5>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                            <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
+                            <li class="breadcrumb-item active">Update Employee</li>
+                        </ul>
+                    </div>
+                    </div>
                 </div>
 
                 <div>
                     <div>
                         <p style="margin: 16px 16px 0 16px">The employee being updated is: ${requestScope.Employee.name}</p>
-                    </div>
                 </div>
+            </div>
 
             <div class="modal-body">
                 <form action="mainController" method="post" enctype="multipart/form-data">

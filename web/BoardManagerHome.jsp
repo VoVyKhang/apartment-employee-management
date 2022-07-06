@@ -20,71 +20,66 @@
             <c:redirect url="Hall.jsp">
             </c:redirect>
         </c:if>
-          
-        <section style="width: 100%; overflow: hidden">
 
-            <div class="container">
-                <div class="row">
+        <div style="width: 100%; margin-left: 40px; overflow: hidden">
+            <div>
+                    <div class="container">
+                        <div class="row">
 
-                    <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
-                        <div class="card-item_employee">
-                            <i style="color: #00c5fb" class="fas fa-building"></i>
+                            <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
+                                <div class="card-item_employee">
+                                    <i style="color: #00c5fb" class="fas fa-building"></i>
+                                </div>
+
+                                <div>
+                                    <p class="card-item_number">
+                                        ${requestScope.lengthDep}
+                                    </p>
+                                    <a 
+                                        class="card-item_link"
+                                        href="mainController?action=showlist&type=dep">Department</a>
+                                </div>
+
+                            </div>
+                            <div style="width: 20px"></div>
+
+                            <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
+                                <div class="card-item_employee">
+                                    <i style="color: #00c5fb" class="fas fa-user"></i>
+                                </div>
+
+                                <div>
+                                    <p class="card-item_number">
+                                        ${requestScope.lengthEmp}
+                                    </p>
+                                    <a 
+                                        class="card-item_link"
+                                        href="mainController?action=showlist&type=emp">Employee</a>
+                                </div>    
+                            </div>
+                            <div style="width: 20px"></div>
+                            <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
+                                <div class="card-item_employee">
+                                    <i style="color: #00c5fb" class="fas fa-book-open"></i>
+                                </div>
+
+                                <div>
+                                    <p class="card-item_number">${requestScope.lengthReg}</p>
+                                    <a                         
+                                        class="card-item_link"
+                                        href="mainController?action=showlist&type=reg">
+                                        Regulation
+                                    </a>
+                                </div>    
+                            </div>
                         </div>
-
-                        <div>
-                            <p class="card-item_number">
-                                ${requestScope.lengthDep}
-                            </p>
-                            <a 
-                                class="card-item_link"
-                                href="mainController?action=showlist&type=dep">Department</a>
-                        </div>
-
                     </div>
-                    <div style="width: 20px"></div>
-
-                    <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
-                        <div class="card-item_employee">
-                            <i style="color: #00c5fb" class="fas fa-user"></i>
-                        </div>
-
-                        <div>
-                            <p class="card-item_number">
-                                ${requestScope.lengthEmp}
-                            </p>
-                            <a 
-                                class="card-item_link"
-                                href="mainController?action=showlist&type=emp">Employee</a>
-                        </div>    
-                    </div>
-                    <div style="width: 20px"></div>
-
-                    <div style="max-width: 30%" class="card-item col-xl-4 col-sm-6 col-12">
-                        <div class="card-item_employee">
-                            <i style="color: #00c5fb" class="fas fa-book-open"></i>
-                        </div>
-
-                        <div>
-                            <p class="card-item_number">
-                                ${requestScope.lengthReg}
-                            </p>
-
-                            <a                         
-                                class="card-item_link"
-                                href="mainController?action=showlist&type=reg">
-                                Regulation
-                            </a>
-                        </div>    
-                    </div>
-
-
-
-                </div>
             </div>
-
-
-
-        </section>
-
+            <div>
+                <footer>
+                    <c:import url="footer.jsp"></c:import>   
+                </footer>  
+            </div>               
+        </div>
     </body>
 </html>

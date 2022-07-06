@@ -29,6 +29,10 @@
                 margin-left: 16px !important;
                 margin-top: 8px
             }
+            .breadcrumb{
+                background-color: #f7f7f7 !important;  
+                margin-bottom: 0 !important
+            }
 
         </style>
     </head>
@@ -47,6 +51,13 @@
                 <div class="page-header">
                     <div class="row">
                         <h4 class="page-title">Update certificate</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=listCertificate">Certificate</a></li>
+                                <li class="breadcrumb-item active">Update Certificate</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 

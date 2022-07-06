@@ -86,7 +86,7 @@
             select depName
             from Department
         </sql:query>
-        <div style="margin: 0 32px" class="list-employee">
+        <div style="margin: 0 16px" class="list-employee">
 
             <div class="page-header">
                 <div class="row">
@@ -118,7 +118,7 @@
                     <div class="col-sm-6 col-md-3" style="margin-top: 16px"> 
                         <div class="form-group form-focus select-focus">
                             <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
-                                <option value="allDep">All</option>
+                                <option value="allDep">All Department</option>
                                 <c:forEach var="listDep" items="${listDep.rows}">
                                     <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
                                 </c:forEach>

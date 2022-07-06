@@ -45,6 +45,12 @@
                 transform: scale(0.99);
                 opacity: 0.9
             }
+            
+             .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -12px;   
+                margin-bottom: 0 !important
+            }
         </style>
     </head>
     <body>
@@ -58,6 +64,13 @@
                 <div class="modal-header">
                     <div>
                         <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=listCertificate">Certificate</a></li>
+                                <li class="breadcrumb-item active">Add new Certificate</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 

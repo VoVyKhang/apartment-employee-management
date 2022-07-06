@@ -34,6 +34,12 @@
             .title{
                 margin: 8px 0
             }
+            
+             .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important
+            }
         </style>
     </head>
     <body>
@@ -41,25 +47,34 @@
             <%@include file="header.jsp" %>
         </header>
         <c:import url="sidebar.jsp"></c:import>
-        <div 
-            style="margin: 0 16px;
-            width: 100%;
-            border: 1px solid #d9d9d9;
-            border-radius: 10px"
+            <div 
+                style="margin: 0 16px;
+                width: 100%;
+                border: 1px solid #d9d9d9;
+                border-radius: 10px"
 
-            class="model-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Reward - Penalty</h5>
-            </div>
-            <div style="margin-left: 16px">
-                <div>
-                    <p style="margin-top: 16px">ID Employee:  ${sessionScope.id}</p>               
+                class="model-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title">Create Reward - Penalty</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
+                                <li class="breadcrumb-item active">Create Reward - Penalty</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 16px">
+                    <div>
+                        <p style="margin-top: 16px">ID Employee:  ${sessionScope.id}</p>               
                     <p>Name: ${sessionScope.name}</p>
                 </div>
             </div>
-        
+
             <div class="modal-body" style="padding-top: 0"> 
-                
+
                 <div class="list-employee">
                     <form action="mainController" method="post" class="form-position">
                         <div class="form-group">
@@ -67,13 +82,13 @@
                             <select name="idReg" class="form-control">
                                 <c:forEach var="list" items="${requestScope.list}">
                                     <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
-                                    ${list.name}
-                                        </option>
-                            </c:forEach>  
+                                        ${list.name}
+                                    </option>
+                                </c:forEach>  
                             </select>
                         </div>
                         <%Date d = new Date();%>
-                    
+
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Date Create</div> 
                             <input class="form-control" type="text" name="daterp" value="<%=d%>" readonly=""/>
@@ -90,9 +105,9 @@
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
                             <input class="btn-primary" type="submit" name="action" value="CreateNewRp"> 
                         </div>
-                            <c:if test="${requestScope.updateSuccess != null}">
+                        <c:if test="${requestScope.updateSuccess != null}">
                             <c:out value="${requestScope.updateSuccess}"/>
-                            </c:if>
+                        </c:if>
                     </form>
                 </div>
             </div>

@@ -22,23 +22,35 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
+            }
+            
+             .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;   
+                margin-bottom: 0 !important
             }
         </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
-
-
-
             <div class="modal-content" style="margin: 0 8px">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Create Regulation</h5>
+                    <div>
+                        <h5 class="modal-title">Create Regulation</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=reg">Regulation</a></li>
+                                <li class="breadcrumb-item active">Create Regulation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
