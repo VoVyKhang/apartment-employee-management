@@ -36,11 +36,20 @@ public class addNewDependentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();                        
-            request.setAttribute("listEmp", listEmp);
-            request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
+            String idEmp = request.getParameter("idEmp");
+            if (idEmp == null) {
+                ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
+                request.setAttribute("listEmp", listEmp);
+                request.setAttribute("idEmp", "");
+                request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
+            }else{
+                ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
+                request.setAttribute("listEmp", listEmp);
+                request.setAttribute("idEmp", idEmp);
+                request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
+            }
         }
     }
 

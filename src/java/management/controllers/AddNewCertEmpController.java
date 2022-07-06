@@ -54,7 +54,7 @@ public class AddNewCertEmpController extends HttpServlet {
                 i++;
             }
             if (i == 0) {
-                boolean result = CertificateDAO.insertCertificate(cerName, doi, idEmp, idTypeCer);
+                boolean result = CertificateDAO.insertCertificate(cerName, doi,"", idEmp, idTypeCer);
                 if (result == true) {
                     request.setAttribute("updateSuccess", "Add success");
                     url = SUCCESS;

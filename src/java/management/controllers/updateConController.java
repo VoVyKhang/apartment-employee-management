@@ -68,7 +68,7 @@ public class updateConController extends HttpServlet {
 
                         //Add new file image
                         
-                        String savePath = path + "\\images" + File.separator + fileName;
+                        String savePath = path + "\\fileCon\\" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                         checkupdate = ContractDAO.updateContract(idcon, typecon, expday, fileName);

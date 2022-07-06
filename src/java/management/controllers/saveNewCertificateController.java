@@ -4,6 +4,7 @@
  */
 package management.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -11,9 +12,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import management.dao.CertificateDAO;
 import management.dto.CertificateDTO;
 import management.regex.RegexEmp;
@@ -22,6 +25,9 @@ import management.regex.RegexEmp;
  *
  * @author AD
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class saveNewCertificateController extends HttpServlet {
 
     /**
@@ -42,6 +48,8 @@ public class saveNewCertificateController extends HttpServlet {
             String doi = request.getParameter("doi");
             String type = request.getParameter("type");
             String idEmp = request.getParameter("idEmp");
+            Part part = request.getPart("imgPath");
+            String fileName = extractFileName(part);
             boolean checkName = RegexEmp.checkEmpName(nameCer);
             boolean checkDoi = RegexEmp.checkValidationDob(doi);
             int i = 0;
@@ -49,22 +57,25 @@ public class saveNewCertificateController extends HttpServlet {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
-            }
-
-            if (checkName == false) {
+            } else if (checkName == false) {
                 request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
-            }
-
-            if (checkDoi == false) {
+            } else if (checkDoi == false) {
                 request.setAttribute("checkDoi", "Can only enter the date before today");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             }
 
             if (i == 0) {
-                boolean result = CertificateDAO.insertCertificate(nameCer, doi, idEmp, type);
+                boolean result = false;
+                if (!fileName.isEmpty() || !fileName.equals("")) {
+                        String path = request.getServletContext().getRealPath("/");
+                        String savePath = path + "\\images\\" + File.separator + fileName;
+                        File fileSaveDir = new File(savePath);
+                        part.write(savePath + File.separator);
+                        result = CertificateDAO.insertCertificate(nameCer, doi, fileName, idEmp, type);
+                }
                 if (result == true) {
                     request.setAttribute("Success", "Success");
                     request.getRequestDispatcher("addNewCertificateController").forward(request, response);
@@ -122,5 +133,14 @@ public class saveNewCertificateController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    private String extractFileName(Part part) {//This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 }

@@ -14,7 +14,10 @@
         <title>List Certificate</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css"/>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
@@ -130,7 +133,8 @@
                     </div> 
                     <div class="col-sm-6 col-md-3 ">
                         </br>
-                        <input type="submit" value="searchCer" name="action" class="btn search-btn">
+                        <input type="submit" value="Search" class="btn search-btn">
+                        <input type="hidden" name="action" value="searchCer" >
                     </div>
                 </div>
             </form>
@@ -146,9 +150,8 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">ID </th>
+                            <th scope="col">ID Employee</th>
                             <th scope="col">Employee name</th>                      
-                            <th scope="col">Certificate ID</th>
                             <th scope="col">Certificate name</th>
                             <th scope="col">Date of issue</th>
                             <th scope="col">Type certificate</th>
@@ -160,8 +163,14 @@
                             <tr>
                                 <td scope="row">${listCer.idEmp}</td>
                                 <td>${listCer.empName}</td>                            
-                                <td>${listCer.cerId}</td>
-                                <td>${listCer.cerName}</td>
+                                <td class="list__employee-item">
+                                    <span>
+                                        <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
+                                    </span>
+                                    <div class="list__employee-description">
+                                        <span class="list__employee-description-name">${listCer.cerName}</span>                 
+                                    </div>
+                                </td>
                                 <td>${listCer.doi}</td>
                                 <td>${listCer.type}</td>                            
                                 <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>

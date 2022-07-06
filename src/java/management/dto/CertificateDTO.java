@@ -24,6 +24,15 @@ public class CertificateDTO {
     public CertificateDTO() {
     }
 
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    
     public CertificateDTO(String empName, int cerId, String cerName, Date doi, String imgPath, int idTypeCer, String type, int idEmp) {
         this.empName = empName;
         this.cerId = cerId;

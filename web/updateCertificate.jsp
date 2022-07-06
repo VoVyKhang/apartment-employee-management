@@ -11,20 +11,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Certificate</title>
-        <link rel="stylesheet" href="css/globalstyles.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css"/>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .page-title{
                 text-align: initial !important;
                 margin-left: 16px !important;
                 margin-top: 8px
             }
-            
+
         </style>
     </head>
     <body>
@@ -40,23 +45,22 @@
 
             <div style="margin: 0 16px; width: 100%" >
                 <div class="page-header">
-                <div class="row">
-                    <h4 class="page-title">Update certificate</h4>
+                    <div class="row">
+                        <h4 class="page-title">Update certificate</h4>
+                    </div>
                 </div>
-            </div>
-                
+
                 <c:if test="${nameInvalid != null}">
                     <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
                 </c:if>
                 <c:if test="${requestScope.checkDoi != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
                 </c:if>
-                    <table class="table table-striped list-certificate">
+                <table class="table table-striped list-certificate">
                     <thead>
                         <tr>
-                            <th scope="col">ID employee</th>
                             <th scope="col">Employee name</th>                      
-                            <th scope="col">Certificate ID</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Certificate name</th>
                             <th scope="col">Date of issue</th>
                             <th scope="col">Type certificate</th>
@@ -64,12 +68,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <form action="mainController">
+                    <form action="mainController" method="POST" enctype="multipart/form-data">
                         <c:forEach var="listCerObject" items="${requestScope.listCerObject}">    
                             <tr>
-                                <td scope="row">${listCerObject.idEmp}</td>
                                 <td>${listCerObject.empName}</td>                            
-                                <td>${listCerObject.cerId}</td>
+                                <td>
+                                    <span>
+                                        <img class="list__employee-item-img" src='images/${listCerObject.imgPath}'>
+                                    </span>
+                                    <input name="imgPath" type="file" accept="image/*">
+                                </td>
                                 <td><input name="cerName" value="${listCerObject.cerName}"></td>
                                 <td><input name="doi" type="date" value="${listCerObject.doi}"></td>
                                 <td>
@@ -85,6 +93,7 @@
                                 <td>
                                     <input type="hidden" name="cerID" value="${listCerObject.cerId}">
                                     <input type="hidden" name="idEmp" value="${listCerObject.idEmp}">
+                                    <input type="hidden" name="oldImg" value="${listCerObject.imgPath}">
                                     <input type="hidden" name="action" value="SaveChange">
                                     <input class="btn btn-secondary btn-sm" type="submit" value="Save">
                                 </td>

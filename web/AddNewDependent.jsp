@@ -48,6 +48,9 @@
 
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 0 8px" class="modal-content">
+                <c:if test="${requestScope.idEmp ne ''}">
+                    <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
+                </c:if>
                 <div class="modal-header" style="margin-bottom: 16px">
                     <h5 class="modal-title">Create new department</h5>
                 </div>
@@ -60,8 +63,17 @@
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
                 </c:if>
-                <form action="mainController" style="margin: 0 16px" class="form-position">            
-
+                <form action="mainController" style="margin: 0 16px" class="form-position">
+                    <c:if test="${requestScope.idEmp eq ''}">
+                        <div class="form-group">
+                            <div style="margin-bottom: 4px">Select employee</div>                                      
+                            <select name="idEmp" class="certificate-select">
+                                <c:forEach var="listEmp" items="${requestScope.listEmp}">
+                                    <option value="${listEmp.idEmp}"> id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/></option>                        
+                                </c:forEach>
+                            </select> 
+                        </div>
+                    </c:if>
                     <div class="form-group">
                         <span>Dependent name</span>
                         <input class="form-control" name="name" value="${param.name}">   
@@ -91,23 +103,15 @@
                             <h3 style="color: red" ><c:out value="${checkRelationship}"/></h3> 
                         </c:if>
                     </div>
-                    <div class="form-group">
-                        <div style="margin-bottom: 4px">Select employee</div>                                      
 
-                        <select name="idEmp" class="certificate-select">
-                            <c:forEach var="listEmp" items="${requestScope.listEmp}">
-                                <option value="${listEmp.idEmp}"> id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/></option>                        
-                            </c:forEach>
-                        </select> 
-
-                    </div>
                     <div style="margin-top: 20px">
-
+                        <c:if test="${requestScope.idEmp ne ''}">
+                            <input type="hidden" name="idEmp" value="${requestScope.idEmp}">
+                        </c:if>
                         <input class="btn btn-primary" type="submit" value="Save">
                         <input type="hidden" name="action" value="saveNewDependent">               
                     </div>
                 </form>
-
             </div>
         </c:if>
     </body>

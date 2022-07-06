@@ -28,7 +28,7 @@
                 width: 100%;
                 height: 42px
             }
-            
+
             .search-btn{
                 border-radius: 5px;
                 color: #fff;
@@ -56,11 +56,11 @@
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 0 8px" class="modal-content">
                 <div class="modal-header">
-                <div>
-                    <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
+                    <div>
+                        <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
+                    </div>
                 </div>
-                </div>
-                
+
                 <c:if test="${filedBlank != null}">
                     <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
                 </c:if>
@@ -70,11 +70,28 @@
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
                 </c:if>
-                <form action="mainController" style="margin: 0 16px" class="form-position">            
-
+                <form action="mainController" style="margin: 0 16px" class="form-position" method="POST" enctype="multipart/form-data">            
+                    <div class="form-group">
+                        <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
+                        <c:if test="${param.idEmp eq ''}">
+                            <div style="margin-bottom: 4px">Select employee</div>                                      
+                            <select name="idEmp" class="certificate-select">
+                                <c:forEach var="listEmp" items="${requestScope.listEmp}">
+                                    <option value="${listEmp.idEmp}" <c:if test="${listEmp.idEmp eq param.idEmp}"> selected="" </c:if> > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
+                                </c:forEach>
+                            </select> 
+                        </c:if>
+                    </div>
                     <div class="form-group" style="margin-top: 16px">
                         <span> Name certificate</span>
                         <input class="form-control" name="nameCer" value="${param.nameCer}">   
+                        <c:if test="${nameInvalid != null}">
+                            <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                        </c:if>
+                    </div>
+                    <div class="form-group" style="margin-top: 16px">
+                        <span> Image</span>
+                        <input class="form-control" name="imgPath" type="file" accept="image/*">   
                         <c:if test="${nameInvalid != null}">
                             <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
                         </c:if>
@@ -96,18 +113,11 @@
                         </select> 
 
                     </div>
-                    <div class="form-group">
-                        <div style="margin-bottom: 4px">Select employee</div>                                      
 
-                        <select name="idEmp" class="certificate-select">
-                            <c:forEach var="listEmp" items="${requestScope.listEmp}">
-                                <option value="${listEmp.idEmp}" > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
-                            </c:forEach>
-                        </select> 
-
-                    </div>
                     <div style="margin-top: 20px">
-
+                        <c:if test="${param.idEmp ne ''}">
+                            <input type="hidden" name="idEmp" value="${param.idEmp}">
+                        </c:if>
                         <input class="btn search-btn" type="submit" value="Save">
                         <input type="hidden" name="action" value="saveNewCertificate">
                     </div>

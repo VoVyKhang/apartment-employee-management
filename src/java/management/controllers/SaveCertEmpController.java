@@ -58,7 +58,7 @@ public class SaveCertEmpController extends HttpServlet {
                 i++;
             }
             if (i == 0) {
-                boolean result = CertificateDAO.saveChangeCertificate(cerName, doi, idTypeCer, cerID, empID);
+                boolean result = CertificateDAO.saveChangeCertificateNoImg(cerName, doi, idTypeCer, cerID, empID);
                 if (result == true) {
                     request.setAttribute("updateSuccess", "Update success");
                     url = SUCCESS;

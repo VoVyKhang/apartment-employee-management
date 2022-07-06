@@ -4,6 +4,7 @@
  */
 package management.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -11,19 +12,22 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import management.dao.CertificateDAO;
-import management.dao.DependentDAO;
 import management.dto.CertificateDTO;
-import management.dto.DependentDTO;
 import management.regex.RegexEmp;
 
 /**
  *
  * @author AD
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class saveChangeCertificateController extends HttpServlet {
 
     /**
@@ -45,11 +49,14 @@ public class saveChangeCertificateController extends HttpServlet {
             String doi = request.getParameter("doi");
             String idEmp = request.getParameter("idEmp");
             String idTypeCer = request.getParameter("idTypeCer");
+            String oldImg = request.getParameter("oldImg");
+            Part part = request.getPart("imgPath");
+            String fileName = extractFileName(part);
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(cerName);
             boolean checkDoi = RegexEmp.checkValidationDob(doi);
             if (cerName.equals("") || doi.equals("0000-00-00")) {
-                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID);
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
                 request.setAttribute("listTypeCer", listTypeCer);
@@ -58,7 +65,7 @@ public class saveChangeCertificateController extends HttpServlet {
                 i++;
             }
             if (checkName == false) {
-                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID);
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
                 request.setAttribute("listTypeCer", listTypeCer);
@@ -68,7 +75,7 @@ public class saveChangeCertificateController extends HttpServlet {
             }
 
             if (checkDoi == false) {
-                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID, idTypeCer);
+                ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID);
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
                 request.setAttribute("listTypeCer", listTypeCer);
@@ -77,7 +84,22 @@ public class saveChangeCertificateController extends HttpServlet {
                 i++;
             }
             if (i == 0) {
-                boolean result = CertificateDAO.saveChangeCertificate(cerName, doi, idTypeCer, cerID, idEmp);
+                boolean result = false;
+                    if (!fileName.isEmpty() || !fileName.equals("")) {
+                        String path = request.getServletContext().getRealPath("/");
+                        File deletefile = new File(path+ "\\image\\" + oldImg);
+                        deletefile.delete();
+
+                        //Add new file image
+                        
+                        String savePath = path + "\\images\\" + File.separator + fileName;
+                        File fileSaveDir = new File(savePath);
+                        part.write(savePath + File.separator);
+                        result = CertificateDAO.saveChangeCertificate(cerName, doi, fileName, idTypeCer, cerID, idEmp);
+                    } else {
+                        result = CertificateDAO.saveChangeCertificateNoImg(cerName, doi, idTypeCer, cerID, idEmp);
+                    }
+                
                 if (result == true) {
                     request.setAttribute("updateSuccess", "Update success");
                     request.getRequestDispatcher("listCertificateController").forward(request, response);
@@ -137,4 +159,14 @@ public class saveChangeCertificateController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String extractFileName(Part part) {//This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 }

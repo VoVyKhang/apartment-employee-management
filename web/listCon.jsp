@@ -52,37 +52,37 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .list-contract__link{
                 font-weight: 600;
                 padding: 4px 8px;
                 border: 1px solid #333;
                 border-radius: 5px
             }
-            
+
             .list-contract__link:hover{
                 background-color: #000;
                 color: #fff
             }
-            
+
             .con-body td{
                 padding: 0 !important;
                 vertical-align: middle !important
             }
-            
+
             .con-body td:first-child{
                 padding-left: 20px !important
             }
-            
+
             .con-header th{
                 padding-left: 0 !important
             }
-            
+
             .renewal{
                 display: flex;
                 align-items: center
             }
-            
+
             .renewal:hover{
                 opacity: 0.8;
                 text-decoration: underline
@@ -120,6 +120,9 @@
                                 <p style="color: green">${requestScope.COMPLETED}</p>
                             </div>
                         </div>
+                            <div>
+                                <a class="list-contract__link" href="mainController?action=showHisCon">History Contract</a>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -184,8 +187,8 @@
                                                     <a class="renewal" href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=renewal">
                                                         <i class="fas fa-angle-double-right"></i>
                                                         Renewal</a>
-                                                </c:when>
-                                                <c:otherwise>
+                                                    </c:when>
+                                                    <c:otherwise>
                                                     <p style="color:green; margin-bottom: 0">Active</p>
                                                 </c:otherwise>
                                             </c:choose>

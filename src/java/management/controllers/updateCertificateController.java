@@ -38,9 +38,8 @@ public class updateCertificateController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             String idEmp = request.getParameter("idEmp");
             String cerId = request.getParameter("cerId");
-            String idTypeCer = request.getParameter("idTypeCer");
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerId, idTypeCer);
+            ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerId);
             ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
             request.setAttribute("listCerObject", listCerObject);
             request.setAttribute("listTypeCer", listTypeCer);

@@ -15,6 +15,19 @@
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <link rel="stylesheet" href="./css/profile.css"/>
         <title>Details Information Of Employee</title>
+        <style>
+            .list-contract__link{
+                font-weight: 600;
+                padding: 4px 8px;
+                border: 1px solid #333;
+                border-radius: 5px
+            }
+
+            .list-contract__link:hover{
+                background-color: #000;
+                color: #fff
+            }
+        </style>
     </head>
 
     <body>
@@ -106,7 +119,7 @@
                                 <sql:query dataSource = "${snapshot}" var = "listcontract">
                                     select c.idContract,  t.name, signDay, expDay, hc.status
                                     from Contract as c, TypeContract as t, HistoryContract hc, Employee e
-                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp}
+                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp} and status = 1
                                 </sql:query>
 
                                 <ul class="personal-info">
@@ -139,6 +152,9 @@
                                         </li>
                                     </c:forEach>
                                 </ul>
+                                <div>
+                                    <a class="list-contract__link" href="mainController?action=showHisCon&idEmp=${requestScope.Employee.idEmp}">History Contract</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,6 +163,7 @@
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Dependent Informations </h3>
+                                <a href="mainController?action=addNewDependent&idEmp=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">
@@ -191,6 +208,7 @@
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Certificate Informations </h3>
+                                <a href=" mainController?action=add new certificate&idEmp=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"

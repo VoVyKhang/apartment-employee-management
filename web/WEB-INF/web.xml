@@ -272,6 +272,10 @@
         <servlet-name>detailDepController</servlet-name>
         <servlet-class>management.controllers.detailDepController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>showHisConController</servlet-name>
+        <servlet-class>management.controllers.showHisConController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -543,6 +547,10 @@
     <servlet-mapping>
         <servlet-name>detailDepController</servlet-name>
         <url-pattern>/detailDepController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showHisConController</servlet-name>
+        <url-pattern>/showHisConController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
