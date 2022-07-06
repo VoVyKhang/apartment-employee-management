@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,9 +54,11 @@ public class listHallManagerController extends HttpServlet {
             ArrayList<RegulationDTO> listReg = null;
             ArrayList<ContractDTO> listCon = null;
             ArrayList<ContractDTO> listConCheckedExp = null;
+            HashMap<String, String> numberOfEmp = null;
             try {
                 listEmp = EmployeeDAO.listEmp();
                 listDep = DepartmentDAO.listDep();
+                numberOfEmp = DepartmentDAO.getEmpOfDep();
                 listReg = RegulationDAO.listReg();
                 listCon = ContractDAO.listCon();
 
@@ -74,6 +77,7 @@ public class listHallManagerController extends HttpServlet {
 
                 } else if (type.equals(DEP)) {
                     request.setAttribute("listDep", listDep);
+                    request.setAttribute("numberOfEmp", numberOfEmp);
                     url = LIST_DEP;
 
                 } else if (type.equals(CHANGEDEP)) {

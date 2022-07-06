@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listEmp
-    Created on : May 29, 2022, 8:06:21 PM
-    Author     : lehon
+    Document   : detailDep
+    Created on : Jul 5, 2022, 1:11:32 PM
+    Author     : VyNT
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>List Employee</title>
+        <title>Department Detail</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -65,8 +65,8 @@
             }
 
         </style>
-        
-         <style>
+
+        <style>
             .dataTables_length{
                 display: flex;
                 margin-top: -50px;
@@ -75,8 +75,8 @@
             .dataTables_info{
                 display: flex;
             }
-            
-            
+
+
         </style>
 
     </head>
@@ -85,7 +85,7 @@
         <c:import url="sidebar.jsp"></c:import> 
 
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement2"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
 
         <sql:query dataSource = "${snapshot}" var = "listDep">
@@ -102,42 +102,33 @@
 
             <div class="page-header">
                 <div class="row">
-                    <h3 class="page-title">Employee</h3>
+                    <h3 class="page-title">Department</h3>
                     <div class="col-sm-12 list-employee__actions">                       
                         <div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
-                                <li class="breadcrumb-item active">Employee</li>
+                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                <li class="breadcrumb-item active">Detail</li>
                             </ul>
-                        </div>
-                        <div style="margin-right: 8px">          
-                            <a style="display: flex" class="add-btn"  href="createNewEmp.jsp">
-                                <i class="ri-add-fill list__employee-icon"></i>
-                                Add Employee
-                            </a>
-                            <div> 
-                                <p style="color: green">${requestScope.COMPLETED}</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-5">
+                <div >
+                    <h3 class="user-name m-t-0 mb-0">${requestScope.dep.depName}</h3>
+                    <h6 class="text-muted">${requestScope.dep.description}</h6>
+                    <div class="staff-id">Location: ${requestScope.dep.location}</div>
+                    <div class="small doj text-muted">Date of Create : ${requestScope.dep.dateCreate}</div>
+                    <div class="staff-id">Creator: ${requestScope.dep.creator}</div>
+                </div>
+            </div>
             <form action="mainController" method="post">
                 <div class="row justify-content-end">
                     <div class="col-4" style="margin-top: 8px">
                         <div class="form-group mb-3 mt-3">
                             <input type="text" class="form-control" id="myInput" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter..." name="empname">
                         </div>
-                    </div>
-                    <div class="col-3"> 
-                        </br>
-                        <select class="form-select form-select-md-5 mb-1 list-options" name="depname" id="depname"> 
-                            <option value="all" >All Department</option>
-                            <c:forEach var="listDep" items="${listDep.rows}">
-                                <option value="${listDep.depName}">${listDep.depName}</option>
-                            </c:forEach>
-                        </select>
                     </div>
                     <div class="col-3" >
                         </br>
@@ -151,8 +142,10 @@
                 </div>
             </form>
 
+
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
+
                     <table style="font-size: 14px" class="table table-striped list__employee-table" id="mydatatable">
                         <thead>
                             <tr class="list__employee-header" style="font-size: 13px">
@@ -161,9 +154,7 @@
                                 <th scope="col">Gender</th>
                                 <th scope="col 3">DOB</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Reward - Penalty</th>
+                                <th scope="col">Position</th>
                                 <th scope="col">Employee Records</th>
                             </tr>
                         </thead>
@@ -185,25 +176,7 @@
                                     <td>${listEmp.gender}</td>
                                     <td>${listEmp.dob}</td>
                                     <td>${listEmp.email}</td>
-                                    <td>${listEmp.depName}</td>
-
-                                    <td>
-                                        <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=update">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </td>
-
-
-                                    <td>
-                                        <c:url var="create" value="mainController">
-                                            <c:param name="action" value="pushss"> </c:param>
-                                            <c:param name="idemp" value="${listEmp.idEmp}"> </c:param>
-                                            <c:param name="updatetype" value="createnewrp"> </c:param>
-                                            <c:param name="nameemp" value="${listEmp.name}"> </c:param>
-                                        </c:url>
-                                        <a href="${create}"><i class="fas fa-plus-square"></i></a>
-                                    </td>
-
+                                    <td>${listEmp.posName}</td>
                                     <td>
                                         <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=detail">
                                             <i class="fas fa-address-card"></i></a>

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import management.dto.DepartmentDTO;
 import management.regex.RegexDep;
 import management.utils.DBUtils;
@@ -70,7 +70,10 @@ public class DepartmentDAO {
             + "select depName\n"
             + "from Department\n"
             + "where depName = ?)";
-
+    private static final String GET_NUMBER_OF_EMP = "select depNum , count(depNum) as number\n"
+            + "from HistoryDep hp , Employee e\n"
+            + "where status = 1 and hp.idEmp = e.idEmp and e.role = 0\n"
+            + "group by depNum";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -473,5 +476,33 @@ public class DepartmentDAO {
         }
         return list;
 
+    }
+
+    public static HashMap<String, String> getEmpOfDep() throws SQLException {
+        HashMap<String, String> list = new HashMap<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                st = conn.createStatement();
+                rs = st.executeQuery(GET_NUMBER_OF_EMP);
+                while (rs.next()) {
+                    String depNum = rs.getString("depNum");
+                    String number = rs.getString("number");
+                    list.put(depNum, number);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

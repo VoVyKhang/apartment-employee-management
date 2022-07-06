@@ -32,7 +32,7 @@
                 width: 100%;
                 height: 42px
             }
-            
+
             .btn-primary{
                 background: linear-gradient(to right, #00c0f9, #0255cd);
                 border: 1px solid #01a3ed !important;
@@ -43,7 +43,7 @@
                 margin-top: 16px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
@@ -63,8 +63,8 @@
             from Employee as e, Contract as c
             where e.idEmp not in (
             select e.idEmp
-            from Employee as e, Contract as c
-            where c.idEmp = e.idEmp ) and role = 0
+            from Employee as e, Contract as c, HistoryContract as hc
+            where c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 ) and role = 0
         </sql:query>
 
         <sql:query dataSource = "${snapshot}" var = "resulttype">
@@ -78,8 +78,16 @@
                 <div class="modal-header" style="margin-bottom: 16px">
                     <h5 class="modal-title">Create new contract</h5>
                 </div>
-                
-                <form action="mainController" method="post" style="margin: 0 16px" class="form-position">
+
+                <form action="mainController" method="post" style="margin: 0 16px" class="form-position" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div style="margin-bottom: 8px">Choose Employee</div>
+                        <select name="idemp" class="certificate-select">
+                            <c:forEach var = "rowemp" items = "${resultemp.rows}">
+                                <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <div style="margin-bottom: 8px">Type of contract</div>
                         <select name="typecon" class="certificate-select">
@@ -102,17 +110,12 @@
                         <input class="form-control" type="date" name="expday">
                     </div>
 
-
                     <div class="form-group">
-                        <div style="margin-bottom: 8px">Choose Employee</div>
-                        <select name="idemp" class="certificate-select">
-                            <c:forEach var = "rowemp" items = "${resultemp.rows}">
-                                <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
-                            </c:forEach>
-                        </select>
-
+                        <label>File Contract</label>
+                        <input class="form-control" type="file" name="conPath">
                     </div>
-
+                    
+                    
                     <p style="color:red">${requestScope.WARNING}</p>
                     <p style="color:green">${requestScope.COMPLETE}</p>  
 

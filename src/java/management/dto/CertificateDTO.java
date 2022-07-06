@@ -16,11 +16,23 @@ public class CertificateDTO {
     private int cerId;
     private String cerName;
     private Date doi;
+    private String imgPath;
     private int idTypeCer;
     private String type;
     private int idEmp;
 
     public CertificateDTO() {
+    }
+
+    public CertificateDTO(String empName, int cerId, String cerName, Date doi, String imgPath, int idTypeCer, String type, int idEmp) {
+        this.empName = empName;
+        this.cerId = cerId;
+        this.cerName = cerName;
+        this.doi = doi;
+        this.imgPath = imgPath;
+        this.idTypeCer = idTypeCer;
+        this.type = type;
+        this.idEmp = idEmp;
     }
 
     public CertificateDTO(String empName, int cerId, String cerName, Date doi, String type, int idEmp, int idTypeCer) {

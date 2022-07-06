@@ -161,7 +161,6 @@
                         <table  class="table table-striped" >
                             <thead>
                                 <tr class="con-header">
-                                    <th scope="col">ID Contract</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Sign Day</th>
                                     <th scope="col">Expires Day</th>
@@ -174,7 +173,6 @@
                                 <c:forEach var="listCon" varStatus="counter" items="${requestScope.listCon}">
                                 <form action="mainController">
                                     <tr class="con-body">
-                                        <td>${listCon.idCon}</td>
                                         <td>${listCon.typeCon}</td>
                                         <td>${listCon.signDay}</td>
                                         <td>${listCon.expDay}</td>
@@ -193,7 +191,7 @@
                                             </c:choose>
                                         </td>
                                         <td>
-                                            <a href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=update">
+                                            <a href="mainController?action=passidcon&idcon=${listCon.idCon}&nameEmp=${listCon.nameEmp}&flag=update">
                                                 <i class="fas fa-edit"></i></a></td>
                                     </tr>
                                 </form> 

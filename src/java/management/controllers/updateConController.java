@@ -4,21 +4,27 @@
  */
 package management.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import management.dao.ContractDAO;
 
 /**
  *
  * @author lehon
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class updateConController extends HttpServlet {
 
     private static final String DONE_UPDATE = "mainController?action=showlist&type=con";
@@ -37,13 +43,16 @@ public class updateConController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             String idcon = request.getParameter("idcon");
             String typecon = request.getParameter("typecon");
             String expday = request.getParameter("expday");
+            String oldFile = request.getParameter("oldFile");
+            Part part = request.getPart("fileCon");
+            String fileName = extractFileName(part);
             boolean checkexp = false;
             boolean checkupdate = false;
-            
+
             try {
                 checkexp = ContractDAO.checkValidExpDay(expday);
             } catch (SQLException ex) {
@@ -51,7 +60,21 @@ public class updateConController extends HttpServlet {
             }
             if (checkexp) {
                 try {
-                    checkupdate = ContractDAO.updateContract(idcon, typecon, expday);
+                    if (!fileName.isEmpty() || !fileName.equals("")) {
+                        //Remove old file image
+                        String path = request.getServletContext().getRealPath("/");
+                        File deletefile = new File(path+ "\\fileCon\\" + oldFile);
+                        deletefile.delete();
+
+                        //Add new file image
+                        
+                        String savePath = path + "\\images" + File.separator + fileName;
+                        File fileSaveDir = new File(savePath);
+                        part.write(savePath + File.separator);
+                        checkupdate = ContractDAO.updateContract(idcon, typecon, expday, fileName);
+                    }else{
+                        checkupdate = ContractDAO.updateContractNoFile(idcon, idcon, expday);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(updateConController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -112,4 +135,14 @@ public class updateConController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String extractFileName(Part part) {//This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 }

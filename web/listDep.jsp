@@ -31,7 +31,7 @@
                 padding: 5px 10px;
                 width: 100%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.96);
                 opacity: 0.9
@@ -45,7 +45,7 @@
             .page-title{
                 margin-top: 8px
             }
-            
+
             .list-employee__actions{
                 display: flex;
                 justify-content: space-between;
@@ -120,6 +120,7 @@
                                 <th scope="col">Date Create</th>
                                 <th scope="col">Creator</th>
                                 <th scope="col">Update</th>
+                                <th scope="col">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,7 +128,16 @@
                             <form action="mainController">
                                 <tr>
                                     <td>${listDep.depNum}</td>                            
-                                    <td>${listDep.depName}</td>
+                                    <td>
+                                        <div>
+                                            <span> ${listDep.depName}</span>
+                                            <c:forEach var="numberOfEmp" items="${requestScope.numberOfEmp}">
+                                                <c:if test="${listDep.depNum eq numberOfEmp.key}">
+                                                    <span>${numberOfEmp.value} Employee</span>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                    </td>
                                     <td>${listDep.description}</td>
                                     <td class="location">${listDep.location}</td>
                                     <td>${listDep.dateCreate}</td>
@@ -136,7 +146,10 @@
                                     <td>
                                         <a href="mainController?action=passiddep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
 
-                                    </td>       
+                                    </td>
+                                    <td>
+                                        <a href="mainController?action=detailDep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
+                                    </td>
                                 </tr>
                             </form> 
                         </c:forEach>

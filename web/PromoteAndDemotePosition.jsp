@@ -3,6 +3,7 @@
     Created on : Jun 1, 2022, 5:39:09 PM
     Author     : AD
 --%>
+<%@page import="java.util.Date"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
@@ -48,18 +49,18 @@
                 background-color: #000;
                 color: #fff
             }
-            
+
             .list__promote-demote-item{
                 display: flex;
                 align-items: center
             }
-            
+
             .list__promote-demote-item-img{
                 width: 38px;
                 height: 38px;
                 border-radius: 50%
             }
-            
+
             .list__promote-demote-description{
                 display: flex;
                 flex-direction: column;
@@ -67,17 +68,17 @@
                 font-size: 14px;
                 margin-left: 8px
             }
-            
+
             .list__promote-demote-description-name{
                 font-weight: 600;
                 margin-bottom: 2px
             }
-            
+
             .list__promote-demote-description-dep{
                 font-size: 13px;
                 opacity: 0.9
             }
-            
+
             .pd-btn{
                 background-color: #fff;
                 border: 1px solid #9d9d9d;
@@ -159,10 +160,10 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Gender</th>
-                                        <th scope="col">Date of birth</th>
                                         <th scope="col">Current Position</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">New Position</th>
+                                        <th scope="col">Date To Apply</th>
                                         <th scope="col">Update</th>
 
                                     </tr>
@@ -187,7 +188,6 @@
 
                                             </td>
                                             <td>${listEmpPos.gender}</td>
-                                            <td>${listEmpPos.dob}</td>                         
                                             <td>${listEmpPos.posName}</td>
 
                                             <td> 
@@ -206,12 +206,10 @@
                                                 </select>
                                             </td>
 
+                                            <td>
+                                                <input type="date" name="exactDate"/>
+                                            </td>
                                             <td> 
-                                                <c:url var="save" value="mainController">
-                                                    <c:param name="action" value="SavePosition"> </c:param>
-                                                    <c:param name="oldIdPos" value="${listEmpPos.idPos}"> </c:param>
-                                                    <c:param name="idEmp" value="${listEmpPos.idEmp}"> </c:param>
-                                                </c:url>
                                                 <input class="pd-btn" type="submit" value="Save"/>
                                                 <input type="hidden" name="action" value="SavePosition"/>
                                                 <input type="hidden" name="oldIdPos" value="${listEmpPos.idPos}"/>

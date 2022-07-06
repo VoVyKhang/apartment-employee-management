@@ -16,8 +16,17 @@ public class HistoryPositionDTO {
     private int idPos;
     private String posName;
     private String deliveryDate;
+    private String exactDate;
     private int status;
     private int type;
+
+    public String getExactDate() {
+        return exactDate;
+    }
+
+    public void setExactDate(String exactDate) {
+        this.exactDate = exactDate;
+    }
 
     public int getIdHisPos() {
         return idHisPos;
@@ -86,6 +95,29 @@ public class HistoryPositionDTO {
     public HistoryPositionDTO() {
     }
 
+    public HistoryPositionDTO(int idHisPos, int idEmp, String nameEmp, int idPos, String posName, String deliveryDate, String exactDate, int status, int type) {
+        this.idHisPos = idHisPos;
+        this.idEmp = idEmp;
+        this.nameEmp = nameEmp;
+        this.idPos = idPos;
+        this.posName = posName;
+        this.deliveryDate = deliveryDate;
+        this.exactDate = exactDate;
+        this.status = status;
+        this.type = type;
+    }
+
+    public HistoryPositionDTO(int idHisPos, int idEmp, String nameEmp, String posName, String deliveryDate, String exactDate, int status, int type) {
+        this.idHisPos = idHisPos;
+        this.idEmp = idEmp;
+        this.nameEmp = nameEmp;
+        this.posName = posName;
+        this.deliveryDate = deliveryDate;
+        this.exactDate = exactDate;
+        this.status = status;
+        this.type = type;
+    }
+
     public HistoryPositionDTO(int idHisPos, int idEmp, String nameEmp, int idPos, String posName, String deliveryDate, int status, int type) {
         this.idHisPos = idHisPos;
         this.idEmp = idEmp;
@@ -102,6 +134,16 @@ public class HistoryPositionDTO {
         this.nameEmp = nameEmp;
         this.posName = posName;
         this.deliveryDate = deliveryDate;
+        this.status = status;
+        this.type = type;
+    }
+
+    public HistoryPositionDTO(int idHisPos, String nameEmp, String posName, String deliveryDate, String exactDate, int status, int type) {
+        this.idHisPos = idHisPos;
+        this.nameEmp = nameEmp;
+        this.posName = posName;
+        this.deliveryDate = deliveryDate;
+        this.exactDate = exactDate;
         this.status = status;
         this.type = type;
     }

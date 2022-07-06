@@ -6,7 +6,10 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -33,24 +36,31 @@ public class savePositionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
             int idPos = Integer.parseInt(request.getParameter("idPos"));
             int idEmp = Integer.parseInt(request.getParameter("idEmp"));
             int type = Integer.parseInt(request.getParameter("type"));
-            
-            boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
-            boolean result = HistoryPosDAO.insertNewPos(idEmp, idPos, type);
-            if (result && resultUpdateOldPos == true) { 
-                ss.setAttribute("updateSuccess", "Update success");
-                response.sendRedirect("promoteAndDemoteController");            
-            } else {
-                request.setAttribute("updateFail", "Update fail");
+            Date exactDate = Date.valueOf(request.getParameter("exactDate"));
+            Date d = new Date(System.currentTimeMillis());
+            int check = d.compareTo(exactDate);
+            if (check > 0) {
+                ss.setAttribute("updateSuccess", "Date must after today!");
                 request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
-                
+            } else {
+                boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
+                boolean result = HistoryPosDAO.insertNewPos(idEmp, exactDate, idPos, type);
+                if (result && resultUpdateOldPos == true) {
+                    ss.setAttribute("updateSuccess", "Update success");
+                    response.sendRedirect("promoteAndDemoteController");
+                } else {
+                    request.setAttribute("updateFail", "Update fail");
+                    request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
+
+                }
             }
         }
     }
@@ -71,6 +81,8 @@ public class savePositionController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,6 +100,8 @@ public class savePositionController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(savePositionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

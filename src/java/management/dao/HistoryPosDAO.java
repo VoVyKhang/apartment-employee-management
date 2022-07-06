@@ -24,21 +24,21 @@ public class HistoryPosDAO {
     private static PreparedStatement ptm = null;
     private static Statement st = null;
     private static ResultSet rs = null;
-    private static final String INSERT_NEW_HIS_POS = "INSERT INTO HistoryPos(idEmp, idPos, deliveryDate, status, type)"
-            + " VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_NEW_HIS_POS = "INSERT INTO HistoryPos(idEmp, idPos, deliveryDate,exactDate, status, type)\n"
+            + "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String CHANGE_STATUS_OLD_POS = "update HistoryPos\n"
             + "set status = 0\n"
             + "where idEmp = ? and idPos = ? and status = 1";
 
-    private static final String LIST_ALL_HIS_POS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
-            + "  WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos";
-    private static final String LIST_HIS_POS_FOR_EMP = "SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.type, hp.status \n"
+    private static final String LIST_ALL_HIS_POS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
+            + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos";
+    private static final String LIST_HIS_POS_FOR_EMP = "SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.exactDate, hp.type, hp.status \n"
             + "FROM Employee as e, Position as p, HistoryPos as hp\n"
             + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and hp.idEmp = ?";
-    private static final String SEARCH_HISPOS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
+    private static final String SEARCH_HISPOS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
             + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and hp.type like ? and hp.status like ? and e.name like ?";
 
-    public static boolean insertNewPos(int idEmp, int idPos, int type) throws SQLException {
+    public static boolean insertNewPos(int idEmp, Date exactDate, int idPos, int type) throws SQLException {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -47,8 +47,9 @@ public class HistoryPosDAO {
                 ptm.setInt(1, idEmp);
                 ptm.setInt(2, idPos);
                 ptm.setDate(3, d);
-                ptm.setInt(4, 1);
-                ptm.setInt(5, type);
+                ptm.setDate(4, exactDate);
+                ptm.setInt(5, 1);
+                ptm.setInt(6, type);
                 int result = ptm.executeUpdate();
                 if (result > 0) {
                     return true;
@@ -114,9 +115,10 @@ public class HistoryPosDAO {
                     String nameEmp = rs.getString("name");
                     String posName = rs.getString("posName");
                     String deliveryDate = rs.getString("deliveryDate");
+                    String exactDate = rs.getString("exactDate");
                     int type = rs.getInt("type");
                     int status = rs.getInt("status");
-                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos,nameEmp,posName,deliveryDate,status,type);
+                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, exactDate, status, type);
                     listHisPos.add(his);
 
                 }
@@ -144,9 +146,9 @@ public class HistoryPosDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(SEARCH_HISPOS);
-                     ptm.setString(1,"%" + typehispos + "%" );
-                     ptm.setString(2,"%" + statushispos + "%" );
-                     ptm.setString(3,"%" + empname + "%" );
+                ptm.setString(1, "%" + typehispos + "%");
+                ptm.setString(2, "%" + statushispos + "%");
+                ptm.setString(3, "%" + empname + "%");
                 rs = ptm.executeQuery();
                 if (rs != null) {
                     while (rs.next()) {
@@ -154,9 +156,10 @@ public class HistoryPosDAO {
                         String nameEmp = rs.getString("name");
                         String posName = rs.getString("posName");
                         String deliveryDate = rs.getString("deliveryDate");
+                        String exactDate = rs.getString("exactDate");
                         int type = rs.getInt("type");
                         int status = rs.getInt("status");
-                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos,nameEmp,posName,deliveryDate,status,type);
+                        HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, exactDate, status, type);
                         list.add(his);
                     }
                 }
@@ -177,6 +180,7 @@ public class HistoryPosDAO {
         }
         return list;
     }
+
     public static ArrayList<HistoryPositionDTO> listHisPosEmp(String empID) throws SQLException {
         ArrayList<HistoryPositionDTO> listHisPos = new ArrayList<>();
         try {
@@ -190,9 +194,10 @@ public class HistoryPosDAO {
                     String nameEmp = rs.getString("name");
                     String posName = rs.getString("posName");
                     String deliveryDate = rs.getString("deliveryDate");
+                    String exactDate = rs.getString("exactDate");
                     int type = rs.getInt("type");
                     int status = rs.getInt("status");
-                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, status, type);
+                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, exactDate, status, type);
                     listHisPos.add(his);
 
                 }
