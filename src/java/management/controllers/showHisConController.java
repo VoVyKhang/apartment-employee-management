@@ -46,7 +46,7 @@ public class showHisConController extends HttpServlet {
                 if (listCon.isEmpty() || listCon == null) {
                     url = ERROR;
                 } else {
-                    request.setAttribute("listHisCon", listCon);
+                    request.setAttribute("listCon", listCon);
                     request.setAttribute("idEmp", "");
                     url = SUCCESS;
                 }
@@ -55,7 +55,7 @@ public class showHisConController extends HttpServlet {
                 if (listCon.isEmpty() || listCon == null) {
                     url = ERROR;
                 } else {
-                    request.setAttribute("listHisCon", listCon);
+                    request.setAttribute("listCon", listCon);
                     request.setAttribute("idEmp", idEmp);
                     url = SUCCESS;
                 }

@@ -153,7 +153,8 @@
                                 </select>
                             </div> 
                             <div class="col-sm-6 col-md-3 ">
-                                <input type="submit" value="searchCon" name="action" class="btn search-btn">
+                                <input type="submit" value="Search" class="btn search-btn">
+                                <input type="hidden" value="searchCon" name="action">
                             </div>
                         </div>
                     </form>

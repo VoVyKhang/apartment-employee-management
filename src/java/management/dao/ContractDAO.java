@@ -57,9 +57,9 @@ public class ContractDAO {
             + "set expDay = ?\n"
             + "where idContract = ?";
 
-    private static final String SEARCH_CON = "select idContract, tc.name as type, signDay, expDay, e.name, status\n"
-            + "from Contract as c, Employee as e, TypeContract as tc\n"
-            + "where c.idEmp = e.idEmp and c.idTypeCon = tc.idTypeCon and tc.name like ? and c.status like ?  and e.name like ?";
+    private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
+            + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
+            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and tc.name like ? and hc.status like ?  and e.name like ?";
 
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
@@ -388,6 +388,7 @@ public class ContractDAO {
         }
         return list;
     }
+
     public static boolean updateContractNoFile(String idCon, String idType, String expDay) throws SQLException {
         try {
             conn = DBUtils.getConnection();

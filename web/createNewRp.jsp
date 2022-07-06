@@ -103,6 +103,10 @@
                         </div>
                         <div>
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
+                            <c:set var="flag" value="${requestScope.flag}"></c:set>
+                            <c:if test="${param.flag eq 'flag'}">
+                                <input type="hidden" name="flag" value="${param.flag}">
+                            </c:if>
                             <input class="btn-primary" type="submit" name="action" value="CreateNewRp"> 
                         </div>
                         <c:if test="${requestScope.updateSuccess != null}">

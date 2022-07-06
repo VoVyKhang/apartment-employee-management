@@ -33,17 +33,28 @@ public class CreateNewRpController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                int idReg = Integer.parseInt(request.getParameter("idReg"));
-                int times = Integer.parseInt(request.getParameter("timerp"));
-                int idEmp = Integer.parseInt(request.getParameter("idemp"));
-                String reason = request.getParameter("reasonrp");
+            int idReg = Integer.parseInt(request.getParameter("idReg"));
+            int times = Integer.parseInt(request.getParameter("timerp"));
+            int idEmp = Integer.parseInt(request.getParameter("idemp"));
+            String reason = request.getParameter("reasonrp");
+            String flag = request.getParameter("flag");
+            if (flag == null || !flag.trim().equals("flag")) {
                 boolean result = RewardPenaltyDAO.createnewRP(idReg, times, idEmp, reason);
-                if(result == true){
-                    request.setAttribute("updateSuccess", "Update success");
+                if (result == true) {
+                    request.setAttribute("updateSuccess", "Create success");
                     request.getRequestDispatcher("SearchRPController").forward(request, response);
-                }else {
-                request.setAttribute("updateFail", "Update fail");
-                request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("updateFail", "Create fail");
+                    request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                }
+            }else{
+                boolean result = RewardPenaltyDAO.createnewRP(idReg, times, idEmp, reason);
+                if (result == true) {
+                    request.getRequestDispatcher("mainController?action=passidemp&empid="+String.valueOf(idEmp)+"&type=detail").forward(request, response);
+                } else {
+                    request.setAttribute("updateFail", "Create fail");
+                    request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                }
             }
         }
     }

@@ -43,27 +43,36 @@ public class SearchConController extends HttpServlet {
             String typecon = request.getParameter("typecon");
             String statuscon = request.getParameter("statuscon");
             String empname = request.getParameter("empname");
+            String searchHisCon = request.getParameter("searchHisCon");
             ArrayList<ContractDTO> listCon;
-            if(typecon == null && statuscon == null && empname == null) {
-                listCon = ContractDAO.filterCon("","","");
-            } else if(typecon != null && statuscon == null && empname == null) {
-                listCon = ContractDAO.filterCon(typecon,"","");
-            } else if(typecon == null && statuscon != null && empname == null) {
-                listCon = ContractDAO.filterCon(typecon,"","");
-            } else if(typecon == null && statuscon == null && empname != null) {
-                listCon = ContractDAO.filterCon("","",empname);
-            } else if(typecon != null && statuscon != null && empname == null) {
-                listCon = ContractDAO.filterCon(typecon,statuscon,"");
-            } else if(typecon == null && statuscon != null && empname != null) {
-                listCon = ContractDAO.filterCon("",statuscon,empname);
-            } else if(typecon != null && statuscon == null && empname != null) {
-                listCon = ContractDAO.filterCon(typecon,"",empname);
-            } else    
-            listCon = ContractDAO.filterCon(typecon,statuscon,empname);
-            session.setAttribute("typecon", typecon);
-            session.setAttribute("statuscon", statuscon);
-            request.setAttribute("listCon", listCon);
-            request.getRequestDispatcher("listCon.jsp").forward(request, response);
+            if (typecon == null && statuscon == null && empname == null) {
+                listCon = ContractDAO.filterCon("", "", "");
+            } else if (typecon != null && statuscon == null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon, "", "");
+            } else if (typecon == null && statuscon != null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon, "", "");
+            } else if (typecon == null && statuscon == null && empname != null) {
+                listCon = ContractDAO.filterCon("", "", empname);
+            } else if (typecon != null && statuscon != null && empname == null) {
+                listCon = ContractDAO.filterCon(typecon, statuscon, "");
+            } else if (typecon == null && statuscon != null && empname != null) {
+                listCon = ContractDAO.filterCon("", statuscon, empname);
+            } else if (typecon != null && statuscon == null && empname != null) {
+                listCon = ContractDAO.filterCon(typecon, "", empname);
+            } else {
+                listCon = ContractDAO.filterCon(typecon, statuscon, empname);
+            }
+            if (searchHisCon == null) {
+                session.setAttribute("typecon", typecon);
+                session.setAttribute("statuscon", statuscon);
+                request.setAttribute("listCon", listCon);
+                request.getRequestDispatcher("listCon.jsp").forward(request, response);
+            } else {
+                session.setAttribute("typecon", typecon);
+                session.setAttribute("statuscon", statuscon);
+                request.setAttribute("listCon", listCon);
+                request.getRequestDispatcher("HisContract.jsp").forward(request, response);
+            }
         }
     }
 

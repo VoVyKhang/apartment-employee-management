@@ -26,9 +26,10 @@ public class pushSessionController extends HttpServlet {
 
     private static String URL = "error.jsp";
     private static final String URL_UPDATE_DEP = "updateDep.jsp";
-    private static final String URL_UPDATE_RP  = "updateRp.jsp" ;
+    private static final String URL_UPDATE_RP = "updateRp.jsp";
     private static final String URL_CHANGE_EMP = "updateEmp.jsp";
     private static final String URL_CREATE_NEW_RP = "createNewRp.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,36 +42,47 @@ public class pushSessionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
             String updateType = request.getParameter("updatetype");
             String id = "";
             String name = "";
             String idReg = "";
+            String flag = request.getParameter("flag");
             if (updateType.equals("updatedep")) {
                 id = request.getParameter("iddep");
                 name = request.getParameter("namedep");
                 URL = URL_UPDATE_DEP;
 
-            }if (updateType.equals("updaterp")) {
+            }
+            if (updateType.equals("updaterp")) {
                 id = request.getParameter("idemp");
                 name = request.getParameter("nameemp");
                 idReg = request.getParameter("idreg");
                 URL = URL_UPDATE_RP;
-                
 
-            }if (updateType.equals("updateemp")) {
+            }
+            if (updateType.equals("updateemp")) {
                 id = request.getParameter("idemp");
                 name = request.getParameter("nameemp");
                 URL = URL_CHANGE_EMP;
 
-            }if (updateType.equals("createnewrp")) {
-                id = request.getParameter("idemp");
-                name = request.getParameter("nameemp");
-                URL = URL_CREATE_NEW_RP;
+            }
+            if (updateType.equals("createnewrp")) {
+                if (flag == null) {
+                    id = request.getParameter("idemp");
+                    name = request.getParameter("nameemp");
+                    request.setAttribute("flag", "");
+                    URL = URL_CREATE_NEW_RP;
+                }else{
+                    id = request.getParameter("idemp");
+                    name = request.getParameter("nameemp");
+                    request.setAttribute("flag", flag);
+                    URL = URL_CREATE_NEW_RP;
+                }
 
             }
-            
+
             session.setAttribute("id", id);
             session.setAttribute("name", name);
             session.setAttribute("idReg", idReg);

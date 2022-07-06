@@ -42,14 +42,21 @@
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
 
-            <div style="margin: 0 16px; width: 100%">
-                <div class="page-header">
-                    <div class="row">
-                        <h3 class="page-title">History Contract</h3>
-                        <div class="col-sm-12 list-employee__actions">                       
-                            <div>
-                                <ul class="breadcrumb">
+        <sql:query dataSource = "${snapshot}" var = "listTyCon">
+            select name
+            from TypeContract
+        </sql:query>
+        <div style="margin: 0 16px; width: 100%">
+            <div class="page-header">
+                <div class="row">
+                    <h3 class="page-title">History Contract</h3>
+                    <div class="col-sm-12 list-employee__actions">                       
+                        <div>
+                            <ul class="breadcrumb">
                                 <c:if test="${requestScope.idEmp eq ''}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                     </c:if>
@@ -63,8 +70,38 @@
                     </div>
                 </div>
             </div>
-            <c:if test="${requestScope.listHisCon != null}">
-                <c:if test="${not empty requestScope.listHisCon}">
+            <form action="mainController" method="post" >
+                <div class="row filter-row" style="margin-bottom: 16px">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group mb-3 mt-3">
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter employee name..." name="empname">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" style="margin-top: 15px"> 
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="typecon"> 
+                            <option value="" >All Type</option>
+                            <c:forEach var="listTyCon" items="${listTyCon.rows}">
+                                <option value="${listTyCon.name}"
+                                        <c:if test="${listTyCon.name eq sessionScope.typecon}">selected="${listTyCon.name}"</c:if>>${listTyCon.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-3" style="margin-top: 15px">
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
+                            <option value="" <c:if test="${null eq sessionScope.statuscon}">selected=""</c:if>>All Contract</option>
+                            <option value="1" <c:if test="${1 eq sessionScope.statuscon}">selected="1"</c:if>>Active</option>
+                            <option value="0" <c:if test="${0 eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option> 
+                            </select>
+                        </div> 
+                        <div class="col-sm-6 col-md-3 ">
+                            <input type="submit" value="Search"  class="btn search-btn">
+                            <input type="hidden" value="searchCon" name="action" >
+                            <input type="hidden" value="searchHisCon" name="searchHisCon" >
+                        </div>
+                    </div>
+                </form>
+            <c:if test="${requestScope.listCon != null}">
+                <c:if test="${not empty requestScope.listCon}">
                     <table class="table table-striped">
                         <thead >
                             <tr style="text-align: center">
@@ -76,7 +113,7 @@
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
-                        <c:forEach var="listHisCon" varStatus="counter" items="${requestScope.listHisCon}">    
+                        <c:forEach var="listHisCon" varStatus="counter" items="${requestScope.listCon}">    
                             <tr style="text-align: center" class="pd-body">
                                 <td>${listHisCon.idCon}</td>                            
                                 <td>${listHisCon.typeCon}</td>
