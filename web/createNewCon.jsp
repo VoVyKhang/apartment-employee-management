@@ -59,9 +59,9 @@
                            user = "sa"  password = "12345"/>
 
         <sql:query dataSource = "${snapshot}" var = "resultemp">
-            select DISTINCT e.idEmp, name
-            from Employee as e, Contract as c
-            where e.idEmp not in (
+            select DISTINCT idEmp, name
+            from Employee
+            where idEmp not in (
             select e.idEmp
             from Employee as e, Contract as c, HistoryContract as hc
             where c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 ) and role = 0
@@ -114,8 +114,8 @@
                         <label>File Contract</label>
                         <input class="form-control" type="file" name="conPath">
                     </div>
-                    
-                    
+
+
                     <p style="color:red">${requestScope.WARNING}</p>
                     <p style="color:green">${requestScope.COMPLETE}</p>  
 

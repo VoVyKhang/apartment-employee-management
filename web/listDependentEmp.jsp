@@ -55,7 +55,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr style="text-align: center">
-                            <th scope="col">Employee name</th>                                                  
                             <th scope="col">ID dependent</th>
                             <th scope="col">Dependent name</th>
                             <th scope="col">gender</th>
@@ -68,7 +67,6 @@
                     <tbody>                  
                         <c:forEach var="listDependent" items="${requestScope.listDependent}">
                             <tr style="text-align: center">
-                                <td>${listDependent.empName}</td>
                                 <td>${listDependent.idDepen}</td>
                                 <td>${listDependent.name}</td> 
                                 <td>${listDependent.gender}</td> 

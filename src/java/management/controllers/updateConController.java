@@ -63,16 +63,25 @@ public class updateConController extends HttpServlet {
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
                         String path = request.getServletContext().getRealPath("/");
-                        File deletefile = new File(path+ "\\fileCon\\" + oldFile);
+                        String[] list = path.split("\\\\");
+                        String path2 = "";
+                        for (int j = 0; j < list.length; j++) {
+                            if (!list[j].toString().equals("apartment-employee-management")) {
+                                path2 = path2 + list[j].toString() + "\\";
+                            } else {
+                                path2 = path2 + list[j].toString() + "\\" + "web";
+                                break;
+                            }
+                        }
+                        File deletefile = new File(path2 + "\\fileCon\\" + oldFile);
                         deletefile.delete();
 
                         //Add new file image
-                        
-                        String savePath = path + "\\fileCon\\" + File.separator + fileName;
+                        String savePath = path2 + "\\fileCon\\" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                         checkupdate = ContractDAO.updateContract(idcon, typecon, expday, fileName);
-                    }else{
+                    } else {
                         checkupdate = ContractDAO.updateContractNoFile(idcon, idcon, expday);
                     }
                 } catch (SQLException ex) {

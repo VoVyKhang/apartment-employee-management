@@ -60,9 +60,18 @@ public class newEmpController extends HttpServlet {
                 if (RegexEmp.checkEmpValidation(name, address, phone, dob, email, password)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
-                        writeImage(request, fileName, part);
                         String path = request.getServletContext().getRealPath("/");
-                        String savePath = path+ "\\images\\" + fileName;
+                        String[] list = path.split("\\\\");
+                        String path2 = "";
+                        for (int j = 0; j < list.length; j++) {
+                            if (!list[j].toString().equals("apartment-employee-management")) {
+                                path2 = path2 + list[j].toString() + "\\";
+                            } else {
+                                path2 = path2 + list[j].toString() + "\\" + "web";
+                                break;
+                            }
+                        }
+                        String savePath = path2+ "\\images\\" + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                     } else {

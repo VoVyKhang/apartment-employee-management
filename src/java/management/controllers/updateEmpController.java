@@ -40,7 +40,7 @@ public class updateEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
             String address = request.getParameter("empadd");
@@ -60,13 +60,22 @@ public class updateEmpController extends HttpServlet {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
-                        File deletefile = new File(PATH_IMG + oldimg);
+                        String path = request.getServletContext().getRealPath("/");
+                        String[] list = path.split("\\\\");
+                        String path2 = "";
+                        for (int j = 0; j < list.length; j++) {
+                            if (!list[j].toString().equals("apartment-employee-management")) {
+                                path2 = path2 + list[j].toString() + "\\";
+                            } else {
+                                path2 = path2 + list[j].toString() + "\\" + "web";
+                                break;
+                            }
+                        }
+                        File deletefile = new File(path2+ "\\images\\" + oldimg);
                         deletefile.delete();
 
                         //Add new file image
-                        writeImage(request, fileName, part);
-                        String path = request.getServletContext().getRealPath("/");
-                        String savePath = path + "\\images" + File.separator + fileName;
+                        String savePath = path2 + "\\images" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
 

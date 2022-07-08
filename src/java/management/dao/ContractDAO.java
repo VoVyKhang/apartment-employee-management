@@ -37,7 +37,7 @@ public class ContractDAO {
     private static final String GET_CON_BY_ID = "select c.idContract, tc.name as type, signDay, expDay, e.name, c.filePath, hc.status\n"
             + "            from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
             + "            where hc.idEmp = e.idEmp and hc.idContract= c.idContract and c.idTypeCon = tc.idTypeCon\n"
-            + "            and c.idContract = ? and e.name like ? and hc.status = 1";
+            + "            and c.idContract = ? and e.name like ?";
 
     private static final String UPDATE_CONTRACT = "update Contract\n"
             + "            set idTypeCon = ?, expDay = ? , filePath = ?\n"
@@ -45,11 +45,11 @@ public class ContractDAO {
     private static final String UPDATE_CONTRACT_NOFILE = "update Contract\n"
             + "            set idTypeCon = ?, expDay = ?\n"
             + "            where idContract = ?";
-    private static final String CHANGE_TO_OK = "update Contract\n"
+    private static final String CHANGE_TO_OK = "update HistoryContract\n"
             + "set status = 1\n"
             + "where idContract = ?";
 
-    private static final String CHANGE_TO_EXPIRED = "update Contract\n"
+    private static final String CHANGE_TO_EXPIRED = "update HistoryContract\n"
             + "set status = 0\n"
             + "where idContract = ?";
 

@@ -40,7 +40,7 @@ public class HistoryContractDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(INSERT_HISCONTRACT);
                 ptm.setString(1, idContract);
-                ptm.setString(2, idContract);
+                ptm.setString(2, idEmp);
                 int rs = ptm.executeUpdate();
                 if (rs > 0) {
                     result = true;

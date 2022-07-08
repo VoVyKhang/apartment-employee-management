@@ -42,7 +42,7 @@ public class saveNewCertificateController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String nameCer = request.getParameter("nameCer");
             String doi = request.getParameter("doi");
@@ -70,11 +70,21 @@ public class saveNewCertificateController extends HttpServlet {
             if (i == 0) {
                 boolean result = false;
                 if (!fileName.isEmpty() || !fileName.equals("")) {
-                        String path = request.getServletContext().getRealPath("/");
-                        String savePath = path + "\\images\\" + File.separator + fileName;
-                        File fileSaveDir = new File(savePath);
-                        part.write(savePath + File.separator);
-                        result = CertificateDAO.insertCertificate(nameCer, doi, fileName, idEmp, type);
+                    String path = request.getServletContext().getRealPath("/");
+                    String[] list = path.split("\\\\");
+                    String path2 = "";
+                    for (int j = 0; j < list.length; j++) {
+                        if (!list[j].toString().equals("apartment-employee-management")) {
+                            path2 = path2 + list[j].toString() + "\\";
+                        } else {
+                            path2 = path2 + list[j].toString() + "\\" + "web";
+                            break;
+                        }
+                    }
+                    String savePath = path2 + "\\images\\" + File.separator + fileName;
+                    File fileSaveDir = new File(savePath);
+                    part.write(savePath + File.separator);
+                    result = CertificateDAO.insertCertificate(nameCer, doi, fileName, idEmp, type);
                 }
                 if (result == true) {
                     request.setAttribute("Success", "Success");
@@ -133,6 +143,7 @@ public class saveNewCertificateController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
     private String extractFileName(Part part) {//This method will print the file name.
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");

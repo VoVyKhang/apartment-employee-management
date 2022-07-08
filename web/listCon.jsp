@@ -185,7 +185,7 @@
                                             <c:choose>
                                                 <c:when test="${listCon.status eq 0}">
                                                     <p style="color:red; margin-bottom: 0">Expired</p>
-                                                    <a class="renewal" href="mainController?action=passidcon&idcon=${listCon.idCon}&flag=renewal">
+                                                    <a class="renewal" href="mainController?action=passidcon&nameEmp=${listCon.nameEmp}&idcon=${listCon.idCon}&flag=renewal">
                                                         <i class="fas fa-angle-double-right"></i>
                                                         Renewal</a>
                                                     </c:when>
