@@ -12,20 +12,40 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: 00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin-top: 16px;
-                width: 100%
+                width: 25%
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.99);
                 opacity: 0.9
+            }
+            
+             .breadcrumb{
+                background-color: #fff !important;
+                display: inline-flex !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
+            }
+            
+            .modal-content{
+                margin: 5% 20%;
+                margin-bottom: 16px !important;
+                height: 100%;
             }
         </style>
     </head>
@@ -36,7 +56,16 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Position</h5>
+                    <div>
+                        <h5 class="modal-title">Update Position</h5>
+                        <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                    <li class="breadcrumb-item "><a href="mainController?action=listPosition">Position</a></li>
+                                    <li class="breadcrumb-item active">Update Position</li>
+                                </ul>
+                            </div>
+                    </div>
                 </div>
 
                 <div>
@@ -58,8 +87,7 @@
                             <p style="color:red">${requestScope.messDes}</p>
                         </div>
 
-                        <div class="form-position__btn">
-
+                        <div style="text-align: center">
                             <input class="btn btn-primary" type="submit" name="action" value="updatePosition"/> 
                         </div>
                         <c:if test="${requestScope.updateSuccess != null}">
@@ -68,6 +96,6 @@
                     </form>
                 </div>
             </div>
-
+        </div>
     </body>
 </html>
