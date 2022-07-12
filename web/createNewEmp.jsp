@@ -25,15 +25,10 @@
             
             .breadcrumb{
                 background-color: #fff !important;
-                margin-left: -16px
+                margin-left: -16px;
+                margin-bottom: 0 !important
             }
             /*Create new employee*/
-            .form__select{
-                width: 602.6px;
-                height: 38px;
-                border: 1px solid #ced4da;
-                border-radius: 0.25rem;
-            }
 
             .form__title-gender{
                 margin-top: 10px;
@@ -45,9 +40,9 @@
             }
 
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: 00a8ef;
                 border: 1px solid #01a3ed !important;
-                border-radius: 20px !important;
+                border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 min-width: 150px;
@@ -55,10 +50,14 @@
             }
 
             .btn-primary:hover{
-                transform: scale(0.9);
+                transform: scale(0.95);
                 opacity: 0.9
             }
-
+            
+            .modal-content{
+                background-color: #fff;
+                margin-bottom: 16px !important
+            }
             
         </style>
     </head>
@@ -66,7 +65,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="modal-content" style="margin: 0 16px">           
+            <div class="modal-content" style="margin: 0 15%">           
                 <div class="modal-header">
                     <div>
                         <h5 class="modal-title">Add Employee</h5>
@@ -143,7 +142,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form__title-gender">Gender</div>
-                                <select class="form__select" name="empgen">
+                                <select class="form-control" name="empgen">
 
                                     <option value="Male" 
                                             <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>>Male
@@ -173,7 +172,7 @@
                                     from Department
                                 </sql:query>
                                 <div class="form__title">Department</div>
-                                <select name="empdep" class="form__select">
+                                <select name="empdep" class="form-control">
                                     <c:forEach var = "rowdep" items = "${listdep.rows}">
                                         <option value="${rowdep.depNum}"
                                                 <c:if test="${rowdep.depNum eq iddep}">selected=""</c:if>>${rowdep.depName}
@@ -192,7 +191,7 @@
                                 </sql:query>
                                 <div class="form__title">Position</div>
                                 <fmt:parseNumber var="idpos" type="number" value="${requestScope.posreg}"></fmt:parseNumber>
-                                    <select name="emppos" class="form__select" >
+                                    <select name="emppos" class="form-control" >
                                     <c:forEach var = "rowpos" items = "${listpos.rows}">
                                         <option value="${rowpos.idPos}"
                                                 <c:if test="${rowpos.idPos eq idpos}">selected=""</c:if>>${rowpos.posName}</option>
@@ -218,12 +217,9 @@
                         </div>
                     </div>
 
-                    <div>
-                        <div >
+                        <div style="text-align: center">
                             <input type="hidden" name="action" value="createEmp">
                             <input class="btn btn-primary" type="submit" value="Create">
-                            <input class="btn btn-primary" type="reset" value="Reset">
-                        </div>
                     </div>
                 </form>
             </div>

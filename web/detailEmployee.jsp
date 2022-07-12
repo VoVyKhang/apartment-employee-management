@@ -239,58 +239,57 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 d-flex">
-                    <div class="card profile-box flex-fill">
-                        <div class="card-body">
-                            <h3 class="card-title">Reward and Penalty</h3>
-                            <c:url var="create" value="mainController">
-                                <c:param name="action" value="pushss"> </c:param>
-                                <c:param name="idemp" value="${requestScope.Employee.idEmp}"> </c:param>
-                                <c:param name="updatetype" value="createnewrp"> </c:param>
-                                <c:param name="flag" value="flag"> </c:param>
-                                <c:param name="nameemp" value="${requestScope.Employee.name}"> </c:param>
-                            </c:url>
-                            <a href="${create}"><i class="fas fa-plus-square"></i></a>
-                            <div class="table-responsive">
+                    <div class="col-md-6 d-flex">
+                        <div class="card profile-box flex-fill">
+                            <div class="card-body">
+                                <h3 class="card-title">Reward and Penalty</h3>
+                                <c:url var="create" value="mainController">
+                                    <c:param name="action" value="pushss"> </c:param>
+                                    <c:param name="idemp" value="${requestScope.Employee.idEmp}"> </c:param>
+                                    <c:param name="updatetype" value="createnewrp"> </c:param>
+                                    <c:param name="flag" value="flag"> </c:param>
+                                    <c:param name="nameemp" value="${requestScope.Employee.name}"> </c:param>
+                                </c:url>
+                                <a href="${create}"><i class="fas fa-plus-square"></i></a>
+                                <div class="table-responsive">
 
-                                <sql:query dataSource = "${snapshot}" var = "listdepen">
-                                    select re.status , SUM(r.times) as times
-                                    from Employee as e,RewardAndPenalty as r, Regulation as re
-                                    where r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = ${requestScope.Employee.idEmp}
-                                    group by re.status
-                                </sql:query>
+                                    <sql:query dataSource = "${snapshot}" var = "listdepen">
+                                        select re.status , SUM(r.times) as times
+                                        from Employee as e,RewardAndPenalty as r, Regulation as re
+                                        where r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = ${requestScope.Employee.idEmp}
+                                        group by re.status
+                                    </sql:query>
 
-                                <table class="table table-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Type</th>
-                                            <th>Total Times</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var = "rowdepen" items = "${listdepen.rows}">
+                                    <table class="table table-nowrap">
+                                        <thead>
                                             <tr>
-
-                                                <c:if test="${rowdepen.Status eq 0}">
-                                                    <td>Penalty</td>
-                                                </c:if>
-                                                <c:if test="${rowdepen.Status eq 1}">
-                                                    <td>Reward</td>
-                                                </c:if>
-                                                <td>${rowdepen.times}</td>
+                                                <th>Type</th>
+                                                <th>Total Times</th>
                                             </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var = "rowdepen" items = "${listdepen.rows}">
+                                                <tr>
+
+                                                    <c:if test="${rowdepen.Status eq 0}">
+                                                        <td>Penalty</td>
+                                                    </c:if>
+                                                    <c:if test="${rowdepen.Status eq 1}">
+                                                        <td>Reward</td>
+                                                    </c:if>
+                                                    <td>${rowdepen.times}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div>            
                 </div>
             </div>
+            <div style="height: 20px; background-color: #fff"></div>
         </div>             
-
-        <div style="height: 20px; background-color: #fff"></div>
 
     </div>
 </body>

@@ -18,12 +18,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Employee</title>
         <style>
+             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .form__title{
                 padding: 4px 0
             }
 
             .form__select{
-                width: 586.6px !important;
+                width: 278.3px !important;
                 height: 38px !important;
                 background-clip: padding-box;
                 border: 1px solid #ced4da;
@@ -32,11 +38,8 @@
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
-                margin-bottom: 0 !important
-            }
-
-            .day-of-birth{
-                margin-left: 15px
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
             }
 
             .image{
@@ -46,7 +49,7 @@
             }
 
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: 00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
@@ -57,8 +60,13 @@
             }
 
             .btn-primary:hover{
-                transform: scale(0.9);
+                transform: scale(0.95);
                 opacity: 0.9
+            }
+            
+            .modal-content{
+                background-color: #fff;
+                margin-bottom: 16px !important
             }
         </style>
     </head>
@@ -66,7 +74,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="modal-content" style="margin: 0 16px">
+            <div class="modal-content" style="margin: 0 20%">
 
                 <div class="modal-header">
                     <div>
@@ -87,7 +95,7 @@
                 </div>
             </div>
 
-            <div class="modal-body">
+                <div class="modal-body" style="padding-bottom: 0">
                 <form action="mainController" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-6">
@@ -147,7 +155,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="col-form-label form__title">Gender</div>  
-                                <select name="empgen  " class="form__select">
+                                <select name="empgen  " class="form-control">
                                     <option value="Male" 
                                             <c:choose>
                                                 <c:when test="${not empty requestScope.Employee.gender}">
@@ -193,9 +201,10 @@
 
 
                     <div class="row">
-                        <div class="form-group day-of-birth">
+                        <div class="col-sm-6">
+                            <div class="form-group">
                             <label class="col-form-label">Day of birth</label>
-                            <input class="form-control form__select" type="date" name="empdob"
+                            <input class="form-control" type="date" name="empdob"
                                    <c:choose>
                                        <c:when test="${not empty requestScope.Employee.dob}">
                                            value="${requestScope.Employee.dob}"
@@ -207,11 +216,13 @@
                                    >
                             <p style="color:red">${requestScope.WARNINGDOB}</p>
                         </div>
+                        </div>
+                       
                     </div>
 
 
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="margin-top: 16px">
                             <div>
                                 <label class="col-form-label">Current image</label>
                                 <img class="align-self-center img-fluid image" 
@@ -262,9 +273,8 @@
                                    </c:otherwise>
                                </c:choose>   
                                >
-                        <div>
+                        <div style="text-align: center">
                             <input class="btn btn-primary" type="submit" value="Update">
-                            <input class="btn btn-primary" type="reset" value="Reset">
                         </div>
                     </div>
                 </form>

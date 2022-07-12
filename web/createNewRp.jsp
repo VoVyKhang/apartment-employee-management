@@ -14,14 +14,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 5px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
-                width: 100%;
+                width: 25%;
                 margin-top: 10px
             }
 
@@ -34,11 +40,17 @@
             .title{
                 margin: 8px 0
             }
-            
-             .breadcrumb{
+
+            .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
-                margin-bottom: 0 !important
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
+            }
+
+            .model-content{
+                background-color: #fff;
+                margin-bottom: 16px !important
             }
         </style>
     </head>
@@ -48,7 +60,7 @@
         </header>
         <c:import url="sidebar.jsp"></c:import>
             <div 
-                style="margin: 0 16px;
+                style="margin: 0 20%;
                 width: 100%;
                 border: 1px solid #d9d9d9;
                 border-radius: 10px"
@@ -68,12 +80,12 @@
                 </div>
                 <div style="margin-left: 16px">
                     <div>
-                        <p style="margin-top: 16px">ID Employee:  ${sessionScope.id}</p>               
+                        <p style="margin-top: 8px; margin-bottom: 8px">ID Employee:  ${sessionScope.id}</p>               
                     <p>Name: ${sessionScope.name}</p>
                 </div>
             </div>
 
-            <div class="modal-body" style="padding-top: 0"> 
+            <div class="modal-body" style="padding-top: 0; margin-bottom: 0"> 
 
                 <div class="list-employee">
                     <form action="mainController" method="post" class="form-position">
@@ -101,7 +113,7 @@
                             <div style="margin-bottom: 6px">Time</div> 
                             <input class="form-control" type="number" name="timerp" value="1" min="0" max="10"/>
                         </div>
-                        <div>
+                        <div style="text-align: center">
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
                             <c:set var="flag" value="${requestScope.flag}"></c:set>
                             <c:if test="${param.flag eq 'flag'}">
