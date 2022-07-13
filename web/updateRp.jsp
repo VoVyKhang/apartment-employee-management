@@ -12,26 +12,39 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Reward - Penalty</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin-top: 16px;
-                width: 100%
+                width: 20%
             }
 
             .btn-primary:hover{
-                transform: scale(0.9);
+                transform: scale(0.95);
                 opacity: 0.9
             }
             
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
-                margin-bottom: 0 !important
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
+            }
+            
+            .modal-content{
+                background-color: #fff;
+                margin-bottom: 16px !important;
+                height: 100%
             }
         </style>
     </head>
@@ -39,7 +52,7 @@
 
         <%@include file="header.jsp" %>
         <c:import url="sidebar.jsp"></c:import> 
-            <div style="margin: 0 8px" class="list-employee modal-content">
+            <div style="margin: 0 20%" class="list-employee modal-content">
                 <div class="modal-header">
                     <div>
                         <h5 class="modal-title">Update Reward - Penalty</h5>
@@ -78,7 +91,7 @@
                         <label>Time</label> 
                         <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="1" max="10" required/>
                     </div>          
-                    <div>
+                    <div style="text-align: center">
                         <input type="hidden" value="${sessionScope.id}" name="idemp">
                         <input type="hidden" name="action" value="UpdateRp"> 
                         <input class="btn btn-primary" type="submit" value="Update"> 

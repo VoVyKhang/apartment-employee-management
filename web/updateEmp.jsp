@@ -49,7 +49,7 @@
             }
 
             .btn-primary{
-                background-color: 00a8ef;
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 20px !important;
                 font-size: 18px;
