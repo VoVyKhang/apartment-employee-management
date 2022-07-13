@@ -12,26 +12,36 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Department Page</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin-top: 16px;
-                width: 100%
+                width: 20%;
             }
 
             .btn-primary:hover{
-                transform: scale(0.99);
+                transform: scale(0.95);
                 opacity: 0.9
             }
             
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
-                margin-bottom: 0 !important
+                margin-bottom: 0 !important;
+            }
+            
+            .modal-content{
+                height: 100%
             }
         </style>
     </head>
@@ -39,7 +49,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="modal-content" style="margin: 0 8px">
+            <div class="modal-content" style="margin: 3% 20%">
                 <div class="modal-header" >
                     <div>
                         <h5 class="modal-title">Update Department</h5>
@@ -116,7 +126,7 @@
                     </div>
 
 
-                    <div class="form-position__btn">
+                    <div class="form-position__btn" style="text-align: center">
                         <input type="hidden" name="depnum"
 
                                <c:choose>

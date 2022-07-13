@@ -34,7 +34,7 @@
                 background-color: #f7f7f7 !important;
                 display: inline-flex !important;
                 float: left !important;
-                margin-left: -16px;
+                margin-left: -28px;
             }
             .page-title{
                 text-align: initial !important;
@@ -58,14 +58,22 @@
             .search-btn:hover{
                 transform: scale(0.9)
             }
-            
+
             .list__employee{
                 margin: 0 16px
             }
 
-        </style>
+            .dep-infor{
+                text-align: initial;
+                border: 1px solid #000;
+                padding: 8px 16px;
+                border-radius: 6px
+            }
 
-        <style>
+            .dep-infor p{
+                margin-bottom: 0
+            }
+
             .dataTables_length{
                 display: flex;
                 margin-top: -50px;
@@ -74,8 +82,6 @@
             .dataTables_info{
                 display: flex;
             }
-
-
         </style>
 
     </head>
@@ -100,28 +106,31 @@
         <div class="list__employee">
 
             <div class="page-header">
-                <div class="row">
-                    <h3 class="page-title">Department</h3>
-                    <div class="col-sm-12 list-employee__actions">                       
-                        <div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
-                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=dep">Department</a></li>
-                                <li class="breadcrumb-item active">Detail</li>
-                            </ul>
+                <div class="row" style="margin-bottom: 16px">
+                    <div class="col-sm-6">
+                        <h3 class="page-title">Department</h3>
+                        <div class="col-sm-12 list-employee__actions">                       
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="mainController?action=showlist&type=dep">Department</a></li>
+                                    <li class="breadcrumb-item active">Detail</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dep-infor">
+                            <h4 style="text-align: center">${requestScope.dep.depName}</h4>
+                            <p>${requestScope.dep.description}</p>
+                            <p>Location: ${requestScope.dep.location}</p>
+                            <p>Date of Create: ${requestScope.dep.dateCreate}</p>
+                            <p>Creator: ${requestScope.dep.creator}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div >
-                    <h3 class="user-name m-t-0 mb-0">${requestScope.dep.depName}</h3>
-                    <h6 class="text-muted">${requestScope.dep.description}</h6>
-                    <div class="staff-id">Location: ${requestScope.dep.location}</div>
-                    <div class="small doj text-muted">Date of Create : ${requestScope.dep.dateCreate}</div>
-                    <div class="staff-id">Creator: ${requestScope.dep.creator}</div>
-                </div>
-            </div>
+
             <form action="mainController" method="post">
                 <div class="row justify-content-end">
                     <div class="col-4" style="margin-top: 8px">
