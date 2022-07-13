@@ -21,7 +21,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            .certificate-select{             
+            .certificate-select{
                 padding: 0.375rem 0.75rem;
                 font-size: 1rem;
                 line-height: 1.5;
@@ -32,21 +32,32 @@
                 width: 100%;
                 height: 42px
             }
+            
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
+            }
 
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin-top: 16px;
-                width: 100%
+                width: 20%;
             }
 
             .btn-primary:hover{
-                transform: scale(0.99);
+                transform: scale(0.95);
                 opacity: 0.9
+            }
+
+            .modal-content{
+                height: 100%
             }
         </style>
     </head>
@@ -74,54 +85,68 @@
 
 
         <c:if test="${result.rowCount != 0}">
-            <div style="width: 100%; margin: 0 8px" class="modal-content">
-                <div class="modal-header" style="margin-bottom: 16px">
-                    <h5 class="modal-title">Create new contract</h5>
+            <div style="width: 100%; margin: 0 20%" class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title">Create new contract</h5>
+                        <ul class="breadcrumb">
+                            <c:if test="${requestScope.idEmp eq ''}">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                </c:if>
+                                <c:if test="${requestScope.idEmp ne ''}">
+                                <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                </c:if>
+                            <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
+                            <li class="breadcrumb-item active">Create new contract</li>
+                        </ul>
+                    </div>
+
                 </div>
 
-                <form action="mainController" method="post" style="margin: 0 16px" class="form-position" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <div style="margin-bottom: 8px">Choose Employee</div>
-                        <select name="idemp" class="certificate-select">
-                            <c:forEach var = "rowemp" items = "${resultemp.rows}">
-                                <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <div style="margin-bottom: 8px">Type of contract</div>
-                        <select name="typecon" class="certificate-select">
-                            <c:forEach var = "rowtype" items = "${resulttype.rows}">
-                                <option value="${rowtype.idTypeCon}">${rowtype.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <%Date d = new Date();%>
+                <div class="modal-body">
+                    <form action="mainController" method="post" class="form-position" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div style="margin-bottom: 8px">Choose Employee</div>
+                            <select name="idemp" class="certificate-select">
+                                <c:forEach var = "rowemp" items = "${resultemp.rows}">
+                                    <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div style="margin-bottom: 8px">Type of contract</div>
+                            <select name="typecon" class="certificate-select">
+                                <c:forEach var = "rowtype" items = "${resulttype.rows}">
+                                    <option value="${rowtype.idTypeCon}">${rowtype.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <%Date d = new Date();%>
+                        <div class="form-group">
+                            <label>Sign Day</label>
+                            <input class="form-control" type="text" name="signday" value="<%=d%>" readonly="">
+                        </div>
 
 
-                    <div class="form-group">
-                        <label>Sign Day</label>
-                        <input class="form-control" type="text" name="signday" value="<%=d%>" readonly="">
-                    </div>
+                        <div class="form-group">
+                            <label>Expiration Day</label>
+                            <input class="form-control" type="date" name="expday">
+                        </div>
 
+                        <div class="form-group">
+                            <label>File Contract</label>
+                            <input class="form-control" type="file" name="conPath">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Expiration Day</label>
-                        <input class="form-control" type="date" name="expday">
-                    </div>
+                        <p style="color:red">${requestScope.WARNING}</p>
+                        <p style="color:green">${requestScope.COMPLETE}</p>  
 
-                    <div class="form-group">
-                        <label>File Contract</label>
-                        <input class="form-control" type="file" name="conPath">
-                    </div>
-
-
-                    <p style="color:red">${requestScope.WARNING}</p>
-                    <p style="color:green">${requestScope.COMPLETE}</p>  
-
-                    <input type="hidden" name="action" value="createcon">
-                    <input class="btn btn-primary" type="submit" value="Create New"> 
-                </form>
+                        <input type="hidden" name="action" value="createcon">
+                        <div style="text-align: center">
+                            <input class="btn btn-primary" type="submit" value="Create New"> 
+                        </div>
+                    </form>
+                </div>
             </div>
         </c:if>
         <c:if test="${result.rowCount == 0}">

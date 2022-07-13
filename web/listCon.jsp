@@ -87,6 +87,12 @@
                 opacity: 0.8;
                 text-decoration: underline
             }
+            
+            .contract-btn{
+                margin-right: 16px; 
+                display: flex;
+                align-items: center;
+            }
         </style>
     </head>
     <body>
@@ -113,16 +119,17 @@
                                 <li class="breadcrumb-item active">Contract</li>
                             </ul>
                         </div>
-                        <div style="margin-right: 16px">                                      
-                            <div>
+                        <div class="contract-btn">                                      
+                            <div style="margin-right: 16px">
                                 <p style="color:green">${requestScope.COMPLETE}</p>
                                 <a class="list-contract__link" href="createNewCon.jsp">Create New Contract</a>
                                 <p style="color: green">${requestScope.COMPLETED}</p>
                             </div>
-                        </div>
+
                             <div>
                                 <a class="list-contract__link" href="mainController?action=showHisCon">History Contract</a>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

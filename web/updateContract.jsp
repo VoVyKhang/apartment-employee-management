@@ -21,19 +21,30 @@
                 background-color: #f7f7f7 !important;
             }
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin-top: 16px;
-                width: 100%
+                width: 20%
             }
-            
+
             .btn-primary:hover{
-                transform: scale(0.99);
+                transform: scale(0.95);
                 opacity: 0.9
+            }
+
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important
+            }
+
+            .modal-content{
+                height: 100%
             }
         </style>
     </head>
@@ -42,25 +53,39 @@
         <c:import url="sidebar.jsp"></c:import>   
 
 
-        <div style="width: 100%; margin: 0 8px" class="modal-content">
-            <div class="modal-header" style="margin-bottom: 16px">
-                <h5 class="modal-title">Update contract</h5>
+            <div style="width: 100%; margin: 0 20%" class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title">Update contract</h5>
+                        <ul class="breadcrumb">
+                        <c:if test="${requestScope.idEmp eq ''}">
+                            <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                            </c:if>
+                            <c:if test="${requestScope.idEmp ne ''}">
+                            <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                            </c:if>
+                        <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
+                        <li class="breadcrumb-item active">Update contract</li>
+                    </ul>
+                </div>
+
             </div>
-            
-            <form action="mainController" method="POST" style="margin: 0 16px" class="form-position" enctype="multipart/form-data">
 
-                <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                                   url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
-                                   user = "sa"  password = "12345"/>
+            <div class="modal-body">
+                <form action="mainController" method="POST" class="form-position" enctype="multipart/form-data">
 
-                <sql:query dataSource = "${snapshot}" var = "listtype">
-                    select idTypeCon, name
-                    from TypeContract
-                </sql:query>
+                    <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                                       url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                                       user = "sa"  password = "12345"/>
 
-                <p>Contract of employee : ${requestScope.Contract.nameEmp} </p>
-                <p style="color:red">${requestScope.WARNING}</p>
-                
+                    <sql:query dataSource = "${snapshot}" var = "listtype">
+                        select idTypeCon, name
+                        from TypeContract
+                    </sql:query>
+
+                    <p>Contract of employee : ${requestScope.Contract.nameEmp} </p>
+                    <p style="color:red">${requestScope.WARNING}</p>
+
                     <div class="form-group">
                         <label>Type of contract</label>
                         <select name="typecon" class="form-control">
@@ -74,46 +99,47 @@
                             </c:forEach>
                         </select>
                     </div>
-                
 
-                <div>
-                    <div class="form-group">
-                        <span>
-                            Sign Day
-                        </span> 
-                        <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
-                    </div>
-                    <div class="form-group">
-                        <span>
-                            Expiration Day 
-                        </span>
-                        <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
-                    </div>
+
                     <div>
-                        Current File: ${requestScope.Contract.filePath}
+                        <div class="form-group">
+                            <span style="margin-bottom: 8px">
+                                Sign Day
+                            </span> 
+                            <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
+                        </div>
+                        <div class="form-group">
+                            <span style="margin-bottom: 8px">
+                                Expiration Day 
+                            </span>
+                            <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
+                        </div>
+                        <div>
+                            Current File: ${requestScope.Contract.filePath}
+                        </div>
+                        <div class="form-group">
+                            <span>
+                                New File
+                            </span>
+                            <input class="form-control" type="file" name="fileCon">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <span>
-                            New File
-                        </span>
-                        <input type="file" name="fileCon">
-                    </div>
-                </div>
-                <c:choose>
-                    <c:when test="${requestScope.Contract.status eq 1}">
-                        Status: <p style="color:green">Active</p>
-                    </c:when>
-                    <c:otherwise>
-                        Status: <p style="color:red">Expired</p>
-                    </c:otherwise>
-                </c:choose>
+                    <c:choose>
+                        <c:when test="${requestScope.Contract.status eq 1}">
+                            Status: <p style="color:green; margin-bottom: 0">Active</p>
+                        </c:when>
+                        <c:otherwise>
+                            Status: <p style="color:red; margin-bottom: 0">Expired</p>
+                        </c:otherwise>
+                    </c:choose>
 
-                <div>
-                    <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-                    <input type="hidden" value="${requestScope.Contract.filePath}" name="oldFile">
-                    <input class="btn btn-primary" type="submit" name="action" value="updateCon"/> 
-                </div>
-            </form>
+                    <div style="text-align: center">
+                        <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
+                        <input type="hidden" value="${requestScope.Contract.filePath}" name="oldFile">
+                        <input class="btn btn-primary" type="submit" name="action" value="updateCon"/> 
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>

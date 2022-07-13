@@ -15,6 +15,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .search-btn{
                 border: 1px solid #00c5fb;
                 border-radius: 50px;
@@ -28,14 +34,26 @@
                 text-transform: uppercase;
                 margin-top: 15px
             }
+            
+            .breadcrumb{
+                background-color: #f7f7f7 !important;
+                margin-left: -14px;
+                margin-bottom: 0 !important;
+                padding-top: 0 !important
+            }
 
             .search-btn:hover{
-                transform: scale(0.9)
+                transform: scale(0.95)
             }
 
             .pd-body td{
                 padding: 0 !important;
                 vertical-align: middle !important
+            }
+            
+            .page-title{
+                margin-left: 4px;
+                margin-top: 16px
             }
         </style>
     </head>
