@@ -49,7 +49,7 @@
 
             <div style="margin: 0 16px; width: 100%" >
                 <div class="page-header">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 16px">
                         <h4 class="page-title">Update certificate</h4>
                         <div>
                             <ul class="breadcrumb">

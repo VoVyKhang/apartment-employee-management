@@ -35,21 +35,25 @@
                 font-weight: 500;
                 text-decoration: none;
                 cursor: pointer;
-                width: 100%;
+                width: 20%;
                 height: 38px;
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 text-transform: uppercase;
             }
 
             .search-btn:hover{
-                transform: scale(0.99);
+                transform: scale(0.95);
                 opacity: 0.9
             }
-            
-             .breadcrumb{
+
+            .breadcrumb{
                 background-color: #fff !important;
-                margin-left: -12px;   
+                margin-left: -12px;
                 margin-bottom: 0 !important
+            }
+
+            .modal-content{
+                height: 100%
             }
         </style>
     </head>
@@ -60,7 +64,7 @@
 
 
         <c:if test="${requestScope.listEmp != null}">          
-            <div style="width: 100%; margin: 0 8px" class="modal-content">
+            <div style="width: 100%; margin: 3% 20%" class="modal-content">
                 <div class="modal-header">
                     <div>
                         <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
@@ -83,59 +87,61 @@
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
                 </c:if>
-                <form action="mainController" style="margin: 0 16px" class="form-position" method="POST" enctype="multipart/form-data">            
-                    <div class="form-group">
-                        <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
-                        <c:if test="${param.idEmp eq ''}">
-                            <div style="margin-bottom: 4px">Select employee</div>                                      
-                            <select name="idEmp" class="certificate-select">
-                                <c:forEach var="listEmp" items="${requestScope.listEmp}">
-                                    <option value="${listEmp.idEmp}" <c:if test="${listEmp.idEmp eq param.idEmp}"> selected="" </c:if> > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
+                <div class="modal-body">
+                    <form action="mainController" class="form-position" method="POST" enctype="multipart/form-data">            
+                        <div class="form-group">
+                            <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
+                            <c:if test="${param.idEmp eq ''}">
+                                <div style="margin-bottom: 4px">Select employee</div>                                      
+                                <select name="idEmp" class="certificate-select">
+                                    <c:forEach var="listEmp" items="${requestScope.listEmp}">
+                                        <option value="${listEmp.idEmp}" <c:if test="${listEmp.idEmp eq param.idEmp}"> selected="" </c:if> > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
+                                    </c:forEach>
+                                </select> 
+                            </c:if>
+                        </div>
+                        <div class="form-group" style="margin-top: 16px">
+                            <span> Name certificate</span>
+                            <input class="form-control" name="nameCer" value="${param.nameCer}">   
+                            <c:if test="${nameInvalid != null}">
+                                <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                            </c:if>
+                        </div>
+                        <div class="form-group" style="margin-top: 16px">
+                            <span> Image</span>
+                            <input class="form-control" name="imgPath" type="file" accept="image/*">   
+                            <c:if test="${nameInvalid != null}">
+                                <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                            </c:if>
+                        </div>
+                        <div class="form-group">
+                            <span>Date of isuess</span>
+                            <input class="form-control" name="doi" type="date" value="${param.doi}"> 
+                            <c:if test="${requestScope.checkDoi != null}" >
+                                <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
+                            </c:if>
+                        </div>
+                        <div class="form-group ">
+                            <div style="margin-bottom: 4px">Type</div>
+
+                            <select name="type" class="certificate-select">
+                                <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">
+                                    <option value="${listTypeCer.idTypeCer}" ><c:out value="${listTypeCer.type}"/></option>                        
                                 </c:forEach>
                             </select> 
-                        </c:if>
-                    </div>
-                    <div class="form-group" style="margin-top: 16px">
-                        <span> Name certificate</span>
-                        <input class="form-control" name="nameCer" value="${param.nameCer}">   
-                        <c:if test="${nameInvalid != null}">
-                            <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
-                        </c:if>
-                    </div>
-                    <div class="form-group" style="margin-top: 16px">
-                        <span> Image</span>
-                        <input class="form-control" name="imgPath" type="file" accept="image/*">   
-                        <c:if test="${nameInvalid != null}">
-                            <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
-                        </c:if>
-                    </div>
-                    <div class="form-group">
-                        <span>Date of isuess</span>
-                        <input class="form-control" name="doi" type="date" value="${param.doi}"> 
-                        <c:if test="${requestScope.checkDoi != null}" >
-                            <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
-                        </c:if>
-                    </div>
-                    <div class="form-group ">
-                        <div style="margin-bottom: 4px">Type</div>
 
-                        <select name="type" class="certificate-select">
-                            <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">
-                                <option value="${listTypeCer.idTypeCer}" ><c:out value="${listTypeCer.type}"/></option>                        
-                            </c:forEach>
-                        </select> 
+                        </div>
 
-                    </div>
+                        <div style="margin-top: 20px; text-align: center">
+                            <c:if test="${param.idEmp ne ''}">
+                                <input type="hidden" name="idEmp" value="${param.idEmp}">
+                            </c:if>
+                            <input class="btn search-btn" type="submit" value="Save">
+                            <input type="hidden" name="action" value="saveNewCertificate">
+                        </div>
 
-                    <div style="margin-top: 20px">
-                        <c:if test="${param.idEmp ne ''}">
-                            <input type="hidden" name="idEmp" value="${param.idEmp}">
-                        </c:if>
-                        <input class="btn search-btn" type="submit" value="Save">
-                        <input type="hidden" name="action" value="saveNewCertificate">
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
 
         </c:if>
