@@ -3,10 +3,14 @@
     Created on : Jun 1, 2022, 5:39:09 PM
     Author     : AD
 --%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -241,7 +245,11 @@
                                             </td>
 
                                             <td>
-                                                <input type="date" name="exactDate"/>
+                                                <%   Date date = Calendar.getInstance().getTime();
+                                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                                    String strDate = dateFormat.format(date);%>
+                                                <c:set var = "now" value = "<%= strDate%>" />
+                                                <input type="date" name="exactDate" value = "${now}"/>
                                             </td>
                                             <td> 
                                                 <input class="pd-btn" type="submit" value="Save"/>
