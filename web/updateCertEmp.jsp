@@ -15,7 +15,7 @@
     </head>
     <body>
 
-        <c:import url="header.jsp"></c:import>
+        <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
         <c:if test="${requestScope.filedBlank != null}" >
             <h6 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h6>

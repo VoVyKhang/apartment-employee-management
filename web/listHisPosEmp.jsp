@@ -16,7 +16,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <c:import url="header.jsp"></c:import>
+        <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
 
             <div style="margin: 0 32px; width: 100%">

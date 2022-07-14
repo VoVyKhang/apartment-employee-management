@@ -25,7 +25,15 @@
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <style>
+            #sidebar{
+                height: 100vh
+            }
 
+            .mt-20{
+                margin-bottom: 20px
+            }
+        </style>
     </head>
 
     <body>
@@ -45,68 +53,56 @@
                     </div>
                 </nav>
                 <div class="sidebar-header">
-
-                    <h3>HAPPINESS</h3>
-                    <strong>H</strong>
+                    <div style="border: 1px solid #fff; width: 100%"></div>
+                    <strong>V</strong>
                 </div>
 
                 <ul class="list-unstyled components">
-                    <li>
-                        <a  href="mainController?action=showlist">
-                            <i class="fas fa-briefcase"></i>
-                            Lobby
+                    <li class="mt-20">
+                        <a  href="EmployeeHome.jsp">
+                            <span style="width: 30px">
+                                <i class="fas fa-calendar "></i>
+                            </span>
+                            Home
                         </a>
                     </li>
-                    <li>
+                    <li class="mt-20">
                         <a  href="mainController?action=listDependentEmp">
-                            <i class="fas fa-briefcase"></i>
+                            <span style="width: 30px">
+                                <i class="fas fa-user-friends"></i>
+                            </span>
                             Dependent
                         </a>
                     </li>
-                    <li>
+                    <li class="mt-20">
                         <a  href="mainController?action=showDepartmentEmp">
-                            <i class="fas fa-briefcase"></i>
+                            <span style="width: 30px">
+                                <i class="fas fa-building"></i>
+                            </span>
                             Department
                         </a>
                     </li>
+
+
                     <li>
-                        <a href="mainController?action=listCertificate">
-                            <i class="fas fa-briefcase"></i>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <span style="width: 30px">
+                                <i class="fas fa-user"></i>
+                            </span>
                             Account
                         </a>
-                        <ul>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="mainController?action=accountInfo">
-                                    Account Information
-                                </a>
+                                <a href="mainController?action=accountInfo">Account Information</a>
                             </li>
-                        </ul>
-                        <ul>
                             <li>
-                                <a href="mainController?action=listCertEmp">
-                                    Certificate
-                                </a>
+                                <a href="mainController?action=listCertEmp">Certificate</a>
                             </li>
-                        </ul>
-                        <ul>
                             <li>
-                                <a href="mainController?action=listRewPenEmp">
-                                    Reward and Penalty
-                                </a>
+                                <a href="mainController?action=listRewPenEmp">Reward and Penalty</a>
                             </li>
-                        </ul>
-                        <ul>
                             <li>
-                                <a href="changePassEmp.jsp">
-                                    Change Password
-                                </a>
-                            </li>
-                        </ul>
-                        <ul> 
-                            <li>
-                                <a href="logoutController?action=logout">
-                                    Log Out
-                                </a>
+                                <a href="logoutController?action=logout">Logout</a>
                             </li>
                         </ul>
                     </li>
