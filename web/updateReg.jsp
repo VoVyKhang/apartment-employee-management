@@ -104,7 +104,8 @@
 
                     <div style="text-align: center">
                         <input type="hidden" name="idReg" value="${requestScope.idReg}"/>
-                        <input class="btn btn-primary" type="submit" name="action" value="Update Regulation"/>
+                        <input class="btn btn-primary" type="submit" value="Save"/>
+                        <input class="btn btn-primary" type="hidden" name="action" value="Update Regulation"/>
                     </div>
                 </form>
             </div>

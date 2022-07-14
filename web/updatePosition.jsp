@@ -88,7 +88,8 @@
                         </div>
 
                         <div style="text-align: center">
-                            <input class="btn btn-primary" type="submit" name="action" value="updatePosition"/> 
+                            <input class="btn btn-primary" type="submit" value="Save"/> 
+                            <input class="btn btn-primary" type="hidden" name="action" value="updatePosition"/> 
                         </div>
                         <c:if test="${requestScope.updateSuccess != null}">
                             <c:out value="${requestScope.updateSuccess}"/>

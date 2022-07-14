@@ -83,7 +83,8 @@
                             </select>            </div>
 
                         <div style="text-align: center">
-                            <input class="btn btn-primary" type="submit" name="action" value="Create Regulation"/>
+                            <input class="btn btn-primary" type="submit" value="Create"/>
+                            <input class="btn btn-primary" type="hidden" name="action" value="Create Regulation"/>
                         </div>
 
                     </form>

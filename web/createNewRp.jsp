@@ -119,7 +119,8 @@
                             <c:if test="${param.flag eq 'flag'}">
                                 <input type="hidden" name="flag" value="${param.flag}">
                             </c:if>
-                            <input class="btn-primary" type="submit" name="action" value="CreateNewRp"> 
+                            <input class="btn-primary" type="submit" value="Create"> 
+                            <input class="btn-primary" type="hidden" name="action" value="CreateNewRp"> 
                         </div>
                         <c:if test="${requestScope.updateSuccess != null}">
                             <c:out value="${requestScope.updateSuccess}"/>

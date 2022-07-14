@@ -86,7 +86,8 @@
                     </c:choose>
 
                     <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-                    <input class="btn btn-primary" type="submit" name="action" value="renewal"/> 
+                    <input class="btn btn-primary" type="submit" value="Save"/>
+                    <input class="btn btn-primary" type="hidden" name="action" value="renewal"/>
 
                 </form>
             </div>

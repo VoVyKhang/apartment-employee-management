@@ -136,7 +136,8 @@
                     <div style="text-align: center">
                         <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
                         <input type="hidden" value="${requestScope.Contract.filePath}" name="oldFile">
-                        <input class="btn btn-primary" type="submit" name="action" value="updateCon"/> 
+                        <input class="btn btn-primary" type="submit" value="Save"/> 
+                        <input class="btn btn-primary" type="hidden" name="action" value="updateCon"/> 
                     </div>
                 </form>
             </div>

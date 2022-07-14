@@ -143,7 +143,7 @@
 
                         <input type="hidden" name="action" value="createcon">
                         <div style="text-align: center">
-                            <input class="btn btn-primary" type="submit" value="Create New"> 
+                            <input class="btn btn-primary" type="submit" value="Create"> 
                         </div>
                     </form>
                 </div>
