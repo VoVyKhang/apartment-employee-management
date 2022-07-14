@@ -32,7 +32,7 @@
     </head>
     <body>
         <header>
-            <%@include file="header.jsp" %>
+            <%@include file="headerEmp.jsp" %>
         </header>
         <c:import url="sidebarEmp.jsp"></c:import>
             <div style="margin: 0 16px; width: 100%" class="list__rp">

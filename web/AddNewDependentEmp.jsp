@@ -28,7 +28,7 @@
     </head>
     <body>
 
-        <c:import url="header.jsp"></c:import>
+        <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
             <div style="width: 100%">
             <c:if test="${filedBlank != null}">

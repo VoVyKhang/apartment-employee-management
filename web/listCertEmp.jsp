@@ -28,7 +28,7 @@
         </style>
     </head>
     <body>
-        <c:import url="header.jsp"></c:import>
+        <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
             <div style="margin: 0 16px; width: 100%" class="list__rp">
             <c:if test="${updateSuccess != null}" >

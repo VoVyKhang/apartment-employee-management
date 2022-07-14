@@ -1,7 +1,7 @@
 <%-- 
-    Document   : EmployeeHome
-    Created on : May 29, 2022, 1:26:52 PM
-    Author     : AD
+    Document   : detailEmployee
+    Created on : Jun 8, 2022, 9:14:55 PM
+    Author     : lehon
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,8 +13,10 @@
         <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
         <link rel="stylesheet" href="./css/profile.css"/>
-        <title>Employee Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+        <title>Details Information Of Employee</title>
         <style>
             .list-contract__link{
                 font-weight: 600;
@@ -32,7 +34,7 @@
 
     <body>
 
-        <c:import url="header.jsp"></c:import>
+        <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
 
             <div class="content container-fluid">
@@ -94,10 +96,18 @@
             <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
+
+            <div class="tab-content">
+                <div class="row" style="margin-top: 16px">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Dependent Informations </h3>
+                                <a href="mainController?action=listDependentEmp">
+                                    <span style="width: 30px">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                    </span>
+                                </a>
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">
@@ -134,14 +144,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="row" style="margin-top: 16px">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Certificate Informations </h3>
+                                <a href="mainController?action=listCertEmp">
+                                    <span style="width: 30px">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                    </span>
+                                </a>
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
@@ -172,10 +184,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row" style="margin-top: 16px">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Reward and Penalty</h3>
+                                <a href="mainController?action=listRewPenEmp">
+                                    <span style="width: 30px">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                    </span>
+                                </a>
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">
@@ -184,7 +203,6 @@
                                         where r.idReg = re.idReg and e.idEmp = r.idEmp and e.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
                                         group by re.status
                                     </sql:query>
-
                                     <table class="table table-nowrap">
                                         <thead>
                                             <tr>
@@ -210,12 +228,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>            
-                </div>
+                    </div>
+                </div>            
             </div>
-            <div style="height: 20px; background-color: #fff"></div>
-        </div>             
+        </div>
+        <div style="height: 20px; background-color: #fff"></div>
+    </div>             
 
-    </div>
+</div>
 </body>
 </html>

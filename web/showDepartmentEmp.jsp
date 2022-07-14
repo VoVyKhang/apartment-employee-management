@@ -26,7 +26,7 @@
     </head>
     <body>
         <header>
-            <%@include file="header.jsp" %>
+            <%@include file="headerEmp.jsp" %>
         </header>
         <c:import url="sidebarEmp.jsp"></c:import>
         <div>Department Name: ${requestScope.department.depName}</div>

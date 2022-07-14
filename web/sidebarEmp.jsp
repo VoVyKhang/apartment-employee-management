@@ -29,7 +29,7 @@
             #sidebar{
                 height: 100vh
             }
-            
+
             .mt-20{
                 margin-bottom: 20px
             }
@@ -59,7 +59,7 @@
 
                 <ul class="list-unstyled components">
                     <li class="mt-20">
-                        <a  href="mainController?action=showlist">
+                        <a  href="EmployeeHome.jsp">
                             <span style="width: 30px">
                                 <i class="fas fa-calendar "></i>
                             </span>
@@ -82,8 +82,8 @@
                             Department
                         </a>
                     </li>
-                    
-                    
+
+
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <span style="width: 30px">
@@ -100,6 +100,9 @@
                             </li>
                             <li>
                                 <a href="mainController?action=listRewPenEmp">Reward and Penalty</a>
+                            </li>
+                            <li>
+                                <a href="logoutController?action=logout">Logout</a>
                             </li>
                         </ul>
                     </li>
