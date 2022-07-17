@@ -56,13 +56,14 @@
             .list-contract__link{
                 font-weight: 600;
                 padding: 4px 8px;
-                border: 1px solid #333;
-                border-radius: 5px
+                background-color: #00a8ef;
+                border-radius: 5px;
+                color: #fff
             }
 
             .list-contract__link:hover{
-                background-color: #000;
-                color: #fff
+                opacity: 0.9;
+                transform: scale(0.95)
             }
 
             .con-body td{

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : listDependent
-    Created on : Jun 12, 2022, 8:26:09 PM
-    Author     : AD
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -21,7 +15,6 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-
             .list-employee__actions{
                 display: flex;
                 align-items: center;
@@ -51,12 +44,10 @@
                 text-transform: uppercase;
                 margin-top: 15px
             }
-
             .search-btn:hover{
                 transform: scale(0.98);
                 opacity: 0.9
             }
-
             .add-btn{
                 background-color: #00a8ef;
                 border: 1px solid #00c5fb;
@@ -69,7 +60,6 @@
                 padding: 4px 10px;
                 display: flex;
             }
-
         </style>
     </head>
     <body>

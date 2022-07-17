@@ -50,6 +50,20 @@
                 display: flex;
                 justify-content: space-between;
             }
+
+            .dep-link{
+                font-weight: 500;
+                padding: 4px 8px;
+                background-color: #00a8ef;
+                border-radius: 5px;
+                color: #fff;
+            }
+
+            .dep-link:hover{
+                opacity: 0.9;
+                transform: scale(0.95);
+                color: #000
+            }
         </style>
     </head>
     <body>
@@ -77,10 +91,10 @@
                                     <li class="breadcrumb-item active">Department</li>
                                 </ul>
                             </div>
-                            <div class="dep-btn">
+                            <div >
                                 <p style="color:green">${requestScope.WARNING}<p>
-                                    <a href="createNewDep.jsp">Create New Department</a>
-                                    <a href="mainController?action=showlist&type=changedep">Change Department</a>
+                                    <a style="margin-right: 8px" class="dep-link" href="createNewDep.jsp">Create New Department</a>
+                                    <a class="dep-link" href="mainController?action=showlist&type=changedep">Change Department</a>
                             </div>
                         </div>
                     </div>

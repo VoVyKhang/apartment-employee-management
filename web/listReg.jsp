@@ -43,13 +43,14 @@
             .list-regulation__link{
                 font-weight: 600;
                 padding: 4px 8px;
-                border: 1px solid #333;
-                border-radius: 5px
+                background-color: #00a8ef;
+                border-radius: 5px;
+                color: #fff
             }
             
             .list-regulation__link:hover{
-                background-color: #000;
-                color: #fff
+                opacity: 0.9;
+                transform: scale(0.95)
             }
             
             .filter__btn{
@@ -110,8 +111,8 @@
 
                     <table class="table table-striped" style="margin-top: 20px">
                         <thead>
-                            <tr>
-                                <th scope="col">id Regulation</th>
+                            <tr  style="text-align: initial">
+                                <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Type</th>
                                 <th scope="col">Update</th>
@@ -124,11 +125,9 @@
                         </c:if>
                         <c:forEach var="listReg" varStatus="counter" items="${requestScope.listReg}">
                             <form  action="mainController">
-                                <tr>
-
-
+                                <tr  style="text-align: initial">
                                     <td scope="row">${listReg.idReg}</td>                            
-                                    <td>${listReg.name}</td>
+                                    <td >${listReg.name}</td>
 
                                     <c:choose>
                                         <c:when test="${listReg.status eq 0}">
@@ -138,7 +137,6 @@
                                             <td>Reward</td>
                                         </c:otherwise>
                                     </c:choose>
-
 
                                     <td>
                                         <c:url var="update" value="mainController">
