@@ -182,7 +182,8 @@
                                 </select>
                             </div> 
                             <div class="col-sm-6 col-md-3 ">
-                                <input type="submit" value="Search" name="action" class="btn btn-primary">
+                                <input type="hidden" value="searchPro" name="action" class="btn btn-primary">
+                                <input type="submit" value="Search" class="btn btn-primary">
                             </div>
                         </div>
                     </form>
