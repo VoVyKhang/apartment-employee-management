@@ -133,7 +133,11 @@
                                             <span> ${listDep.depName}</span>
                                             <c:forEach var="numberOfEmp" items="${requestScope.numberOfEmp}">
                                                 <c:if test="${listDep.depNum eq numberOfEmp.key}">
-                                                    <span>${numberOfEmp.value} Employee</span>
+                                                    <div>
+                                                        ${numberOfEmp.value}
+                                                        
+                                                        <i style="margin-left: 2px" class="fas fa-user"></i>
+                                                    </div>
                                                 </c:if>
                                             </c:forEach>
                                         </div>
