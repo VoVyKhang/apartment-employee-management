@@ -92,7 +92,8 @@
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">
-                            <input type="submit" value="searchHisPos" name="action" class="btn search-btn">
+                            <input type="hidden" value="searchHisPos" name="action" class="btn search-btn">
+                            <input type="submit" value="Search" class="btn search-btn">
                         </div>
                     </div>
                 </form>
