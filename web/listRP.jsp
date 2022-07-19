@@ -41,18 +41,18 @@
             .search-btn:hover{
                 transform: scale(0.9)
             }
-            
+
             .list__regulation-item{
                 display: flex;
                 align-items: center
             }
-            
+
             .list__regulation-item-img{
                 width: 38px;
                 height: 38px;
                 border-radius: 50%
             }
-            
+
             .list__regulation-description{
                 display: flex;
                 flex-direction: column;
@@ -60,12 +60,12 @@
                 font-size: 14px;
                 margin-left: 8px
             }
-            
+
             .list__regulation-description-name{
                 font-weight: 600;
                 margin-bottom: 2px
             }
-            
+
             .list__regulation-description-dep{
                 font-size: 13px;
                 opacity: 0.9
@@ -183,7 +183,7 @@
                     </c:forEach>
                     </tbody>
                     <c:if test="${requestScope.updateSuccess != null}">
-                        <c:out value="${requestScope.updateSuccess}"/>
+                        <p style="color:green"> <c:out value="${requestScope.updateSuccess}"/></p>
                     </c:if>
             </table> 
         </div>
