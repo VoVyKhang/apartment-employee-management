@@ -84,7 +84,7 @@
         </sql:query>
 
 
-        <c:if test="${result.rowCount != 0}">
+        <c:if test="${resultemp.rowCount != 0}">
             <div style="width: 100%; margin: 0 20%" class="modal-content">
                 <div class="modal-header">
                     <div>
@@ -149,7 +149,7 @@
                 </div>
             </div>
         </c:if>
-        <c:if test="${result.rowCount == 0}">
+        <c:if test="${resultemp.rowCount == 0}">
             <p style="color:green">All employees have been registered for the contract</p>
         </c:if>
     </body>

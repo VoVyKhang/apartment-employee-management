@@ -91,14 +91,16 @@
                     <form action="mainController" class="form-position" method="POST" enctype="multipart/form-data">            
                         <div class="form-group">
                             <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
-                            <c:if test="${param.idEmp eq ''}">
-                                <div style="margin-bottom: 4px">Select employee</div>                                      
-                                <select name="idEmp" class="certificate-select">
-                                    <c:forEach var="listEmp" items="${requestScope.listEmp}">
-                                        <option value="${listEmp.idEmp}" <c:if test="${listEmp.idEmp eq param.idEmp}"> selected="" </c:if> > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
-                                    </c:forEach>
-                                </select> 
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${param.idEmp eq ''}">
+                                    <div style="margin-bottom: 4px">Select employee</div>                                      
+                                    <select name="idEmp" class="certificate-select">
+                                        <c:forEach var="listEmp" items="${requestScope.listEmp}">
+                                            <option value="${listEmp.idEmp}" <c:if test="${listEmp.idEmp eq param.idEmp}"> selected="" </c:if> > id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/> </option>                        
+                                        </c:forEach>
+                                    </select>
+                                </c:when>
+                            </c:choose>
                         </div>
                         <div class="form-group" style="margin-top: 16px">
                             <span> Name certificate</span>
