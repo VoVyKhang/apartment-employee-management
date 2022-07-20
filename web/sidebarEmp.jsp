@@ -26,10 +26,6 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
         <style>
-            #sidebar{
-                height: 100vh
-            }
-
             .mt-20{
                 margin-bottom: 20px
             }
@@ -54,7 +50,7 @@
                 </nav>
                 <div class="sidebar-header">
                     <div style="border: 1px solid #fff; width: 100%"></div>
-                    <strong>V</strong>
+                    <strong>U</strong>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -93,16 +89,10 @@
                         </a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="mainController?action=accountInfo">Account Information</a>
-                            </li>
-                            <li>
                                 <a href="mainController?action=listCertEmp">Certificate</a>
                             </li>
                             <li>
                                 <a href="mainController?action=listRewPenEmp">Reward and Penalty</a>
-                            </li>
-                            <li>
-                                <a href="logoutController?action=logout">Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -112,13 +102,23 @@
                 </ul>
 
                 <ul class="list-unstyled CTAs">
-                    <li>
-                        <a class="no-hover"></a>
-                    </li>
-                    <li>
-                        <a  class="article"></a>
-                    </li>
+                    <div class="footer__body">
+                        <div>
+                            <div class="footer__content">
+                                <div class="footer__header-left">
+                                    <ul class="list-unstyled footer__list">
+                                        <li>Privacy Policy</li>
+                                        <li>Terms &amp; Conditions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <p>&copy; 2022 Team6</p>
+                            </div>
+                        </div>
+                    </div>                 
                 </ul>
+
             </nav>
 
             <!-- Page Content  -->

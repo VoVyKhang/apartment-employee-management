@@ -34,6 +34,10 @@
             .dependent__link:hover{
                 opacity: 0.8
             }
+
+            #sidebar{
+                height: 100vh
+            }
         </style>
     </head>
     <body>

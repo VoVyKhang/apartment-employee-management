@@ -21,6 +21,10 @@
             .btn-primary{
                 margin-top: 44px
             }
+            
+            #sidebar{
+                height: 100vh
+            }
         </style>
         <title>Department Page</title>
     </head>

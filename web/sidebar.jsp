@@ -49,7 +49,7 @@
                 </nav>
                 <div class="sidebar-header">
                     <div style="border: 1px solid #fff; width: 100%"></div>
-                    <strong>V</strong>
+                    <strong>U</strong>
                 </div>
 
                 <ul class="list-unstyled components task-list">

@@ -25,6 +25,10 @@
             .dataTables_info{
                 display: flex;
             }
+            
+            #sidebar{
+                height: 100vh
+            }
         </style>
     </head>
     <body>

@@ -231,8 +231,9 @@
                     </div>
                 </div>            
             </div>
+            <div style="height: 20px; background-color: #fff"></div>
         </div>
-        <div style="height: 20px; background-color: #fff"></div>
+
     </div>             
 
 </div>

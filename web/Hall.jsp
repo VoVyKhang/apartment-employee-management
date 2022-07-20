@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="logo">
-                                    <span class="logo-font">Vie</span>Building
+                                    <span class="logo-font">UniCorp</span>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 <div class="carousel-item active">
                                     <div class="slider-feature-card">
                                         <img class="logo-building" src="./images/logo.jpg" alt="">
-                                        <h3 class="slider-title">VieBuilding</h3>
+                                        <h3 class="slider-title">UniCorp</h3>
                                         <p class="slider-description">Always listening always understanding!</p>
                                     </div>
                                 </div>
