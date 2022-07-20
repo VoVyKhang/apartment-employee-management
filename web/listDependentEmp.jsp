@@ -15,6 +15,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+
             .btn-primary{
                 background-color: #01a3ed !important;
                 border: 1px solid #01a3ed !important;
@@ -26,13 +32,40 @@
                 margin-top: 48px;
             }
 
-            .dependent__link{
-                font-size: 18px;
-                font-weight: 600
+            .list-employee__actions{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .breadcrumb{
+                background-color: #f7f7f7 !important;
+                display: inline-flex !important;
+                float: left !important;
+                margin-left: -16px;
             }
 
-            .dependent__link:hover{
-                opacity: 0.8
+            .page-title{
+                text-align: initial !important;
+                margin-left: 2px !important;
+                margin-top: 8px
+            }
+
+            .add-btn{
+                background-color: #00a8ef;
+                border: 1px solid #00c5fb;
+                border-radius: 50px;
+                color: #fff;
+                font-weight: 500;
+                min-width: 140px;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 4px 10px;
+                display: flex;
+            }
+
+            .add-btn:hover{
+                opacity: 0.9;
+                transform: scale(0.95)
             }
 
             #sidebar{
@@ -50,11 +83,30 @@
         </c:if>
         <c:if test="${requestScope.listDependent != null}">
 
-            <div style="margin: 0 32px; width: 100%">
-                <c:if test="${requestScope.updateSuccess != null}" >
-                    <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
-                </c:if>
-                <a class="dependent__link" href="AddNewDependentEmp.jsp" >Add new dependent</a>
+            <div style="margin: 0 16px; width: 100%">
+                <div class="page-header">
+                    <div class="row">
+                        <h3 class="page-title">Dependent</h3>
+                        <div class="col-sm-12 list-employee__actions">                       
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
+                                    <li class="breadcrumb-item active">Dependent</li>
+                                </ul>
+                            </div>
+                            <div style="margin-right: 8px">          
+                                <a class="add-btn" href="AddNewDependentEmp.jsp">
+                                    <i class="ri-add-fill list__employee-icon"></i>
+                                    Add new dependent
+                                </a>
+                                <c:if test="${requestScope.updateSuccess != null}" >
+                                    <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <h5>${requestScope.Success}</h5>
                 <table class="table table-striped">
                     <thead>

@@ -12,6 +12,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Certificate</title>
         <link rel="stylesheet" href="css/globalstyles.css"/>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
+            #sidebar{
+                height: 100vh !important
+            }
+            
+            
+        </style>
     </head>
     <body>
 
@@ -20,7 +33,7 @@
         <c:if test="${requestScope.filedBlank != null}" >
             <h6 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h6>
         </c:if>
-            <div style="margin: 0 32px; width: 100%">
+            <div style="margin: 0 16px; width: 100%">
                 <table class="table table-striped list-certificate">
                     <thead>
                         <tr>                    

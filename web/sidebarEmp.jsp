@@ -39,7 +39,6 @@
             <nav id="sidebar">
                 <nav class="navbar-expand-lg">
                     <div class="container-fluid">
-
                         <button type="button" id="sidebarCollapse" class="btn btn-info ">
                             <i class="fas fa-align-left"></i>
                         </button>
@@ -55,7 +54,7 @@
 
                 <ul class="list-unstyled components">
                     <li class="mt-20">
-                        <a  href="EmployeeHome.jsp">
+                        <a href="EmployeeHome.jsp">
                             <span style="width: 30px">
                                 <i class="fas fa-calendar "></i>
                             </span>
@@ -63,7 +62,7 @@
                         </a>
                     </li>
                     <li class="mt-20">
-                        <a  href="mainController?action=listDependentEmp">
+                        <a href="mainController?action=listDependentEmp">
                             <span style="width: 30px">
                                 <i class="fas fa-user-friends"></i>
                             </span>

@@ -46,7 +46,7 @@
                     <a  href="mainController?action=showlist">
                         <img src="images/logo.jpg" class="header__logo-img">
                     </a>
-                    <h3>VieBuilding</h3>
+                    <h3>UniCorp</h3>
                 </div>
 
                 <div class="header__user">
