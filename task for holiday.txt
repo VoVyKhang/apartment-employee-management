@@ -1,0 +1,74 @@
+DATABASE: - THÀNH
+- Thêm lương căn bản của nhân viên, thêm nơi cấp certificate employee vào database
+- Thêm vào department ngày chính thức nhận việc - exactDay
+- Employee thêm field ngày nhận việc -> exactDay
+
+ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG
+HIỆN ID Ở MỌI MẶT TRẬN -VỸ
+
+LOGIN:
+- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
+
+HOME
+- Statictis 2 bảng thay đổi bằng data thật 
+
+POSITION: - BÁCH
+- Thêm chức năng tạo mới chức vụ 
+- Chưa hiện lại tên hiện tại
+- Không nhận description
+- Promote/demote: chọn mặc định All Types
+- Active bị lệch - KHANG
+- Không hiện admin khi promote/demote
+- Nhập ngày trước -> Custome thành màu đỏ
+
+EMPLOYEE - THÀNH
+- Search khi gõ name enter bị lỗi ra trang trắng
+- Custom thông báo khi nhập name quá dài
+- Nhân viên mới -> thăng cấp
+- Thêm ngày nhận việc
+- Custom Success khi update thành công, câu thông báo để chỗ khác
+
+REWARD_PENALTY - HÙNG
+- update số lần cũ bị mất (Gửi dữ liệu cũ qua)
+- Sửa 1 thằng -> sửa hết -> Sửa câu query
+
+DEPARTMENT - THÀNH
+- Thay chữ filter -> search
+- Create new department, update department
+	+ Name: giới hạn từ 1 đến 20 kí tự
+	 + Description: Giới hạn từ 1 đến 20 kí tự
+	 + Location : Giới hạn từ 1 đến 20 kí tự
+- Sửa icon detail - KHANG
+- History thiếu ngày thực tế nhận việc(ngày chuyển)
+- Thêm ExactDay
+- Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
+
+HỒ SƠ NHÂN SỰ -VỸ
+- Đi qua những trang khác sửa thanh điều hướng
+- Thêm detail vào reward - penalty
+
+CONTRACT - VỸ - HÙNG
+- Không thêm được file
+- Select All contract là mặc định
+- Ẩn admin đi
+
+- CONTRACT: - VỸ
++ Đính kèm mẫu hợp đồng - có file nhưng chưa lưu được file
++ Bug: Create contract không chọn nhân viên khi tất cả nhân viên đều có hợp đồng nhưng vẫn tạo được
++ Kí nhiều hơn 2 năm, kí 2 năm ngắn hạn -> kí long - term (IF ANY)
++ Update hợp đồng hết hạn nhưng mà nhân viên vẫn còn
++ Update không update được hợp đồng mới -> out ra ngoài
+
+CERTIFICATE - VỸ
+- Bị lỗi ô search, search mỗi employee id thì kh search được
+- Không có nhân viên sổ ra
+- Ảnh certificate khi ấn vào thì ảnh to ra - KHANG
+- Ảnh certificate khi update ảnh hiện ảnh không hiện
+- Add new certificate mất sổ danh sách nhân viên
+- Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
+
+DEPENDENT - VỸ
+- Ẩn vào tên sổ ra danh sách người phụ thuộc
+- Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
+
+

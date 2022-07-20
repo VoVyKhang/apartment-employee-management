@@ -16,16 +16,16 @@
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <title>History Change Department</title>
         <style>
-            .btn-primary{
-                background-color: #01a3ed !important;
-                border: 1px solid #01a3ed !important;
-                border-radius: 10px !important;
-                font-size: 18px;
-                font-weight: 600;
-                min-width: 150px;
-                padding: 10px 20px;
-                margin-top: 46px
+             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
             }
+            
+            #sidebar{
+                height: 100vh
+            }
+            
         </style>
     </head>
     <body>
@@ -33,9 +33,9 @@
         <c:import url="sidebarEmp.jsp"></c:import> 
 
         <c:if test="${requestScope.listHisDep != null}">
-            <table class="table table-striped">
+            <table>
                 <thead >
-                    <tr style="text-align: center">
+                    <tr>
                         <th scope="col">Employee</th>
                         <th scope="col">Department</th>
                         <th scope="col">Delivery Date</th>
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
-                        <tr style="text-align: center">
+                        <tr>
                             <td>${listHisDep.nameEmp}</td>
                             <td>${listHisDep.nameDep}</td>
                             <td>${listHisDep.deliveryDate}</td>
