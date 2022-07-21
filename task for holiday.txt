@@ -17,7 +17,7 @@ POSITION: - BÁCH
 - Chưa hiện lại tên hiện tại
 - Không nhận description
 - Promote/demote: chọn mặc định All Types
-- Active bị lệch - KHANG
+- Active bị lệch - KHANG [DONE]
 - Không hiện admin khi promote/demote
 - Nhập ngày trước -> Custome thành màu đỏ
 
@@ -38,7 +38,7 @@ DEPARTMENT - THÀNH
 	+ Name: giới hạn từ 1 đến 20 kí tự
 	 + Description: Giới hạn từ 1 đến 20 kí tự
 	 + Location : Giới hạn từ 1 đến 20 kí tự
-- Sửa icon detail - KHANG
+- Sửa icon detail - KHANG [DONE]
 - Thêm ExactDay - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
