@@ -24,8 +24,8 @@ public class HistoryDepDAO {
             + "set status = 0\n"
             + "where idEmp = ? and depNum = ? and status = 1";
 
-    private static final String INSERT_NEW_HIS_DEP = "INSERT INTO HistoryDep(idEmp, depNum, deliveryDate, status)"
-            + " VALUES (?, ?, ?, ?)";
+    private static final String INSERT_NEW_HIS_DEP = "INSERT INTO HistoryDep(idEmp, depNum, deliveryDate, exactDate, status)"
+            + " VALUES (?, ?, ?, ?, ?)";
 
     private static final String LIST_ALL_HIS_DEP = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, hd.exactDate, status\n"
             + "from Employee as e, HistoryDep as hd, Department as d\n"
@@ -117,7 +117,7 @@ public class HistoryDepDAO {
     }
 
     //Insert history of new department
-    public static boolean inserNewDep(String idemp, String iddep) throws SQLException {
+    public static boolean inserNewDep(String idemp, String iddep, Date exactDate) throws SQLException {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -126,7 +126,8 @@ public class HistoryDepDAO {
                 ptm.setInt(1, Integer.parseInt(idemp));
                 ptm.setInt(2, Integer.parseInt(iddep));
                 ptm.setDate(3, d);
-                ptm.setInt(4, 1);
+                ptm.setDate(4, exactDate);
+                ptm.setInt(5, 1);
                 int result = ptm.executeUpdate();
                 if (result > 0) {
                     return true;

@@ -63,9 +63,7 @@
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <p style="margin: 16px 16px 0 16px">Department is being updated: ${requestScope.Dep.depName}</p>
-                </div>
+                    
             </div>
             <div class="modal-body">
                 <form action="mainController" method="POST" class="form-position">

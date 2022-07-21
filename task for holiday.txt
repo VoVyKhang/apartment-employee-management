@@ -22,24 +22,25 @@ POSITION: - BÁCH
 - Nhập ngày trước -> Custome thành màu đỏ
 
 EMPLOYEE - THÀNH
-- Search khi gõ name enter bị lỗi ra trang trắng
+- Search khi gõ name enter bị lỗi ra trang trắng - HÙNG OR VỸ
 - Custom thông báo khi nhập name quá dài - [DONE]
 - Nhân viên mới -> thăng cấp - [DONE]
 - Thêm ngày nhận việc - [DONE]
-- Custom Success khi update thành công, câu thông báo để chỗ khác
+- Custom Success khi update thành công, câu thông báo để chỗ khác - [DONE]
 
 REWARD_PENALTY - HÙNG (Done)
 - update số lần cũ bị mất (Gửi dữ liệu cũ qua)
 - Sửa 1 thằng -> sửa hết -> Sửa câu query 
 
 DEPARTMENT - THÀNH
-- Thay chữ filter -> search
+- Thay chữ filter -> search - [DONE]
 - Create new department, update department
-	+ Name: giới hạn từ 1 đến 20 kí tự
-	 + Description: Giới hạn từ 1 đến 20 kí tự
-	 + Location : Giới hạn từ 1 đến 20 kí tự
+	+ Name: giới hạn từ 1 đến 20 kí tự - [DONE]
+	 + Description: Giới hạn từ 1 đến 20 kí tự - [DONE]
+	 + Location : Giới hạn từ 1 đến 20 kí tự - [DONE]
 - Sửa icon detail - KHANG [DONE]
 - Thêm ExactDay - [DONE]
+- Fix chuyển phòng ban - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
 HỒ SƠ NHÂN SỰ -VỸ

@@ -68,6 +68,7 @@
                                                 <h6 class="text-muted">${requestScope.Employee.posName}</h6>
                                                 <div class="staff-id">Department: ${requestScope.Employee.depName}</div>
                                                 <div class="small doj text-muted">Date of Join : ${requestScope.Employee.joinDate}</div>
+                                                <div class="small doj text-muted">Exact date : ${requestScope.Employee.exactDate}</div>
 
                                             </div>
                                         </div>
@@ -90,8 +91,12 @@
                                                     <div class="text">${requestScope.Employee.address}</div>
                                                 </li>
                                                 <li>
-                                                    <div class="title">${requestScope.Employee.gender}</div>
-                                                    <div class="text">Male</div>
+                                                    <div class="title">Gender:</div>
+                                                    <div class="text">${requestScope.Employee.gender}</div>
+                                                </li>
+                                                <li>
+                                                    <div class="title">Salary:</div>
+                                                    <div class="text">${requestScope.Employee.baseSalary}</div>  
                                                 </li>
 
                                             </ul>
@@ -119,7 +124,7 @@
                                 <sql:query dataSource = "${snapshot}" var = "listcontract">
                                     select c.idContract,  t.name, signDay, expDay, hc.status
                                     from Contract as c, TypeContract as t, HistoryContract hc, Employee e
-                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp} and status = 1
+                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp}
                                 </sql:query>
 
                                 <ul class="personal-info">

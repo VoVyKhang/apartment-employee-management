@@ -89,11 +89,7 @@
                     </div>
                 </div>
 
-                <div>
-                    <div>
-                        <p style="margin: 16px 16px 0 16px">The employee being updated is: ${requestScope.Employee.name}</p>
-                </div>
-            </div>
+               
 
             <div class="modal-body" style="padding-bottom: 0">
                 <form action="mainController" method="post" enctype="multipart/form-data">

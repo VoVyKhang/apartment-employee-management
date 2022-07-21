@@ -4,11 +4,15 @@
     Author     : lehon
 --%>
 
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import = "java.io.*,java.util.*,java.sql.*"%>
 <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,13 +41,13 @@
                 margin-left: -24px;
                 margin-bottom: 0 !important
             }
-            
+
             .actions{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
-            
+
             .history-btn{
                 background-color: #00a8ef;
                 border: 1px solid #00c5fb;
@@ -121,11 +125,28 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 ">
-                            <input type="submit" value="Filter" class="btn btn-primary">
+                            <input type="submit" value="Search" class="btn btn-primary">
                             <input type="hidden" name="action" value="filterChangeDep"/>
                         </div>
                     </div>  
+
                 </form>
+
+                <div class="changedep-btn">
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.WARNINGCOMPLETED}">
+                            <p style="color:green">${sessionScope.WARNINGCOMPLETED}</p>
+                            <c:remove var="WARNINGCOMPLETED" scope="session" />
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${not empty sessionScope.WARNINGFAILED}">
+                                <p style="color: red">${sessionScope.WARNINGFAILED}</p>
+                                <c:remove var="WARNINGFAILED" scope="session" />
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
                 <h5>${requestScope.SearchRS}</h5>
                 <table class="table table-bordered">
                     <thead>
@@ -134,9 +155,9 @@
                             <th scope="col">Image</th>
                             <th scope="col">Name</th>
                             <th scope="col">Gender</th>
-                            <th scope="col">Date of birth</th>
                             <th scope="col">Department</th>
                             <th scope="col">Position</th>
+                            <th scope="col">Exact Date</th>
                             <th scope="col">Update</th>
                         </tr>
                     </thead>
@@ -154,7 +175,6 @@
 
                                 <td class="nameEmp">${listEmp.name}</td>
                                 <td>${listEmp.gender}</td>
-                                <td>${listEmp.dob}</td>
                                 <td class="exception">Old department: ${listEmp.depName}</br>
                                     </br>
 
@@ -182,6 +202,13 @@
                                     </br>
                                 </td>
                                 <td>${listEmp.posName}</td>
+                                <td>
+                                    <%   Date date = Calendar.getInstance().getTime();
+                                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                        String strDate = dateFormat.format(date);%>
+                                    <c:set var = "now" value = "<%= strDate%>" />
+                                    <input type="date" name="exactDate" value = "${now}"/>
+                                </td>
 
                                 <td>
                                     <input type="hidden" name="idemp" value="${listEmp.idEmp}">
@@ -197,13 +224,7 @@
                 </table>
 
             </c:if>
-            <div class="changedep-btn">
-                <c:if test="${not empty sessionScope.WARNING}">
-                    <p style="color:green">${sessionScope.WARNING}</p>
-                    <c:remove var="WARNING" scope="session" />
-                </c:if>
 
-            </div>
         </div>
     </body>
 </html>
