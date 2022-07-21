@@ -7,7 +7,7 @@ DATABASE: - THÀNH
 HIỆN ID Ở MỌI MẶT TRẬN - VỸ
 
 LOGIN:
-- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
+- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG [DONE]
 
 HOME 
 - Statictis 2 bảng thay đổi bằng data thật 
@@ -17,7 +17,7 @@ POSITION: - BÁCH
 - Chưa hiện lại tên hiện tại
 - Không nhận description
 - Promote/demote: chọn mặc định All Types
-- Active bị lệch - KHANG
+- Active bị lệch - KHANG [DONE]
 - Không hiện admin khi promote/demote
 - Nhập ngày trước -> Custome thành màu đỏ
 
@@ -28,17 +28,24 @@ EMPLOYEE - THÀNH
 - Thêm ngày nhận việc - [DONE]
 - Custom Success khi update thành công, câu thông báo để chỗ khác - [DONE]
 
-REWARD_PENALTY - HÙNG
+REWARD_PENALTY - HÙNG (Done)
 - update số lần cũ bị mất (Gửi dữ liệu cũ qua)
-- Sửa 1 thằng -> sửa hết -> Sửa câu query
+- Sửa 1 thằng -> sửa hết -> Sửa câu query 
 
 DEPARTMENT - THÀNH
 - Thay chữ filter -> search - [DONE]
 - Create new department, update department
+<<<<<<< HEAD
 	+ Name: giới hạn từ 1 đến 20 kí tự - [DONE]
 	 + Description: Giới hạn từ 1 đến 20 kí tự - [DONE]
 	 + Location : Giới hạn từ 1 đến 20 kí tự - [DONE]
 - Sửa icon detail - KHANG
+=======
+	+ Name: giới hạn từ 1 đến 20 kí tự
+	 + Description: Giới hạn từ 1 đến 20 kí tự
+	 + Location : Giới hạn từ 1 đến 20 kí tự
+- Sửa icon detail - KHANG [DONE]
+>>>>>>> 36e36375f39034cce1c8432411b21e51c27552b2
 - Thêm ExactDay - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
@@ -58,16 +65,15 @@ CONTRACT - VỸ - HÙNG
 + Update hợp đồng hết hạn nhưng mà nhân viên vẫn còn
 + Update không update được hợp đồng mới -> out ra ngoài
 
-CERTIFICATE - VỸ
-- Bị lỗi ô search, search mỗi employee id thì kh search được
-- Không có nhân viên sổ ra
+CERTIFICATE - Hung
+- Bị lỗi ô search, search mỗi employee id thì kh search được (done)
+- Không có nhân viên sổ ra (done)
 - Ảnh certificate khi ấn vào thì ảnh to ra - KHANG
-- Ảnh certificate khi update ảnh hiện ảnh không hiện
-- Add new certificate mất sổ danh sách nhân viên
+- Ảnh certificate khi update ảnh hiện ảnh không hiện 
+- Add new certificate mất sổ danh sách nhân viên (?)
 - Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
 
 DEPENDENT - VỸ
 - Ẩn vào tên sổ ra danh sách người phụ thuộc
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
-
 

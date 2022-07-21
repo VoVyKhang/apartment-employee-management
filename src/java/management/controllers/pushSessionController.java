@@ -48,6 +48,7 @@ public class pushSessionController extends HttpServlet {
             String id = "";
             String name = "";
             String idReg = "";
+            String idRP = "";
             String flag = request.getParameter("flag");
             if (updateType.equals("updatedep")) {
                 id = request.getParameter("iddep");
@@ -59,6 +60,7 @@ public class pushSessionController extends HttpServlet {
                 id = request.getParameter("idemp");
                 name = request.getParameter("nameemp");
                 idReg = request.getParameter("idreg");
+                idRP = request.getParameter("idrp");
                 URL = URL_UPDATE_RP;
 
             }
@@ -86,6 +88,7 @@ public class pushSessionController extends HttpServlet {
             session.setAttribute("id", id);
             session.setAttribute("name", name);
             session.setAttribute("idReg", idReg);
+            session.setAttribute("idRP", idRP);
             ArrayList<RegulationDTO> list = RegulationDAO.listReg();
             request.setAttribute("list", list);
             request.getRequestDispatcher(URL).forward(request, response);

@@ -111,11 +111,11 @@ public class saveChangeCertificateController extends HttpServlet {
 
                 if (result == true) {
                     request.setAttribute("updateSuccess", "Update success");
-                    request.getRequestDispatcher("listCertificateController").forward(request, response);
+                    request.getRequestDispatcher("SearchCerController").forward(request, response);
 
                 } else {
                     request.setAttribute("updateFail", "Update fail");
-                    request.getRequestDispatcher("listCertificateController").forward(request, response);
+                    request.getRequestDispatcher("SearchCerController").forward(request, response);
                 }
             }
         }

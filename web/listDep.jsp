@@ -161,12 +161,14 @@
                                     <td>${listDep.dateCreate}</td>
                                     <td>${listDep.creator}</td>
 
-                                    <td>
+                                    <td style="text-align: center">
                                         <a href="mainController?action=passiddep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
 
                                     </td>
-                                    <td>
-                                        <a href="mainController?action=detailDep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
+                                    <td style="text-align: center">
+                                        <a href="mainController?action=detailDep&iddep=${listDep.depNum}">
+                                            <i class="fas fa-info"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </form> 

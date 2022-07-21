@@ -120,7 +120,8 @@
                             <select name="depName" class="form-select form-select-md-5 mb-1 list-options" > 
                                 <option value="allDep">All Department</option>
                                 <c:forEach var="listDep" items="${listDep.rows}">
-                                    <option value="${listDep.depName}" ><c:out value="${listDep.depName}"/></option>                       
+                                    <option value="${listDep.depName}"
+                                        <c:if test="${listDep.depName eq sessionScope.depName}">selected="${listDep.depName}"</c:if>>${listDep.depName}</option>                       
                                 </c:forEach>
                             </select>
                         </div>
@@ -168,11 +169,16 @@
                             <td>${listrp.times}</td>
                             <td>${listrp.applicableDate}</td>
                             <td>${listrp.namere}</td>
-                            <td>${listrp.reason}</td>
+<!--                            <td>${listrp.reason}</td>-->
+                            <td><c:choose>
+                                    <c:when test="${listrp.reason eq ''}">None</c:when>
+                                    <c:otherwise>${listrp.reason}</c:otherwise>
+                                </c:choose></td>
                             <td>
                                 <c:url var="update" value="mainController">
                                     <c:param name="action" value="pushss"> </c:param>
                                     <c:param name="updatetype" value="updaterp"> </c:param>
+                                    <c:param name="idrp" value="${listrp.idRP}"> </c:param>
                                     <c:param name="idreg" value="${listrp.idReg}"> </c:param>
                                     <c:param name="nameemp" value="${listrp.name}"> </c:param>
                                     <c:param name="idemp" value="${listrp.idEmp}"> </c:param>   
@@ -184,6 +190,9 @@
                     </tbody>
                     <c:if test="${requestScope.updateSuccess != null}">
                         <p style="color:green"> <c:out value="${requestScope.updateSuccess}"/></p>
+                    </c:if>
+                        <c:if test="${requestScope.updateFail != null}">
+                        <p style="color:red"> <c:out value="${requestScope.updateFail}"/></p>
                     </c:if>
             </table> 
         </div>
