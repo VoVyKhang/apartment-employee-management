@@ -90,6 +90,14 @@
                                 <p style="color: red">${requestScope.WARNINGNAME}</p>
                             </div>
                         </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Base salary</label>
+                                    <input class="form-control"  type="text" name="salary"
+                                    <c:if test="${not empty requestScope.salaryreg}">value="${requestScope.salaryreg}"</c:if>>
+                                <p style="color: red">${requestScope.WARNINGSALARY}</p>
+                            </div>
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Address</label>
@@ -206,7 +214,17 @@
                                 <label class="col-form-label">Join Day</label>
                                 <input class="form-control" type="text" name="empjoin" readonly="" value="<%=d%>">
                             </div>
-                        </div>     
+                        </div>  
+                         
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Exact Date </label>
+                                <input class="form-control" type="date" name="exact"
+                                       <c:if test="${not empty requestScope.exactreg}">value="${requestScope.exactreg}"</c:if>>
+                                <p style="color:red">${requestScope.WARNINGEXACT}</p>
+                            </div>
+                        </div>    
+                            
                     </div>
 
                     <div>

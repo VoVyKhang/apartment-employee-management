@@ -1,15 +1,15 @@
 DATABASE: - THÀNH
-- Thêm lương căn bản của nhân viên, thêm nơi cấp certificate employee vào database
-- Thêm vào department ngày chính thức nhận việc - exactDay
-- Employee thêm field ngày nhận việc -> exactDay
+- Thêm lương căn bản của nhân viên, thêm nơi cấp certificate employee vào database - [DONE]
+- Thêm vào department ngày chính thức nhận việc - exactDay - [DONE]
+- Employee thêm field ngày nhận việc -> exactDay - [DONE]
 
 ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG
-HIỆN ID Ở MỌI MẶT TRẬN -VỸ
+HIỆN ID Ở MỌI MẶT TRẬN - VỸ
 
 LOGIN:
 - Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
 
-HOME
+HOME 
 - Statictis 2 bảng thay đổi bằng data thật 
 
 POSITION: - BÁCH
@@ -23,9 +23,9 @@ POSITION: - BÁCH
 
 EMPLOYEE - THÀNH
 - Search khi gõ name enter bị lỗi ra trang trắng
-- Custom thông báo khi nhập name quá dài
-- Nhân viên mới -> thăng cấp
-- Thêm ngày nhận việc
+- Custom thông báo khi nhập name quá dài - [DONE]
+- Nhân viên mới -> thăng cấp - [DONE]
+- Thêm ngày nhận việc - [DONE]
 - Custom Success khi update thành công, câu thông báo để chỗ khác
 
 REWARD_PENALTY - HÙNG
@@ -39,8 +39,7 @@ DEPARTMENT - THÀNH
 	 + Description: Giới hạn từ 1 đến 20 kí tự
 	 + Location : Giới hạn từ 1 đến 20 kí tự
 - Sửa icon detail - KHANG
-- History thiếu ngày thực tế nhận việc(ngày chuyển)
-- Thêm ExactDay
+- Thêm ExactDay - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
 HỒ SƠ NHÂN SỰ -VỸ

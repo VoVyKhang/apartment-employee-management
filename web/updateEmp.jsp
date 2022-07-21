@@ -18,12 +18,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Employee</title>
         <style>
-             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .form__title{
                 padding: 4px 0
             }
@@ -63,7 +63,7 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .modal-content{
                 background-color: #fff;
                 margin-bottom: 16px !important
@@ -79,13 +79,13 @@
                 <div class="modal-header">
                     <div>
                         <h5 class="modal-title">Update Employee</h5>
-                    <div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
-                            <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
-                            <li class="breadcrumb-item active">Update Employee</li>
-                        </ul>
-                    </div>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                                <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
+                                <li class="breadcrumb-item active">Update Employee</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-                <div class="modal-body" style="padding-bottom: 0">
+            <div class="modal-body" style="padding-bottom: 0">
                 <form action="mainController" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-6">
@@ -203,21 +203,21 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                            <label class="col-form-label">Day of birth</label>
-                            <input class="form-control" type="date" name="empdob"
-                                   <c:choose>
-                                       <c:when test="${not empty requestScope.Employee.dob}">
-                                           value="${requestScope.Employee.dob}"
-                                       </c:when>
-                                       <c:otherwise>
-                                           value="${requestScope.dobreg}"
-                                       </c:otherwise>
-                                   </c:choose>    
-                                   >
-                            <p style="color:red">${requestScope.WARNINGDOB}</p>
+                                <label class="col-form-label">Day of birth</label>
+                                <input class="form-control" type="date" name="empdob"
+                                       <c:choose>
+                                           <c:when test="${not empty requestScope.Employee.dob}">
+                                               value="${requestScope.Employee.dob}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               value="${requestScope.dobreg}"
+                                           </c:otherwise>
+                                       </c:choose>    
+                                       >
+                                <p style="color:red">${requestScope.WARNINGDOB}</p>
+                            </div>
                         </div>
-                        </div>
-                       
+
                     </div>
 
 
@@ -242,6 +242,25 @@
                                 <div class="col-form-label">New Image</div>
                                 <input class="form-control" type="file" name="empimg" value="" accept="image/*">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Salary</label>
+                                <input class="form-control" type="text" name="empsalary"
+                                       <c:choose>
+                                           <c:when test="${not empty requestScope.Employee.baseSalary}">
+                                               value="${requestScope.Employee.baseSalary}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               value="${requestScope.salaryreg}"
+                                           </c:otherwise>
+                                       </c:choose>                                                  
+                                       >
+                                <p style="color: red">${requestScope.WARNINGSALARY}</p>    
+                            </div>                  
                         </div>
                     </div>
 

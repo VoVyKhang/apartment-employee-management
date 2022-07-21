@@ -12,12 +12,14 @@ public class EmployeeDTO {
 
     private int idEmp;
     private String name;
+    private int baseSalary;
     private String address;
     private String gender;
     private String phoneNum;
     private String dob;
     private String imgPath;
     private String joinDate;
+    private String exactDate;
     private String depName;
     private String posName;
     private String email;
@@ -29,16 +31,18 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(int idEmp, String name, String address, String gender, String phoneNum, String dob, String imgPath, String joinDate, String depName, String posName,
+    public EmployeeDTO(int idEmp, String name, int baseSalary, String address, String gender, String phoneNum, String dob, String imgPath, String joinDate, String exactDate, String depName, String posName,
             String email, String password, int statusLog, int role) {
         this.idEmp = idEmp;
         this.name = name;
+        this.baseSalary = baseSalary;
         this.address = address;
         this.gender = gender;
         this.phoneNum = phoneNum;
         this.dob = dob;
         this.imgPath = imgPath;
         this.joinDate = joinDate;
+        this.exactDate = exactDate;
         this.depName = depName;
         this.posName = posName;
         this.email = email;
@@ -57,10 +61,6 @@ public class EmployeeDTO {
         this.posName = posName;
         this.idPos = idPos;
     }
-
-    
-
-    
 
     public int getIdEmp() {
         return idEmp;
@@ -85,8 +85,6 @@ public class EmployeeDTO {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 
     public String getGender() {
         return gender;
@@ -180,5 +178,20 @@ public class EmployeeDTO {
         return idPos;
     }
 
-    
+    public int getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(int baseSalary) {
+        this.baseSalary = baseSalary;
+    }
+
+    public String getExactDate() {
+        return exactDate;
+    }
+
+    public void setExactDate(String exactDate) {
+        this.exactDate = exactDate;
+    }
+
 }

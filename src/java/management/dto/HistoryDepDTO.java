@@ -16,19 +16,29 @@ public class HistoryDepDTO {
     private int iddep;
     private String nameDep;
     private String deliveryDate;
+    private String exactDate;
     private int status;
 
     public HistoryDepDTO() {
     }
 
-    public HistoryDepDTO(int idHidDep, int idemp, String nameEmp, int iddep, String nameDep, String deliveryDate, int status) {
+    public HistoryDepDTO(int idHidDep, int idemp, String nameEmp, int iddep, String nameDep, String deliveryDate, String exactDate, int status) {
         this.idHidDep = idHidDep;
         this.nameEmp = nameEmp;
         this.nameDep = nameDep;
         this.deliveryDate = deliveryDate;
+        this.exactDate = exactDate;
         this.status = status;
         this.idemp = idemp;
         this.iddep = iddep;
+    }
+
+    public String getExactDate() {
+        return exactDate;
+    }
+
+    public void setExactDate(String exactDate) {
+        this.exactDate = exactDate;
     }
 
     public int getIdemp() {

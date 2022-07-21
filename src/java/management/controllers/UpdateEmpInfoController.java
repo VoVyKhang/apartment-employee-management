@@ -46,20 +46,22 @@ public class UpdateEmpInfoController extends HttpServlet {
             HttpSession session = request.getSession();
             String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
+            String salary = request.getParameter("empsalary");
             String address = request.getParameter("empadd");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
+            String exactDate = request.getParameter("exact");
             String oldimg = request.getParameter("oldimg");
             Part part = request.getPart("empimg");
             String fileName = extractFileName(part);
             boolean checkUpdate = false;
 
-            if (RegexEmp.checkFieldNullUpdate(name, address, phone, dob)) {
+            if (RegexEmp.checkFieldNullUpdate(name,salary, address, phone, dob)) {
                 url = RETURN;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidationUpdate(name, address, phone, dob)) {
+                if (RegexEmp.checkEmpValidationUpdate(name,salary, address, phone, dob)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
@@ -74,7 +76,7 @@ public class UpdateEmpInfoController extends HttpServlet {
 
                         //Update with new image
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, address, gender, phone, dob, fileName, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, salary, address, gender, phone, dob, fileName, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -82,7 +84,7 @@ public class UpdateEmpInfoController extends HttpServlet {
                     } else {
 
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, address, gender, phone, dob, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, salary, address, gender, phone, dob, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -104,6 +106,10 @@ public class UpdateEmpInfoController extends HttpServlet {
                     if (RegexEmp.checkEmpName(name) == false) {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
                     }
+                    
+                     if (RegexEmp.checkSalary(salary) == false) {
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and between 1000000 to 100000000");
+                    }
 
                     if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
@@ -123,6 +129,7 @@ public class UpdateEmpInfoController extends HttpServlet {
 
             if (!url.equals(DONE_UPDATE)) {
                 request.setAttribute("namereg", name);
+                request.setAttribute("salaryreg", salary);
                 request.setAttribute("addreg", address);
                 request.setAttribute("genreg", gender);
                 request.setAttribute("phonereg", phone);
