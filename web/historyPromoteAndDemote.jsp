@@ -100,7 +100,7 @@
 
             <c:if test="${requestScope.listHisPos != null}">
                 <c:if test="${not empty requestScope.listHisPos}">
-                    <table class="table table-striped">
+                    <table class="table table-bordered">
                         <thead >
                             <tr style="text-align: center">
                                 <th scope="col">ID History</th>

@@ -139,7 +139,7 @@
                 </div>
             </form>
             <h5>${requestScope.SearchRS}</h5>
-            <table class="table table-striped">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">ID Employee</th>

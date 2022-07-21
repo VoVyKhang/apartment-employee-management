@@ -109,9 +109,9 @@
             <c:if test="${requestScope.listReg != null}">
                 <c:if test="${not empty requestScope.listReg}">
 
-                    <table class="table table-striped" style="margin-top: 20px">
+                    <table class="table table-bordered" style="margin-top: 20px">
                         <thead>
-                            <tr  style="text-align: initial">
+                            <tr  style="text-align: center">
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Type</th>
@@ -124,7 +124,7 @@
                             <c:out value="${requestScope.message}"/>
                         </c:if>
                         <c:forEach var="listReg" varStatus="counter" items="${requestScope.listReg}">
-                            <form  action="mainController">
+                            <form action="mainController">
                                 <tr  style="text-align: initial">
                                     <td scope="row">${listReg.idReg}</td>                            
                                     <td >${listReg.name}</td>

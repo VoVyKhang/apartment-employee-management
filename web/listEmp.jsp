@@ -145,7 +145,7 @@
 
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
-                    <table style="font-size: 14px" class="table table-striped list__employee-table" id="mydatatable">
+                    <table style="font-size: 14px" class="table table-bordered list__employee-table" id="mydatatable">
                         <thead>
                             <tr class="list__employee-header" style="font-size: 13px">
                                 <th scope="col">Employee ID</th>

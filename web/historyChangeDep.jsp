@@ -51,7 +51,7 @@
                 select depName
                 from Department
             </sql:query>
-            <div style="margin: 0 32px; width: 100%">
+            <div style="margin: 0 16px; width: 100%">
                 <div class="modal-header">
                     <div style="width: 100%">
                         <h4 style="margin-left: -12px" class="page-title">History change department</h4>
@@ -100,7 +100,7 @@
                     </div>
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead >
                         <tr style="text-align: center">
                             <th scope="col">ID History</th>

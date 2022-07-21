@@ -114,33 +114,37 @@
                     </div>  
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead>
-                        <tr style="text-align: center">
-                            <th scope="col">Employee ID</th>                           
-                            <th scope="col">Employee name</th>                                                  
-                            <th scope="col">Dependent ID</th>
-                            <th scope="col">Dependent name</th>
-                            <th scope="col">Gender</th>
-                            <th scope="col">Date of birth</th>
-                            <th scope="col">Relationship</th>
-                            <th scope="col">Update</th>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Employee name</th>                    
+                            <th>Dependent ID</th>
+                            <th>Dependent name</th>
+                            <th>Gender</th>
+                            <th>Date of birth</th>
+                            <th>Relationship</th>
+                            <th>Update</th>
                         </tr>
                     </thead>
-                    <tbody>                  
+                    <tbody>        
+
                         <c:forEach var="listDependent" items="${requestScope.listDependent}">
-                            <tr style="text-align: center">
-                                <td scope="row">${listDependent.idEmp}</td>                            
-                                <td>${listDependent.empName}</td>
+                            <tr >
+                                <td>${listDependent.idEmp}</td>
+                                <td>
+                                    ${listDependent.empName}
+                                </td>                              
                                 <td>${listDependent.idDepen}</td>
-                                <td>${listDependent.name}</td> 
+                                <td >${listDependent.name}</td> 
                                 <td>${listDependent.gender}</td> 
                                 <td>${listDependent.dob}</td> 
                                 <td>${listDependent.relationship}</td> 
                                 <td>  
-                                    <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}"><i class="fas fa-edit"></i></a>
+                                <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}">
+                                <i class="fas fa-edit"></i>
+                                </a>
                                 </td>
-                                
                             </tr>                           
                         </c:forEach>
                     </tbody>
