@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4 " style="margin-top: 14px">
-                            <input class="btn btn-primary" type="submit" value="Filter"/>
+                            <input class="btn btn-primary" type="submit" value="Search"/>
                             <input  type="hidden" name="action" value="filterDepByLocation"/>
                         </div>
                     </div>

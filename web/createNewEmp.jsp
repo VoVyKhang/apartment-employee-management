@@ -22,7 +22,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
@@ -53,12 +53,12 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .modal-content{
                 background-color: #fff;
                 margin-bottom: 16px !important
             }
-            
+
         </style>
     </head>
     <body>
@@ -79,22 +79,32 @@
                     </div>
                 </div>
 
-                <div class="modal-body">
-                    <form action="mainController" method="post" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Name</label>
-                                    <input class="form-control"  type="text" name="empname"
-                                    <c:if test="${not empty requestScope.namereg}">value="${requestScope.namereg}"</c:if>>
+
+                <div>
+                    <div >
+                        <p style="color:red">${requestScope.WARNINGFIELD}</p>
+                    <p style="color:green">${requestScope.COMPLETED}</p>
+                    <p style="color: red">${requestScope.FAILINSERT}</p>
+                </div>
+            </div>
+
+
+            <div class="modal-body">
+                <form action="mainController" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Name</label>
+                                <input class="form-control"  type="text" name="empname"
+                                       <c:if test="${not empty requestScope.namereg}">value="${requestScope.namereg}"</c:if>>
                                 <p style="color: red">${requestScope.WARNINGNAME}</p>
                             </div>
                         </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Base salary</label>
-                                    <input class="form-control"  type="text" name="salary"
-                                    <c:if test="${not empty requestScope.salaryreg}">value="${requestScope.salaryreg}"</c:if>>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Base salary</label>
+                                <input class="form-control"  type="text" name="salary"
+                                       <c:if test="${not empty requestScope.salaryreg}">value="${requestScope.salaryreg}"</c:if>>
                                 <p style="color: red">${requestScope.WARNINGSALARY}</p>
                             </div>
                         </div>
@@ -180,7 +190,8 @@
                                     from Department
                                 </sql:query>
                                 <div class="form__title">Department</div>
-                                <select name="empdep" class="form-control">
+                                <fmt:parseNumber var="iddep" type="number" value="${requestScope.depreg}"></fmt:parseNumber>
+                                    <select name="empdep" class="form-control">
                                     <c:forEach var = "rowdep" items = "${listdep.rows}">
                                         <option value="${rowdep.depNum}"
                                                 <c:if test="${rowdep.depNum eq iddep}">selected=""</c:if>>${rowdep.depName}
@@ -215,7 +226,7 @@
                                 <input class="form-control" type="text" name="empjoin" readonly="" value="<%=d%>">
                             </div>
                         </div>  
-                         
+
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Exact Date </label>
@@ -224,20 +235,14 @@
                                 <p style="color:red">${requestScope.WARNINGEXACT}</p>
                             </div>
                         </div>    
-                            
+
                     </div>
 
-                    <div>
-                        <div >
-                            <p style="color:red">${requestScope.WARNINGFIELD}</p>
-                            <p style="color:green">${requestScope.COMPLETED}</p>
-                            <p style="color: red">${requestScope.FAILINSERT}</p>
-                        </div>
-                    </div>
 
-                        <div style="text-align: center">
-                            <input type="hidden" name="action" value="createEmp">
-                            <input class="btn btn-primary" type="submit" value="Create">
+
+                    <div style="text-align: center">
+                        <input type="hidden" name="action" value="createEmp">
+                        <input class="btn btn-primary" type="submit" value="Create">
                     </div>
                 </form>
             </div>
