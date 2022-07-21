@@ -58,7 +58,8 @@
 
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 0 20%" class="modal-content">
-                <c:if test="${requestScope.idEmp ne ''}">
+                <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
+                <c:if test="${param.idEmp ne null}">
                     <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
                 </c:if>
                 <div class="modal-header" style="margin-bottom: 16px">
@@ -66,10 +67,10 @@
                         <h5 class="modal-title">Create new dependent</h5>
                         <div>
                             <ul class="breadcrumb">
-                                <c:if test="${requestScope.idEmp ne ''}">
+                                <c:if test="${param.idEmp ne null}">
                                     <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
                                     </c:if>
-                                    <c:if test="${requestScope.idEmp eq ''}">
+                                    <c:if test="${param.idEmp eq null}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                     </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=listDependent">Dependent</a></li>
@@ -89,7 +90,7 @@
                 </c:if>
                 <div class="modal-body">
                     <form action="mainController" class="form-position">
-                        <c:if test="${requestScope.idEmp eq ''}">
+                        <c:if test="${param.idEmp eq null}">
                             <div class="form-group">
                                 <div style="margin-bottom: 4px">Select employee</div>                                      
                                 <select name="empId" class="certificate-select">
@@ -130,7 +131,8 @@
                         </div>
 
                         <div style="margin-top: 20px; text-align: center">
-                            <c:if test="${requestScope.idEmp ne ''}">
+                            <c:if test="${param.idEmp ne null}">
+                                <input type="hidden" name="empId" value="${requestScope.idEmp}">
                                 <input type="hidden" name="idEmp" value="${requestScope.idEmp}">
                             </c:if>
                             <input class="btn btn-primary" type="submit" value="Save">

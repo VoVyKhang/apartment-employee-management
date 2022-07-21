@@ -77,7 +77,7 @@ public class saveNewDependentController extends HttpServlet {
                 if (result == true) {
                     if (idEmp == null) {
                         request.setAttribute("Success", "Success");
-                        request.setAttribute("idEmp", "");
+                        request.setAttribute("idEmp", "flag");
                         request.getRequestDispatcher("addNewDependentController").forward(request, response);
                     } else {
                         request.setAttribute("Success", "Success");
@@ -87,7 +87,7 @@ public class saveNewDependentController extends HttpServlet {
                 } else {
                     if (idEmp == null) {
                         request.setAttribute("Fail", "Fail");
-                        request.setAttribute("idEmp", "");
+                        request.setAttribute("idEmp", "flag");
                         request.getRequestDispatcher("addNewDependentController").forward(request, response);
                     } else {
                         request.setAttribute("Fail", "Fail");

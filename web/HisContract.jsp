@@ -75,10 +75,10 @@
                     <div class="col-sm-12 list-employee__actions">                       
                         <div>
                             <ul class="breadcrumb">
-                                <c:if test="${requestScope.idEmp eq ''}">
+                                <c:if test="${requestScope.idEmp eq null}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                     </c:if>
-                                    <c:if test="${requestScope.idEmp ne ''}">
+                                    <c:if test="${requestScope.idEmp ne null}">
                                     <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
                                     </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
@@ -107,8 +107,8 @@
                     <div class="col-sm-6 col-md-3" style="margin-top: 15px">
                         <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
                             <option value="" <c:if test="${null eq sessionScope.statuscon}">selected=""</c:if>>All Contract</option>
-                            <option value="1" <c:if test="${1 eq sessionScope.statuscon}">selected="1"</c:if>>Active</option>
-                            <option value="0" <c:if test="${0 eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option> 
+                            <option value="1" <c:if test="${'1' eq sessionScope.statuscon}">selected="1"</c:if>>Active</option>
+                            <option value="0" <c:if test="${'0' eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option> 
                             </select>
                         </div> 
                         <div class="col-sm-6 col-md-3 ">
