@@ -56,7 +56,7 @@ public class mainController extends HttpServlet {
             //                url = "listHistoryPositionController";
             //            } 
             else if (action.equals("listCertificate")) {
-                url = "listCertificateController";
+                url = "SearchCerController";
             } else if (action.equals("add new certificate")) {
                 url = "addNewCertificateController";
             } else if (action.equals("saveNewCertificate")) {

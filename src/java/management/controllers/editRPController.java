@@ -32,18 +32,19 @@ public class editRPController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. */               
+                int idEmp = Integer.parseInt(request.getParameter("idemp"));
+                int idRp = Integer.parseInt(request.getParameter("idrp"));
                 int idReg = Integer.parseInt(request.getParameter("idReg"));
                 int times = Integer.parseInt(request.getParameter("timerp"));
-                int idEmp = Integer.parseInt(request.getParameter("idemp"));
-                String reason = request.getParameter("reasonrp");
-                boolean result = RewardPenaltyDAO.updateRP(idReg, times, idEmp, reason);
+                String reason = request.getParameter("reasonrp");   
+                boolean result = RewardPenaltyDAO.updateRP(idReg, times, idEmp, reason,idRp);
                 if(result == true){
                     request.setAttribute("updateSuccess", "Update success");
                     request.getRequestDispatcher("SearchRPController").forward(request, response);
                 }else {
                 request.setAttribute("updateFail", "Update fail");
-                request.getRequestDispatcher("updateRp.jsp").forward(request, response);
+                request.getRequestDispatcher("SearchRPController").forward(request, response);
             }
         }
     }

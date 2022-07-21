@@ -89,10 +89,11 @@
                     </div>
                     <div class="form-group">
                         <label>Time</label> 
-                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="1" max="10" required/>
+                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="2" max="10" required/>
                     </div>          
                     <div style="text-align: center">
                         <input type="hidden" value="${sessionScope.id}" name="idemp">
+                        <input type="hidden" value="${sessionScope.idRP}" name="idrp">
                         <input type="hidden" name="action" value="UpdateRp"> 
                         <input class="btn btn-primary" type="submit" value="Update"> 
                     </div>

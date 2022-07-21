@@ -28,9 +28,9 @@ EMPLOYEE - THÀNH
 - Thêm ngày nhận việc
 - Custom Success khi update thành công, câu thông báo để chỗ khác
 
-REWARD_PENALTY - HÙNG
+REWARD_PENALTY - HÙNG (Done)
 - update số lần cũ bị mất (Gửi dữ liệu cũ qua)
-- Sửa 1 thằng -> sửa hết -> Sửa câu query
+- Sửa 1 thằng -> sửa hết -> Sửa câu query 
 
 DEPARTMENT - THÀNH
 - Thay chữ filter -> search
@@ -59,16 +59,15 @@ CONTRACT - VỸ - HÙNG
 + Update hợp đồng hết hạn nhưng mà nhân viên vẫn còn
 + Update không update được hợp đồng mới -> out ra ngoài
 
-CERTIFICATE - VỸ
-- Bị lỗi ô search, search mỗi employee id thì kh search được
-- Không có nhân viên sổ ra
+CERTIFICATE - Hung
+- Bị lỗi ô search, search mỗi employee id thì kh search được (done)
+- Không có nhân viên sổ ra (done)
 - Ảnh certificate khi ấn vào thì ảnh to ra - KHANG
-- Ảnh certificate khi update ảnh hiện ảnh không hiện
-- Add new certificate mất sổ danh sách nhân viên
+- Ảnh certificate khi update ảnh hiện ảnh không hiện 
+- Add new certificate mất sổ danh sách nhân viên (?)
 - Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
 
 DEPENDENT - VỸ
 - Ẩn vào tên sổ ra danh sách người phụ thuộc
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
-
 
