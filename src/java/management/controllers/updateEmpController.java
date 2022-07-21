@@ -40,9 +40,10 @@ public class updateEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
+            String salary = request.getParameter("empsalary");
             String address = request.getParameter("empadd");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
@@ -52,11 +53,11 @@ public class updateEmpController extends HttpServlet {
             String fileName = extractFileName(part);
             boolean checkUpdate = false;
 
-            if (RegexEmp.checkFieldNullUpdate(name, address, phone, dob)) {
+            if (RegexEmp.checkFieldNullUpdate(name, salary, address, phone, dob)) {
                 url = RETURN;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidationUpdate(name, address, phone, dob)) {
+                if (RegexEmp.checkEmpValidationUpdate(name, salary, address, phone, dob)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
@@ -71,7 +72,7 @@ public class updateEmpController extends HttpServlet {
                                 break;
                             }
                         }
-                        File deletefile = new File(path2+ "\\images\\" + oldimg);
+                        File deletefile = new File(path2 + "\\images\\" + oldimg);
                         deletefile.delete();
 
                         //Add new file image
@@ -81,7 +82,7 @@ public class updateEmpController extends HttpServlet {
 
                         //Update with new image
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, address, gender, phone, dob, fileName, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpImg(name, salary, address, gender, phone, dob, fileName, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -89,7 +90,7 @@ public class updateEmpController extends HttpServlet {
                     } else {
 
                         try {
-                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, address, gender, phone, dob, idemp);
+                            checkUpdate = EmployeeDAO.UpdateEmpNoImg(name, salary, address, gender, phone, dob, idemp);
                         } catch (SQLException ex) {
                             Logger.getLogger(updateEmpController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -105,6 +106,10 @@ public class updateEmpController extends HttpServlet {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
                     }
 
+                    if (RegexEmp.checkSalary(salary) == false) {
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and between 1000000 to 100000000");
+                    }
+                    
                     if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     }
@@ -114,7 +119,7 @@ public class updateEmpController extends HttpServlet {
                     }
 
                     if (RegexEmp.checkValidationDob(dob) == false) {
-                        request.setAttribute("WARNINGDOB", "Choose a birthday from today or earlier");
+                        request.setAttribute("WARNINGDOB", "Age must be from 18 to 65");
                     }
 
                 }
@@ -122,6 +127,7 @@ public class updateEmpController extends HttpServlet {
 
             if (!url.equals(DONE_UPDATE)) {
                 request.setAttribute("namereg", name);
+                request.setAttribute("salaryreg", salary);
                 request.setAttribute("addreg", address);
                 request.setAttribute("genreg", gender);
                 request.setAttribute("phonereg", phone);

@@ -68,15 +68,18 @@
 
             .con-body td{
                 padding: 0 !important;
-                vertical-align: middle !important
+                vertical-align: middle !important;
+                text-align: center
             }
+            
 
             .con-body td:first-child{
                 padding-left: 20px !important
             }
 
             .con-header th{
-                padding-left: 0 !important
+                padding-left: 0 !important;
+                text-align: center
             }
 
             .renewal{
@@ -170,7 +173,7 @@
                 <c:if test="${requestScope.listCon != null}">
                     <c:if test="${not empty requestScope.listCon}">
 
-                        <table  class="table table-striped" >
+                        <table  class="table table-bordered" >
                             <thead>
                                 <tr class="con-header">
                                     <th scope="col">ID</th>

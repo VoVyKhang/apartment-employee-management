@@ -119,7 +119,7 @@
                         </div>
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Time</div> 
-                            <input class="form-control" type="number" name="timerp" value="1" min="1" max="10"/>
+                            <input class="form-control" type="number" name="timerp" value="1" min="1" max="10" readonly/>
                         </div>
                         <div style="text-align: center">
                             <input type="hidden" value="${sessionScope.id}" name="idemp">

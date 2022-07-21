@@ -20,7 +20,7 @@ public class RegexDep {
     public static boolean checkDepName(String name) {
 
         boolean check = name.matches("[a-zA-Z][a-zA-Z ]*");
-        if ((name.length() > 30 || name.length() < 4) || (check == false)) {
+        if ((name.length() > 30 || name.length() < 1) || (check == false)) {
             return false;
         }
         return true;
@@ -33,7 +33,7 @@ public class RegexDep {
 
     //check description
     public static boolean checkDepDes(String des) {
-        if (des.length() < 8 || des.length() > 40) {
+        if (des.length() < 1 || des.length() > 40) {
             return false;
         }
         return true;
@@ -41,7 +41,7 @@ public class RegexDep {
 
     //location
     public static boolean checkDepLoc(String location) {
-        if (location.length() < 3 || location.length() > 10) {
+        if (location.length() < 1 || location.length() > 10) {
             return false;
         }
         return true;

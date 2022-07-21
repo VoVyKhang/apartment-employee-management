@@ -39,11 +39,13 @@ public class newEmpController extends HttpServlet {
         String url = "error.jsp";
         try ( PrintWriter out = response.getWriter()) {
             String name = request.getParameter("empname");
+            String salary = request.getParameter("salary");
             String address = request.getParameter("empadd");
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
 
+            String exactDate = request.getParameter("exact");
             String iddep = request.getParameter("empdep");
             String idpos = request.getParameter("emppos");
             String email = request.getParameter("empmail");
@@ -53,11 +55,11 @@ public class newEmpController extends HttpServlet {
             String fileName = extractFileName(part);
             boolean checkInsert = false;
 
-            if (RegexEmp.chekcEmpFieldNull(name, address, phone, dob, email, password)) {
+            if (RegexEmp.chekcEmpFieldNull(name, salary, address, phone, dob, exactDate, email, password)) {
                 url = DONE;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidation(name, address, phone, dob, email, password)) {
+                if (RegexEmp.checkEmpValidation(name, salary, address, phone, dob, exactDate, email, password)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         String path = request.getServletContext().getRealPath("/");
@@ -71,7 +73,7 @@ public class newEmpController extends HttpServlet {
                                 break;
                             }
                         }
-                        String savePath = path2+ "\\images\\" + fileName;
+                        String savePath = path2 + "\\images\\" + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
                     } else {
@@ -79,7 +81,7 @@ public class newEmpController extends HttpServlet {
                     }
 
                     try {
-                        checkInsert = EmployeeDAO.inserNewEmp(name, address, gender, phone, dob, fileName, iddep, idpos, email, password);
+                        checkInsert = EmployeeDAO.inserNewEmp(name, salary, address, gender, phone, dob, fileName, exactDate, iddep, idpos, email, password);
                     } catch (SQLException ex) {
                         Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -87,7 +89,7 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("COMPLETED", "Successful");
                         url = DONE;
                     } else {
-                        url=DONE;
+                        url = DONE;
                     }
 
                 } else {
@@ -96,17 +98,24 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
                     }
 
+                    if (RegexEmp.checkSalary(salary) == false) {
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and between 1000000 to 100000000");
+                    }
+
                     if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     }
-
 
                     if (RegexEmp.checkPhone(phone) == false) {
                         request.setAttribute("WARNINGPHONE", "Phone contain only letters and length 5 to 15");
                     }
 
                     if (RegexEmp.checkValidationDob(dob) == false) {
-                        request.setAttribute("WARNINGDOB", "Choose a birthday from today or earlier");
+                        request.setAttribute("WARNINGDOB", "Age must be from 18 to 65");
+                    }
+                    
+                    if(RegexEmp.checkValidationExactDate(exactDate) == false){
+                        request.setAttribute("WARNINGEXACT", "Exact day from tomorrow");
                     }
 
                     if (RegexEmp.checkValidEmail(email) == false) {
@@ -124,10 +133,12 @@ public class newEmpController extends HttpServlet {
             }
 
             request.setAttribute("namereg", name);
+            request.setAttribute("salaryreg", salary);
             request.setAttribute("addreg", address);
             request.setAttribute("genreg", gender);
             request.setAttribute("phonereg", phone);
             request.setAttribute("dobreg", dob);
+            request.setAttribute("exactreg", exactDate);
             request.setAttribute("depreg", iddep);
             request.setAttribute("posreg", idpos);
             request.setAttribute("emailreg", email);
@@ -185,6 +196,7 @@ public class newEmpController extends HttpServlet {
         }
         return "";
     }
+
     public static void writeImage(HttpServletRequest request, String imageName, Part filePart) throws IOException, ServletException {
         InputStream fileContent = filePart.getInputStream();
         String path = request.getServletContext().getRealPath("/");
@@ -207,4 +219,4 @@ public class newEmpController extends HttpServlet {
 
     }
 
-            }
+}

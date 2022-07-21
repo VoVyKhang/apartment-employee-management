@@ -30,7 +30,7 @@
                 text-transform: uppercase;
                 margin-top: 16px
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -24px;
@@ -51,10 +51,10 @@
                 select depName
                 from Department
             </sql:query>
-            <div style="margin: 0 32px; width: 100%">
+            <div style="margin: 0 16px; width: 100%">
                 <div class="modal-header">
-                <div style="width: 100%">
-                    <h4 style="margin-left: -12px" class="page-title">History change department</h4>
+                    <div style="width: 100%">
+                        <h4 style="margin-left: -12px" class="page-title">History change department</h4>
                         <div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
@@ -63,15 +63,15 @@
                                 <li class="breadcrumb-item active">History change departmnet</li>
                             </ul>
                         </div>
+                    </div>
                 </div>
-            </div>
-                
+
                 <form action="mainController" method="POST" class="form-reward-penalty">
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group mb-3 mt-3">
                                 <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name" name="txtSearchName">
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3"> 
@@ -94,19 +94,21 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <input class="btn btn-primary" type="submit" value="Filter"/>
+                            <input class="btn btn-primary" type="submit" value="Search"/>
                             <input  type="hidden" name="action" value="filterHisDep"/>
                         </div>
                     </div>
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead >
                         <tr style="text-align: center">
                             <th scope="col">ID History</th>
                             <th scope="col">Employee</th>
                             <th scope="col">Department</th>
                             <th scope="col">Delivery Date</th>
+                            <th scope="col">Exact Date</th>
+
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
@@ -119,6 +121,7 @@
                                 <td>${listHisDep.nameEmp}</td>
                                 <td>${listHisDep.nameDep}</td>
                                 <td>${listHisDep.deliveryDate}</td>
+                                <td>${listHisDep.exactDate}</td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${listHisDep.status eq 1}">

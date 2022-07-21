@@ -67,13 +67,13 @@ public class newDepController extends HttpServlet {
                         url = RETRY;
                         // print each error of user input to createNewDep.jsp
                         if (RegexDep.checkDepName(depName) == false) {
-                            request.setAttribute("messName", "Names consist of letters only and can be between 4 and 30 characters long");
+                            request.setAttribute("messName", "Names consist of letters only and can be between 1 and 30 characters long");
                         }
                         if (RegexDep.checkDepDes(depDes) == false) {
-                            request.setAttribute("messDes", "length from 8 to 20 characters");
+                            request.setAttribute("messDes", "length from 1 to 40 characters");
                         }
                         if (RegexDep.checkDepLoc(depLoc) == false) {
-                            request.setAttribute("messLoc", "length from 3 to 10 characters");
+                            request.setAttribute("messLoc", "length from 1 to 10 characters");
                         }
 
                     }

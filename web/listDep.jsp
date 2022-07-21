@@ -117,14 +117,14 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4 " style="margin-top: 14px">
-                            <input class="btn btn-primary" type="submit" value="Filter"/>
+                            <input class="btn btn-primary" type="submit" value="Search"/>
                             <input  type="hidden" name="action" value="filterDepByLocation"/>
                         </div>
                     </div>
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
                 <div class="list-dep">
-                    <table class="table table-striped" style="font-size: 14px">
+                    <table class="table table-bordered" style="font-size: 14px">
                         <thead>
                             <tr>
                                 <th scope="col">Dep No.</th>
@@ -161,12 +161,14 @@
                                     <td>${listDep.dateCreate}</td>
                                     <td>${listDep.creator}</td>
 
-                                    <td>
+                                    <td style="text-align: center">
                                         <a href="mainController?action=passiddep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
 
                                     </td>
-                                    <td>
-                                        <a href="mainController?action=detailDep&iddep=${listDep.depNum}"><i class="fas fa-edit"></i></a>
+                                    <td style="text-align: center">
+                                        <a href="mainController?action=detailDep&iddep=${listDep.depNum}">
+                                            <i class="fas fa-info"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </form> 

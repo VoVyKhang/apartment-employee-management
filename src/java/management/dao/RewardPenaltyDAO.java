@@ -35,8 +35,9 @@ public class RewardPenaltyDAO {
             + "from Employee as e, Department as d, Position as p, RewardAndPenalty as r, Regulation as re \n"
             + "where e.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp and e.idPos = p.idPos and e.name like ? and e.idEmp like ? ";
 
-    private static String UPDATE_RP = "update RewardAndPenalty set idReg = ? ,times = ?, reason = ? \n"
-            + "where idEmp = ?";
+    private static String UPDATE_RP = "update RewardAndPenalty "
+            + "set idReg = ? ,times = ?, reason = ? \n"
+            + "where idEmp = ? and idRP = ? ";
 
     private static String CREATE_NEW_RP = "INSERT INTO RewardAndPenalty(idReg,applicableDate,times,idEmp,reason)\n"
             + "VALUES(?, ?, ?, ?,?)";
@@ -180,7 +181,7 @@ public class RewardPenaltyDAO {
     }
 
     //Update Reward & Penalty
-    public static boolean updateRP(int idReg, int times, int idEmp, String reason) {
+    public static boolean updateRP(int idReg, int times, int idEmp, String reason, int idRp) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -192,7 +193,8 @@ public class RewardPenaltyDAO {
                 pst.setInt(1, idReg);
                 pst.setInt(2, times);
                 pst.setString(3, reason);
-                pst.setInt(4, idEmp);
+                pst.setInt(4, idEmp);                
+                pst.setInt(5, idRp);
                 pst.executeUpdate();
             }
             return true;

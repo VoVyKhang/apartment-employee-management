@@ -114,17 +114,17 @@
                 <div class="row filter-row">
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empid") == null) ? "" : request.getParameter("empid")%>" placeholder="Enter employee id" name="empid">                           
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchIdemp") == null) ? "" : request.getParameter("txtSearchIdemp")%>" placeholder="Enter employee id..." name="txtSearchIdemp">
                         </div>
-                    </div> 
+                    </div>  
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group mb-3 mt-3">
-                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter employee name" name="empname">                              
+                            <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name..." name="txtSearchName">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3" style="margin-top: 15px">
                         <select class="form-select form-select-md-5 mb-1 list-option form-controls" name="typecer"> 
-                            <option value="" >All Certificate</option>
+                            <option value="allCer" >All Type Certificate</option>
                             <c:forEach var="listCer" items="${listCer.rows}">
                                 <option value="${listCer.name}"
                                         <c:if test="${listCer.name eq sessionScope.typecer}">selected="${listCer.name}"</c:if>>${listCer.name}</option>
@@ -138,50 +138,46 @@
                     </div>
                 </div>
             </form>
-
-            <c:if test="${updateSuccess != null}" >
-                <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
-            </c:if>
-            <c:if test="${updateFail != null}" >
-                <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
-            </c:if>
-            <c:if test="${requestScope.listCer != null}">
-
-                <table class="table table-striped">
-                    <thead>
+            <h5>${requestScope.SearchRS}</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Employee</th>
+                        <th scope="col">Employee name</th>                      
+                        <th scope="col">Cert ID</th>                      
+                        <th scope="col">Certificate name</th>
+                        <th scope="col">Date of issue</th>
+                        <th scope="col">Type certificate</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="listCer" items="${requestScope.listCer}">    
                         <tr>
-                            <th scope="col">ID Employee</th>
-                            <th scope="col">Employee name</th>                      
-                            <th scope="col">Cert ID</th>                      
-                            <th scope="col">Certificate name</th>
-                            <th scope="col">Date of issue</th>
-                            <th scope="col">Type certificate</th>
-                            <th scope="col">Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="listCer" items="${requestScope.listCer}">    
-                            <tr>
-                                <td scope="row">${listCer.idEmp}</td>
-                                <td>${listCer.empName}</td>                            
-                                <td>${listCer.cerId}</td>                            
-                                <td class="list__employee-item">
-                                    <span>
-                                        <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
-                                    </span>
-                                    <div class="list__employee-description">
-                                        <span class="list__employee-description-name">${listCer.cerName}</span>                 
-                                    </div>
-                                </td>
-                                <td>${listCer.doi}</td>
-                                <td>${listCer.type}</td>                            
-                                <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
-                            </tr>                        
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-            </c:if>
+                            <td scope="row">${listCer.idEmp}</td>
+                            <td>${listCer.empName}</td>                            
+                            <td>${listCer.cerId}</td>                            
+                            <td class="list__employee-item">
+                                <span>
+                                    <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
+                                </span>
+                                <div class="list__employee-description">
+                                    <span class="list__employee-description-name">${listCer.cerName}</span>                 
+                                </div>
+                            </td>
+                            <td>${listCer.doi}</td>
+                            <td>${listCer.type}</td>                            
+                            <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
+                        </tr>                        
+                    </c:forEach>
+                </tbody>
+                <c:if test="${updateSuccess != null}" >
+                    <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
+                </c:if>
+                <c:if test="${updateFail != null}" >
+                    <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
+                </c:if>
+            </table>
         </div>
     </body>
 </html>

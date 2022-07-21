@@ -192,8 +192,7 @@
                     <c:if test="${requestScope.listEmpPos != null}">
                         <c:if test="${not empty requestScope.listEmpPos}">
 
-
-                            <table class="table table-striped list-position" >
+                            <table class="table table-bordered list-position" >
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>

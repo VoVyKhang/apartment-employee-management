@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import management.dao.RewardPenaltyDAO;
 import management.dto.RewardPenaltyDTO;
 
@@ -42,6 +43,7 @@ public class SearchRPController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String url = ERROR;
         try {
+            HttpSession session = request.getSession(true);
             /* TODO output your page here. You may use following sample code. */
             String keywordidemp = request.getParameter("txtSearchIdemp");
             String keywordname = request.getParameter("txtSearchName");
@@ -67,10 +69,12 @@ public class SearchRPController extends HttpServlet {
                 }
             }
             if (listrp.isEmpty()) {
+                session.setAttribute("depName", depName);
                 request.setAttribute("listrp", listrp);
                 request.setAttribute("SearchRS", "No Match");
                 url = ERROR;
             } else {
+                session.setAttribute("depName", depName);
                 request.setAttribute("listrp", listrp);
                 url = SUCCESS;
             }

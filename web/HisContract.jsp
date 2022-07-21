@@ -82,7 +82,7 @@
                                     <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
                                     </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
-                                <li class="breadcrumb-item active">History</li>
+                                <li class="breadcrumb-item active">History contract</li>
                             </ul>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                 </form>
             <c:if test="${requestScope.listCon != null}">
                 <c:if test="${not empty requestScope.listCon}">
-                    <table class="table table-striped">
+                    <table class="table table-bordered">
                         <thead >
                             <tr style="text-align: center">
                                 <th scope="col">ID History</th>
@@ -141,10 +141,10 @@
                                 <td>
                                     <c:choose>
                                         <c:when test="${listHisCon.status eq 1}">
-                                            <p style="color:green">Active</p>
+                                            <p style="color:green; margin-bottom: 0">Active</p>
                                         </c:when>
                                         <c:otherwise>
-                                            <p style="color:red">Inactive</p>
+                                            <p style="color:red; margin-bottom: 0">Inactive</p>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

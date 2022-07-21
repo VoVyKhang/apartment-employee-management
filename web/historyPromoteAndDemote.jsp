@@ -100,7 +100,7 @@
 
             <c:if test="${requestScope.listHisPos != null}">
                 <c:if test="${not empty requestScope.listHisPos}">
-                    <table class="table table-striped">
+                    <table class="table table-bordered">
                         <thead >
                             <tr style="text-align: center">
                                 <th scope="col">ID History</th>
@@ -128,13 +128,13 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td>
+                                <td >
                                     <c:choose>
                                         <c:when test="${listHisPos.status eq 1}">
-                                            <p style="color:green">Active</p>
+                                            <p style="color:green; margin-bottom: 0">Active</p>
                                         </c:when>
                                         <c:otherwise>
-                                            <p style="color:red">Inactive</p>
+                                            <p style="color:red; margin-bottom: 0">Inactive</p>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

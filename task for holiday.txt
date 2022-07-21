@@ -1,15 +1,16 @@
 DATABASE: - THÀNH
-- Thêm lương căn bản của nhân viên, thêm nơi cấp certificate employee vào database
-- Thêm vào department ngày chính thức nhận việc - exactDay
-- Employee thêm field ngày nhận việc -> exactDay
+- Thêm lương căn bản của nhân viên, thêm nơi cấp certificate employee vào database - [DONE]
+- Thêm vào department ngày chính thức nhận việc - exactDay - [DONE]
+- Employee thêm field ngày nhận việc -> exactDay - [DONE]
 
 ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG(done)
 HIỆN ID Ở MỌI MẶT TRẬN -VỸ(done)
 
-LOGIN:
-- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
 
-HOME
+LOGIN:
+- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG [DONE]
+
+HOME 
 - Statictis 2 bảng thay đổi bằng data thật 
 
 POSITION: - BÁCH
@@ -17,30 +18,30 @@ POSITION: - BÁCH
 - Chưa hiện lại tên hiện tại
 - Không nhận description
 - Promote/demote: chọn mặc định All Types
-- Active bị lệch - KHANG
+- Active bị lệch - KHANG [DONE]
 - Không hiện admin khi promote/demote
 - Nhập ngày trước -> Custome thành màu đỏ
 
 EMPLOYEE - THÀNH
-- Search khi gõ name enter bị lỗi ra trang trắng
-- Custom thông báo khi nhập name quá dài
-- Nhân viên mới -> thăng cấp
-- Thêm ngày nhận việc
-- Custom Success khi update thành công, câu thông báo để chỗ khác
+- Search khi gõ name enter bị lỗi ra trang trắng - HÙNG OR VỸ
+- Custom thông báo khi nhập name quá dài - [DONE]
+- Nhân viên mới -> thăng cấp - [DONE]
+- Thêm ngày nhận việc - [DONE]
+- Custom Success khi update thành công, câu thông báo để chỗ khác - [DONE]
 
-REWARD_PENALTY - HÙNG
+REWARD_PENALTY - HÙNG (Done)
 - update số lần cũ bị mất (Gửi dữ liệu cũ qua)
-- Sửa 1 thằng -> sửa hết -> Sửa câu query
+- Sửa 1 thằng -> sửa hết -> Sửa câu query 
 
 DEPARTMENT - THÀNH
-- Thay chữ filter -> search
+- Thay chữ filter -> search - [DONE]
 - Create new department, update department
-	+ Name: giới hạn từ 1 đến 20 kí tự
-	 + Description: Giới hạn từ 1 đến 20 kí tự
-	 + Location : Giới hạn từ 1 đến 20 kí tự
-- Sửa icon detail - KHANG
-- History thiếu ngày thực tế nhận việc(ngày chuyển)
-- Thêm ExactDay
+	+ Name: giới hạn từ 1 đến 20 kí tự - [DONE]
+	 + Description: Giới hạn từ 1 đến 20 kí tự - [DONE]
+	 + Location : Giới hạn từ 1 đến 20 kí tự - [DONE]
+- Sửa icon detail - KHANG [DONE]
+- Thêm ExactDay - [DONE]
+- Fix chuyển phòng ban - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
 HỒ SƠ NHÂN SỰ -VỸ(done)
@@ -59,16 +60,15 @@ CONTRACT - VỸ - HÙNG(done)
 + Update hợp đồng hết hạn nhưng mà nhân viên vẫn còn
 + Update không update được hợp đồng mới -> out ra ngoài
 
-CERTIFICATE - VỸ
-- Bị lỗi ô search, search mỗi employee id thì kh search được
-- Không có nhân viên sổ ra
+CERTIFICATE - Hung
+- Bị lỗi ô search, search mỗi employee id thì kh search được (done)
+- Không có nhân viên sổ ra (done)
 - Ảnh certificate khi ấn vào thì ảnh to ra - KHANG
-- Ảnh certificate khi update ảnh hiện ảnh không hiện
-- Add new certificate mất sổ danh sách nhân viên
+- Ảnh certificate khi update ảnh hiện ảnh không hiện 
+- Add new certificate mất sổ danh sách nhân viên (?)
 - Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
 
 DEPENDENT - VỸ(done)
-- Ẩn vào tên sổ ra danh sách người phụ thuộc
+- Ẩn vào tên sổ ra danh sách người phụ thuộc(not done)
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
-
 
