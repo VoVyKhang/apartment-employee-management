@@ -17,12 +17,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import management.dao.CertificateDAO;
+import management.dto.CertificateDTO;
 
 /**
  *
  * @author Admin
  */
 public class SearchCerController extends HttpServlet {
+
+    private final String SUCCESS = "listCertificate.jsp";
+    private final String ERROR = "listCertificate.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,32 +40,43 @@ public class SearchCerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
+        String url = ERROR;
+        try {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession(true);
-            String empid = request.getParameter("empid");
+            String keywordidemp = request.getParameter("txtSearchIdemp");
+            String keywordname = request.getParameter("txtSearchName");
             String typecer = request.getParameter("typecer");
-            String empname = request.getParameter("empname");
-            ArrayList<management.dto.CertificateDTO> listCer;
-            if(empid == null && typecer == null && empname == null) {
-                listCer = CertificateDAO.filterCer("","","");
-            } else if(empid != null && typecer == null && empname == null) {
-                listCer = CertificateDAO.filterCer(empid,"","");
-            } else if(empid == null && typecer != null && empname == null) {
-                listCer = CertificateDAO.filterCer("",typecer,"");
-            } else if(empid == null && typecer == null && empname != null) {
-                listCer = CertificateDAO.filterCer("","",empname);
-            } else if(empid != null && typecer != null && empname == null) {
-                listCer = CertificateDAO.filterCer(empid,typecer,"");
-            } else if(empid == null && typecer != null && empname != null) {
-                listCer = CertificateDAO.filterCer("",typecer,empname);
-            } else if(empid != null && typecer == null && empname != null) {
-                listCer = CertificateDAO.filterCer(empid,"",empname);
-            } else    
-            listCer = CertificateDAO.filterCer(empid,typecer,empname);
-            session.setAttribute("typecer", typecer);
-            request.setAttribute("listCer", listCer);
-            request.getRequestDispatcher("listCertificate.jsp").forward(request, response);
+            CertificateDAO dao = new CertificateDAO();
+            ArrayList<CertificateDTO> listCer = new ArrayList<>();
+            if (keywordidemp == null || typecer == null || keywordname == null) {
+                listCer = CertificateDAO.filterCer("", "", "");
+                url = SUCCESS;
+            } else {
+                if (keywordidemp.trim().isEmpty() && keywordname.trim().isEmpty() && typecer.equals("allCer")) {
+                    listCer = dao.filterCer("", "", "");
+                } else if (typecer.trim().equals("allCer")) {
+                    listCer = dao.filterCer(keywordidemp.trim(), keywordname.trim(), "");
+                } else {
+                    listCer = dao.filterCer(keywordidemp.trim(), keywordname.trim(), typecer);
+                }
+            }
+            if (listCer.isEmpty()) {
+                session.setAttribute("typecer", typecer);
+                request.setAttribute("listCer", listCer);
+                request.setAttribute("SearchRS", "No Match");
+                url = ERROR;
+            } else {
+                session.setAttribute("typecer", typecer);
+                request.setAttribute("listCer", listCer);
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+            out.close();
         }
     }
 
