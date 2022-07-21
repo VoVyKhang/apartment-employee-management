@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <input class="btn btn-primary" type="submit" value="Filter"/>
+                            <input class="btn btn-primary" type="submit" value="Search"/>
                             <input  type="hidden" name="action" value="filterHisDep"/>
                         </div>
                     </div>

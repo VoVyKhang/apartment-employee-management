@@ -35,18 +35,12 @@ REWARD_PENALTY - HÙNG (Done)
 DEPARTMENT - THÀNH
 - Thay chữ filter -> search - [DONE]
 - Create new department, update department
-<<<<<<< HEAD
 	+ Name: giới hạn từ 1 đến 20 kí tự - [DONE]
 	 + Description: Giới hạn từ 1 đến 20 kí tự - [DONE]
 	 + Location : Giới hạn từ 1 đến 20 kí tự - [DONE]
-- Sửa icon detail - KHANG
-=======
-	+ Name: giới hạn từ 1 đến 20 kí tự
-	 + Description: Giới hạn từ 1 đến 20 kí tự
-	 + Location : Giới hạn từ 1 đến 20 kí tự
 - Sửa icon detail - KHANG [DONE]
->>>>>>> 36e36375f39034cce1c8432411b21e51c27552b2
 - Thêm ExactDay - [DONE]
+- Fix chuyển phòng ban - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
 HỒ SƠ NHÂN SỰ -VỸ

@@ -6,6 +6,7 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,27 +32,36 @@ public class changeDepController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             String idemp = request.getParameter("idemp");
             String newdep = request.getParameter("iddep");
             String oldep = request.getParameter("olddep");
-            boolean checkChangeStatus = false;
-            boolean checkInsert = false;
-            int iddepold = 0;
-            try {
-                iddepold = DepartmentDAO.getDepNumByName(oldep);
-                checkChangeStatus = HistoryDepDAO.updateDep(idemp, iddepold);
-                checkInsert = HistoryDepDAO.inserNewDep(idemp, newdep);
-            } catch (SQLException ex) {
-                Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (checkChangeStatus == true && checkInsert == true) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("WARNING", "Completed");
+            Date exactDate = Date.valueOf(request.getParameter("exactDate"));
+            Date d = new Date(System.currentTimeMillis());
+            int check = d.compareTo(exactDate);
+            if (check > 0) {
+                ss.setAttribute("WARNINGFAILED", "Date must after today!");
                 URL = SUCCESS_CHANGE_DEP;
+                response.sendRedirect(URL);
+            } else {
+                boolean checkChangeStatus = false;
+                boolean checkInsert = false;
+                int iddepold = 0;
+                try {
+                    iddepold = DepartmentDAO.getDepNumByName(oldep);
+                    checkChangeStatus = HistoryDepDAO.updateDep(idemp, iddepold);
+                    checkInsert = HistoryDepDAO.inserNewDep(idemp, newdep, exactDate);
+                } catch (SQLException ex) {
+                    Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (checkChangeStatus == true && checkInsert == true) {
+                    HttpSession session = request.getSession(false);
+                    session.setAttribute("WARNINGCOMPLETED", "Completed");
+                    URL = SUCCESS_CHANGE_DEP;
+                }
+
+                response.sendRedirect(URL);
             }
-
-            response.sendRedirect(URL);
-
         }
     }
 
