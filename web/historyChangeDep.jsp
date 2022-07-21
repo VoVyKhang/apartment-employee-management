@@ -30,7 +30,7 @@
                 text-transform: uppercase;
                 margin-top: 16px
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -24px;
@@ -53,8 +53,8 @@
             </sql:query>
             <div style="margin: 0 32px; width: 100%">
                 <div class="modal-header">
-                <div style="width: 100%">
-                    <h4 style="margin-left: -12px" class="page-title">History change department</h4>
+                    <div style="width: 100%">
+                        <h4 style="margin-left: -12px" class="page-title">History change department</h4>
                         <div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
@@ -63,15 +63,15 @@
                                 <li class="breadcrumb-item active">History change departmnet</li>
                             </ul>
                         </div>
+                    </div>
                 </div>
-            </div>
-                
+
                 <form action="mainController" method="POST" class="form-reward-penalty">
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group mb-3 mt-3">
                                 <input type="text" class="form-control" id="email" value="<%= (request.getParameter("txtSearchName") == null) ? "" : request.getParameter("txtSearchName")%>" placeholder="Enter name" name="txtSearchName">
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3"> 
@@ -107,6 +107,8 @@
                             <th scope="col">Employee</th>
                             <th scope="col">Department</th>
                             <th scope="col">Delivery Date</th>
+                            <th scope="col">Exact Date</th>
+
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
@@ -119,6 +121,7 @@
                                 <td>${listHisDep.nameEmp}</td>
                                 <td>${listHisDep.nameDep}</td>
                                 <td>${listHisDep.deliveryDate}</td>
+                                <td>${listHisDep.exactDate}</td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${listHisDep.status eq 1}">

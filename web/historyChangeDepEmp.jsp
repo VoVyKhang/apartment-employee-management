@@ -16,16 +16,16 @@
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <title>History Change Department</title>
         <style>
-             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             #sidebar{
                 height: 100vh
             }
-            
+
         </style>
     </head>
     <body>
@@ -39,6 +39,7 @@
                         <th scope="col">Employee</th>
                         <th scope="col">Department</th>
                         <th scope="col">Delivery Date</th>
+                        <th scope="col">Exact Date</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
@@ -48,6 +49,7 @@
                             <td>${listHisDep.nameEmp}</td>
                             <td>${listHisDep.nameDep}</td>
                             <td>${listHisDep.deliveryDate}</td>
+                            <td>${listHisDep.exactDate}</td>
                             <td>
                                 <c:choose>
                                     <c:when test="${listHisDep.status eq 1}">

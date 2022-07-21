@@ -27,10 +27,10 @@ public class HistoryDepDAO {
     private static final String INSERT_NEW_HIS_DEP = "INSERT INTO HistoryDep(idEmp, depNum, deliveryDate, status)"
             + " VALUES (?, ?, ?, ?)";
 
-    private static final String LIST_ALL_HIS_DEP = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, status\n"
+    private static final String LIST_ALL_HIS_DEP = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, hd.exactDate, status\n"
             + "from Employee as e, HistoryDep as hd, Department as d\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum";
-    private static final String LIST_ALL_FILTER = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, status\n"
+    private static final String LIST_ALL_FILTER = "select idHisDep, hd.idEmp, e.name, hd.depNum, d.depName, deliveryDate, hd.exactDate, status\n"
             + "from Employee as e, HistoryDep as hd, Department as d\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and e.name like ? and d.depName like ? and status like ?";
     private static Connection conn = null;
@@ -53,12 +53,18 @@ public class HistoryDepDAO {
                     int iddep = rs.getInt("depNum");
                     String namedep = rs.getString("depName");
                     String deliveryDate = rs.getString("deliveryDate");
+
                     if (deliveryDate == null) {
                         deliveryDate = "0000-00-00";
                     }
 
+                    String exactDate = rs.getString("exactDate");
+                    if (exactDate == null) {
+                        exactDate = "0000-00-00";
+                    }
+
                     int status = rs.getInt("status");
-                    HistoryDepDTO his = new HistoryDepDTO(id, idemp, nameemp, iddep, namedep, deliveryDate.substring(0, 10), status);
+                    HistoryDepDTO his = new HistoryDepDTO(id, idemp, nameemp, iddep, namedep, deliveryDate.substring(0, 10), exactDate.substring(0, 10), status);
                     list.add(his);
 
                 }
@@ -165,8 +171,13 @@ public class HistoryDepDAO {
                         deliveryDate = "0000-00-00";
                     }
 
+                    String exactDate = rs.getString("exactDate");
+                    if (exactDate == null) {
+                        exactDate = "0000-00-00";
+                    }
+
                     int hisStatus = rs.getInt("status");
-                    HistoryDepDTO his = new HistoryDepDTO(id, idemp, nameemp, iddep, namedep, deliveryDate.substring(0, 10), hisStatus);
+                    HistoryDepDTO his = new HistoryDepDTO(id, idemp, nameemp, iddep, namedep, deliveryDate.substring(0, 10), exactDate.substring(0, 10), hisStatus);
                     list.add(his);
 
                 }

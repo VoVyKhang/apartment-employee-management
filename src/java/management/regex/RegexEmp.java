@@ -49,6 +49,19 @@ public class RegexEmp {
         }
         return false;
     }
+    
+    //Check baseSalary only contain number and between 1000000 to 100000000
+    public static boolean checkSalary(String Salary) {
+        boolean check = checkOnlyNumber(Salary);
+        if (check) {
+            if (Integer.parseInt(Salary) >= 1000000 && Integer.parseInt(Salary) <= 100000000) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
 
     //Check number contain only number and length between 5 - > 15
     public static boolean checkPhone(String phone) {
@@ -63,6 +76,18 @@ public class RegexEmp {
     public static boolean checkValidationDob(String dob) {
         try {
             if (EmployeeDAO.checkValidDobDay(dob)) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexEmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    //Check exactDate
+    public static boolean checkValidationExactDate(String exactDate) {
+        try {
+            if (EmployeeDAO.checkExactDate(exactDate)) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -105,11 +130,13 @@ public class RegexEmp {
     }
 
     //Check field null of employee
-    public static boolean chekcEmpFieldNull(String name, String add, String phone, String dob, String email, String pass) {
+    public static boolean chekcEmpFieldNull(String name,String baseSalary, String add, String phone, String dob, String exact, String email, String pass) {
         if (name.equals("") || name == null
+                || baseSalary.equals("") || baseSalary == null
                 || add.equals("") || add == null
                 || phone.equals("") || phone == null
                 || dob.equals("") || dob == null
+                || exact.equals("") || exact == null
                 || email.equals("") || email == null
                 || pass.equals("") || pass == null) {
             return true;
@@ -118,8 +145,9 @@ public class RegexEmp {
     }
 
     //Check field null when update
-    public static boolean checkFieldNullUpdate(String name, String add, String phone, String dob) {
+    public static boolean checkFieldNullUpdate(String name, String baseSalary, String add, String phone, String dob) {
         if (name.equals("") || name == null
+                || baseSalary.equals("") || baseSalary == null
                 || add.equals("") || add == null
                 || phone.equals("") || phone == null
                 || dob.equals("") || dob == null) {
@@ -129,11 +157,13 @@ public class RegexEmp {
     }
 
     //check all
-    public static boolean checkEmpValidation(String name, String add, String phone, String dob, String email, String pass) {
+    public static boolean checkEmpValidation(String name,String salary, String add, String phone, String dob, String exact, String email, String pass) {
         if (checkEmpName(name)
+                && checkSalary(salary)
                 && checkEmpAddress(add)
                 && checkPhone(phone)
                 && checkValidationDob(dob)
+                && checkValidationExactDate(exact)
                 && checkValidEmail(email)
                 && checkMailNotExist(email)
                 && checkValidPass(pass)) {
@@ -144,8 +174,9 @@ public class RegexEmp {
     }
 
     //check all when update 
-    public static boolean checkEmpValidationUpdate(String name, String add, String phone, String dob) {
+    public static boolean checkEmpValidationUpdate(String name, String salary, String add, String phone, String dob) {
         if (checkEmpName(name)
+                && checkSalary(salary)
                 && checkEmpAddress(add)
                 && checkPhone(phone)
                 && checkValidationDob(dob)) {
