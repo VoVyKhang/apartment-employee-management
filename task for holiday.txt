@@ -7,7 +7,7 @@ DATABASE: - THÀNH
 HIỆN ID Ở MỌI MẶT TRẬN - VỸ
 
 LOGIN:
-- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
+- Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG [DONE]
 
 HOME 
 - Statictis 2 bảng thay đổi bằng data thật 
