@@ -36,18 +36,19 @@ public class saveNewDependentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String name = request.getParameter("name");
             String gender = request.getParameter("gender");
             String dob = request.getParameter("dob");
             String relationship = request.getParameter("relationship");
+            String EmpId = request.getParameter("empId");
             String idEmp = request.getParameter("idEmp");
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationDob(dob);
-            if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
+            if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || EmpId.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
@@ -72,13 +73,27 @@ public class saveNewDependentController extends HttpServlet {
             }
 
             if (i == 0) {
-                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
+                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, EmpId);
                 if (result == true) {
-                    request.setAttribute("Success", "Success");
-                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    if (idEmp == null) {
+                        request.setAttribute("Success", "Success");
+                        request.setAttribute("idEmp", "");
+                        request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    } else {
+                        request.setAttribute("Success", "Success");
+                        request.setAttribute("idEmp", idEmp);
+                        request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    }
                 } else {
-                    request.setAttribute("Fail", "Fail");
-                    request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    if (idEmp == null) {
+                        request.setAttribute("Fail", "Fail");
+                        request.setAttribute("idEmp", "");
+                        request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    } else {
+                        request.setAttribute("Fail", "Fail");
+                        request.setAttribute("idEmp", idEmp);
+                        request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                    }
                 }
             }
         }

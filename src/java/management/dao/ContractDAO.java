@@ -59,7 +59,7 @@ public class ContractDAO {
 
     private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
             + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
-            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and tc.name like ? and hc.status like ?  and e.name like ?";
+            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?";
 
     private static Connection conn = null;
     private static PreparedStatement ptm = null;

@@ -29,11 +29,11 @@ public class PositionDAO {
     
     private static final String LIST_EMP_POS = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n"
             + "			WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n"
-            + "			and e.idEmp = hp.idEmp and hp.idPos = p.idPos";
+            + "			and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.role = 0";
     
     private static final String SEARCH_PRO = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n" 
             +"WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n" 
-            +"and e.idEmp = hp.idEmp and hp.idPos = p.idPos and d.depName like ? and p.posName like ? and e.name like ?";
+            +"and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.role = 0 and d.depName like ? and p.posName like ? and e.name like ?";
     private static Connection cn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;

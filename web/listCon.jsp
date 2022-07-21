@@ -149,15 +149,15 @@
                                 <option value="" >All Type</option>
                                 <c:forEach var="listTyCon" items="${listTyCon.rows}">
                                     <option value="${listTyCon.name}"
-                                            <c:if test="${listTyCon.name eq sessionScope.typecon}">selected="${listTyCon.name}"</c:if>>${listTyCon.name}</option>
+                                            <c:if test="${listTyCon.name eq sessionScope.typecon}">selected=""</c:if>>${listTyCon.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-3" style="margin-top: 15px">
                             <select class="form-select form-select-md-5 mb-1 list-options" name="statuscon"> 
-                                <option value="" <c:if test="${null eq sessionScope.statuscon}">selected=""</c:if>>All Contract</option>
-                                <option value="1" <c:if test="${1 eq sessionScope.statuscon}">selected="1"</c:if>>Active</option>
-                                <option value="0" <c:if test="${0 eq sessionScope.statuscon}">selected="0"</c:if>>Expired</option> 
+                                <option value="">All Contract</option>
+                                <option value="1" <c:if test="${'1' eq param.statuscon}">selected=""</c:if>>Active</option>
+                                <option value="0" <c:if test="${'0' eq param.statuscon}">selected=""</c:if>>Expired</option> 
                                 </select>
                             </div> 
                             <div class="col-sm-6 col-md-3 ">
@@ -173,6 +173,7 @@
                         <table  class="table table-striped" >
                             <thead>
                                 <tr class="con-header">
+                                    <th scope="col">ID</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Sign Day</th>
                                     <th scope="col">Expires Day</th>
@@ -185,6 +186,7 @@
                                 <c:forEach var="listCon" varStatus="counter" items="${requestScope.listCon}">
                                 <form action="mainController">
                                     <tr class="con-body">
+                                        <td>${listCon.idCon}</td>
                                         <td>${listCon.typeCon}</td>
                                         <td>${listCon.signDay}</td>
                                         <td>${listCon.expDay}</td>

@@ -65,12 +65,20 @@
 
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 3% 20%" class="modal-content">
+                <c:if test="${requestScope.idEmp ne ''}">
+                    <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
+                </c:if>
                 <div class="modal-header">
                     <div>
                         <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
                         <div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <c:if test="${requestScope.idEmp ne ''}">
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                    </c:if>
+                                    <c:if test="${requestScope.idEmp eq ''}">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                    </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=listCertificate">Certificate</a></li>
                                 <li class="breadcrumb-item active">Add new Certificate</li>
                             </ul>
@@ -90,9 +98,8 @@
                 <div class="modal-body">
                     <form action="mainController" class="form-position" method="POST" enctype="multipart/form-data">            
                         <div class="form-group">
-                            <c:set var="idEmp" value="${requestScope.idEmp}"></c:set>
                             <c:choose>
-                                <c:when test="${param.idEmp eq ''}">
+                                <c:when test="${requestScope.idEmp eq ''}">
                                     <div style="margin-bottom: 4px">Select employee</div>                                      
                                     <select name="idEmp" class="certificate-select">
                                         <c:forEach var="listEmp" items="${requestScope.listEmp}">

@@ -66,21 +66,29 @@
                 border-radius: 10px"
 
                 class="model-content">
+                <c:if test="${requestScope.idEmp ne ''}">
+                    <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
+                </c:if>
                 <div class="modal-header">
                     <div>
                         <h5 class="modal-title">Create Reward - Penalty</h5>
                         <div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a> </li>
+                            <c:if test="${requestScope.idEmp ne ''}">
+                                <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                </c:if>
+                                <c:if test="${requestScope.idEmp eq ''}">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                 <li class="breadcrumb-item "><a href="mainController?action=showlist&type=emp">Employee</a></li>
-                                <li class="breadcrumb-item active">Create Reward - Penalty</li>
-                            </ul>
-                        </div>
+                            </c:if>
+                            <li class="breadcrumb-item active">Create Reward - Penalty</li>
+                        </ul>
                     </div>
                 </div>
-                <div style="margin-left: 16px">
-                    <div>
-                        <p style="margin-top: 8px; margin-bottom: 8px">ID Employee:  ${sessionScope.id}</p>               
+            </div>
+            <div style="margin-left: 16px">
+                <div>
+                    <p style="margin-top: 8px; margin-bottom: 8px">ID Employee:  ${sessionScope.id}</p>               
                     <p>Name: ${sessionScope.name}</p>
                 </div>
             </div>

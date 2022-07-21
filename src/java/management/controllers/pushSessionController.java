@@ -78,6 +78,7 @@ public class pushSessionController extends HttpServlet {
                     id = request.getParameter("idemp");
                     name = request.getParameter("nameemp");
                     request.setAttribute("flag", flag);
+                    request.setAttribute("idEmp", id);
                     URL = URL_CREATE_NEW_RP;
                 }
 

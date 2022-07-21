@@ -94,7 +94,12 @@
                     <div class="col-sm-12 list-employee__actions">                       
                         <div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <c:if test="${requestScope.idEmp ne ''}">
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                    </c:if>
+                                    <c:if test="${requestScope.idEmp eq ''}">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                    </c:if>
                                 <li class="breadcrumb-item active">Reward-Penalty</li>
                             </ul>
                         </div>

@@ -152,6 +152,7 @@
                         <tr>
                             <th scope="col">ID Employee</th>
                             <th scope="col">Employee name</th>                      
+                            <th scope="col">Cert ID</th>                      
                             <th scope="col">Certificate name</th>
                             <th scope="col">Date of issue</th>
                             <th scope="col">Type certificate</th>
@@ -163,6 +164,7 @@
                             <tr>
                                 <td scope="row">${listCer.idEmp}</td>
                                 <td>${listCer.empName}</td>                            
+                                <td>${listCer.cerId}</td>                            
                                 <td class="list__employee-item">
                                     <span>
                                         <img class="list__employee-item-img" src='images/${listCer.imgPath}'>

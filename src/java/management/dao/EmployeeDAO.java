@@ -21,13 +21,13 @@ import management.utils.DBUtils;
  */
 public class EmployeeDAO {
 
-    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
-            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
-            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
-            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
-            + "hd.status = 1 and hp.status = 1 and\n"
-            + "statusLog = 1 and role = 0"
-            + "order by idEmp ASC";
+    private static final String LIST_ALL_EMP = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n" +
+"from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p,Contract as c,HistoryContract as hc\n" +
+"where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n" +
+"e.idEmp = hp.idEmp and hp.idPos = p.idPos and c.idContract=hc.idContract and hc.idEmp = e.idEmp and\n" +
+"hd.status = 1 and hp.status = 1 and\n" +
+"statusLog = 1 and role = 0 and hc.status = 1\n" +
+"order by idEmp ASC";
     private static final String LIST_CHANGE_EMP = "select e.idEmp, name, address, gender, phoneNum, dob, imgPath, joinDate, d.depName, p.posName, email, password, statusLog, role\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
@@ -443,7 +443,7 @@ public class EmployeeDAO {
 
                 rs = ptm.executeQuery();
                 rs.next();
-                if (rs != null && rs.getString(1).equals(email)) {
+                if (rs != null && rs.getString("email").equals(email)) {
                     return true;
                 } else {
                     return false;

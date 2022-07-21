@@ -82,7 +82,7 @@ public class updateConController extends HttpServlet {
                         part.write(savePath + File.separator);
                         checkupdate = ContractDAO.updateContract(idcon, typecon, expday, fileName);
                     } else {
-                        checkupdate = ContractDAO.updateContractNoFile(idcon, idcon, expday);
+                        checkupdate = ContractDAO.updateContractNoFile(idcon, typecon, expday);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(updateConController.class.getName()).log(Level.SEVERE, null, ex);

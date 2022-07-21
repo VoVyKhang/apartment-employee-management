@@ -14,6 +14,7 @@
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <link rel="stylesheet" href="./css/profile.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
         <title>Details Information Of Employee</title>
         <style>
             .list-contract__link{
@@ -251,6 +252,14 @@
                                     <c:param name="nameemp" value="${requestScope.Employee.name}"> </c:param>
                                 </c:url>
                                 <a href="${create}"><i class="fas fa-plus-square"></i></a>
+                                    <c:url var="detail" value="mainController">
+                                        <c:param name="action" value="searchRP"> </c:param>
+                                        <c:param name="txtSearchIdemp" value="${requestScope.Employee.idEmp}"> </c:param>
+                                        <c:param name="txtSearchName" value="${requestScope.Employee.name}"> </c:param>
+                                        <c:param name="depName" value="allDep"> </c:param>
+                                        <c:param name="flag" value="flag"> </c:param>
+                                    </c:url>
+                                <a href="${detail}"><i class="fa-solid fa-angles-right"></i></a>
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">

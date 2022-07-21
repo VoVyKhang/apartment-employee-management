@@ -32,7 +32,7 @@
                 width: 100%;
                 height: 42px
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
@@ -90,12 +90,7 @@
                     <div>
                         <h5 class="modal-title">Create new contract</h5>
                         <ul class="breadcrumb">
-                            <c:if test="${requestScope.idEmp eq ''}">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
-                                </c:if>
-                                <c:if test="${requestScope.idEmp ne ''}">
-                                <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
-                                </c:if>
+                            <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                             <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
                             <li class="breadcrumb-item active">Create new contract</li>
                         </ul>

@@ -46,8 +46,14 @@ public class SearchRPController extends HttpServlet {
             String keywordidemp = request.getParameter("txtSearchIdemp");
             String keywordname = request.getParameter("txtSearchName");
             String depName = request.getParameter("depName");
+            String flag = request.getParameter("flag");
             RewardPenaltyDAO dao = new RewardPenaltyDAO();
             ArrayList<RewardPenaltyDTO> listrp = new ArrayList<>();
+            if (flag == null) {
+                request.setAttribute("idEmp", "");
+            } else {
+                request.setAttribute("idEmp", keywordidemp);
+            }
             if (keywordidemp == null || keywordname == null || depName == null) {
                 listrp = RewardPenaltyDAO.listRpForAll("", "", "");
                 url = SUCCESS;

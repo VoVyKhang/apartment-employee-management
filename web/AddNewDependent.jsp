@@ -66,7 +66,12 @@
                         <h5 class="modal-title">Create new dependent</h5>
                         <div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <c:if test="${requestScope.idEmp ne ''}">
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                    </c:if>
+                                    <c:if test="${requestScope.idEmp eq ''}">
+                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                    </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=listDependent">Dependent</a></li>
                                 <li class="breadcrumb-item active">Create new dependent</li>
                             </ul>
@@ -87,7 +92,7 @@
                         <c:if test="${requestScope.idEmp eq ''}">
                             <div class="form-group">
                                 <div style="margin-bottom: 4px">Select employee</div>                                      
-                                <select name="idEmp" class="certificate-select">
+                                <select name="empId" class="certificate-select">
                                     <c:forEach var="listEmp" items="${requestScope.listEmp}">
                                         <option value="${listEmp.idEmp}"> id:<c:out value="${listEmp.idEmp}"/> - name:<c:out value="${listEmp.name}"/></option>                        
                                     </c:forEach>

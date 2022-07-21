@@ -3,8 +3,8 @@ DATABASE: - THÀNH
 - Thêm vào department ngày chính thức nhận việc - exactDay
 - Employee thêm field ngày nhận việc -> exactDay
 
-ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG
-HIỆN ID Ở MỌI MẶT TRẬN -VỸ
+ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG(done)
+HIỆN ID Ở MỌI MẶT TRẬN -VỸ(done)
 
 LOGIN:
 - Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG
@@ -43,19 +43,19 @@ DEPARTMENT - THÀNH
 - Thêm ExactDay
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
-HỒ SƠ NHÂN SỰ -VỸ
+HỒ SƠ NHÂN SỰ -VỸ(done)
 - Đi qua những trang khác sửa thanh điều hướng
 - Thêm detail vào reward - penalty
 
-CONTRACT - VỸ - HÙNG
+CONTRACT - VỸ - HÙNG(done)
 - Không thêm được file
 - Select All contract là mặc định
 - Ẩn admin đi
 
-- CONTRACT: - VỸ
+- CONTRACT: - VỸ (done)
 + Đính kèm mẫu hợp đồng - có file nhưng chưa lưu được file
 + Bug: Create contract không chọn nhân viên khi tất cả nhân viên đều có hợp đồng nhưng vẫn tạo được
-+ Kí nhiều hơn 2 năm, kí 2 năm ngắn hạn -> kí long - term (IF ANY)
++ Kí nhiều hơn 2 năm, kí 2 năm ngắn hạn -> kí long - term (IF ANY)(Khong Lam)
 + Update hợp đồng hết hạn nhưng mà nhân viên vẫn còn
 + Update không update được hợp đồng mới -> out ra ngoài
 
@@ -67,7 +67,7 @@ CERTIFICATE - VỸ
 - Add new certificate mất sổ danh sách nhân viên
 - Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
 
-DEPENDENT - VỸ
+DEPENDENT - VỸ(done)
 - Ẩn vào tên sổ ra danh sách người phụ thuộc
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
 
