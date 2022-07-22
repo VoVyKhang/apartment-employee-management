@@ -73,6 +73,21 @@
                 padding: 4px 10px;
                 display: flex;
             }
+            
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
         </style>
     </head>
     <body>
@@ -139,45 +154,155 @@
                 </div>
             </form>
             <h5>${requestScope.SearchRS}</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">ID Employee</th>
-                        <th scope="col">Employee name</th>                      
-                        <th scope="col">Cert ID</th>                      
-                        <th scope="col">Certificate name</th>
-                        <th scope="col">Date of issue</th>
-                        <th scope="col">Type certificate</th>
-                        <th scope="col">Update</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="listCer" items="${requestScope.listCer}">    
-                        <tr>
-                            <td scope="row">${listCer.idEmp}</td>
-                            <td>${listCer.empName}</td>                            
-                            <td>${listCer.cerId}</td>                            
-                            <td class="list__employee-item">
-                                <span>
-                                    <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
-                                </span>
-                                <div class="list__employee-description">
-                                    <span class="list__employee-description-name">${listCer.cerName}</span>                 
-                                </div>
-                            </td>
-                            <td>${listCer.doi}</td>
-                            <td>${listCer.type}</td>                            
-                            <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
-                        </tr>                        
-                    </c:forEach>
-                </tbody>
-                <c:if test="${updateSuccess != null}" >
-                    <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
-                </c:if>
-                <c:if test="${updateFail != null}" >
-                    <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
-                </c:if>
-            </table>
+            <!--            <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Employee</th>
+                                    <th scope="col">Employee name</th>                      
+                                    <th scope="col">Cert ID</th>                      
+                                    <th scope="col">Certificate name</th>
+                                    <th scope="col">Date of issue</th>
+                                    <th scope="col">Type certificate</th>
+                                    <th scope="col">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            <c:forEach var="listCer" items="${requestScope.listCer}">    
+                <tr>
+                    <td scope="row">${listCer.idEmp}</td>
+                    <td>${listCer.empName}</td>                            
+                    <td>${listCer.cerId}</td>                            
+                    <td class="list__employee-item">
+                        <span>
+                            <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
+                        </span>
+                        <div class="list__employee-description">
+                            <span class="list__employee-description-name">${listCer.cerName}</span>                 
+                        </div>
+                    </td>
+                    <td>${listCer.doi}</td>
+                    <td>${listCer.type}</td>                            
+                    <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
+                </tr>                        
+            </c:forEach>
+        </tbody>
+            <c:if test="${updateSuccess != null}" >
+                <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
+            </c:if>
+            <c:if test="${updateFail != null}" >
+                <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
+            </c:if>
+        </table>-->
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <div class="dependent-name">
+                                <span>Id 1 - </span>
+                                <p>Nguyen Phuong Hang</p>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>                 
+                                        <th>Certificate ID</th>
+                                        <th>Certificate name</th>
+                                        <th>Certificate image</th>
+                                        <th>Date of issue</th>
+                                        <th>Type certificate</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Ielts</td>
+                                        <td>Ảnh nè</td>
+                                        <td>19/2/2015</td>
+                                        <td>Good</td>
+                                        <td>Update</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <div class="dependent-name">
+                                <span>Id 2 - </span>
+                                <p>Le Xuan Anh</p>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>                 
+                                        <th>Certificate ID</th>
+                                        <th>Certificate name</th>
+                                        <th>Certificate image</th>
+                                        <th>Date of issue</th>
+                                        <th>Type certificate</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Ielts</td>
+                                        <td>Ảnh nè</td>
+                                        <td>19/2/2015</td>
+                                        <td>Good</td>
+                                        <td>Update</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <div class="dependent-name">
+                                <span>Id 3 - </span>
+                                <p>Mai Hong Ngoc</p>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>                 
+                                        <th>Certificate ID</th>
+                                        <th>Certificate name</th>
+                                        <th>Certificate image</th>
+                                        <th>Date of issue</th>
+                                        <th>Type certificate</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Ielts</td>
+                                        <td>Ảnh nè</td>
+                                        <td>19/2/2015</td>
+                                        <td>Good</td>
+                                        <td>Update</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

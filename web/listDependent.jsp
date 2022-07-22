@@ -60,6 +60,21 @@
                 padding: 4px 10px;
                 display: flex;
             }
+
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
         </style>
     </head>
     <body>
@@ -75,7 +90,7 @@
             <div style="margin: 0 16px; width: 100%">
                 <div class="page-header">
                     <div class="row">
-                        <h3 class="page-title">Employee</h3>
+                        <h3 class="page-title">Dependent</h3>
                         <div class="col-sm-12 list-employee__actions">                       
                             <div>
                                 <ul class="breadcrumb">
@@ -114,41 +129,159 @@
                     </div>  
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Employee ID</th>
-                            <th>Employee name</th>                    
-                            <th>Dependent ID</th>
-                            <th>Dependent name</th>
-                            <th>Gender</th>
-                            <th>Date of birth</th>
-                            <th>Relationship</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>        
-
-                        <c:forEach var="listDependent" items="${requestScope.listDependent}">
-                            <tr >
-                                <td>${listDependent.idEmp}</td>
-                                <td>
-                                    ${listDependent.empName}
-                                </td>                              
-                                <td>${listDependent.idDepen}</td>
-                                <td >${listDependent.name}</td> 
-                                <td>${listDependent.gender}</td> 
-                                <td>${listDependent.dob}</td> 
-                                <td>${listDependent.relationship}</td> 
-                                <td>  
-                                <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}">
-                                <i class="fas fa-edit"></i>
-                                </a>
-                                </td>
-                            </tr>                           
-                        </c:forEach>
-                    </tbody>
-                </table>       
+                <!--                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Employee name</th>                    
+                                            <th>Dependent ID</th>
+                                            <th>Dependent name</th>
+                                            <th>Gender</th>
+                                            <th>Date of birth</th>
+                                            <th>Relationship</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>        
+                
+                <c:forEach var="listDependent" items="${requestScope.listDependent}">
+                    <tr >
+                        <td>${listDependent.idEmp}</td>
+                        <td>
+                    ${listDependent.empName}
+                </td>                              
+                <td>${listDependent.idDepen}</td>
+                <td >${listDependent.name}</td> 
+                <td>${listDependent.gender}</td> 
+                <td>${listDependent.dob}</td> 
+                <td>${listDependent.relationship}</td> 
+                <td>  
+                <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}">
+                <i class="fas fa-edit"></i>
+                </a>
+                </td>
+            </tr>                           
+                </c:forEach>
+            </tbody>
+        </table>       -->
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="dependent-name">
+                                    <span>Id 1 - </span>
+                                    <p>Nguyen Phuong Hang</p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                 
+                                            <th>Dependent ID</th>
+                                            <th>Dependent name</th>
+                                            <th>Gender</th>
+                                            <th>Date of birth</th>
+                                            <th>Relationship</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nguyen Ha Kieu Loan</td>
+                                            <td>Female</td>
+                                            <td>20/2/1972</td>
+                                            <td>Mother</td>
+                                            <td>Update</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <div class="dependent-name">
+                                    <span>Id 2 - </span>
+                                    <p>Le Xuan Anh</p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                 
+                                            <th>Dependent ID</th>
+                                            <th>Dependent name</th>
+                                            <th>Gender</th>
+                                            <th>Date of birth</th>
+                                            <th>Relationship</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nguyen Ha Kieu Loan</td>
+                                            <td>Female</td>
+                                            <td>20/2/1972</td>
+                                            <td>Mother</td>
+                                            <td>Update</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                <div class="dependent-name">
+                                    <span>Id 3 - </span>
+                                    <p>Mai Hong Ngoc</p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                 
+                                            <th>Dependent ID</th>
+                                            <th>Dependent name</th>
+                                            <th>Gender</th>
+                                            <th>Date of birth</th>
+                                            <th>Relationship</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nguyen Ha Kieu Loan</td>
+                                            <td>Female</td>
+                                            <td>20/2/1972</td>
+                                            <td>Mother</td>
+                                            <td>Update</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Nguyen Ha Kieu Loan</td>
+                                            <td>Female</td>
+                                            <td>20/2/1972</td>
+                                            <td>Mother</td>
+                                            <td>Update</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </c:if>
     </body>
