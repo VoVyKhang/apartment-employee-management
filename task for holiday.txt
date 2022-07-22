@@ -72,3 +72,6 @@ DEPENDENT - VỸ(done)
 - Ẩn vào tên sổ ra danh sách người phụ thuộc(not done)
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
 
+Employee - VỸ
+ - Lỗi không hiện thị hết nhân viên trong database 
+
