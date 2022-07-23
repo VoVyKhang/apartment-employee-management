@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,6 +52,17 @@
                 select depName
                 from Department
             </sql:query>
+
+            <sql:query dataSource = "${snapshot}" var = "listEmp">
+                select e.idEmp, name
+                from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc
+                where e.idEmp = hd.idEmp and hd.depNum = d.depNum and
+                e.idEmp = hp.idEmp and hp.idPos = p.idPos and
+                hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and
+                statusLog = 1 and role = 0 and hc.status = 1
+                order by idEmp ASC
+            </sql:query>
+
             <div style="margin: 0 16px; width: 100%">
                 <div class="modal-header">
                     <div style="width: 100%">
@@ -100,80 +112,81 @@
                     </div>
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <!--                <table class="table table-bordered">
-                                    <thead >
-                                        <tr style="text-align: center">
-                                            <th scope="col">ID History</th>
-                                            <th scope="col">Employee</th>
-                                            <th scope="col">Department</th>
-                                            <th scope="col">Delivery Date</th>
-                                            <th scope="col">Exact Date</th>
-                
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                <c:forEach var="listHisDep" varStatus="counter" items="${requestScope.listHisDep}">    
-                    <tr style="text-align: center">
 
+                <!--Begin for each-->
 
-                        <td>${listHisDep.idHidDep}</td>                            
-                        <td>${listHisDep.nameEmp}</td>
-                        <td>${listHisDep.nameDep}</td>
-                        <td>${listHisDep.deliveryDate}</td>
-                        <td>${listHisDep.exactDate}</td>
-                        <td>
-                    <c:choose>
-                        <c:when test="${listHisDep.status eq 1}">
-                            <p style="color:green">Active</p>
-                        </c:when>
-                        <c:otherwise>
-                            <p style="color:red">Inactive</p>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>                        
-                </c:forEach>
-            </tbody>
-        </table>-->
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Id 1 - Nguyen Phuoc Thinh
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <table class="table table-bordered">
-                                    <thead >
-                                        <tr style="text-align: center">
-                                            <th scope="col">ID History</th>
-                                            <th scope="col">Employee</th>
-                                            <th scope="col">Department</th>
-                                            <th scope="col">Delivery Date</th>
-                                            <th scope="col">Exact Date</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="text-align: center">
-                                            <td>2</td>                            
-                                            <td>Nguyen Phuoc Thinh</td>
-                                            <td>technical</td>
-                                            <td>22/7/2022</td>
-                                            <td>23/7/2022</td>
-                                            <td>
-                                                <p style="color:green">Active</p>
-                                            </td>
-                                        </tr>                        
-                                    </tbody>
-                                </table>
+                <c:forEach var="listEmp" items="${listEmp.rows}">
+                    <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
+                        <div class="accordion-item">
+                            <c:if test="${requestScope.empId ne null || requestScope.nameEmp ne null}">
+                                <c:if test="${requestScope.empId eq listEmp.idEmp && fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) || fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) && requestScope.nameEmp ne null}">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                            <div class="dependent-name">
+                                                <span>Id ${listEmp.idEmp} - </span>
+                                                <p>${listEmp.name}</p>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${requestScope.empId eq null && requestScope.nameEmp eq null}">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                        <div class="dependent-name">
+                                            <span>Id ${listEmp.idEmp} - </span>
+                                            <p>${listEmp.name}</p>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </c:if>
+                            <div id="flush-collapse${listEmp.idEmp}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush${listEmp.idEmp}">
+                                <div class="accordion-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>                 
+                                                <th>ID history</th>
+                                                <th>ID department</th>
+                                                <th>Department</th>
+                                                <th>Delivery date</th>
+                                                <th>Exact Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <c:forEach var="listHisDep" items="${requestScope.listHisDep}">
+                                            <c:if test="${listEmp.idEmp eq listHisDep.idemp}">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>${listHisDep.idHidDep}</td>
+                                                        <td>${listHisDep.iddep}</td>
+                                                        <td>${listHisDep.nameDep}</td>
+                                                        <td>${listHisDep.deliveryDate}</td>
+                                                        <td>${listHisDep.exactDate}</td>
+                                                        <td>
+                                                            <c:choose>
+                                                                <c:when test="${listHisDep.status eq 0}">
+                                                                    <p style="color: red">Inactive</p>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <p style="color:green">Active</p>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </c:if>
+                                        </c:forEach>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </c:if>
+                </c:forEach>
+
+                <!--End for each-->
+
+            </div>
+        </c:if>
     </body>
 </html>

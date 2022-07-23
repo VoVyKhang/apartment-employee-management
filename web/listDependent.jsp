@@ -150,6 +150,9 @@
                     </div>  
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
+                
+                <!--Begin for each-->
+                
                 <c:forEach var="listEmp" items="${listEmp.rows}">
                     <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
                         <div class="accordion-item">
@@ -211,6 +214,9 @@
                         </div>
                     </div>
                 </c:forEach>
+                
+                <!--End for each-->
+                
             </div>
         </c:if>
     </body>

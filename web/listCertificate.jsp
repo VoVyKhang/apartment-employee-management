@@ -170,6 +170,7 @@
                 </div>
             </form>
             <h5>${requestScope.SearchRS}</h5>
+
             <c:if test="${sessionScope.Success != null}">
                 <p style="color: green" ><c:out value="${sessionScope.Success}"/></p> 
             </c:if>
@@ -179,6 +180,10 @@
             <c:if test="${updateFail != null}" >
                 <p style="color: red" > <c:out value="${updateFail}" /></p>
             </c:if>
+
+
+            <!--begin for each-->
+
             <c:forEach var="listEmp" items="${listEmp.rows}">
                 <c:if test="${listEmp.idEmp ne null}">
                     <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
@@ -247,10 +252,22 @@
 
 
 
+
             <%
                 HttpSession ss = request.getSession();
                 ss.removeAttribute("Success");
             %>
+
+
+            <!--End for each-->
+
+            <c:if test="${updateSuccess != null}" >
+                <p style="color: green" ><c:out value="${updateSuccess}" /></p>
+            </c:if>
+            <c:if test="${updateFail != null}" >
+                <p style="color: red" > <c:out value="${updateFail}" /></p>
+            </c:if>
+
         </div>
     </body>
 </html>
