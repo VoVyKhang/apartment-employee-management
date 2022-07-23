@@ -57,9 +57,15 @@ public class ContractDAO {
             + "set expDay = ?\n"
             + "where idContract = ?";
 
-    private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
-            + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
-            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?";
+    private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n" +
+"from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n" +
+"where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?\n" +
+"and hc.idContract not in (select idContract\n" +
+"						from HistoryContract\n" +
+"						where status = 0 and idEmp in (select idEmp\n" +
+"						from HistoryContract\n" +
+"						where status = 1)\n" +
+"						)";
 
     private static Connection conn = null;
     private static PreparedStatement ptm = null;

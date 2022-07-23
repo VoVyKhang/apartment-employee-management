@@ -24,10 +24,10 @@ public class HistoryContractDAO {
             + "VALUES(?, ?, 1)";
     private static final String LIST_HISCONTRACT = "select hc.idHisCon, tc.name as type, signDay, expDay, e.name, c.filePath, hc.status\n"
             + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
-            + "where hc.idEmp = e.idEmp and hc.idContract= c.idContract and c.idTypeCon = tc.idTypeCon";
+            + "where hc.idEmp = e.idEmp and hc.idContract= c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0";
     private static final String LIST_HISCONTRACT_BY_IDEMP = "select hc.idHisCon, tc.name as type, signDay, expDay, e.name, c.filePath, hc.status\n"
             + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
-            + "where hc.idEmp = e.idEmp and hc.idContract= c.idContract and c.idTypeCon = tc.idTypeCon and e.idEmp = ?";
+            + "where hc.idEmp = e.idEmp and hc.idContract= c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and e.idEmp = ?";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
