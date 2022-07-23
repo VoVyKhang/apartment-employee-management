@@ -11,13 +11,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Reward - Penalty</title>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .btn-primary{
                 background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
@@ -33,14 +35,14 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
                 margin-bottom: 0 !important;
                 padding-bottom: 0 !important
             }
-            
+
             .modal-content{
                 background-color: #fff;
                 margin-bottom: 16px !important;
@@ -75,33 +77,49 @@
                 <form action="mainController" method="post">       
                     <div class="form-group">
                         <label>Reason</label>
-                        <select name="idReg" class="form-control">
+                        <select id="updaterp" name="idReg" class="form-control">
                             <c:forEach var="list" items="${requestScope.list}">
-                                <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
-                                    ${list.name}
+                                <option value=${list.idReg} data-status="${list.status}" <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
+                                    ${list.name} 
                                 </option>
                             </c:forEach>  
                         </select>
                     </div>
+                    <div class="form-group" id="divResult"></div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here..."></textarea>
+                        <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here...">${sessionScope.reason}</textarea>
                     </div>
                     <div class="form-group">
-                        <label>Time</label> 
-                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="2" max="10" required/>
-                    </div>          
-                    <div style="text-align: center">
-                        <input type="hidden" value="${sessionScope.id}" name="idemp">
-                        <input type="hidden" value="${sessionScope.idRP}" name="idrp">
-                        <input type="hidden" name="action" value="UpdateRp"> 
-                        <input class="btn btn-primary" type="submit" value="Update"> 
-                    </div>
-                    <c:if test="${requestScope.updateSuccess != null}">
-                        <c:out value="${requestScope.updateSuccess}"/>
-                    </c:if>
+                        <label>Time</label>
+                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="${sessionScope.times}" max="10" placeholder="${sessionScope.times}" required >
+                        <div style="text-align: center">
+                            <input type="hidden" value="${sessionScope.id}" name="idemp">
+                            <input type="hidden" value="${sessionScope.idRP}" name="idrp">
+                            <input type="hidden" name="action" value="UpdateRp"> 
+                            <input class="btn btn-primary" type="submit" value="Update"> 
+                        </div>
+                        <c:if test="${requestScope.updateSuccess != null}">
+                            <c:out value="${requestScope.updateSuccess}"/>
+                        </c:if>
                 </form>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $("#updaterp").change(function () {
+                    var cntrol = $(this);
+                    var times = cntrol.find(':selected').data('status');
+                    if (times == 0) {
+                        output = "Penalty";
+                        $("#divResult").css("color", "red");
+                    } else {
+                        output = "Reward";
+                        $("#divResult").css("color", "green");
+                    }
+                    $("#divResult").text(output);
+                });
+            });
+        </script>                    
     </body>
 </html>

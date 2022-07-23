@@ -49,6 +49,8 @@ public class pushSessionController extends HttpServlet {
             String name = "";
             String idReg = "";
             String idRP = "";
+            String reason = "";
+            String times = "";
             String flag = request.getParameter("flag");
             if (updateType.equals("updatedep")) {
                 id = request.getParameter("iddep");
@@ -57,6 +59,8 @@ public class pushSessionController extends HttpServlet {
 
             }
             if (updateType.equals("updaterp")) {
+                reason = request.getParameter("reason");
+                times = request.getParameter("times");
                 id = request.getParameter("idemp");
                 name = request.getParameter("nameemp");
                 idReg = request.getParameter("idreg");
@@ -76,7 +80,7 @@ public class pushSessionController extends HttpServlet {
                     name = request.getParameter("nameemp");
                     request.setAttribute("flag", "");
                     URL = URL_CREATE_NEW_RP;
-                }else{
+                } else {
                     id = request.getParameter("idemp");
                     name = request.getParameter("nameemp");
                     request.setAttribute("flag", flag);
@@ -85,11 +89,12 @@ public class pushSessionController extends HttpServlet {
                 }
 
             }
-
             session.setAttribute("id", id);
             session.setAttribute("name", name);
             session.setAttribute("idReg", idReg);
             session.setAttribute("idRP", idRP);
+            session.setAttribute("reason", reason);
+            session.setAttribute("times", times);
             ArrayList<RegulationDTO> list = RegulationDAO.listReg();
             request.setAttribute("list", list);
             request.getRequestDispatcher(URL).forward(request, response);

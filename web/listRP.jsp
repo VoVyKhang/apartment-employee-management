@@ -102,12 +102,12 @@
             select depName
             from Department
         </sql:query>
-            <%
-                String type = String.valueOf(request.getAttribute("nameDep"));
-                if(type.equals("null")){
-                    type = "";
-                };
-            %>
+        <%
+            String type = String.valueOf(request.getAttribute("nameDep"));
+            if (type.equals("null")) {
+                type = "";
+            };
+        %>
         <sql:query dataSource = "${snapshot}" var = "listEmp">
             select distinct(e.idEmp), e.name
             from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc, RewardAndPenalty as r, Regulation as re
@@ -225,7 +225,9 @@
                                                             <c:param name="idrp" value="${listrp.idRP}"> </c:param>
                                                             <c:param name="idreg" value="${listrp.idReg}"> </c:param>
                                                             <c:param name="nameemp" value="${listrp.name}"> </c:param>
-                                                            <c:param name="idemp" value="${listrp.idEmp}"> </c:param>   
+                                                            <c:param name="idemp" value="${listrp.idEmp}"> </c:param>
+                                                            <c:param name="times" value="${listrp.times}"> </c:param> 
+                                                            <c:param name="reason" value="${listrp.reason}"> </c:param> 
                                                         </c:url>
                                                         <a href="${update}"><i class="fas fa-edit"></i></a>
                                                     </td>
