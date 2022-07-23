@@ -57,7 +57,7 @@
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
         <sql:query dataSource = "${snapshot}" var = "listRP">
-            select re.status,COUNT(re.status) as count
+            select re.status,sum(r.times) as count
             from Employee as e,HistoryDep as hd, Department as d,  RewardAndPenalty as r, Regulation as re
             where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp
             and hd.status = 1
@@ -179,8 +179,8 @@
                                         </div>
                                     </div>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: ${(r/(r+p))*100}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">${(r/(r+p))*100}%</div>                            
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${100-(r/(r+p))*100}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">${100-(r/(r+p))*100}%</div>                                   
+                                        <div class="progress-bar bg-purple" role="progressbar" style="width: ${(r div (r+p))*100}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="2" value="${(r div (r+p))*100}" />%</div>                            
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${100-(r div (r+p))*100}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="2" value="${100-(r div (r+p))*100}" />%</div>                                   
                                 </div>                           
                             </div>
                         </div>
