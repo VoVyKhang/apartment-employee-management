@@ -58,10 +58,10 @@
                     <div>
                         <h5 class="modal-title">Update contract</h5>
                         <ul class="breadcrumb">
-                        <c:if test="${requestScope.idEmp eq ''}">
+                        <c:if test="${requestScope.idEmp eq null}">
                             <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                             </c:if>
-                            <c:if test="${requestScope.idEmp ne ''}">
+                            <c:if test="${requestScope.idEmp ne null}">
                             <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
                             </c:if>
                         <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
@@ -136,6 +136,7 @@
                     <div style="text-align: center">
                         <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
                         <input type="hidden" value="${requestScope.Contract.filePath}" name="oldFile">
+                        <input type="hidden" value="${requestScope.Contract.nameEmp}" name="nameEmp">
                         <input class="btn btn-primary" type="submit" value="Save"/> 
                         <input class="btn btn-primary" type="hidden" name="action" value="updateCon"/> 
                     </div>

@@ -34,13 +34,13 @@ public class passOjConController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             String idcon = request.getParameter("idcon");
             String nameEmp = request.getParameter("nameEmp");
             String flag = request.getParameter("flag");
             ContractDTO con = null;
             try {
-                con = ContractDAO.getContractByID(idcon,nameEmp);
+                con = ContractDAO.getContractByID(idcon, nameEmp);
             } catch (SQLException ex) {
                 Logger.getLogger(passOjConController.class.getName()).log(Level.SEVERE, null, ex);
             }

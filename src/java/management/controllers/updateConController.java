@@ -47,6 +47,7 @@ public class updateConController extends HttpServlet {
             String idcon = request.getParameter("idcon");
             String typecon = request.getParameter("typecon");
             String expday = request.getParameter("expday");
+            String nameEmp = request.getParameter("nameEmp");
             String oldFile = request.getParameter("oldFile");
             Part part = request.getPart("fileCon");
             String fileName = extractFileName(part);
@@ -98,7 +99,7 @@ public class updateConController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("WARNING", "Expiration date must be from tomorrow onwards");
-                url = FAIL_UPDATE + idcon + "&flag=update";
+                url = FAIL_UPDATE + idcon + "&flag=update&nameEmp=" + nameEmp;
             }
 
             request.getRequestDispatcher(url).forward(request, response);

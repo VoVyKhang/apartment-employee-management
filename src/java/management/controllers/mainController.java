@@ -167,6 +167,8 @@ public class mainController extends HttpServlet {
                 url = "showHisConController";
             } else if (action.equals("addNewPosition")) {
                 url = "addNewPositionController";
+            } else if( action.equals("searchHisCon")){
+                url = "searchHisConController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);
