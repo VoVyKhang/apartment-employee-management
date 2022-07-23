@@ -170,6 +170,8 @@
                 </div>
             </form>
             <h5>${requestScope.SearchRS}</h5>
+            
+            <!--begin for each-->
             <c:forEach var="listEmp" items="${listEmp.rows}">
                 <c:if test="${listEmp.idEmp ne null}">
                     <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
@@ -235,6 +237,9 @@
                     </div>
                 </c:if>
             </c:forEach>
+            
+            <!--End for each-->
+            
             <c:if test="${updateSuccess != null}" >
                 <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
             </c:if>

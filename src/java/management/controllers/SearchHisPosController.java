@@ -37,33 +37,34 @@ public class SearchHisPosController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession(true);
             String typehispos = request.getParameter("typehispos");
             String statushispos = request.getParameter("statushispos");
             String empname = request.getParameter("empname");
             ArrayList<HistoryPositionDTO> listHisPos;
-            if(typehispos == null && statushispos == null && empname == null) {
-                listHisPos = HistoryPosDAO.filterHisPo("","","");
-            } else if(typehispos != null && statushispos == null && empname == null) {
-                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"","");
-            } else if(typehispos == null && statushispos != null && empname == null) {
-                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"","");
-            } else if(typehispos == null && statushispos == null && empname != null) {
-                listHisPos = HistoryPosDAO.filterHisPo("","",empname);
-            } else if(typehispos != null && statushispos != null && empname == null) {
-                listHisPos = HistoryPosDAO.filterHisPo(typehispos,statushispos,"");
-            } else if(typehispos == null && statushispos != null && empname != null) {
-                listHisPos = HistoryPosDAO.filterHisPo("",statushispos,empname);
-            } else if(typehispos != null && statushispos == null && empname != null) {
-                listHisPos = HistoryPosDAO.filterHisPo(typehispos,"",empname);
-            } else    
-            listHisPos = HistoryPosDAO.filterHisPo(typehispos,statushispos,empname);
+            if (typehispos == null && statushispos == null && empname == null) {
+                listHisPos = HistoryPosDAO.listHisPos();
+            } else if (typehispos != null && statushispos == null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos, "", "");
+            } else if (typehispos == null && statushispos != null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos, "", "");
+            } else if (typehispos == null && statushispos == null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo("", "", empname);
+            } else if (typehispos != null && statushispos != null && empname == null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos, statushispos, "");
+            } else if (typehispos == null && statushispos != null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo("", statushispos, empname);
+            } else if (typehispos != null && statushispos == null && empname != null) {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos, "", empname);
+            } else {
+                listHisPos = HistoryPosDAO.filterHisPo(typehispos, statushispos, empname);
+            }
             session.setAttribute("typehispos", typehispos);
             session.setAttribute("statushispos", statushispos);
             request.setAttribute("listHisPos", listHisPos);
-            request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);    
+            request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);
         }
     }
 
