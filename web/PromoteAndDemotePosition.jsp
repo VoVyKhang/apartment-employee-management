@@ -195,7 +195,9 @@
                     <c:if test="${requestScope.listEmpPos != null}">
                         <c:if test="${not empty requestScope.listEmpPos}">
 
-
+                            <c:if test="${sessionScope.updateSuccess != null}">
+                                <p style="color: red" ><c:out value="${sessionScope.updateSuccess}"/></p> 
+                            </c:if>
                             <table class="table table-bordered list-position" >
                                 <thead>
                                     <tr>
@@ -273,9 +275,7 @@
 
                     </c:if>
                 </c:if>
-                <c:if test="${sessionScope.updateSuccess != null}">
-                    <h4 style="color: green" ><c:out value="${sessionScope.updateSuccess}"/></h4> 
-                </c:if>
+
                 <%
                     ss.removeAttribute("updateSuccess");
                 %>
