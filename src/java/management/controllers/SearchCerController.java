@@ -70,6 +70,15 @@ public class SearchCerController extends HttpServlet {
             } else {
                 session.setAttribute("typecer", typecer);
                 request.setAttribute("listCer", listCer);
+                if (keywordidemp == null || !keywordidemp.trim().isEmpty()) {
+                    request.setAttribute("empId", keywordidemp);
+                }
+                if (keywordname == null || !keywordname.trim().isEmpty()) {
+                    request.setAttribute("nameEmp", keywordname);
+                }
+                if (typecer == null || !typecer.trim().equals("allCer")) {
+                    request.setAttribute("typeCer", typecer);
+                }
                 url = SUCCESS;
             }
         } catch (Exception e) {
