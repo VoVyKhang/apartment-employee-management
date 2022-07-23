@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="list-department">
-                    <table class="table table-striped" style="font-size: 14px">
+                    <table class="table table-bordered" style="font-size: 14px">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
