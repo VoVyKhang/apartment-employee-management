@@ -119,13 +119,11 @@
                         <div class="form-group" style="margin-top: 16px">
                             <span> Image</span>
                             <input class="form-control" name="imgPath" type="file" accept="image/*">   
-                            <c:if test="${nameInvalid != null}">
-                                <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
-                            </c:if>
+                           
                         </div>
                         <div class="form-group">
                             <span>Date of isuess</span>
-                            <input class="form-control" name="doi" type="date" value="${param.doi}"> 
+                            <input class="form-control" name="doi" type="date" value="${param.doi}" required="" > 
                             <c:if test="${requestScope.checkDoi != null}" >
                                 <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>
                             </c:if>

@@ -60,7 +60,7 @@ public class saveChangeCertificateController extends HttpServlet {
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
                 request.setAttribute("listTypeCer", listTypeCer);
-                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.setAttribute("filedBlank", "Do not leave any fields blank!");
                 request.getRequestDispatcher("updateCertificate.jsp").forward(request, response);
                 i++;
             }
@@ -69,7 +69,7 @@ public class saveChangeCertificateController extends HttpServlet {
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listCerObject", listCerObject);
                 request.setAttribute("listTypeCer", listTypeCer);
-                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.setAttribute("nameInvalid", "Certificate name only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
                 request.getRequestDispatcher("updateCertificate.jsp").forward(request, response);
                 i++;
             }
@@ -114,7 +114,7 @@ public class saveChangeCertificateController extends HttpServlet {
                     request.getRequestDispatcher("SearchCerController").forward(request, response);
 
                 } else {
-                    request.setAttribute("updateFail", "Update fail");
+                    request.setAttribute("updateFail", "Update fail, date wrong format");
                     request.getRequestDispatcher("SearchCerController").forward(request, response);
                 }
             }

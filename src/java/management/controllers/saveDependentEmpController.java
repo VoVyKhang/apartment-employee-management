@@ -37,7 +37,7 @@ public class saveDependentEmpController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int idEmp = Integer.parseInt(request.getParameter("idEmp"));
             int idDepen = Integer.parseInt(request.getParameter("idDepen"));
@@ -86,7 +86,7 @@ public class saveDependentEmpController extends HttpServlet {
                     request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
 
                 } else {
-                    request.setAttribute("updateFail", "Update fail");
+                    request.setAttribute("updateFail", "Update fail date wrong format");
                     request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
                 }
             }

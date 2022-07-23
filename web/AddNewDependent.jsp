@@ -83,10 +83,10 @@
                     <p style="color: red" ><c:out value="${filedBlank}"/></p> 
                 </c:if>
                 <c:if test="${Success != null}">
-                    <h3 style="color: green" ><c:out value="${Success}"/></h3> 
+                    <p style="color: green" ><c:out value="${Success}"/></p> 
                 </c:if>
                 <c:if test="${Fail != null}">
-                    <c:out value="${Fail}"/>
+                    <p style="color: red" ><c:out value="${Fail}"/></p>
                 </c:if>
                 <div class="modal-body">
                     <form action="mainController" class="form-position">
@@ -117,7 +117,7 @@
                         </div>
                         <div class="form-group ">
                             <div style="margin-bottom: 4px">Date of birth</div>
-                            <input class="form-control" name="dob" value="${param.dob}" type="date">
+                            <input class="form-control" name="dob" value="${param.dob}" type="date" required="" >
                             <c:if test="${requestScope.checkDob != null}" >
                                 <p style="color: red" >${requestScope.checkDob}</p>
                             </c:if>

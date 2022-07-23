@@ -53,7 +53,7 @@ public class saveNewCertificateController extends HttpServlet {
             boolean checkName = RegexEmp.checkEmpName(nameCer);
             boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
             int i = 0;
-            if (nameCer.equals("") || doi.equals("0000-00-00")) {
+            if (nameCer.equals("") || doi.equals("1900-01-01")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
