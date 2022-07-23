@@ -76,6 +76,15 @@ public class SearchRPController extends HttpServlet {
             } else {
                 session.setAttribute("depName", depName);
                 request.setAttribute("listrp", listrp);
+                if (keywordidemp == null || !keywordidemp.trim().isEmpty()) {
+                    request.setAttribute("empId", keywordidemp);
+                }
+                if (keywordname == null || !keywordname.trim().isEmpty()) {
+                    request.setAttribute("nameEmp", keywordname);
+                }
+                if (depName == null || !depName.trim().equals("allDep")) {
+                    request.setAttribute("nameDep", depName);
+                }
                 url = SUCCESS;
             }
 

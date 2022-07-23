@@ -49,7 +49,7 @@
             </div>
             <p style="color:red">${requestScope.WARNING}</p>
             <div class="modal-body">
-                <form action="mainController" method="POST" class="form-position">
+                <form action="mainController" method="POST" class="form-position" enctype="multipart/form-data">
 
                     <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                        url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
@@ -58,6 +58,11 @@
                     <sql:query dataSource = "${snapshot}" var = "listtype">
                         select idTypeCon, name
                         from TypeContract
+                    </sql:query>
+                    <sql:query dataSource = "${snapshot}" var = "idEmp">
+                        select hc.idEmp 
+                        from HistoryContract as hc, Contract as c
+                        where hc.idContract = c.idContract and c.idContract = ${requestScope.Contract.idCon}
                     </sql:query>
                     <div class="form-group">
                         <label>Type of contract</label>
@@ -68,14 +73,18 @@
                         </c:forEach>
                     </div>
 
-                        <div class="form-group">
-                            <label>Sign Day </label>
-                            <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Expiration Day</label> 
-                            <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
-                        </div>
+                    <div class="form-group">
+                        <label>Sign Day </label>
+                        <input class="form-control" type="text" readonly="" value="${requestScope.Contract.signDay}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiration Day</label> 
+                        <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
+                    </div>
+                    <div class="form-group">
+                        <label>File Contract</label>
+                        <input class="form-control" type="file" name="conPath">
+                    </div>
                     <c:choose>
                         <c:when test="${requestScope.Contract.status eq 1}">
                             Status: <p style="color:green">OK</p>
@@ -87,6 +96,14 @@
 
                     <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
                     <input class="btn btn-primary" type="submit" value="Save"/>
+                    <c:forEach var="empId" items="${idEmp.rows}">
+                        <input type="hidden" name="idemp" value="${empId.idEmp}"/>
+                    </c:forEach>
+                    <c:forEach var = "rowlist" items = "${listtype.rows}">
+                        <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
+                            <input type="hidden" name="typecon" value="${rowlist.idTypeCon}" >
+                        </c:if>
+                    </c:forEach>
                     <input class="btn btn-primary" type="hidden" name="action" value="renewal"/>
 
                 </form>

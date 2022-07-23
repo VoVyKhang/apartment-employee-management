@@ -3,9 +3,11 @@ DATABASE: - THÀNH
 - Thêm vào department ngày chính thức nhận việc - exactDay - [DONE]
 - Employee thêm field ngày nhận việc -> exactDay - [DONE]
 
-ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG(done)
-HIỆN ID Ở MỌI MẶT TRẬN -VỸ(done)
+ẨN ADMIN Ở MỌI MẶT TRẬN - VỸ - HÙNG [DONE]
+HIỆN ID Ở MỌI MẶT TRẬN -VỸ [DONE]
 
+REWARD - PENALTY ĐÃ UPDATE LAYOUT, CẬP NHẬT DATA THẬT VÀO
+CERTIFICATE ĐÃ UPDATE LAYOUT, CẬP NHẬT DATA THẬT VÀO
 
 LOGIN:
 - Đăng nhập tài khoản ngoài hệ thống -> Custome câu thông báo -> KHANG [DONE]
@@ -44,16 +46,16 @@ DEPARTMENT - THÀNH
 - Fix chuyển phòng ban - [DONE]
 - Lịch sử chuyển phòng ban của từng nhân viên - Sổ ra như ng phụ thuộc
 
-HỒ SƠ NHÂN SỰ -VỸ(done)
+HỒ SƠ NHÂN SỰ -VỸ [DONE]
 - Đi qua những trang khác sửa thanh điều hướng
 - Thêm detail vào reward - penalty
 
-CONTRACT - VỸ - HÙNG(done)
+CONTRACT - VỸ - HÙNG [DONE]
 - Không thêm được file
 - Select All contract là mặc định
 - Ẩn admin đi
 
-- CONTRACT: - VỸ (done)
+- CONTRACT: - VỸ [DONE]
 + Đính kèm mẫu hợp đồng - có file nhưng chưa lưu được file
 + Bug: Create contract không chọn nhân viên khi tất cả nhân viên đều có hợp đồng nhưng vẫn tạo được
 + Kí nhiều hơn 2 năm, kí 2 năm ngắn hạn -> kí long - term (IF ANY)(Khong Lam)
@@ -61,17 +63,16 @@ CONTRACT - VỸ - HÙNG(done)
 + Update không update được hợp đồng mới -> out ra ngoài
 
 CERTIFICATE - Hung
-- Bị lỗi ô search, search mỗi employee id thì kh search được (done)
-- Không có nhân viên sổ ra (done)
+- Bị lỗi ô search, search mỗi employee id thì kh search được [DONE]
+- Không có nhân viên sổ ra [DONE]
 - Ảnh certificate khi ấn vào thì ảnh to ra - KHANG
 - Ảnh certificate khi update ảnh hiện ảnh không hiện 
 - Add new certificate mất sổ danh sách nhân viên (?)
 - Add new certificate custom cái sổ nhân viên cho dễ nhìn IF ANY
 
 DEPENDENT - VỸ(done)
-- Ẩn vào tên sổ ra danh sách người phụ thuộc(not done)
+- Ẩn vào tên sổ ra danh sách người phụ thuộc(not done) - ĐÃ CÓ LAYOUT CẬP NHẬT DATA THẬT VÀO
 - Create new dependent khi save chuyển nhầm sang trang khác (Từ hồ sơ nhân sự đi qua)
 
-Employee - VỸ
- - Lỗi không hiện thị hết nhân viên trong database 
+
 

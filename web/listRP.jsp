@@ -4,6 +4,7 @@
 <%@page import="management.dao.RewardPenaltyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,6 +72,21 @@
                 opacity: 0.9
             }
 
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
+
         </style>
     </head>
     <body>
@@ -85,6 +101,21 @@
         <sql:query dataSource = "${snapshot}" var = "listDep">
             select depName
             from Department
+        </sql:query>
+            <%
+                String type = String.valueOf(request.getAttribute("nameDep"));
+                if(type.equals("null")){
+                    type = "";
+                };
+            %>
+        <sql:query dataSource = "${snapshot}" var = "listEmp">
+            select distinct(e.idEmp), e.name
+            from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc, RewardAndPenalty as r, Regulation as re
+            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and
+            e.idEmp = hp.idEmp and hp.idPos = p.idPos and r.idReg = re.idReg and e.idEmp = r.idEmp and
+            hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and
+            statusLog = 1 and role = 0 and hc.status = 1 and d.depName like '%<%= type%>%'
+            order by idEmp ASC
         </sql:query>
         <div style="margin: 0 16px" class="list-employee">
 
@@ -103,7 +134,6 @@
                                 <li class="breadcrumb-item active">Reward-Penalty</li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -126,7 +156,7 @@
                                 <option value="allDep">All Department</option>
                                 <c:forEach var="listDep" items="${listDep.rows}">
                                     <option value="${listDep.depName}"
-                                        <c:if test="${listDep.depName eq sessionScope.depName}">selected="${listDep.depName}"</c:if>>${listDep.depName}</option>                       
+                                            <c:if test="${listDep.depName eq sessionScope.depName}">selected="${listDep.depName}"</c:if>>${listDep.depName}</option>                       
                                 </c:forEach>
                             </select>
                         </div>
@@ -138,68 +168,77 @@
                 </div>  
             </form>               
             <h5>${requestScope.SearchRS}</h5>
-            <table  class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>Name </th>
-                        <th>Gender </th>
-                        <th>Type </th>
-                        <th>Times</th>
-                        <th>Date</th>
-                        <th>Reason </th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="listrp" varStatus="counter" items="${requestScope.listrp}">
-                    <form action="mainController">
-                        <tr>
-                            <td style="padding-left: 50px">${listrp.idEmp}</td> 
-                            <td class="list__regulation-item">
-                                <div>
-                                    <img class="list__regulation-item-img" class="align-self-center img-fluid" src='images/${listrp.imgPath}'>
-                                </div>
-                                <div class="list__regulation-description"> 
-                                    <span class="list__regulation-description-name">${listrp.name}</span>
-                                    <span class="list__regulation-description-dep">${listrp.depName}</span>
-                                </div>                        
-                            </td>
-                            <td>${listrp.gender}</td>
-                            <td><c:choose>
-                                    <c:when test="${listrp.status eq  1}">Reward</c:when>
-                                    <c:otherwise>Penalty</c:otherwise>
-                                </c:choose></td>
-                            <td>${listrp.times}</td>
-                            <td>${listrp.applicableDate}</td>
-                            <td>${listrp.namere}</td>
-<!--                            <td>${listrp.reason}</td>-->
-                            <td><c:choose>
-                                    <c:when test="${listrp.reason eq ''}">None</c:when>
-                                    <c:otherwise>${listrp.reason}</c:otherwise>
-                                </c:choose></td>
-                            <td>
-                                <c:url var="update" value="mainController">
-                                    <c:param name="action" value="pushss"> </c:param>
-                                    <c:param name="updatetype" value="updaterp"> </c:param>
-                                    <c:param name="idrp" value="${listrp.idRP}"> </c:param>
-                                    <c:param name="idreg" value="${listrp.idReg}"> </c:param>
-                                    <c:param name="nameemp" value="${listrp.name}"> </c:param>
-                                    <c:param name="idemp" value="${listrp.idEmp}"> </c:param>   
-                                </c:url>
-                                <a href="${update}"><i class="fas fa-edit"></i></a>
-                            </td>                    
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                    <c:if test="${requestScope.updateSuccess != null}">
-                        <p style="color:green"> <c:out value="${requestScope.updateSuccess}"/></p>
-                    </c:if>
-                        <c:if test="${requestScope.updateFail != null}">
-                        <p style="color:red"> <c:out value="${requestScope.updateFail}"/></p>
-                    </c:if>
-            </table> 
+            <c:forEach var="listEmp" items="${listEmp.rows}">
+                <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
+                    <div class="accordion-item">
+                        <c:if test="${requestScope.empId ne null || requestScope.nameEmp ne null}">
+                            <c:if test="${requestScope.empId eq listEmp.idEmp && fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) || fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) && requestScope.nameEmp ne null}">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                        <div class="dependent-name">
+                                            <span>Id ${listEmp.idEmp} - </span>
+                                            <p>${listEmp.name}</p>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </c:if>
+                        </c:if>
+                        <c:if test="${requestScope.empId eq null && requestScope.nameEmp eq null}">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                    <div class="dependent-name">
+                                        <span>Id ${listEmp.idEmp} - </span>
+                                        <p>${listEmp.name}</p>
+                                    </div>
+                                </button>
+                            </h2>
+                        </c:if>
+                        <div id="flush-collapse${listEmp.idEmp}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush${listEmp.idEmp}">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                 
+                                            <th>Type</th>
+                                            <th>Times</th>
+                                            <th>Date</th>
+                                            <th>Reason</th>
+                                            <th>Description</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <c:forEach var="listrp" varStatus="counter" items="${requestScope.listrp}">
+                                        <c:if test="${listEmp.idEmp eq listrp.idEmp}">
+                                            <tbody>
+                                                <tr>
+                                                    <td><c:choose>
+                                                            <c:when test="${listrp.status eq  1}">Reward</c:when>
+                                                            <c:otherwise>Penalty</c:otherwise>
+                                                        </c:choose></td>
+                                                    <td>${listrp.times}</td>
+                                                    <td>${listrp.applicableDate}</td>
+                                                    <td>${listrp.namere}</td>
+                                                    <td>${listrp.reason}</td>
+                                                    <td>
+                                                        <c:url var="update" value="mainController">
+                                                            <c:param name="action" value="pushss"> </c:param>
+                                                            <c:param name="updatetype" value="updaterp"> </c:param>
+                                                            <c:param name="idrp" value="${listrp.idRP}"> </c:param>
+                                                            <c:param name="idreg" value="${listrp.idReg}"> </c:param>
+                                                            <c:param name="nameemp" value="${listrp.name}"> </c:param>
+                                                            <c:param name="idemp" value="${listrp.idEmp}"> </c:param>   
+                                                        </c:url>
+                                                        <a href="${update}"><i class="fas fa-edit"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </c:if>
+                                    </c:forEach>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </body>
 </html>

@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,13 +62,40 @@
                 padding: 4px 10px;
                 display: flex;
             }
+
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
         </style>
     </head>
     <body>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
 
+        <sql:query dataSource = "${snapshot}" var = "listEmp">
+            select e.idEmp, name
+            from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc
+            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and
+            e.idEmp = hp.idEmp and hp.idPos = p.idPos and
+            hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and
+            statusLog = 1 and role = 0 and hc.status = 1
+            order by idEmp ASC
+        </sql:query>
         <c:if test="${requestScope.updateFail != null}" >
             <c:out value="${requestScope.updateFail}" />
         </c:if>
@@ -75,7 +104,7 @@
             <div style="margin: 0 16px; width: 100%">
                 <div class="page-header">
                     <div class="row">
-                        <h3 class="page-title">Employee</h3>
+                        <h3 class="page-title">Dependent</h3>
                         <div class="col-sm-12 list-employee__actions">                       
                             <div>
                                 <ul class="breadcrumb">
@@ -114,41 +143,67 @@
                     </div>  
                 </form>
                 <h5>${requestScope.SearchRS}</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Employee ID</th>
-                            <th>Employee name</th>                    
-                            <th>Dependent ID</th>
-                            <th>Dependent name</th>
-                            <th>Gender</th>
-                            <th>Date of birth</th>
-                            <th>Relationship</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>        
-
-                        <c:forEach var="listDependent" items="${requestScope.listDependent}">
-                            <tr >
-                                <td>${listDependent.idEmp}</td>
-                                <td>
-                                    ${listDependent.empName}
-                                </td>                              
-                                <td>${listDependent.idDepen}</td>
-                                <td >${listDependent.name}</td> 
-                                <td>${listDependent.gender}</td> 
-                                <td>${listDependent.dob}</td> 
-                                <td>${listDependent.relationship}</td> 
-                                <td>  
-                                <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}">
-                                <i class="fas fa-edit"></i>
-                                </a>
-                                </td>
-                            </tr>                           
-                        </c:forEach>
-                    </tbody>
-                </table>       
+                <c:forEach var="listEmp" items="${listEmp.rows}">
+                    <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
+                        <div class="accordion-item">
+                            <c:if test="${requestScope.empId ne null || requestScope.nameEmp ne null}">
+                                <c:if test="${requestScope.empId eq listEmp.idEmp && fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) || fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) && requestScope.nameEmp ne null}">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                            <div class="dependent-name">
+                                                <span>Id ${listEmp.idEmp} - </span>
+                                                <p>${listEmp.name}</p>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${requestScope.empId eq null && requestScope.nameEmp eq null}">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                        <div class="dependent-name">
+                                            <span>Id ${listEmp.idEmp} - </span>
+                                            <p>${listEmp.name}</p>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </c:if>
+                            <div id="flush-collapse${listEmp.idEmp}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush${listEmp.idEmp}">
+                                <div class="accordion-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>                 
+                                                <th>Dependent ID</th>
+                                                <th>Dependent name</th>
+                                                <th>Gender</th>
+                                                <th>Date of birth</th>
+                                                <th>Relationship</th>
+                                                <th>Update</th>
+                                            </tr>
+                                        </thead>
+                                        <c:forEach var="listDependent" items="${requestScope.listDependent}">
+                                            <c:if test="${listEmp.idEmp eq listDependent.idEmp}">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>${listDependent.idDepen}</td>
+                                                        <td>${listDependent.name}</td>
+                                                        <td>${listDependent.gender}</td>
+                                                        <td>${listDependent.dob}</td>
+                                                        <td>${listDependent.relationship}</td>
+                                                        <td>
+                                                            <a href="mainController?action=updateDependent&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}">
+                                                                <i class="fas fa-edit"></i>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </c:if>
+                                        </c:forEach>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </c:if>
     </body>

@@ -20,7 +20,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .breadcrumb{
                 background-color: #f7f7f7 !important;
                 margin-left: -30px !important
@@ -100,6 +100,7 @@
 
             <c:if test="${requestScope.listHisPos != null}">
                 <c:if test="${not empty requestScope.listHisPos}">
+
                     <table class="table table-bordered">
                         <thead >
                             <tr style="text-align: center">
@@ -143,7 +144,91 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!--                    <table class="table table-bordered">
+                                        <thead >
+                                            <tr style="text-align: center">
+                                                <th scope="col">ID History</th>
+                                                <th scope="col">Employee</th>
+                                                <th scope="col">Position</th>
+                                                <th scope="col">Delivery Date</th>
+                                                <th scope="col">Exact Date</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                <c:forEach var="listHisPos" varStatus="counter" items="${requestScope.listHisPos}">    
+                    <tr style="text-align: center" class="pd-body">
+                        <td>${listHisPos.idHisPos}</td>                            
+                        <td>${listHisPos.nameEmp}</td>
+                        <td>${listHisPos.posName}</td>
+                        <td>${listHisPos.deliveryDate}</td>
+                        <td>${listHisPos.exactDate}</td>
+                        <td> <c:choose>
+                        <c:when test="${listHisPos.type eq 0}">
+                            Promote
+                        </c:when>
+                        <c:otherwise>
+                            Demote
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td >
+                    <c:choose>
+                        <c:when test="${listHisPos.status eq 1}">
+                            <p style="color:green; margin-bottom: 0">Active</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p style="color:red; margin-bottom: 0">Inactive</p>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>                        
+                </c:forEach>
+                </tbody>
+            </table>-->
+
+
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Id 1 - Nguyen Phuoc Thinh
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead >
+                                        <tr style="text-align: center">
+                                            <th scope="col">ID History</th>
+                                            <th scope="col">Employee</th>
+                                            <th scope="col">Department</th>
+                                            <th scope="col">Delivery Date</th>
+                                            <th scope="col">Exact Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="text-align: center">
+                                            <td>2</td>                            
+                                            <td>Nguyen Phuoc Thinh</td>
+                                            <td>technical</td>
+                                            <td>22/7/2022</td>
+                                            <td>23/7/2022</td>
+                                            <td>
+                                                <p style="color:green">Active</p>
+                                            </td>
+                                        </tr>                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </c:if>
+
         </c:if>
     </body>
 </html>

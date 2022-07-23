@@ -4,63 +4,87 @@
  */
 package management.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import management.dao.ContractDAO;
+import management.dao.HistoryContractDAO;
 
 /**
  *
  * @author lehon
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class renewalConController extends HttpServlet {
 
     private static final String DONE_RENEWAL = "mainController?action=showlist&type=con";
     private static final String FAIL_RENEWAL = "mainController?action=passidcon&idcon=";
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try ( PrintWriter out = response.getWriter()) {
-            String idcon = request.getParameter("idcon");
-            String expday = request.getParameter("expday");
-            boolean checkexpday = false;
-            boolean checkrenewal = false;
-            
+        try (PrintWriter out = response.getWriter()) {
+            String typeCon = request.getParameter("typecon");
+            String expDay = request.getParameter("expday");
+            String idEmp = request.getParameter("idemp");
+            Part part = request.getPart("conPath");
+            String fileName = extractFileName(part);
+            boolean checkexp = false;
+            boolean check = false;
+            String checkInsert = "";
             try {
-                checkexpday = ContractDAO.checkValidExpDay(expday);
+                checkexp = ContractDAO.checkValidExpDay(expDay);
             } catch (SQLException ex) {
-                Logger.getLogger(renewalConController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(newConController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            if (checkexpday) {
+            if (checkexp) {
                 try {
-                    checkrenewal = ContractDAO.renewalCon(idcon, expday);
-                } catch (SQLException ex) {
-                    Logger.getLogger(renewalConController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                if (checkrenewal) {
-                    try {
-                        ContractDAO.changeConToOK(Integer.parseInt(idcon));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(renewalConController.class.getName()).log(Level.SEVERE, null, ex);
+                    if (!fileName.isEmpty() || !fileName.equals("")) {
+                        String path = request.getServletContext().getRealPath("/");
+                        String[] list = path.split("\\\\");
+                        String path2 = "";
+                        for (int j = 0; j < list.length; j++) {
+                            if (!list[j].toString().equals("apartment-employee-management")) {
+                                path2 = path2 + list[j].toString() + "\\";
+                            } else {
+                                path2 = path2 + list[j].toString() + "\\" + "web";
+                                break;
+                            }
+                        }
+                        String savePath = path2 + "\\fileCon\\" + fileName;
+                        File fileSaveDir = new File(savePath);
+                        part.write(savePath + File.separator);
+                    } else {
+                        fileName = "...";
                     }
+                    checkInsert = ContractDAO.insertNewContract(expDay, fileName, typeCon);
+                    HistoryContractDAO.insertHisCon(checkInsert, idEmp);
+                    check = true;
+                } catch (SQLException ex) {
+                    Logger.getLogger(newConController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (check) {
                     request.setAttribute("COMPLETE", "Completed");
                     url = DONE_RENEWAL;
                 }
+
             } else {
                 request.setAttribute("WARNING", "Expiration date must be from tomorrow onwards");
-                url = FAIL_RENEWAL + idcon + "&flag=renewal";
+                url = FAIL_RENEWAL;
             }
+
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
@@ -104,4 +128,14 @@ public class renewalConController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String extractFileName(Part part) {//This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 }

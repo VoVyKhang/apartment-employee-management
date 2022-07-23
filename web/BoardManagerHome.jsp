@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,11 +18,11 @@
                 margin-left: -17px;
                 flex: 0 0 32.8% !important;
             }
-            
+
             .statistics-department{
-               padding-left: 0 !important;
-               flex: 0 0 31.5% !important;
-               margin-right: 6px
+                padding-left: 0 !important;
+                flex: 0 0 31.5% !important;
+                margin-right: 6px
             }
 
             .stats-info p {
@@ -51,7 +53,16 @@
             <c:redirect url="Hall.jsp">
             </c:redirect>
         </c:if>
-
+        <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                           url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
+                           user = "sa"  password = "12345"/>
+        <sql:query dataSource = "${snapshot}" var = "listRP">
+            select re.status,COUNT(re.status) as count
+            from Employee as e,HistoryDep as hd, Department as d,  RewardAndPenalty as r, Regulation as re
+            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and r.idReg = re.idReg and e.idEmp = r.idEmp
+            and hd.status = 1
+            group by re.status
+        </sql:query>
         <div style="width: 100%; margin-left: 40px; overflow: hidden">
             <div>
                 <div class="container">
@@ -140,23 +151,36 @@
                                 <h4 class="card-title" style="font-size: 20px">Reward & Penalty Statistics</h4>
                                 <div class="statistics">
                                     <div class="row">
-                                        <div class="col-md-6 col-6 text-center">
-                                            <div class="stats-box mb-4">
-                                                <p style="color: #007bff">Reward</p>
-                                                <h3>385</h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-6 text-center">
-                                            <div class="stats-box mb-4">
-                                                <p style="color: #dc3545">Penalty</p>
-                                                <h3>19</h3>
-                                            </div>
+                                        <c:forEach var="RP" items="${listRP.rows}">
+                                            <c:if test="${RP.status eq '1'}">
+                                                <div class="col-md-6 col-6 text-center">
+                                                    <div class="stats-box mb-4">
+                                                        <p style="color: #007bff">Reward</p>
+                                                        <h3>${RP.count}</h3>
+                                                    </div>
+                                                </div>
+                                                <c:set var="reward" value="${RP.count}"></c:set>
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:forEach var="RP" items="${listRP.rows}">
+                                            <c:if test="${RP.status eq '0'}">
+                                                <div class="col-md-6 col-6 text-center">
+                                                    <div class="stats-box mb-4">
+                                                        <p style="color: #dc3545">Penalty</p>
+                                                        <h3>${RP.count}</h3>
+                                                    </div>
+                                                </div>
+                                                <c:set var="penalty"  value="${RP.count}"> </c:set>
+
+                                            </c:if>
+                                        </c:forEach>
+                                        <fmt:parseNumber var = "p" type = "number" value = "${penalty}" ></fmt:parseNumber>
+                                        <fmt:parseNumber var = "r" type = "number" value = "${reward}" ></fmt:parseNumber>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-purple" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>                            
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 70%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">70%</div>                                   
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-purple" role="progressbar" style="width: ${(r/(r+p))*100}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">${(r/(r+p))*100}%</div>                            
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${100-(r/(r+p))*100}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">${100-(r/(r+p))*100}%</div>                                   
                                 </div>                           
                             </div>
                         </div>

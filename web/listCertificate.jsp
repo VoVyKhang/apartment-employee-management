@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -73,6 +74,21 @@
                 padding: 4px 10px;
                 display: flex;
             }
+
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
         </style>
     </head>
     <body>
@@ -88,7 +104,22 @@
             select name
             from TypeCertificate
         </sql:query>
-
+        <%
+            String type = String.valueOf(request.getAttribute("typeCer"));
+            if (type.equals("null")) {
+                type = "";
+            };
+        %>
+        <sql:query dataSource = "${snapshot}" var = "listEmp">
+            select distinct(e.idEmp), e.name
+            from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc,
+            Certificate as cert, TypeCertificate as t
+            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and
+            e.idEmp = hp.idEmp and hp.idPos = p.idPos and
+            hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and e.idEmp = cert.idEmp AND cert.idTypeCer = t.idTypeCer and
+            statusLog = 1 and role = 0 and hc.status = 1 and t.name like '%<%= type%>%'
+            order by idEmp ASC
+        </sql:query>
         <div style="width: 100%; margin: 0 16px">
 
             <div class="page-header">
@@ -139,45 +170,77 @@
                 </div>
             </form>
             <h5>${requestScope.SearchRS}</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">ID Employee</th>
-                        <th scope="col">Employee name</th>                      
-                        <th scope="col">Cert ID</th>                      
-                        <th scope="col">Certificate name</th>
-                        <th scope="col">Date of issue</th>
-                        <th scope="col">Type certificate</th>
-                        <th scope="col">Update</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="listCer" items="${requestScope.listCer}">    
-                        <tr>
-                            <td scope="row">${listCer.idEmp}</td>
-                            <td>${listCer.empName}</td>                            
-                            <td>${listCer.cerId}</td>                            
-                            <td class="list__employee-item">
-                                <span>
-                                    <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
-                                </span>
-                                <div class="list__employee-description">
-                                    <span class="list__employee-description-name">${listCer.cerName}</span>                 
+            <c:forEach var="listEmp" items="${listEmp.rows}">
+                <c:if test="${listEmp.idEmp ne null}">
+                    <div class="accordion accordion-flush" id="accordionFlush${listEmp.idEmp}">
+                        <div class="accordion-item">
+                            <c:if test="${requestScope.empId ne null || requestScope.nameEmp ne null}">
+                                <c:if test="${requestScope.empId eq listEmp.idEmp && fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) || fn:contains(fn:toLowerCase(listEmp.name),fn:toLowerCase(requestScope.nameEmp)) && requestScope.nameEmp ne null}">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                            <div class="dependent-name">
+                                                <span>Id ${listEmp.idEmp} - </span>
+                                                <p>${listEmp.name}</p>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${requestScope.empId eq null && requestScope.nameEmp eq null}">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${listEmp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${listEmp.idEmp}">
+                                        <div class="dependent-name">
+                                            <span>Id ${listEmp.idEmp} - </span>
+                                            <p>${listEmp.name}</p>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </c:if>
+                            <div id="flush-collapse${listEmp.idEmp}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush${listEmp.idEmp}">
+                                <div class="accordion-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>                 
+                                                <th>Certificate ID</th>
+                                                <th>Certificate name</th>
+                                                <th>Date of issue</th>
+                                                <th>Type certificate</th>
+                                                <th>Update</th>
+                                            </tr>
+                                        </thead>
+                                        <c:forEach var="listCer" items="${requestScope.listCer}">
+                                            <c:if test="${listEmp.idEmp eq listCer.idEmp}">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>${listCer.cerId}</td>
+                                                        <td class="list__employee-item">
+                                                            <span>
+                                                                <img class="list__employee-item-img" src='images/${listCer.imgPath}'>
+                                                            </span>
+                                                            <div class="list__employee-description">
+                                                                <span class="list__employee-description-name">${listCer.cerName}</span>                 
+                                                            </div>
+                                                        </td>
+                                                        <td>${listCer.doi}</td>
+                                                        <td>${listCer.type}</td>
+                                                        <td><a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </c:if>
+                                        </c:forEach>
+                                    </table>
                                 </div>
-                            </td>
-                            <td>${listCer.doi}</td>
-                            <td>${listCer.type}</td>                            
-                            <td> <a href="mainController?action=updateCertificate&&idEmp=${listCer.idEmp}&&cerId=${listCer.cerId}&&idTypeCer=${listCer.idTypeCer}"><i class="fas fa-edit"></i></a></td>
-                        </tr>                        
-                    </c:forEach>
-                </tbody>
-                <c:if test="${updateSuccess != null}" >
-                    <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
+                            </div>
+                        </div>
+                    </div>
                 </c:if>
-                <c:if test="${updateFail != null}" >
-                    <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
-                </c:if>
-            </table>
+            </c:forEach>
+            <c:if test="${updateSuccess != null}" >
+                <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
+            </c:if>
+            <c:if test="${updateFail != null}" >
+                <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
+            </c:if>
         </div>
     </body>
 </html>

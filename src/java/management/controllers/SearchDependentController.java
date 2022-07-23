@@ -50,10 +50,16 @@ public class SearchDependentController extends HttpServlet {
                 if (list.isEmpty()) {
                     request.setAttribute("listDependent", list);
                     request.setAttribute("SearchRS", "No Match");
-                    url= ERROR;
+                    url = ERROR;
                 } else {
                     request.setAttribute("listDependent", list);
-                    url= SUCCESS;
+                    if (!keywordidemp.trim().isEmpty()) {
+                        request.setAttribute("empId", keywordidemp);
+                    }
+                    if (!keywordname.trim().isEmpty()) {
+                        request.setAttribute("nameEmp", keywordname);
+                    }
+                    url = SUCCESS;
                 }
             }
         } catch (Exception e) {
