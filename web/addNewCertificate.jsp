@@ -87,10 +87,10 @@
                 </div>
 
                 <c:if test="${filedBlank != null}">
-                    <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
+                    <p style="color: red" ><c:out value="${filedBlank}"/></p> 
                 </c:if>
                 <c:if test="${Success != null}">
-                    <h3 style="color: green" ><c:out value="${Success}"/></h3> 
+                    <p style="color: green" ><c:out value="${Success}"/></p> 
                 </c:if>
                 <c:if test="${Fail != null}">
                     <c:out value="${Fail}"/>
@@ -113,21 +113,21 @@
                             <span> Name certificate</span>
                             <input class="form-control" name="nameCer" value="${param.nameCer}">   
                             <c:if test="${nameInvalid != null}">
-                                <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                                <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
                             </c:if>
                         </div>
                         <div class="form-group" style="margin-top: 16px">
                             <span> Image</span>
                             <input class="form-control" name="imgPath" type="file" accept="image/*">   
                             <c:if test="${nameInvalid != null}">
-                                <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                                <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
                             </c:if>
                         </div>
                         <div class="form-group">
                             <span>Date of isuess</span>
                             <input class="form-control" name="doi" type="date" value="${param.doi}"> 
                             <c:if test="${requestScope.checkDoi != null}" >
-                                <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
+                                <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>
                             </c:if>
                         </div>
                         <div class="form-group ">

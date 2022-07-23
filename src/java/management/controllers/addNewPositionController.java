@@ -7,7 +7,6 @@ package management.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -15,16 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import management.dao.EmployeeDAO;
 import management.dao.PositionDAO;
-import management.dto.EmployeeDTO;
-import management.dto.PositionDTO;
+import management.regex.RegexDep;
 
 /**
  *
  * @author AD
  */
-public class promoteAndDemoteController extends HttpServlet {
+public class addNewPositionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,11 +37,37 @@ public class promoteAndDemoteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<EmployeeDTO> listEmpPos = PositionDAO.listEmpPos();
-            ArrayList<PositionDTO> listPos = PositionDAO.listPosition();
-            request.setAttribute("listEmpPos", listEmpPos);
-            request.setAttribute("lp", listPos);
-            request.getRequestDispatcher("PromoteAndDemotePosition.jsp").forward(request, response);
+            String posName = request.getParameter("posName");
+            String posDes = request.getParameter("posDes");
+            String creator = request.getParameter("creator");
+            boolean checkPosName = RegexDep.checkDepName(posName);
+            boolean checkDes = RegexDep.checkPosDes(posDes);
+            boolean checkExitPos = PositionDAO.checkPosExist(posName);
+            if (checkExitPos == true) {
+                request.setAttribute("duplicateName", "Position name is already exits !");
+                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
+                return;
+            }
+            if (checkPosName == false) {
+                request.setAttribute("messPosName", "Position name from 1 to 30 character and no number !");
+                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
+                return;
+            } else if (checkDes == false) {
+                request.setAttribute("messDes", "Position description from 1 to 100 character and no number !");
+                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
+                return;
+            }
+            if (posName.equals("") || posDes.equals("")) {
+                request.setAttribute("allField", "all field are required !");
+                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
+                return;
+            }
+            boolean insertNewPos = PositionDAO.inserNewPos(posName, posDes, creator);
+            if (insertNewPos == true) {
+                request.setAttribute("addSuccess", "add new success !");
+                request.getRequestDispatcher("listPositionController").forward(request, response);
+            }
+
         }
     }
 
@@ -63,7 +86,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewPositionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,7 +104,7 @@ public class promoteAndDemoteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(promoteAndDemoteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(addNewPositionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

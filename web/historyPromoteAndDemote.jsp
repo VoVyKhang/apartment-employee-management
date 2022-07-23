@@ -80,8 +80,8 @@
                     <div class="col-sm-6 col-md-3 mt-3">
                         <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
                             <option value="" <c:if test="${null eq sessionScope.typehispos}">selected=""</c:if>>All Type</option>
-                            <option value="0" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
-                            <option value="1" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
+                            <option value="1" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
+                            <option value="0" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3">
@@ -120,7 +120,7 @@
                                 <td>${listHisPos.deliveryDate}</td>
                                 <td>${listHisPos.exactDate}</td>
                                 <td> <c:choose>
-                                        <c:when test="${listHisPos.type eq 0}">
+                                        <c:when test="${listHisPos.type eq 1}">
                                             Promote
                                         </c:when>
                                         <c:otherwise>

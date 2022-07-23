@@ -29,6 +29,20 @@ public class PositionDTO {
     public PositionDTO() {
     }
 
+    public PositionDTO(int idPos, String posName, String description) {
+        this.idPos = idPos;
+        this.posName = posName;
+        this.description = description;
+    }
+
+    public PositionDTO(int idPos, String posName) {
+        this.idPos = idPos;
+        this.posName = posName;
+    }
+    
+    
+      
+
     public int getIdPos() {
         return idPos;
     }

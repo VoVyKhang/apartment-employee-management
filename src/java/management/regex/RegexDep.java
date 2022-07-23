@@ -38,6 +38,13 @@ public class RegexDep {
         }
         return true;
     }
+    
+     public static boolean checkPosDes(String des) {
+        if (des.length() < 1 || des.length() > 100) {
+            return false;
+        }
+        return true;
+    }
 
     //location
     public static boolean checkDepLoc(String location) {

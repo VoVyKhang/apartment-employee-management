@@ -42,7 +42,7 @@ public class saveChangeCertificateController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String cerID = request.getParameter("cerID");
             String cerName = request.getParameter("cerName");
@@ -54,7 +54,7 @@ public class saveChangeCertificateController extends HttpServlet {
             String fileName = extractFileName(part);
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(cerName);
-            boolean checkDoi = RegexEmp.checkValidationDob(doi);
+            boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
             if (cerName.equals("") || doi.equals("0000-00-00")) {
                 ArrayList<CertificateDTO> listCerObject = CertificateDAO.listCertificateObject(idEmp, cerID);
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
@@ -91,9 +91,9 @@ public class saveChangeCertificateController extends HttpServlet {
                     String path2 = "";
                     for (int j = 0; j < list.length; j++) {
                         if (!list[j].toString().equals("apartment-employee-management")) {
-                            path2 = path2 + list[j].toString() + "\\" ;
-                        }else{
-                            path2 = path2 + list[j].toString() + "\\" + "web" ;
+                            path2 = path2 + list[j].toString() + "\\";
+                        } else {
+                            path2 = path2 + list[j].toString() + "\\" + "web";
                             break;
                         }
                     }

@@ -38,7 +38,7 @@ public class savePositionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
             int idPos = Integer.parseInt(request.getParameter("idPos"));

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import management.dao.PositionDAO;
+import management.dto.PositionDTO;
+import management.regex.RegexDep;
 
 /**
  *
@@ -35,18 +37,37 @@ public class updatePositionController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
+            int idPos = Integer.parseInt(request.getParameter("idPos"));
             String posName = request.getParameter("posName");
-            String posDescription = request.getParameter("posDescription");
-            int idPos = Integer.parseInt((String) ss.getAttribute("idPos"));
-            boolean result = PositionDAO.updatePosition(posName, posDescription, idPos);
+            String description = request.getParameter("posDescription");
+            PositionDTO p = new PositionDTO(idPos, posName, description);
+            boolean checkPosName = RegexDep.checkDepName(posName);
+            boolean checkDescription = RegexDep.checkPosDes(description);
+            if(posName.equals("") || description.equals("")){
+                request.setAttribute("position", p);
+                request.setAttribute("allFieldRequired", "All field are required !");
+                request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
+                return;
+            }
+            
+            if (checkPosName == false) {
+                request.setAttribute("position", p);
+                request.setAttribute("errorMess", "position name must from 1 to 30 character and no contain number !");
+                request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
+                return;
+            }else if(checkDescription == false){
+                request.setAttribute("position", p);
+                request.setAttribute("errorMessDes", "description must from 1 to 100 character and no contain number !");
+                request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
+                return;
+            }
+            boolean result = PositionDAO.updatePosition(posName, description, idPos);
             if (result == true) {
                 request.setAttribute("updateSuccess", "Update success");
-                request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
-
+                request.getRequestDispatcher("listPositionController").forward(request, response);
             } else {
                 request.setAttribute("updateFail", "Update fail");
-                request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
+                request.getRequestDispatcher("listPositionController").forward(request, response);
             }
         }
     }

@@ -42,7 +42,7 @@ public class saveNewCertificateController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String nameCer = request.getParameter("nameCer");
             String doi = request.getParameter("doi");
@@ -51,7 +51,7 @@ public class saveNewCertificateController extends HttpServlet {
             Part part = request.getPart("imgPath");
             String fileName = extractFileName(part);
             boolean checkName = RegexEmp.checkEmpName(nameCer);
-            boolean checkDoi = RegexEmp.checkValidationDob(doi);
+            boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
             int i = 0;
             if (nameCer.equals("") || doi.equals("0000-00-00")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");

@@ -47,21 +47,21 @@ public class saveNewDependentController extends HttpServlet {
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
-            boolean checkDob = RegexEmp.checkValidationDob(dob);
+            boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
             if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || EmpId.equals("")) {
-                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.setAttribute("filedBlank", "Do not leave any fields blank !");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
             if (checkName == false) {
-                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.setAttribute("nameInvalid", " name dependent only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
             if (checkRelationship == false) {
-                request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                request.setAttribute("checkRelationship", "Relationship only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }

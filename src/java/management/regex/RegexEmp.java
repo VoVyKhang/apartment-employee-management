@@ -7,6 +7,7 @@ package management.regex;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import management.dao.CertificateDAO;
 import management.dao.EmployeeDAO;
 
 /**
@@ -49,7 +50,7 @@ public class RegexEmp {
         }
         return false;
     }
-    
+
     //Check baseSalary only contain number and between 1000000 to 100000000
     public static boolean checkSalary(String Salary) {
         boolean check = checkOnlyNumber(Salary);
@@ -83,11 +84,22 @@ public class RegexEmp {
         }
         return false;
     }
-    
+
     //Check exactDate
     public static boolean checkValidationExactDate(String exactDate) {
         try {
             if (EmployeeDAO.checkExactDate(exactDate)) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexEmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean checkValidationCertiDate(String certiDate) {
+        try {
+            if (CertificateDAO.checkCertiDate(certiDate)) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -130,7 +142,7 @@ public class RegexEmp {
     }
 
     //Check field null of employee
-    public static boolean chekcEmpFieldNull(String name,String baseSalary, String add, String phone, String dob, String exact, String email, String pass) {
+    public static boolean chekcEmpFieldNull(String name, String baseSalary, String add, String phone, String dob, String exact, String email, String pass) {
         if (name.equals("") || name == null
                 || baseSalary.equals("") || baseSalary == null
                 || add.equals("") || add == null
@@ -157,7 +169,7 @@ public class RegexEmp {
     }
 
     //check all
-    public static boolean checkEmpValidation(String name,String salary, String add, String phone, String dob, String exact, String email, String pass) {
+    public static boolean checkEmpValidation(String name, String salary, String add, String phone, String dob, String exact, String email, String pass) {
         if (checkEmpName(name)
                 && checkSalary(salary)
                 && checkEmpAddress(add)
