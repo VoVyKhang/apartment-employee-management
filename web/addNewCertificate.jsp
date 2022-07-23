@@ -65,18 +65,18 @@
 
         <c:if test="${requestScope.listEmp != null}">          
             <div style="width: 100%; margin: 3% 20%" class="modal-content">
-                <c:if test="${requestScope.idEmp ne ''}">
-                    <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
+                <c:if test="${requestScope.EmpId ne null}">
+                    <a href="mainController?action=passidemp&empid=${requestScope.EmpId}&type=detail">Back</a>
                 </c:if>
                 <div class="modal-header">
                     <div>
                         <h4 style="margin-left: 4px" class="page-title">Add new certificate</h4>
                         <div>
                             <ul class="breadcrumb">
-                                <c:if test="${requestScope.idEmp ne ''}">
-                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                <c:if test="${requestScope.EmpId ne null}">
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.EmpId}&type=detail">Employee</a></li>
                                     </c:if>
-                                    <c:if test="${requestScope.idEmp eq ''}">
+                                    <c:if test="${requestScope.EmpId eq null}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                     </c:if>
                                 <li class="breadcrumb-item"><a href="mainController?action=listCertificate">Certificate</a></li>
@@ -99,7 +99,7 @@
                     <form action="mainController" class="form-position" method="POST" enctype="multipart/form-data">            
                         <div class="form-group">
                             <c:choose>
-                                <c:when test="${requestScope.idEmp eq ''}">
+                                <c:when test="${requestScope.EmpId eq null}">
                                     <div style="margin-bottom: 4px">Select employee</div>                                      
                                     <select name="idEmp" class="certificate-select">
                                         <c:forEach var="listEmp" items="${requestScope.listEmp}">
@@ -140,8 +140,9 @@
                         </div>
 
                         <div style="margin-top: 20px; text-align: center">
-                            <c:if test="${param.idEmp ne ''}">
-                                <input type="hidden" name="idEmp" value="${param.idEmp}">
+                            <c:if test="${requestScope.EmpId ne null}">
+                                <input type="hidden" name="idEmp" value="${requestScope.EmpId}">
+                                <input type="hidden" name="flag" value="flag">
                             </c:if>
                             <input class="btn search-btn" type="submit" value="Save">
                             <input type="hidden" name="action" value="saveNewCertificate">

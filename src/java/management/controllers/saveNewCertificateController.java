@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import management.dao.CertificateDAO;
-import management.dao.EmployeeDAO;
-import management.dto.CertificateDTO;
-import management.dto.EmployeeDTO;
 import management.regex.RegexEmp;
 
 /**
@@ -45,20 +41,24 @@ public class saveNewCertificateController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             /* TODO output your page here. You may use following sample code. */
             String nameCer = request.getParameter("nameCer");
             String doi = request.getParameter("doi");
             String type = request.getParameter("type");
             String idEmp = request.getParameter("idEmp");
+            String flag = request.getParameter("flag");
             Part part = request.getPart("imgPath");
             String fileName = extractFileName(part);
             boolean checkName = RegexEmp.checkEmpName(nameCer);
             boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
             int i = 0;
+            if(flag != null){
+                request.setAttribute("EmpId", idEmp);
+            }
             if (nameCer.equals("") || doi.equals("1900-01-01")) {
-                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
+                request.setAttribute("filedBlank", "Do not leave any fields blank,  Add fail");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             } else if (checkName == false) {
@@ -67,6 +67,10 @@ public class saveNewCertificateController extends HttpServlet {
                 i++;
             } else if (checkDoi == false) {
                 request.setAttribute("checkDoi", "Can only enter the date before today");
+                request.getRequestDispatcher("addNewCertificateController").forward(request, response);
+                i++;
+            } else if (fileName.isEmpty() || fileName.equals("")) {
+                request.setAttribute("filedBlank", "Choose a Image!!");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             }
@@ -92,11 +96,22 @@ public class saveNewCertificateController extends HttpServlet {
 
                 }
                 if (result == true) {
-                    ss.setAttribute("Success", "Success");
-                    response.sendRedirect("listCertificateController");
+                    if (flag == null) {
+                        ss.setAttribute("Success", "Success");
+                        response.sendRedirect("listCertificateController");
+                    } else {
+                        ss.setAttribute("Success", "Success");
+                        response.sendRedirect("mainController?action=passidemp&empid="+idEmp+"&type=detail");
+                    }
+
                 } else {
-                    request.setAttribute("Fail", "Add new fail, wrong date format");
-                    request.getRequestDispatcher("listCertificateController").forward(request, response);
+                    if (flag == null) {
+                        ss.setAttribute("Success", "Error");
+                        response.sendRedirect("listCertificateController");
+                    } else {
+                        ss.setAttribute("Success", "Error");
+                        response.sendRedirect("mainController?action=passidemp&empid="+idEmp+"&type=detail");
+                    }
                 }
             }
         }

@@ -110,7 +110,13 @@
                     </div>
                 </div>
             </div>
-
+            <c:if test="${sessionScope.Success != null}">
+                <p style="color: green" ><c:out value="${sessionScope.Success}"/></p> 
+            </c:if>
+            <%
+                HttpSession ss = request.getSession();
+                ss.removeAttribute("Success");
+            %>
             <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
@@ -125,7 +131,7 @@
                                 <sql:query dataSource = "${snapshot}" var = "listcontract">
                                     select c.idContract,  t.name, signDay, expDay, hc.status
                                     from Contract as c, TypeContract as t, HistoryContract hc, Employee e
-                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.idEmp = ${requestScope.Employee.idEmp}
+                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 and hc.idEmp = ${requestScope.Employee.idEmp}
                                 </sql:query>
 
                                 <ul class="personal-info">
@@ -169,7 +175,7 @@
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Dependent Informations </h3>
-                                <a href="mainController?action=addNewDependent&idEmp=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
+                                <a href="mainController?action=addNewDependent&EmpId=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">
@@ -214,7 +220,7 @@
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
                                 <h3 class="card-title">Certificate Informations </h3>
-                                <a href=" mainController?action=add new certificate&idEmp=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
+                                <a href=" mainController?action=add new certificate&EmpId=${requestScope.Employee.idEmp}"><i class="fas fa-plus-square"></i></a>
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"

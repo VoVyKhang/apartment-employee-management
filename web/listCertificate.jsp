@@ -249,25 +249,11 @@
                     </div>
                 </c:if>
             </c:forEach>
-
-
-
-
             <%
                 HttpSession ss = request.getSession();
                 ss.removeAttribute("Success");
             %>
-
-
             <!--End for each-->
-
-            <c:if test="${updateSuccess != null}" >
-                <p style="color: green" ><c:out value="${updateSuccess}" /></p>
-            </c:if>
-            <c:if test="${updateFail != null}" >
-                <p style="color: red" > <c:out value="${updateFail}" /></p>
-            </c:if>
-
         </div>
     </body>
 </html>

@@ -37,19 +37,22 @@ public class saveNewDependentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession ss = request.getSession();
             String name = request.getParameter("name");
             String gender = request.getParameter("gender");
             String dob = request.getParameter("dob");
             String relationship = request.getParameter("relationship");
-            String EmpId = request.getParameter("empId");
-            String idEmp = request.getParameter("idEmp");
+            String EmpId = request.getParameter("idEmp");
+            String flag = request.getParameter("flag");
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
+            if(flag != null){
+                request.setAttribute("EmpId", EmpId);
+            }
             if (name.equals("") || dob.equals("1900-01-01") || relationship.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank !");
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
@@ -77,13 +80,20 @@ public class saveNewDependentController extends HttpServlet {
             if (i == 0) {
                 boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, EmpId);
                 if (result == true) {
-                    request.setAttribute("Success", "Add new Success");
-                    request.setAttribute("idEmp", "flag");
-                    request.getRequestDispatcher("listDependentController").forward(request, response);
+                    if (flag == null) {
+                        ss.setAttribute("Success", "Add new Success");
+                        response.sendRedirect("listDependentController");
+                    }else{
+                        ss.setAttribute("Success", "Add new Success");
+                        response.sendRedirect("mainController?action=passidemp&empid="+EmpId+"&type=detail");
+                    }
                 } else {
-                    request.setAttribute("Fail", "Add new fail, wrong date format !");
-                    request.setAttribute("idEmp", idEmp);
-                    request.getRequestDispatcher("listDependentController").forward(request, response);
+                    if (flag == null) {
+                        ss.setAttribute("Success", "Add new Success");
+                        response.sendRedirect("listDependentController");
+                    }else{
+                        response.sendRedirect("mainController?action=passidemp&empid="+EmpId+"&type=detail");
+                    }
                 }
 
             }

@@ -39,20 +39,19 @@ public class addNewCertificateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String idEmp = request.getParameter("idEmp");
-            if (idEmp == null) {
+            String EmpId = request.getParameter("EmpId");
+            if (EmpId == null) {
                 ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listTypeCer", listTypeCer);
                 request.setAttribute("listEmp", listEmp);
-                request.setAttribute("idEmp", "");
                 request.getRequestDispatcher("addNewCertificate.jsp").forward(request, response);
             } else {
                 ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listTypeCer", listTypeCer);
                 request.setAttribute("listEmp", listEmp);
-                request.setAttribute("idEmp", idEmp);
+                request.setAttribute("EmpId", EmpId);
                 request.getRequestDispatcher("addNewCertificate.jsp").forward(request, response);
             }
         }

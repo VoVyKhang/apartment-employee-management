@@ -38,16 +38,15 @@ public class addNewDependentController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String idEmp = request.getParameter("idEmp");
+            String idEmp = request.getParameter("EmpId");
             if (idEmp == null) {
                 ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
                 request.setAttribute("listEmp", listEmp);
-                request.setAttribute("idEmp", "");
                 request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
             }else{
                 ArrayList<EmployeeDTO> listEmp = EmployeeDAO.listEmp();
                 request.setAttribute("listEmp", listEmp);
-                request.setAttribute("idEmp", idEmp);
+                request.setAttribute("EmpId", idEmp);
                 request.getRequestDispatcher("AddNewDependent.jsp").forward(request, response);
             }
         }
