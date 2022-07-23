@@ -119,6 +119,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
+
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
@@ -133,6 +134,8 @@
                 select posName
                 from Position
             </sql:query>
+
+
             <div style="margin: 0 16px" >
                 <div class="modal-header" style="margin: 0 0 0 -16px">
                     <div style="width: 100%">
@@ -192,6 +195,7 @@
                     <c:if test="${requestScope.listEmpPos != null}">
                         <c:if test="${not empty requestScope.listEmpPos}">
 
+
                             <table class="table table-bordered list-position" >
                                 <thead>
                                     <tr>
@@ -208,6 +212,9 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach var="listEmpPos" varStatus="counter" items="${requestScope.listEmpPos}">
+                                        <sql:query dataSource = "${snapshot}" var = "listPosAndID">
+                                            SELECT idPos, posName FROM Position
+                                        </sql:query>
                                     <form action="mainController">
                                         <tr>
                                             <td scope="row">${listEmpPos.idEmp}</td>     
@@ -230,18 +237,18 @@
 
                                             <td> 
                                                 <select name="type">
-                                                    <option value="0">Promote</option>
-                                                    <option value="1">Demote</option>                                               
+                                                    <option value="1">Promote</option>
+                                                    <option value="0">Demote</option>                                               
                                                 </select>
                                             </td>
 
 
                                             <td>
-                                                <select name="idPos" >
-                                                    <option value="1">Manager</option>
-                                                    <option value="2">Deputy</option>
-                                                    <option value="3">Employee</option>
-                                                </select>
+                                                <select name="idPos" class="certificate-select">
+                                                    <c:forEach var="listPosAndID" items="${listPosAndID.rows}">
+                                                        <option value="${listPosAndID.idPos}" ><c:out value="${listPosAndID.posName}"/></option>                        
+                                                    </c:forEach>
+                                                </select> 
                                             </td>
 
                                             <td>

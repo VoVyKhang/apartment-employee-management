@@ -97,7 +97,18 @@
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group mb-3 mt-3">
                                 <input type="text" class="form-control" id="email" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter employee name..." name="empname">
+<<<<<<< HEAD
                             </div>
+=======
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mt-3">
+                        <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
+                            <option value="" <c:if test="${null eq sessionScope.typehispos}">selected=""</c:if>>All Type</option>
+                            <option value="1" <c:if test="${0 eq sessionScope.typehispos}">selected="0"</c:if>>Promote</option>
+                            <option value="0" <c:if test="${1 eq sessionScope.typehispos}">selected="1"</c:if>>Demote</option>
+                            </select>
+>>>>>>> 3b6182e680e6804289a874bb983a1b1b75a2ec66
                         </div>
                         <div class="col-sm-6 col-md-3 mt-3">
                             <select class="form-select form-select-md-5 mb-1 list-options" name="typehispos"> 
@@ -120,6 +131,7 @@
                         </div>
                     </form>
 
+<<<<<<< HEAD
                     <!--begin for each-->              
 
                 <c:forEach var="listEmp" items="${listEmp.rows}">
@@ -196,14 +208,147 @@
                                         </c:forEach>
                                     </table>
                                 </div>
+=======
+            <c:if test="${requestScope.listHisPos != null}">
+                <c:if test="${not empty requestScope.listHisPos}">
+
+                    <table class="table table-bordered">
+                        <thead >
+                            <tr style="text-align: center">
+                                <th scope="col">ID History</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Exact Date</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <c:forEach var="listHisPos" varStatus="counter" items="${requestScope.listHisPos}">    
+                            <tr style="text-align: center" class="pd-body">
+                                <td>${listHisPos.idHisPos}</td>                            
+                                <td>${listHisPos.nameEmp}</td>
+                                <td>${listHisPos.posName}</td>
+                                <td>${listHisPos.deliveryDate}</td>
+                                <td>${listHisPos.exactDate}</td>
+                                <td> <c:choose>
+                                        <c:when test="${listHisPos.type eq 1}">
+                                            Promote
+                                        </c:when>
+                                        <c:otherwise>
+                                            Demote
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td >
+                                    <c:choose>
+                                        <c:when test="${listHisPos.status eq 1}">
+                                            <p style="color:green; margin-bottom: 0">Active</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p style="color:red; margin-bottom: 0">Inactive</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>                        
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--                    <table class="table table-bordered">
+                                        <thead >
+                                            <tr style="text-align: center">
+                                                <th scope="col">ID History</th>
+                                                <th scope="col">Employee</th>
+                                                <th scope="col">Position</th>
+                                                <th scope="col">Delivery Date</th>
+                                                <th scope="col">Exact Date</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                <c:forEach var="listHisPos" varStatus="counter" items="${requestScope.listHisPos}">    
+                    <tr style="text-align: center" class="pd-body">
+                        <td>${listHisPos.idHisPos}</td>                            
+                        <td>${listHisPos.nameEmp}</td>
+                        <td>${listHisPos.posName}</td>
+                        <td>${listHisPos.deliveryDate}</td>
+                        <td>${listHisPos.exactDate}</td>
+                        <td> <c:choose>
+                        <c:when test="${listHisPos.type eq 0}">
+                            Promote
+                        </c:when>
+                        <c:otherwise>
+                            Demote
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td >
+                    <c:choose>
+                        <c:when test="${listHisPos.status eq 1}">
+                            <p style="color:green; margin-bottom: 0">Active</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p style="color:red; margin-bottom: 0">Inactive</p>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>                        
+                </c:forEach>
+                </tbody>
+            </table>-->
+
+
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Id 1 - Nguyen Phuoc Thinh
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead >
+                                        <tr style="text-align: center">
+                                            <th scope="col">ID History</th>
+                                            <th scope="col">Employee</th>
+                                            <th scope="col">Department</th>
+                                            <th scope="col">Delivery Date</th>
+                                            <th scope="col">Exact Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="text-align: center">
+                                            <td>2</td>                            
+                                            <td>Nguyen Phuoc Thinh</td>
+                                            <td>technical</td>
+                                            <td>22/7/2022</td>
+                                            <td>23/7/2022</td>
+                                            <td>
+                                                <p style="color:green">Active</p>
+                                            </td>
+                                        </tr>                        
+                                    </tbody>
+                                </table>
+>>>>>>> 3b6182e680e6804289a874bb983a1b1b75a2ec66
                             </div>
                         </div>
+
                     </div>
+<<<<<<< HEAD
                 </c:forEach>
 
                 <!--End for each-->
 
             </div>
+=======
+                </div>
+            </c:if>
+
+>>>>>>> 3b6182e680e6804289a874bb983a1b1b75a2ec66
         </c:if>
     </body>
 </html>

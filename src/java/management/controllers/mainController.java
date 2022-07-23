@@ -25,7 +25,7 @@ public class mainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             String action = request.getParameter("action");
             if (action.equals("showlist")) {
                 url = "listHallManagerController";
@@ -119,7 +119,7 @@ public class mainController extends HttpServlet {
                 url = "AddNewCertPageController";
             } else if (action.equals("addNewCertEmp")) {
                 url = "AddNewCertEmpController";
-            } else if(action.equals("addNewDependent")){
+            } else if (action.equals("addNewDependent")) {
                 url = "addNewDependentController";
             } else if (action.equals("saveNewDependent")) {
                 url = "saveNewDependentController";
@@ -157,14 +157,16 @@ public class mainController extends HttpServlet {
                 url = "saveNewDependentEmpController";
             } else if (action.equals("showDepartmentEmp")) {
                 url = "showDepartmentEmpController";
-            } else if(action.equals("showHisDepEmp")){
+            } else if (action.equals("showHisDepEmp")) {
                 url = "showHisDepEmpController";
-            } else if(action.equals("showHisPosEmp")){
+            } else if (action.equals("showHisPosEmp")) {
                 url = "showHisPosEmpController";
-            } else if(action.equals("detailDep")){
+            } else if (action.equals("detailDep")) {
                 url = "detailDepController";
-            } else if(action.equals("showHisCon")){
+            } else if (action.equals("showHisCon")) {
                 url = "showHisConController";
+            } else if (action.equals("addNewPosition")) {
+                url = "addNewPositionController";
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -241,10 +241,10 @@
             <!--End for each-->
             
             <c:if test="${updateSuccess != null}" >
-                <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
+                <p style="color: green" ><c:out value="${updateSuccess}" /></p>
             </c:if>
             <c:if test="${updateFail != null}" >
-                <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
+                <p style="color: red" > <c:out value="${updateFail}" /></p>
             </c:if>
         </div>
     </body>

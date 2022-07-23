@@ -80,13 +80,13 @@
                     </div>
                 </div>
                 <c:if test="${filedBlank != null}">
-                    <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
+                    <p style="color: red" ><c:out value="${filedBlank}"/></p> 
                 </c:if>
                 <c:if test="${Success != null}">
-                    <h3 style="color: green" ><c:out value="${Success}"/></h3> 
+                    <p style="color: green" ><c:out value="${Success}"/></p> 
                 </c:if>
                 <c:if test="${Fail != null}">
-                    <c:out value="${Fail}"/>
+                    <p style="color: red" ><c:out value="${Fail}"/></p>
                 </c:if>
                 <div class="modal-body">
                     <form action="mainController" class="form-position">
@@ -104,7 +104,7 @@
                             <span>Dependent name</span>
                             <input class="form-control" name="name" value="${param.name}">   
                             <c:if test="${nameInvalid != null}">
-                                <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                                <p style="color: red" >${nameInvalid}</p> 
                             </c:if>
                         </div>
                         <div class="form-group">
@@ -117,16 +117,16 @@
                         </div>
                         <div class="form-group ">
                             <div style="margin-bottom: 4px">Date of birth</div>
-                            <input class="form-control" name="dob" value="${param.dob}" type="date">
+                            <input class="form-control" name="dob" value="${param.dob}" type="date" required="" >
                             <c:if test="${requestScope.checkDob != null}" >
-                                <h3 style="color: red" ><c:out value="${requestScope.checkDob}" /></h3>
+                                <p style="color: red" >${requestScope.checkDob}</p>
                             </c:if>
                         </div>
                         <div class="form-group">
                             <span>Relationship</span>
                             <input class="form-control" name="relationship" value="${param.relationship}"> 
                             <c:if test="${checkRelationship != null}">
-                                <h3 style="color: red" ><c:out value="${checkRelationship}"/></h3> 
+                                <p style="color: red" ><c:out value="${checkRelationship}"/></p> 
                             </c:if>
                         </div>
 

@@ -73,7 +73,7 @@
                 </div>
 
             <c:if test="${filedBlank != null}">
-                <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
+                <p style="color: red" ><c:out value="${filedBlank}"/></p> 
             </c:if>
             <c:if test="${Success != null}">
                 <h3 style="color: green" ><c:out value="${Success}"/></h3> 

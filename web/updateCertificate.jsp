@@ -30,7 +30,7 @@
                 margin-top: 8px
             }
             .breadcrumb{
-                background-color: #f7f7f7 !important;  
+                background-color: #f7f7f7 !important;
                 margin-bottom: 0 !important
             }
 
@@ -40,9 +40,7 @@
 
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
-        <c:if test="${requestScope.filedBlank != null}" >
-            <h3 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h3>
-        </c:if>
+
 
 
         <c:if test="${requestScope.listCerObject != null}">
@@ -61,12 +59,7 @@
                     </div>
                 </div>
 
-                <c:if test="${nameInvalid != null}">
-                    <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
-                </c:if>
-                <c:if test="${requestScope.checkDoi != null}" >
-                    <h3 style="color: red" ><c:out value="${requestScope.checkDoi}" /></h3>
-                </c:if>
+
                 <table class="table table-striped list-certificate">
                     <thead>
                         <tr>
@@ -90,7 +83,7 @@
                                     <input name="imgPath" type="file" accept="image/*">
                                 </td>
                                 <td><input name="cerName" value="${listCerObject.cerName}"></td>
-                                <td><input name="doi" type="date" value="${listCerObject.doi}"></td>
+                                <td><input name="doi" type="date" value="${listCerObject.doi}" required=""></td>
                                 <td>
                                     <select name="idTypeCer" >
                                         <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">                                       
@@ -110,6 +103,15 @@
                                 </td>
                             </tr>                        
                         </c:forEach>
+                        <c:if test="${requestScope.filedBlank != null}" >
+                            <p style="color: red" ><c:out value="${requestScope.filedBlank}" /></p>
+                        </c:if>
+                        <c:if test="${nameInvalid != null}">
+                            <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
+                        </c:if>
+                        <c:if test="${requestScope.checkDoi != null}" >
+                            <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>
+                        </c:if>
                     </form>
                     </tbody>
                 </table>

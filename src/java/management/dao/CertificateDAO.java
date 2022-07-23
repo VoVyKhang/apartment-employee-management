@@ -39,6 +39,13 @@ public class CertificateDAO {
     private static final String SEARCH_CER = "SELECT e.idEmp, e.name, c.cerID, c.cerName, c.doi, c.imgPath, t.name as cerType, t.idTypeCer\n"
             + "FROM Employee as e, Certificate as c, TypeCertificate as t\n"
             + "WHERE e.idEmp = c.idEmp AND c.idTypeCer = t.idTypeCer and e.idEmp like ?  and t.name like ? and e.name like ?";
+
+    private static final String CHECK_CERTIFICATE_DATE = "DECLARE @today date, @certiDate date;\n"
+            + "            SET @today = CAST( GETDATE() AS date);\n"
+            + "            SET @certiDate = ?;\n"
+            + "	           IF @certiDate < @today\n"
+            + "            SELECT 'true' as flag\n"
+            + "            ELSE SELECT 'false' as flag";
     private static Connection cn = null;
     private static PreparedStatement pst = null;
     private static Statement st = null;
@@ -80,7 +87,7 @@ public class CertificateDAO {
         return listCer;
     }
 
-    public static boolean insertCertificate(String cerName, String doi,String filePath, String idEmp, String idTypeCer) throws SQLException {
+    public static boolean insertCertificate(String cerName, String doi, String filePath, String idEmp, String idTypeCer) throws SQLException {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
@@ -208,14 +215,14 @@ public class CertificateDAO {
     }
 
     //List all certificate filter 
-    public static ArrayList<CertificateDTO> filterCer(String empid, String empname , String typecer) throws SQLException {
+    public static ArrayList<CertificateDTO> filterCer(String empid, String empname, String typecer) throws SQLException {
         ArrayList<CertificateDTO> list = new ArrayList<>();
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
                 pst = cn.prepareStatement(SEARCH_CER);
                 pst.setString(1, "%" + empid + "%");
-                pst.setString(2, "%" + typecer + "%" );
+                pst.setString(2, "%" + typecer + "%");
                 pst.setString(3, "%" + empname + "%");
                 rs = pst.executeQuery();
                 while (rs.next()) {
@@ -227,7 +234,7 @@ public class CertificateDAO {
                     String imgPath = rs.getString("imgPath");
                     String type = rs.getString("cerType");
                     int idTypeCer = rs.getInt("idTypeCer");
-                    CertificateDTO cer = new CertificateDTO(name, cerID, cerName, doi,imgPath, idTypeCer, type, idEmp);
+                    CertificateDTO cer = new CertificateDTO(name, cerID, cerName, doi, imgPath, idTypeCer, type, idEmp);
                     list.add(cer);
                 }
             }
@@ -273,6 +280,40 @@ public class CertificateDAO {
             }
             if (pst != null) {
                 pst.close();
+            }
+        }
+        return false;
+
+    }
+
+    public static boolean checkCertiDate(String certiDate) throws SQLException {
+        String check = "";
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                pst = cn.prepareStatement(CHECK_CERTIFICATE_DATE);
+                pst.setString(1, certiDate);
+                rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    check = rs.getString("flag");
+                    if (check.equals("true")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (cn != null) {
+                cn.close();
             }
         }
         return false;

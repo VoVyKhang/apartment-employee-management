@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import management.dto.PositionDTO;
 
 /**
  *
@@ -31,12 +32,12 @@ public class sessionPositionController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession ss = request.getSession(true);
-            String idPos = request.getParameter("idPos");
+            /* TODO output your page here. You may use following sample charsetode. */
+            int idPos = Integer.parseInt(request.getParameter("idPos"));
             String posName = request.getParameter("posName");
-            ss.setAttribute("idPos", idPos);
-            ss.setAttribute("posName", posName);
+            String description = request.getParameter("posDes");
+            PositionDTO p = new PositionDTO(idPos, posName, description);
+            request.setAttribute("position", p);
             request.getRequestDispatcher("updatePosition.jsp").forward(request, response);
         }
     }

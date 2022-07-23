@@ -276,6 +276,10 @@
         <servlet-name>showHisConController</servlet-name>
         <servlet-class>management.controllers.showHisConController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addNewPositionController</servlet-name>
+        <servlet-class>management.controllers.addNewPositionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -551,6 +555,10 @@
     <servlet-mapping>
         <servlet-name>showHisConController</servlet-name>
         <url-pattern>/showHisConController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addNewPositionController</servlet-name>
+        <url-pattern>/addNewPositionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -96,9 +96,7 @@
             statusLog = 1 and role = 0 and hc.status = 1
             order by idEmp ASC
         </sql:query>
-        <c:if test="${requestScope.updateFail != null}" >
-            <c:out value="${requestScope.updateFail}" />
-        </c:if>
+
         <c:if test="${requestScope.listDependent != null}">
 
             <div style="margin: 0 16px; width: 100%">
@@ -121,8 +119,17 @@
                         </div>
                     </div>
                 </div>
+                <c:if test="${requestScope.updateFail != null}" >
+                    <p style="color: red" ><c:out value="${requestScope.updateFail}" /></p> 
+                </c:if>
                 <c:if test="${requestScope.updateSuccess != null}" >
-                    <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
+                    <p style="color: green" ><c:out value="${requestScope.updateSuccess}" /></p>
+                </c:if>
+                <c:if test="${requestScope.Success != null}" >
+                    <p style="color: green" ><c:out value="${requestScope.Success}" /></p>
+                </c:if>
+                <c:if test="${requestScope.Fail != null}" >
+                    <p style="color: red" ><c:out value="${requestScope.Fail}" /></p>
                 </c:if>
                 <form action="mainController" method="post" class="form-reward-penalty">
                     <div class="row filter-row">
