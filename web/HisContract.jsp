@@ -20,7 +20,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .search-btn{
                 border: 1px solid #00c5fb;
                 border-radius: 50px;
@@ -34,7 +34,7 @@
                 text-transform: uppercase;
                 margin-top: 15px
             }
-            
+
             .breadcrumb{
                 background-color: #f7f7f7 !important;
                 margin-left: -14px;
@@ -50,7 +50,7 @@
                 padding: 0 !important;
                 vertical-align: middle !important
             }
-            
+
             .page-title{
                 margin-left: 4px;
                 margin-top: 16px
@@ -120,38 +120,76 @@
                 </form>
             <c:if test="${requestScope.listCon != null}">
                 <c:if test="${not empty requestScope.listCon}">
-                    <table class="table table-bordered">
-                        <thead >
-                            <tr style="text-align: center">
-                                <th scope="col">ID History</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Sign Day</th>
-                                <th scope="col">Expires Day</th>
-                                <th scope="col">Employee</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <c:forEach var="listHisCon" varStatus="counter" items="${requestScope.listCon}">    
-                            <tr style="text-align: center" class="pd-body">
-                                <td>${listHisCon.idCon}</td>                            
-                                <td>${listHisCon.typeCon}</td>
-                                <td>${listHisCon.signDay}</td>
-                                <td>${listHisCon.expDay}</td>
-                                <td>${listHisCon.nameEmp}</td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${listHisCon.status eq 1}">
-                                            <p style="color:green; margin-bottom: 0">Active</p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p style="color:red; margin-bottom: 0">Inactive</p>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>                        
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                    <!--                    <table class="table table-bordered">
+                                            <thead >
+                                                <tr style="text-align: center">
+                                                    <th scope="col">ID History</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Sign Day</th>
+                                                    <th scope="col">Expires Day</th>
+                                                    <th scope="col">Employee</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                    <c:forEach var="listHisCon" varStatus="counter" items="${requestScope.listCon}">    
+                        <tr style="text-align: center" class="pd-body">
+                            <td>${listHisCon.idCon}</td>                            
+                            <td>${listHisCon.typeCon}</td>
+                            <td>${listHisCon.signDay}</td>
+                            <td>${listHisCon.expDay}</td>
+                            <td>${listHisCon.nameEmp}</td>
+                            <td>
+                        <c:choose>
+                            <c:when test="${listHisCon.status eq 1}">
+                                <p style="color:green; margin-bottom: 0">Active</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p style="color:red; margin-bottom: 0">Inactive</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>                        
+                    </c:forEach>
+                    </tbody>
+                </table>-->
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Id 1 - Nguyen Phuoc Thinh
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <table class="table table-bordered">
+                                        <thead >
+                                            <tr style="text-align: center">
+                                                <th scope="col">ID History</th>
+                                                <th scope="col">Employee</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col">Delivery Date</th>
+                                                <th scope="col">Exact Date</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="text-align: center">
+                                                <td>2</td>                            
+                                                <td>Nguyen Phuoc Thinh</td>
+                                                <td>technical</td>
+                                                <td>22/7/2022</td>
+                                                <td>23/7/2022</td>
+                                                <td>
+                                                    <p style="color:green">Active</p>
+                                                </td>
+                                            </tr>                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </c:if>
         </c:if>
