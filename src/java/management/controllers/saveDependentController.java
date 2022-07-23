@@ -85,7 +85,7 @@ public class saveDependentController extends HttpServlet {
                     request.getRequestDispatcher("listDependentController").forward(request, response);
                     
                 } else {
-                    request.setAttribute("updateFail", "Update fail");
+                    request.setAttribute("updateFail", "Update fail, wrong date format !");
                     request.getRequestDispatcher("listDependentController").forward(request, response);
                 }
             }

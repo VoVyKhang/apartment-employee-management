@@ -24,8 +24,8 @@ import management.dto.CertificateDTO;
  */
 public class listCertificateController extends HttpServlet {
 
-    private final String SUCCESS = "listRP.jsp";
-    private final String ERROR = "listRP.jsp";
+    private final String SUCCESS = "listCertificate.jsp";
+    private final String ERROR = "listCertificate.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +42,9 @@ public class listCertificateController extends HttpServlet {
         String url = ERROR;
         try {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<CertificateDTO> listCer = new ArrayList<>();
-            listCer = CertificateDAO.listCertificate();
+            ArrayList<CertificateDTO> listCer = CertificateDAO.listCertificate();
             request.setAttribute("listCer", listCer);
-            request.getRequestDispatcher("listCertificate.jsp").forward(request, response);
-
+            url = SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

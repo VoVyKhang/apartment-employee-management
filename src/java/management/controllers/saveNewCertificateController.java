@@ -16,9 +16,12 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import management.dao.CertificateDAO;
+import management.dao.EmployeeDAO;
 import management.dto.CertificateDTO;
+import management.dto.EmployeeDTO;
 import management.regex.RegexEmp;
 
 /**
@@ -43,6 +46,7 @@ public class saveNewCertificateController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             /* TODO output your page here. You may use following sample code. */
             String nameCer = request.getParameter("nameCer");
             String doi = request.getParameter("doi");
@@ -85,13 +89,14 @@ public class saveNewCertificateController extends HttpServlet {
                     File fileSaveDir = new File(savePath);
                     part.write(savePath + File.separator);
                     result = CertificateDAO.insertCertificate(nameCer, doi, fileName, idEmp, type);
+
                 }
                 if (result == true) {
-                    request.setAttribute("Success", "Success");
-                    request.getRequestDispatcher("addNewCertificateController").forward(request, response);
+                    ss.setAttribute("Success", "Success");
+                    response.sendRedirect("listCertificateController");
                 } else {
-                    request.setAttribute("Fail", "Fail");
-                    request.getRequestDispatcher("addNewCertificateController").forward(request, response);
+                    request.setAttribute("Fail", "Add new fail, wrong date format");
+                    request.getRequestDispatcher("listCertificateController").forward(request, response);
                 }
             }
         }
