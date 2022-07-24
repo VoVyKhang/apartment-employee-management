@@ -94,7 +94,8 @@
                 from Certificate as c, TypeCertificate tc
                 where c.idTypeCer = tc.idTypeCer and c.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
             </sql:query>
-            <div class="page-header">
+                <div>
+                     <div class="page-header">
                 <div class="row">
                     <h3 class="page-title">Certificate</h3>
                     <div class="col-sm-12 list-employee__actions">                       
@@ -115,9 +116,7 @@
                 </div>
             </div>
 
-
-            <div >
-                <form action="mainController" method="post" class="form-reward-penalty">
+                    <form action="mainController" method="post" class="form-reward-penalty">
                     <div class="row justify-content-center" style=" margin-bottom: -16px">
                         <div class="col-md-auto"> 
                             <br>
@@ -138,7 +137,7 @@
                             </select>
                         </div> 
                     </div>  
-                </form>
+                    
                 <table class="table table-bordered list__rp-table" id="mydatatable">
                     <thead>
                         <tr>
@@ -150,7 +149,7 @@
                     </thead>
                     <tbody id="listRp">
                         <c:forEach var = "rowcer" items = "${listcer.rows}">
-                        <form action="mainController" method="POST">
+                        
                             <tr>
                                 <td><input type="hidden" name="cerName" value="${rowcer.cerName}"/>${rowcer.cerName}</td>
                                 <td><input type="hidden" name="cerDoi" value="${rowcer.doi}"/>${rowcer.doi}</td>
@@ -161,11 +160,12 @@
                                     <input class="btn btn-secondary btn-sm" type="submit" value="Edit"/>
                                 </td>
                             </tr>
-                        </form>
+                       
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
+           
             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

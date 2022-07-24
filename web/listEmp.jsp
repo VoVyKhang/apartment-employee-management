@@ -115,7 +115,6 @@
                 </div>
             </div>
 
-            <form action="mainController" method="post">
                 <div class="row justify-content-end">
                     <div class="col-4" style="margin-top: 8px">
                         <div class="form-group mb-3 mt-3">
@@ -141,7 +140,6 @@
                         </select>
                     </div> 
                 </div>
-            </form>
 
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
