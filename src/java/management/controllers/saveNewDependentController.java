@@ -50,30 +50,26 @@ public class saveNewDependentController extends HttpServlet {
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
-            if(flag != null){
+            if (flag != null) {
                 request.setAttribute("EmpId", EmpId);
             }
             if (name.equals("") || dob.equals("1900-01-01") || relationship.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank !");
-                request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
             if (checkName == false) {
                 request.setAttribute("nameInvalid", " name dependent only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
             if (checkRelationship == false) {
                 request.setAttribute("checkRelationship", "Relationship only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
             if (checkDob == false) {
                 request.setAttribute("checkDob", "Can only enter the date before today");
-                request.getRequestDispatcher("addNewDependentController").forward(request, response);
                 i++;
             }
 
@@ -83,19 +79,20 @@ public class saveNewDependentController extends HttpServlet {
                     if (flag == null) {
                         ss.setAttribute("Success", "Add new Success");
                         response.sendRedirect("listDependentController");
-                    }else{
+                    } else {
                         ss.setAttribute("Success", "Add new Success");
-                        response.sendRedirect("mainController?action=passidemp&empid="+EmpId+"&type=detail");
+                        response.sendRedirect("mainController?action=passidemp&empid=" + EmpId + "&type=detail");
                     }
                 } else {
                     if (flag == null) {
                         ss.setAttribute("Success", "Add new Success");
                         response.sendRedirect("listDependentController");
-                    }else{
-                        response.sendRedirect("mainController?action=passidemp&empid="+EmpId+"&type=detail");
+                    } else {
+                        response.sendRedirect("mainController?action=passidemp&empid=" + EmpId + "&type=detail");
                     }
                 }
-
+            } else {
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
             }
         }
     }

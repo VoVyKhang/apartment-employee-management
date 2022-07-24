@@ -30,13 +30,17 @@ public class HistoryPosDAO {
             + "set status = 0\n"
             + "where idEmp = ? and idPos = ? and status = 1";
 
-    private static final String LIST_ALL_HIS_POS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
-            + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos";
+    private static final String LIST_ALL_HIS_POS = " SELECT hp.idHisPos,e.idEmp, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status \n"
+            + "FROM Employee as e, Position as p, HistoryPos as hp\n"
+            + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and e.role = 0";
     private static final String LIST_HIS_POS_FOR_EMP = "SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate, hp.exactDate, hp.type, hp.status \n"
             + "FROM Employee as e, Position as p, HistoryPos as hp\n"
             + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and hp.idEmp = ?";
-    private static final String SEARCH_HISPOS = " SELECT hp.idHisPos, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status FROM Employee as e, Position as p, HistoryPos as hp\n"
-            + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and hp.type like ? and hp.status like ? and e.name like ?";
+    private static final String SEARCH_HISPOS = " SELECT hp.idHisPos, e.idEmp, e.name, p.posName, hp.deliveryDate,hp.exactDate, hp.type, hp.status \n"
+            + "FROM Employee as e, Position as p, HistoryPos as hp, Contract as c, HistoryContract as hc\n"
+            + "WHERE e.idEmp = hp.idEmp AND p.idPos = hp.idPos and c.idContract=hc.idContract and hc.idEmp=e.idEmp and e.role = 0 and hc.status = 1\n"
+            + "and hp.type like ? and hp.status like ? and e.name like ? \n"
+            + "order by idEmp ASC";
 
     public static boolean insertNewPos(int idEmp, Date exactDate, int idPos, int type) throws SQLException {
         try {
@@ -112,13 +116,14 @@ public class HistoryPosDAO {
                 rs = st.executeQuery(LIST_ALL_HIS_POS);
                 while (rs.next()) {
                     int idHisPos = rs.getInt("idHisPos");
+                    int idEmp = rs.getInt("idEmp");
                     String nameEmp = rs.getString("name");
                     String posName = rs.getString("posName");
                     String deliveryDate = rs.getString("deliveryDate");
                     String exactDate = rs.getString("exactDate");
                     int type = rs.getInt("type");
                     int status = rs.getInt("status");
-                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, exactDate, status, type);
+                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, idEmp, nameEmp, posName, deliveryDate, exactDate, status, type);
                     listHisPos.add(his);
 
                 }
@@ -153,13 +158,14 @@ public class HistoryPosDAO {
                 if (rs != null) {
                     while (rs.next()) {
                         int idHisPos = rs.getInt("idHisPos");
+                        int idEmp = rs.getInt("idEmp");
                         String nameEmp = rs.getString("name");
                         String posName = rs.getString("posName");
                         String deliveryDate = rs.getString("deliveryDate");
                         String exactDate = rs.getString("exactDate");
                         int type = rs.getInt("type");
                         int status = rs.getInt("status");
-                        HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, nameEmp, posName, deliveryDate, exactDate, status, type);
+                        HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, idEmp, nameEmp, posName, deliveryDate, exactDate, status, type);
                         list.add(his);
                     }
                 }

@@ -103,7 +103,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Base salary</label>
-                                <input class="form-control"  type="text" name="salary"
+                                <input class="form-control"  type="number" name="salary"
                                        <c:if test="${not empty requestScope.salaryreg}">value="${requestScope.salaryreg}"</c:if>>
                                 <p style="color: red">${requestScope.WARNINGSALARY}</p>
                             </div>

@@ -508,11 +508,8 @@ public class EmployeeDAO {
                 ptm.setString(1, email);
 
                 rs = ptm.executeQuery();
-                rs.next();
-                if (rs != null && rs.getString("email").equals(email)) {
+                if(rs.next()){
                     return true;
-                } else {
-                    return false;
                 }
             }
         } catch (Exception e) {
