@@ -45,11 +45,11 @@
                 width: 100%;
                 height: 42px
             }
-            
+
             .modal-content{
                 height: 100%
             }
-            
+
             .save-btn{
                 background-color: #00a8ef;
                 border: 1px solid #00c5fb;
@@ -82,7 +82,7 @@
         <c:if test="${Fail != null}">
             <c:out value="${Fail}"/>
         </c:if>        
-            <div style="width: 100%; margin: 3% 20%" class="modal-content">
+        <div style="width: 100%; margin: 3% 20%" class="modal-content">
             <div class="page-header">
                 <div class="row">
                     <h3 class="page-title">Certificate</h3>
@@ -98,16 +98,22 @@
                     </div>
                 </div>
             </div>
-                <div class="modal-body">
-                <form action="mainController" class="form-position">            
+            <div class="modal-body">
+                <form action="mainController" class="form-position" enctype="multipart/form-data" method="POST">            
 
                     <div class="form-group">
                         <span> Name certificate</span>
-                        <input class="form-control" name="cerName" value="${param.cerName}">              
+                        <input class="form-control" name="cerName" value="${param.cerName}"> 
+                        <c:if test="${nameInvalid != null}">
+                            <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <span>Date of isuess</span>
-                        <input class="form-control" name="cerDoi" type="date" value="${param.cerDoi}">                  
+                        <input class="form-control" name="cerDoi" type="date" value="${param.cerDoi}"> 
+                        <c:if test="${requestScope.checkDoi != null}" >
+                            <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>
+                        </c:if>
                     </div>
                     <div class="form-group ">
                         <div style="margin-bottom: 4px">Type</div>
@@ -118,6 +124,10 @@
                             </c:forEach>
                         </select> 
 
+                    </div>
+                    <div class="form-group" style="margin-top: 16px">
+                        <span> Image</span>
+                        <input class="form-control" name="imgPath" type="file" accept="image/*">   
                     </div>
                     <div style="margin-top: 20px; text-align: center">
                         <input type="hidden" name="action" value="addNewCertEmp"/>

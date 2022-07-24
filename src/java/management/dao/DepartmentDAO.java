@@ -418,7 +418,7 @@ public class DepartmentDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_DEP_BY_ID);
+                ptm = conn.prepareStatement(GET_DEP_BY_EMPID);
                 ptm.setString(1, empID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {

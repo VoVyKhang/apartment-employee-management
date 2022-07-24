@@ -41,11 +41,13 @@ public class UpdateCertPageController extends HttpServlet {
         String url = ERROR;
         try {
             String cerID = request.getParameter("cerID");
+            String imgPath = request.getParameter("imgPath");
             String cerName = request.getParameter("cerName");
             String cerDoi = request.getParameter("cerDoi");
             String cerType = request.getParameter("cerType");
-            if (cerID != null && cerDoi != null && cerName != null && cerType != null) {
+            if (cerID != null && cerDoi != null && cerName != null && cerType != null && imgPath != null) {
                 request.setAttribute("cerID", cerID);
+                request.setAttribute("imgPath", imgPath);
                 request.setAttribute("cerName", cerName);
                 request.setAttribute("cerDoi", cerDoi.split(" ")[0]);
                 request.setAttribute("cerType", cerType);

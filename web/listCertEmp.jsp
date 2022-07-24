@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css"/>
         <title>Certificate</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -79,18 +85,12 @@
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
             <div style="margin: 0 16px; width: 100%" class="list__rp">
-            <c:if test="${updateSuccess != null}" >
-                <h3 style="color: green" ><c:out value="${updateSuccess}" /></h3>
-            </c:if>
-            <c:if test="${updateFail != null}" >
-                <h3 style="color: red" > <c:out value="${updateFail}" /></h3>
-            </c:if>
             <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                                url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
 
             <sql:query dataSource = "${snapshot}" var = "listcer">
-                select cerID, cerName, doi, tc.name as type
+                select cerID, cerName,imgPath, doi, tc.name as type
                 from Certificate as c, TypeCertificate tc
                 where c.idTypeCer = tc.idTypeCer and c.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
             </sql:query>
@@ -117,28 +117,39 @@
 
 
             <div >
-                <form action="mainController" method="post" class="form-reward-penalty">
-                    <div class="row justify-content-center" style=" margin-bottom: -16px">
-                        <div class="col-md-auto"> 
-                            <br>
-                            <select class="form-select form-select-md-5 mb-1 list-options" name="month" id="month"> 
-                                <option value="all" >All Month</option>
-                                <option value="1" >January</option>
-                                <option value="2" >February</option>
-                                <option value="3" >March</option>
-                                <option value="4" >April</option>
-                                <option value="5" >May</option>
-                                <option value="6" >June</option>
-                                <option value="7" >July</option>
-                                <option value="8" >August</option>
-                                <option value="9" >September</option>
-                                <option value="10" >October</option>
-                                <option value="11" >November</option>
-                                <option value="12" >December</option>
-                            </select>
-                        </div> 
-                    </div>  
-                </form>
+                <!--                <form action="mainController" method="post" class="form-reward-penalty">
+                                    <div class="row justify-content-center" style=" margin-bottom: -16px">
+                                        <div class="col-md-auto"> 
+                                            <br>
+                                            <select class="form-select form-select-md-5 mb-1 list-options" name="month" id="month"> 
+                                                <option value="all" >All Month</option>
+                                                <option value="1" >January</option>
+                                                <option value="2" >February</option>
+                                                <option value="3" >March</option>
+                                                <option value="4" >April</option>
+                                                <option value="5" >May</option>
+                                                <option value="6" >June</option>
+                                                <option value="7" >July</option>
+                                                <option value="8" >August</option>
+                                                <option value="9" >September</option>
+                                                <option value="10" >October</option>
+                                                <option value="11" >November</option>
+                                                <option value="12" >December</option>
+                                            </select>
+                                        </div> 
+                                    </div>  
+                                </form>-->
+                <c:if test="${sessionScope.updateSuccess != null}" >
+                    <p style="color: green" ><c:out value="${updateSuccess}" /></p>
+                </c:if>
+                <c:if test="${sessionScope.updateFail != null}" >
+                    <p style="color: red" > <c:out value="${updateFail}" /></p>
+                </c:if>
+                <%
+                    HttpSession ss = request.getSession();
+                    ss.removeAttribute("updateSuccess");
+                    ss.removeAttribute("updateFail");
+                %>
                 <table class="table table-bordered list__rp-table" id="mydatatable">
                     <thead>
                         <tr>
@@ -147,23 +158,32 @@
                             <th scope="col">Type</th>
                             <th scope="col">Update</th>
                         </tr>
-                    </thead>
-                    <tbody id="listRp">
-                        <c:forEach var = "rowcer" items = "${listcer.rows}">
+                    </thead>                        
+                    <c:forEach var = "rowcer" items = "${listcer.rows}">
+                        <tbody id="listRp">
                         <form action="mainController" method="POST">
                             <tr>
-                                <td><input type="hidden" name="cerName" value="${rowcer.cerName}"/>${rowcer.cerName}</td>
+                                <td class="list__employee-item">
+                                    <span>
+                                        <img class="list__employee-item-img" src='images/${rowcer.imgPath}'>
+                                    </span>
+                                    <div class="list__employee-description">
+                                        <span class="list__employee-description-name">${rowcer.cerName}</span>                 
+                                    </div>
+                                    <input type="hidden" name="cerName" value="${rowcer.cerName}"/>
+                                </td>
                                 <td><input type="hidden" name="cerDoi" value="${rowcer.doi}"/>${rowcer.doi}</td>
                                 <td><input type="hidden" name="cerType" value="${rowcer.type}"/>${rowcer.type}</td>
                                 <td>
-                                    <input type="hidden" name="action" value="updateCertPage"/>
-                                    <input type="hidden" name="cerID" value="${rowcer.cerID}"/>
-                                    <input class="btn btn-secondary btn-sm" type="submit" value="Edit"/>
+                                    <input type="hidden" name="action" value="updateCertPage">
+                                    <input type="hidden" name="imgPath" value="${rowcer.imgPath}">
+                                    <input type="hidden" name="cerID" value="${rowcer.cerID}">
+                                    <input class="btn btn-secondary btn-sm" type="submit" value="Edit">
                                 </td>
                             </tr>
                         </form>
+                        </tbody>
                     </c:forEach>
-                    </tbody>
                 </table>
             </div>
             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -172,42 +192,42 @@
 
             <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
-            <script>
-                $('.list__rp').on("change", 'select', function () {
-                    var month = $('#month').val();
-                    var table = $("#listRp");
-                    var trs = table.find('tr');
-                    trs.hide();
-
-                    var filtered = trs.filter(function (index, elem) {
-                        var tds = $(elem).find('td');
-                        const d = new Date(tds.eq(1).text().trim().toLowerCase());
-                        var mo = d.getMonth() + 1;
-                        if (month == "all") {
-                            return true;
-                        }
-                        if (mo == month) {
-                            return true;
-                        }
-                    })
-                    filtered.show();
-                    if (filtered.length == 0) {
-                        alert("No Records Found!!!");
-                    }
-                });
-            </script>
-            <script>
-                $('#mydatatable').DataTable({
-                    ordering: false,
-                    lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                    searching: false
-                });
-            </script>
-            <script>
-                $(document).ready(function () {
-                    var value = $("div.dataTables_length").closest("div");
-                    value.closest("div").removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-1');
-                });
-            </script>  
+            <!--            <script>
+                            $('.list__rp').on("change", 'select', function () {
+                                var month = $('#month').val();
+                                var table = $("#listRp");
+                                var trs = table.find('tr');
+                                trs.hide();
+            
+                                var filtered = trs.filter(function (index, elem) {
+                                    var tds = $(elem).find('td');
+                                    const d = new Date(tds.eq(1).text().trim().toLowerCase());
+                                    var mo = d.getMonth() + 1;
+                                    if (month == "all") {
+                                        return true;
+                                    }
+                                    if (mo == month) {
+                                        return true;
+                                    }
+                                })
+                                filtered.show();
+                                if (filtered.length == 0) {
+                                    alert("No Records Found!!!");
+                                }
+                            });
+                        </script>
+                        <script>
+                            $('#mydatatable').DataTable({
+                                ordering: false,
+                                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                searching: false
+                            });
+                        </script>
+                        <script>
+                            $(document).ready(function () {
+                                var value = $("div.dataTables_length").closest("div");
+                                value.closest("div").removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-1');
+                            });
+                        </script>  -->
     </body>
 </html>

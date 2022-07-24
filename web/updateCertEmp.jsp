@@ -11,19 +11,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Certificate</title>
-        <link rel="stylesheet" href="css/globalstyles.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css"/>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             #sidebar{
                 height: 100vh !important
             }
-            
-            
+
+
         </style>
     </head>
     <body>
@@ -33,43 +38,51 @@
         <c:if test="${requestScope.filedBlank != null}" >
             <h6 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h6>
         </c:if>
-            <div style="margin: 0 16px; width: 100%">
-                <table class="table table-striped list-certificate">
-                    <thead>
-                        <tr>                    
-                            <th scope="col">Certificate ID</th>
-                            <th scope="col">Certificate name</th>
-                            <th scope="col">Date of issue</th>
-                            <th scope="col">Type certificate</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <form action="mainController">   
-                            <tr>                            
-                                <td>${requestScope.cerID}</td>
-                            <td><input type="text" name="cerName" value="${requestScope.cerName}"></td>
-                                <td><input name="cerDoi" type="date" value="${requestScope.cerDoi}"></td>
-                                <td>
-                                    <select name="idTypeCer" >
-                                        <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">                                       
-                                            <option value="${listTypeCer.idTypeCer}"  <c:if test="${listCerObject.idTypeCer == listTypeCer.idTypeCer}" > selected="${listTypeCer.type}" </c:if>>
-                                                ${listTypeCer.type}
-                                            </option>
+        <div style="margin: 0 16px; width: 100%">
+            <table class="table table-striped list-certificate">
+                <thead>
+                    <tr>                    
+                        <th scope="col">Certificate ID</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Certificate name</th>
+                        <th scope="col">Date of issue</th>
+                        <th scope="col">Type certificate</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <form action="mainController" method="POST" enctype="multipart/form-data">   
+                    <tr>                            
+                        <td>${requestScope.cerID}</td>
+                        <td>
+                            <span>
+                                <img class="list__employee-item-img" src='images/${requestScope.imgPath}'>
+                            </span>
+                            <input name="imgPath" type="file" accept="image/*">
+                        </td>
+                        <td><input type="text" name="cerName" value="${requestScope.cerName}"></td>
+                        <td><input name="cerDoi" type="date" value="${requestScope.cerDoi}"></td>
+                        <td>
+                            <select name="idTypeCer" >
+                                <c:forEach var="listTypeCer" items="${requestScope.listTypeCer}">                                       
+                                    <option value="${listTypeCer.idTypeCer}"  <c:if test="${requestScope.cerType == listTypeCer.type}" > selected="${listTypeCer.type}" </c:if>>
+                                        ${listTypeCer.type}
+                                    </option>
 
-                                        </c:forEach>  
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="hidden" name="cerID" value="${requestScope.cerID}">
-                                    <input type="hidden" name="empID" value="${sessionScope.USER_LOGGIN.idEmp}">
-                                    <input type="hidden" name="action" value="saveCertEmp">
-                                    <input class="btn btn-secondary btn-sm" type="submit" value="Save">
-                                </td>
-                            </tr>                        
-                    </form>
-                    </tbody>
-                </table>
-            </div>
+                                </c:forEach>  
+                            </select>
+                        </td>
+                        <td>
+                            <input type="hidden" name="cerID" value="${requestScope.cerID}">
+                            <input type="hidden" name="oldImg" value="${requestScope.imgPath}">
+                            <input type="hidden" name="empID" value="${sessionScope.USER_LOGGIN.idEmp}">
+                            <input type="hidden" name="action" value="saveCertEmp">
+                            <input class="btn btn-secondary btn-sm" type="submit" value="Save">
+                        </td>
+                    </tr>                        
+                </form>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

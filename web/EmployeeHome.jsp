@@ -102,6 +102,50 @@
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
+                                <h3 class="card-title">Contract informations</h3>
+
+                                <sql:query dataSource = "${snapshot}" var = "listcontract">
+                                    select c.idContract,  t.name, signDay, expDay, hc.status
+                                    from Contract as c, TypeContract as t, HistoryContract hc, Employee e
+                                    where c.idTypeCon = t.idTypeCon and c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 and hc.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
+                                </sql:query>
+
+                                <ul class="personal-info">
+                                    <c:forEach var = "rowcon" items = "${listcontract.rows}">
+                                        <li>
+                                            <div class="title">Contract ID</div>
+                                            <div class="text">${rowcon.idContract}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Name</div>
+                                            <div class="text">${rowcon.name}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Sign Day</div>
+                                            <div class="text">${rowcon.signDay}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">End Day</div>
+                                            <div class="text">${rowcon.expDay}</div>
+                                        </li>
+                                        <li>
+                                            <c:choose>
+                                                <c:when test="${rowcon.status eq 1}">
+                                                    <p style="color:green">Active</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p style="color:red">Expired</p>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex">
+                        <div class="card profile-box flex-fill">
+                            <div class="card-body">
                                 <h3 class="card-title">Dependent Informations </h3>
                                 <a href="mainController?action=listDependentEmp">
                                     <span style="width: 30px">
@@ -144,7 +188,8 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="row" style="margin-top: 16px">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
@@ -184,8 +229,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" style="margin-top: 16px">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
@@ -229,12 +272,13 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             </div>
-            <div style="height: 20px; background-color: #fff"></div>
         </div>
+        <div style="height: 20px; background-color: #fff"></div>
+    </div>
 
-    </div>             
+</div>             
 
 </div>
 </body>
