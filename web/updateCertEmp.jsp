@@ -79,7 +79,16 @@
                             <input type="hidden" name="action" value="saveCertEmp">
                             <input class="btn btn-secondary btn-sm" type="submit" value="Save">
                         </td>
-                    </tr>                        
+                    </tr>   
+                    <c:if test="${requestScope.filedBlank != null}" >
+                        <p style="color: red" ><c:out value="${requestScope.filedBlank}" /></p>
+                    </c:if>
+                    <c:if test="${nameInvalid != null}">
+                        <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
+                    </c:if>
+                    <c:if test="${requestScope.checkDoi != null}" >
+                        <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>
+                    </c:if>
                 </form>
                 </tbody>
             </table>

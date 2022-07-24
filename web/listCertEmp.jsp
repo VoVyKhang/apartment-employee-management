@@ -94,140 +94,141 @@
                 from Certificate as c, TypeCertificate tc
                 where c.idTypeCer = tc.idTypeCer and c.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
             </sql:query>
-            <div class="page-header">
-                <div class="row">
-                    <h3 class="page-title">Certificate</h3>
-                    <div class="col-sm-12 list-employee__actions">                       
-                        <div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
-                                <li class="breadcrumb-item">Account</li>
-                                <li class="breadcrumb-item active"><a href="mainController?action=listCertEmp">Certificate</a></li>
-                            </ul>
-                        </div>
-                        <div style="margin-right: 8px">          
-                            <a class="add-btn" href="mainController?action=addNewCertPage">
-                                <i class="ri-add-fill list__employee-icon"></i>
-                                Add new certificate
-                            </a>
+            <div>
+                <div class="page-header">
+                    <div class="row">
+                        <h3 class="page-title">Certificate</h3>
+                        <div class="col-sm-12 list-employee__actions">                       
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
+                                    <li class="breadcrumb-item">Account</li>
+                                    <li class="breadcrumb-item active"><a href="mainController?action=listCertEmp">Certificate</a></li>
+                                </ul>
+                            </div>
+                            <div style="margin-right: 8px">          
+                                <a class="add-btn" href="mainController?action=addNewCertPage">
+                                    <i class="ri-add-fill list__employee-icon"></i>
+                                    Add new certificate
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-            <div >
-                <!--                <form action="mainController" method="post" class="form-reward-penalty">
-                                    <div class="row justify-content-center" style=" margin-bottom: -16px">
-                                        <div class="col-md-auto"> 
-                                            <br>
-                                            <select class="form-select form-select-md-5 mb-1 list-options" name="month" id="month"> 
-                                                <option value="all" >All Month</option>
-                                                <option value="1" >January</option>
-                                                <option value="2" >February</option>
-                                                <option value="3" >March</option>
-                                                <option value="4" >April</option>
-                                                <option value="5" >May</option>
-                                                <option value="6" >June</option>
-                                                <option value="7" >July</option>
-                                                <option value="8" >August</option>
-                                                <option value="9" >September</option>
-                                                <option value="10" >October</option>
-                                                <option value="11" >November</option>
-                                                <option value="12" >December</option>
-                                            </select>
-                                        </div> 
-                                    </div>  
-                                </form>-->
-                <c:if test="${sessionScope.updateSuccess != null}" >
-                    <p style="color: green" ><c:out value="${updateSuccess}" /></p>
-                </c:if>
-                <c:if test="${sessionScope.updateFail != null}" >
-                    <p style="color: red" > <c:out value="${updateFail}" /></p>
-                </c:if>
-                <%
-                    HttpSession ss = request.getSession();
-                    ss.removeAttribute("updateSuccess");
-                    ss.removeAttribute("updateFail");
-                %>
-                <table class="table table-bordered list__rp-table" id="mydatatable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Day of get</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Update</th>
-                        </tr>
-                    </thead>                        
-                    <c:forEach var = "rowcer" items = "${listcer.rows}">
-                        <tbody id="listRp">
-                        <form action="mainController" method="POST">
+                <div>
+                    <form action="mainController" method="post" class="form-reward-penalty">
+                        <div class="row justify-content-center" style=" margin-bottom: -16px">
+                            <div class="col-md-auto"> 
+                                <br>
+                                <select class="form-select form-select-md-5 mb-1 list-options" name="month" id="month"> 
+                                    <option value="all" >All Month</option>
+                                    <option value="1" >January</option>
+                                    <option value="2" >February</option>
+                                    <option value="3" >March</option>
+                                    <option value="4" >April</option>
+                                    <option value="5" >May</option>
+                                    <option value="6" >June</option>
+                                    <option value="7" >July</option>
+                                    <option value="8" >August</option>
+                                    <option value="9" >September</option>
+                                    <option value="10" >October</option>
+                                    <option value="11" >November</option>
+                                    <option value="12" >December</option>
+                                </select>
+                            </div> 
+                        </div>  
+                    </form>
+                    <c:if test="${sessionScope.updateSuccess != null}" >
+                        <p style="color: green" ><c:out value="${updateSuccess}" /></p>
+                    </c:if>
+                    <c:if test="${sessionScope.updateFail != null}" >
+                        <p style="color: red" > <c:out value="${updateFail}" /></p>
+                    </c:if>
+                    <%
+                        HttpSession ss = request.getSession();
+                        ss.removeAttribute("updateSuccess");
+                        ss.removeAttribute("updateFail");
+                    %>
+                    <table class="table table-bordered list__rp-table" id="mydatatable">
+                        <thead>
                             <tr>
-                                <td class="list__employee-item">
-                                    <span>
-                                        <img class="list__employee-item-img" src='images/${rowcer.imgPath}'>
-                                    </span>
-                                    <div class="list__employee-description">
-                                        <span class="list__employee-description-name">${rowcer.cerName}</span>                 
-                                    </div>
-                                    <input type="hidden" name="cerName" value="${rowcer.cerName}"/>
-                                </td>
-                                <td><input type="hidden" name="cerDoi" value="${rowcer.doi}"/>${rowcer.doi}</td>
-                                <td><input type="hidden" name="cerType" value="${rowcer.type}"/>${rowcer.type}</td>
-                                <td>
-                                    <input type="hidden" name="action" value="updateCertPage">
-                                    <input type="hidden" name="imgPath" value="${rowcer.imgPath}">
-                                    <input type="hidden" name="cerID" value="${rowcer.cerID}">
-                                    <input class="btn btn-secondary btn-sm" type="submit" value="Edit">
-                                </td>
+                                <th scope="col">Name</th>
+                                <th scope="col">Day of get</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Update</th>
                             </tr>
-                        </form>
-                        </tbody>
-                    </c:forEach>
-                </table>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                        </thead>
+                        <tbody id="listRp">
+                            <c:forEach var = "rowcer" items = "${listcer.rows}">
+                                <tr>
+                                    <td class="list__employee-item">
+                                        <span>
+                                            <img class="list__employee-item-img" src='images/${rowcer.imgPath}'>
+                                        </span>
+                                        <div class="list__employee-description">
+                                            <span class="list__employee-description-name">${rowcer.cerName}</span>                 
+                                        </div>
+                                    </td>
+                                    <td>${rowcer.doi}</td>
+                                    <td>${rowcer.type}</td>
+                                    <td>
+                                        <c:url var="update" value="mainController">
+                                            <c:param name="action" value="updateCertPage"> </c:param>
+                                            <c:param name="imgPath" value="${rowcer.imgPath}"> </c:param>
+                                            <c:param name="cerID" value="${rowcer.cerID}"> </c:param>
+                                            <c:param name="cerDoi" value="${rowcer.doi}"> </c:param>
+                                            <c:param name="cerName" value="${rowcer.cerName}"> </c:param>
+                                            <c:param name="cerType" value="${rowcer.type}"> </c:param>
+                                        </c:url>
+                                        <a href="${update}"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                        </c:forEach>
+                    </table>
+                </div>
 
-            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
-            <!--            <script>
-                            $('.list__rp').on("change", 'select', function () {
-                                var month = $('#month').val();
-                                var table = $("#listRp");
-                                var trs = table.find('tr');
-                                trs.hide();
-            
-                                var filtered = trs.filter(function (index, elem) {
-                                    var tds = $(elem).find('td');
-                                    const d = new Date(tds.eq(1).text().trim().toLowerCase());
-                                    var mo = d.getMonth() + 1;
-                                    if (month == "all") {
-                                        return true;
-                                    }
-                                    if (mo == month) {
-                                        return true;
-                                    }
-                                })
-                                filtered.show();
-                                if (filtered.length == 0) {
-                                    alert("No Records Found!!!");
-                                }
-                            });
-                        </script>
-                        <script>
-                            $('#mydatatable').DataTable({
-                                ordering: false,
-                                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                                searching: false
-                            });
-                        </script>
-                        <script>
-                            $(document).ready(function () {
-                                var value = $("div.dataTables_length").closest("div");
-                                value.closest("div").removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-1');
-                            });
-                        </script>  -->
-    </body>
-</html>
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+                <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
+                <script>
+                    $('.list__rp').on("change", 'select', function () {
+                        var month = $('#month').val();
+                        var table = $("#listRp");
+                        var trs = table.find('tr');
+                        trs.hide();
+
+                        var filtered = trs.filter(function (index, elem) {
+                            var tds = $(elem).find('td');
+                            const d = new Date(tds.eq(1).text().trim().toLowerCase());
+                            var mo = d.getMonth() + 1;
+                            if (month == "all") {
+                                return true;
+                            }
+                            if (mo == month) {
+                                return true;
+                            }
+                        })
+                        filtered.show();
+                        if (filtered.length == 0) {
+                            alert("No Records Found!!!");
+                        }
+                    });
+                </script>
+                <script>
+                    $('#mydatatable').DataTable({
+                        ordering: false,
+                        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                        searching: false
+                    });
+                </script>
+                <script>
+                    $(document).ready(function () {
+                        var value = $("div.dataTables_length").closest("div");
+                        value.closest("div").removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-1');
+                    });
+                </script>  
+                </body>
+                </html>
