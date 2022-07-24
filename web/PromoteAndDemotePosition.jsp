@@ -196,6 +196,9 @@
                         <c:if test="${not empty requestScope.listEmpPos}">
 
                             <c:if test="${sessionScope.updateSuccess != null}">
+                                <p style="color: green" ><c:out value="${sessionScope.updateSuccess}"/></p> 
+                            </c:if>
+                            <c:if test="${sessionScope.updateFail != null}">
                                 <p style="color: red" ><c:out value="${sessionScope.updateSuccess}"/></p> 
                             </c:if>
                             <table class="table table-bordered list-position" >
@@ -264,6 +267,7 @@
                                                 <input class="pd-btn" type="submit" value="Save"/>
                                                 <input type="hidden" name="action" value="SavePosition"/>
                                                 <input type="hidden" name="oldIdPos" value="${listEmpPos.idPos}"/>
+                                                <input type="hidden" name="depName" value="${listEmpPos.depName}"/>
                                                 <input type="hidden" name="idEmp" value="${listEmpPos.idEmp}"/>
                                             </td>
                                         </tr>
@@ -278,6 +282,7 @@
 
                 <%
                     ss.removeAttribute("updateSuccess");
+                    ss.removeAttribute("updateFail");
                 %>
             </div>
         </div>

@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -38,8 +37,10 @@ public class savePositionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
+            PositionDAO dao = new PositionDAO();
+            String depName = request.getParameter("depName");
             int oldIdPos = Integer.parseInt(request.getParameter("oldIdPos"));
             int idPos = Integer.parseInt(request.getParameter("idPos"));
             int idEmp = Integer.parseInt(request.getParameter("idEmp"));
@@ -47,19 +48,27 @@ public class savePositionController extends HttpServlet {
             Date exactDate = Date.valueOf(request.getParameter("exactDate"));
             Date d = new Date(System.currentTimeMillis());
             int check = d.compareTo(exactDate);
+            boolean checkPos = false;
+            if (idPos == 1) {
+                checkPos = dao.checkPosMana(depName);
+            }
             if (check > 0) {
-                ss.setAttribute("updateSuccess", "Date must after today!");
-                request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
+                ss.setAttribute("updateFail", "Date must after today!");
+                response.sendRedirect("promoteAndDemoteController");
             } else {
-                boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
-                boolean result = HistoryPosDAO.insertNewPos(idEmp, exactDate, idPos, type);
-                if (result && resultUpdateOldPos == true) {
-                    ss.setAttribute("updateSuccess", "Update success");
+                if (checkPos) {
+                    ss.setAttribute("updateFail", "Department already manager!!");
                     response.sendRedirect("promoteAndDemoteController");
                 } else {
-                    request.setAttribute("updateFail", "Update fail");
-                    request.getRequestDispatcher("promoteAndDemoteController").forward(request, response);
-
+                    boolean resultUpdateOldPos = HistoryPosDAO.updatePos(idEmp, oldIdPos);
+                    boolean result = HistoryPosDAO.insertNewPos(idEmp, exactDate, idPos, type);
+                    if (result && resultUpdateOldPos == true) {
+                        ss.setAttribute("updateSuccess", "Update success");
+                        response.sendRedirect("promoteAndDemoteController");
+                    } else {
+                        request.setAttribute("updateFail", "Update fail");
+                        response.sendRedirect("promoteAndDemoteController");
+                    }
                 }
             }
         }
