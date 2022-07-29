@@ -130,7 +130,7 @@
 
                         <div class="form-group">
                             <label>File Contract</label>
-                            <input class="form-control" type="file" name="conPath">
+                            <input class="form-control" type="file" name="conPath" >
                         </div>
 
                         <p style="color:red">${requestScope.WARNING}</p>

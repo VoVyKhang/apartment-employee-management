@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-group">
                         <label>Time</label>
-                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="${sessionScope.times}" max="10" placeholder="${sessionScope.times}" required >
+                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="${sessionScope.times}" max="10" placeholder="${sessionScope.times}" readonly="">
                         <div style="text-align: center">
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
                             <input type="hidden" value="${sessionScope.idRP}" name="idrp">
