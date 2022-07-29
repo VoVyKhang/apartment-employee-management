@@ -20,7 +20,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             #sidebar{
                 height: 100vh
             }
@@ -38,6 +38,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <header>
             <%@include file="headerEmp.jsp" %>
         </header>

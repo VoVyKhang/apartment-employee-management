@@ -19,6 +19,9 @@
         <title>Update Employee</title>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
 

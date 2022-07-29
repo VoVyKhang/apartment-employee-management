@@ -17,7 +17,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .btn-primary{
                 background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
@@ -33,7 +33,7 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;   
@@ -45,6 +45,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 

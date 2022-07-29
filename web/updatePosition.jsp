@@ -50,6 +50,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
@@ -74,10 +77,10 @@
                         <form action="mainController" method="POST" class="form-position">
 
                             <div class="form-group">
-                                 <p style="color:red">${requestScope.allFieldRequired}</p>
-                                <label for="formGroupExampleInput"> Position name</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" name="posName" value="${requestScope.position.posName}">
-            
+                                <p style="color:red">${requestScope.allFieldRequired}</p>
+                            <label for="formGroupExampleInput"> Position name</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="posName" value="${requestScope.position.posName}">
+
                             <p style="color:red">${requestScope.errorMess}</p>
                         </div>
                         <div class="form-group">

@@ -17,7 +17,7 @@
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             .btn-primary{
                 background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
@@ -33,19 +33,22 @@
                 transform: scale(0.95);
                 opacity: 0.9
             }
-            
+
             .breadcrumb{
                 background-color: #fff !important;
                 margin-left: -16px;
                 margin-bottom: 0 !important;
             }
-            
+
             .modal-content{
                 height: 100%
             }
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
@@ -63,23 +66,23 @@
                     </div>
                 </div>
                 <div>
-                    
-            </div>
-            <div class="modal-body">
-                <form action="mainController" method="POST" class="form-position">
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Name</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" name="depname" placeholder="Example input"
 
-                               <c:choose>
-                                   <c:when test="${not empty requestScope.Dep.depName}">
-                                       value="${requestScope.Dep.depName}"
-                                   </c:when>
-                                   <c:otherwise>
-                                       value="${requestScope.namereg}"
-                                   </c:otherwise>
-                               </c:choose>
-                               >
+                </div>
+                <div class="modal-body">
+                    <form action="mainController" method="POST" class="form-position">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="depname" placeholder="Example input"
+
+                            <c:choose>
+                                <c:when test="${not empty requestScope.Dep.depName}">
+                                    value="${requestScope.Dep.depName}"
+                                </c:when>
+                                <c:otherwise>
+                                    value="${requestScope.namereg}"
+                                </c:otherwise>
+                            </c:choose>
+                            >
 
                         <p style="color:red">${requestScope.messName}</p>
                         <p style="color:red">${requestScope.WARNINGEXIST}</p>

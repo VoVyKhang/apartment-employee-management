@@ -36,6 +36,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 

@@ -58,7 +58,9 @@
         </style>
     </head>
     <body>
-
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
@@ -119,7 +121,7 @@
                         <div class="form-group" style="margin-top: 16px">
                             <span> Image</span>
                             <input class="form-control" name="imgPath" type="file" accept="image/*">   
-                           
+
                         </div>
                         <div class="form-group">
                             <span>Date of isuess</span>

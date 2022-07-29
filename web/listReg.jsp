@@ -24,22 +24,22 @@
                 margin-left: -12px;
                 display: inline-flex
             }
-            
+
             .list-regulation__actions{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
-            
+
             .form__regulation{
                 display: flex;
                 align-items: center
             }
-            
+
             .btn-primary{
                 height: 38px
             }
-            
+
             .list-regulation__link{
                 font-weight: 600;
                 padding: 4px 8px;
@@ -47,12 +47,12 @@
                 border-radius: 5px;
                 color: #fff
             }
-            
+
             .list-regulation__link:hover{
                 opacity: 0.9;
                 transform: scale(0.95)
             }
-            
+
             .filter__btn{
                 border: 1px solid #00c5fb;
                 border-radius: 5px;
@@ -65,7 +65,7 @@
                 background-color: #55ce63;
                 text-transform: uppercase
             }
-            
+
             .filter__btn:hover{
                 opacity: 0.9;
                 transform: scale(0.95)
@@ -74,6 +74,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 

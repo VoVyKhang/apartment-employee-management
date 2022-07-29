@@ -13,6 +13,9 @@
         <title>Admin Page</title>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <h1>Welcome Back Admin Home</h1>
         <h3><a href="logoutController?action=logout">Log out</a> </h3>
         <h2>Hello <c:out value="${sessionScope.USER_LOGGIN.name}"/> </h2>

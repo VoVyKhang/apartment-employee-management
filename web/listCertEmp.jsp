@@ -82,6 +82,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
             <div style="margin: 0 16px; width: 100%" class="list__rp">
@@ -183,7 +186,7 @@
                                         <a href="${update}"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
-                        </c:forEach>
+                            </c:forEach>
                     </table>
                 </div>
 

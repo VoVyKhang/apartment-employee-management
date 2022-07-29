@@ -47,11 +47,14 @@
                 background-color: #fff;
                 height: 100%
             }
-            
-            
+
+
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>     
 
@@ -93,7 +96,7 @@
                     </div>
                     <%Date d = new Date();%>
                     <%EmployeeDTO emp = (EmployeeDTO) session.getAttribute("USER_LOGGIN");
-                    String name = emp.getName();%>
+                        String name = emp.getName();%>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Date Create</label>

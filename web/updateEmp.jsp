@@ -71,6 +71,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
@@ -89,24 +92,24 @@
                     </div>
                 </div>
 
-               
 
-            <div class="modal-body" style="padding-bottom: 0">
-                <form action="mainController" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Name</label>
-                                <input class="form-control" type="text" name="empname"
-                                       <c:choose>
-                                           <c:when test="${not empty requestScope.Employee.name}">
-                                               value="${requestScope.Employee.name}"
-                                           </c:when>
-                                           <c:otherwise>
-                                               value="${requestScope.namereg}"
-                                           </c:otherwise>
-                                       </c:choose>                                                  
-                                       >
+
+                <div class="modal-body" style="padding-bottom: 0">
+                    <form action="mainController" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Name</label>
+                                    <input class="form-control" type="text" name="empname"
+                                    <c:choose>
+                                        <c:when test="${not empty requestScope.Employee.name}">
+                                            value="${requestScope.Employee.name}"
+                                        </c:when>
+                                        <c:otherwise>
+                                            value="${requestScope.namereg}"
+                                        </c:otherwise>
+                                    </c:choose>                                                  
+                                    >
                                 <p style="color: red">${requestScope.WARNINGNAME}</p>    
                             </div>                  
                         </div>

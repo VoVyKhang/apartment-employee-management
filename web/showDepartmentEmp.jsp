@@ -38,7 +38,7 @@
             .list-department{
                 margin: 0 16px
             }
-            
+
             .icon{
                 text-align: center; 
                 font-size: 20px;
@@ -47,11 +47,14 @@
             .icon:hover{
                 opacity: 0.8;  
             }
-            
+
         </style>
         <title>Department Page</title>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <%@include file="headerEmp.jsp" %>
         <c:import url="sidebarEmp.jsp"></c:import>
 
@@ -96,7 +99,7 @@
                             </td>
                             <td class="icon" >
                                 <a href="mainController?action=showHisPosEmp">
-                                   <i class="fas fa-pen-square"></i>
+                                    <i class="fas fa-pen-square"></i>
                                 </a>
                             </td>
                         </tr>

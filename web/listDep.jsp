@@ -67,6 +67,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <header>
             <%@include file="header.jsp" %>
         </header>
@@ -149,7 +152,7 @@
                                                 <c:if test="${listDep.depNum eq numberOfEmp.key}">
                                                     <div>
                                                         ${numberOfEmp.value}
-                                                        
+
                                                         <i style="margin-left: 2px" class="fas fa-user"></i>
                                                     </div>
                                                 </c:if>

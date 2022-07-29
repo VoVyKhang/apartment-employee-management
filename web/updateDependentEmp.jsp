@@ -10,17 +10,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Dependent</title>
-         <style>
+        <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
                 font-family: 'Poppins', sans-serif !important;
                 background-color: #f7f7f7 !important;
             }
-            
+
             #sidebar{
                 height: 100vh !important
             }
-            
+
             .breadcrumb{
                 background-color: #f7f7f7 !important;
                 display: inline-flex !important;
@@ -31,12 +31,14 @@
                 margin-left: 14px !important;
                 margin-top: 8px
             }
-                  
+
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="headerEmp.jsp"></c:import>
-
         <c:import url="sidebarEmp.jsp"></c:import>
 
         <c:if test="${requestScope.depenObject != null}">
@@ -55,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <c:if test="${requestScope.filedBlank != null}" >
                     <h3 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h3>
                 </c:if>

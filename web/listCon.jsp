@@ -71,7 +71,7 @@
                 vertical-align: middle !important;
                 text-align: center
             }
-            
+
 
             .con-body td:first-child{
                 padding-left: 20px !important
@@ -91,7 +91,7 @@
                 opacity: 0.8;
                 text-decoration: underline
             }
-            
+
             .contract-btn{
                 margin-right: 16px; 
                 display: flex;
@@ -100,6 +100,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
