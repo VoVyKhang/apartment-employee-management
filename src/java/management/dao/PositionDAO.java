@@ -32,13 +32,20 @@ public class PositionDAO {
             + "  values(?, ?, ?, ?);";
     private static final String CHANGE_POSITION = "UPDATE Employee SET idPos = ? WHERE idEmp = ?";
 
-    private static final String LIST_EMP_POS = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n"
-            + "			WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n"
-            + "			and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.role = 0";
+    private static final String LIST_EMP_POS = "select e.idEmp, name, baseSalary, address, gender, phoneNum, dob, imgPath, joinDate, e.exactDate, d.depName, p.posName, email, password, statusLog, role\n"
+            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and\n"
+            + "statusLog = 1 and role = 0 and hc.status = 1\n"
+            + "order by idEmp ASC";
 
-    private static final String SEARCH_PRO = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos FROM Employee as e, Department as d, Position as p, HistoryDep as hd, HistoryPos as hp\n"
-            + "WHERE hp.status = 1 and hd.status = 1 AND e.idEmp = hd.idEmp and hd.depNum = d.depNum\n"
-            + "and e.idEmp = hp.idEmp and hp.idPos = p.idPos and e.role = 0 and d.depName like ? and p.posName like ? and e.name like ?";
+    private static final String SEARCH_PRO = "SELECT e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc\n"
+            + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and\n"
+            + "statusLog = 1 and role = 0 and hc.status = 1 and d.depName like ? and p.posName like ? and e.name like ?\n"
+            + "order by idEmp ASC";
     private static final String CHECK_POSITION = "select e.idEmp, e.name, d.depNum, p.posName\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and e.idEmp = hp.idEmp and hp.idPos = p.idPos\n"
@@ -304,6 +311,7 @@ public class PositionDAO {
         }
         return false;
     }
+
     public static boolean checkPosMana(String depName) throws SQLException {
         try {
             cn = DBUtils.getConnection();

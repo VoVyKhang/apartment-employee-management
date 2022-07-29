@@ -88,11 +88,11 @@ public class EmployeeDAO {
             + "where email = ?";
 
     private static final String SEARCH_DEP = "select e.idEmp, name, baseSalary, address, gender, phoneNum, dob, imgPath, joinDate, e.exactDate, d.depName, p.posName, email, password, statusLog, role\n"
-            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p\n"
+            + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
-            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
-            + "hd.status = 1 and hp.status = 1 and\n"
-            + "statusLog = 1 and role = 0 and d.depName like ? and p.posName like ? and e.name like ?\n"
+            + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and\n"
+            + "hd.status = 1 and hp.status = 1 and c.idContract = hc.idContract and e.idEmp = hc.idEmp and\n"
+            + "statusLog = 1 and role = 0 and hc.status = 1 and d.depName like ? and p.posName like ? and e.name like ?\n"
             + "order by idEmp ASC";
 
     private static final String UPDATE_PASS_EMP = "UPDATE Employee\n"
@@ -508,7 +508,7 @@ public class EmployeeDAO {
                 ptm.setString(1, email);
 
                 rs = ptm.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     return true;
                 }
             }

@@ -199,7 +199,7 @@
                                 <p style="color: green" ><c:out value="${sessionScope.updateSuccess}"/></p> 
                             </c:if>
                             <c:if test="${sessionScope.updateFail != null}">
-                                <p style="color: red" ><c:out value="${sessionScope.updateSuccess}"/></p> 
+                                <p style="color: red" ><c:out value="${sessionScope.updateFail}"/></p> 
                             </c:if>
                             <table class="table table-bordered list-position" >
                                 <thead>
