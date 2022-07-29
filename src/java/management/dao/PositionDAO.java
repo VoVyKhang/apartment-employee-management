@@ -32,7 +32,7 @@ public class PositionDAO {
             + "  values(?, ?, ?, ?);";
     private static final String CHANGE_POSITION = "UPDATE Employee SET idPos = ? WHERE idEmp = ?";
 
-    private static final String LIST_EMP_POS = "select e.idEmp, name, baseSalary, address, gender, phoneNum, dob, imgPath, joinDate, e.exactDate, d.depName, p.posName, email, password, statusLog, role\n"
+    private static final String LIST_EMP_POS = "select e.idEmp, e.imgPath, e.name, e.gender, e.dob, d.depName, p.posName, p.idPos\n"
             + "from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc\n"
             + "where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
             + "e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
