@@ -45,7 +45,7 @@
             <div style="margin: 0 16px; width: 100%">
                 <div class="page-header">
                     <div class="row">
-                        <h3 class="page-title">Certificate</h3>
+                        <h3 class="page-title">Reward and penalty</h3>
                         <div class="col-sm-12 list-employee__actions">                       
                             <div>
                                 <ul class="breadcrumb">

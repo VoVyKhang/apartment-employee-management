@@ -47,7 +47,6 @@ public class showHisConController extends HttpServlet {
                     url = ERROR;
                 } else {
                     request.setAttribute("listCon", listCon);
-                    request.setAttribute("idEmp", "");
                     url = SUCCESS;
                 }
             } else {
