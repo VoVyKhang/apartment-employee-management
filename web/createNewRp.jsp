@@ -13,6 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
@@ -55,7 +57,7 @@
         </style>
     </head>
     <body>
-        
+
         <header>
             <%@include file="header.jsp" %>
         </header>
@@ -102,15 +104,17 @@
                 <div class="list-employee">
                     <form action="mainController" method="post" class="form-position">
                         <div class="form-group">
-                            <div style="margin-bottom: 6px">Reason</div> 
-                            <select name="idReg" class="form-control">
+<!--                            <div style="margin-bottom: 6px">Reason</div> -->
+                            <select id="updaterp" name="idReg" class="form-control">
+                                <option value="" disabled selected>Choose Reason</option>
                                 <c:forEach var="list" items="${requestScope.list}">
-                                    <option value="${list.idReg}"  <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
+                                    <option value="${list.idReg}" data-status="${list.status}" <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
                                         ${list.name}
                                     </option>
                                 </c:forEach>  
                             </select>
                         </div>
+                        <div class="form-group" id="divResult"></div>
                         <%Date d = new Date();%>
 
                         <div class="form-group">
@@ -119,7 +123,7 @@
                         </div>
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Description</div>
-                            <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here..."></textarea>
+                            <textarea class="form-control" rows="3" cols="40" name="reasonrp" placeholder="Enter description here...(30 letters only)" maxlength="30"></textarea>
                         </div>
                         <div class="form-group">
                             <div style="margin-bottom: 6px">Time</div> 
@@ -141,5 +145,24 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $("#updaterp").change(function () {
+                    var cntrol = $(this);
+                    var times = cntrol.find(':selected').data('status');
+                    if (times == 0) {
+                        output = "Penalty";
+                        $("#divResult").css("color", "red");
+                    } else if (times == 1) {
+                        output = "Reward";
+                        $("#divResult").css("color", "green");
+                    }else{
+                        output = "You must choose reason ";
+                        $("#divResult").css("color", "red");
+                    }
+                    $("#divResult").text(output);
+                });
+            });
+        </script>     
     </body>
 </html>
