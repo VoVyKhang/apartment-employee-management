@@ -60,25 +60,24 @@ public class saveDependentEmpController extends HttpServlet {
             if (checkName == false) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
-                request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("updateDependentEmp.jsp").forward(request, response);
+                request.setAttribute("nameInvalid", "Only contain Alphabet and space and length 4 -> 30");
                 i++;
             }
             if (checkRelationship == false) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
-                request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("updateDependentEmp.jsp").forward(request, response);
+                request.setAttribute("checkRelationship", "Only contain Alphabet and space and length 4 -> 30");
                 i++;
             }
             if (checkDob == false) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
-                request.setAttribute("nameInvalid", "Can only enter the date before today");
-                request.getRequestDispatcher("updateDependentEmp.jsp").forward(request, response);
+                request.setAttribute("checkDob", "can only enter today and earlier");
                 i++;
             }
-
+            if (checkDob == false || checkName == false || checkRelationship == false) {
+                request.getRequestDispatcher("updateDependentEmp.jsp").forward(request, response);
+            }
             if (i == 0) {
                 boolean result = DependentDAO.updateDependent(name, gender, dob, relationship, idEmp, idDepen);
                 if (result == true) {
