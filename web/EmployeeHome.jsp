@@ -83,12 +83,12 @@
                                                     <div class="title">${sessionScope.USER_LOGGIN.gender}</div>
                                                     <div class="text">Male</div>
                                                 </li>
-
                                             </ul>
                                         </div>
+                                        <p style="color:green;position:inherit;margin-right: auto">${sessionScope.COMPLETED}</p>
+                                        <a href="mainController?action=updateEmpPage" style="position:inherit;margin-left: auto">Edit</a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -278,10 +278,8 @@
             </div>
         </div>
         <div style="height: 20px; background-color: #fff"></div>
-    </div>
-
-</div>             
-
-</div>
-</body>
+        <%
+            session.removeAttribute("COMPLETED");
+        %>
+    </body>
 </html>

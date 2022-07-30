@@ -35,15 +35,13 @@ public class UpdateEmpInfoController extends HttpServlet {
     private static final int DEFAULT_BUFFER_SIZE = 8192;
     private static final String URL_SAVE_IMAGE = "/images/";
     private static String RETURN = "updateEmpInfo.jsp";
-    private static final String DONE_UPDATE = "mainController?action=accountInfo";
-    private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
+    private static final String DONE_UPDATE = "EmployeeHome.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
+        try (PrintWriter out = response.getWriter()) {
             String idemp = request.getParameter("idemp");
             String name = request.getParameter("empname");
             String salary = request.getParameter("empsalary");
@@ -51,26 +49,35 @@ public class UpdateEmpInfoController extends HttpServlet {
             String gender = request.getParameter("empgen");
             String phone = request.getParameter("empphone");
             String dob = request.getParameter("empdob");
-            String exactDate = request.getParameter("exact");
             String oldimg = request.getParameter("oldimg");
             Part part = request.getPart("empimg");
             String fileName = extractFileName(part);
             boolean checkUpdate = false;
-
-            if (RegexEmp.checkFieldNullUpdate(name,salary, address, phone, dob)) {
+            EmployeeDTO emp = new EmployeeDTO();
+            if (RegexEmp.checkFieldNullUpdate(name, salary, address, phone, dob)) {
                 url = RETURN;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
             } else {
-                if (RegexEmp.checkEmpValidationUpdate(name,salary, address, phone, dob)) {
+                if (RegexEmp.checkEmpValidationUpdate(name, salary, address, phone, dob)) {
 
                     if (!fileName.isEmpty() || !fileName.equals("")) {
                         //Remove old file image
-                        File deletefile = new File(PATH_IMG + oldimg);
+                        String path = request.getServletContext().getRealPath("/");
+                        String[] list = path.split("\\\\");
+                        String path2 = "";
+                        for (int j = 0; j < list.length; j++) {
+                            if (!list[j].toString().equals("apartment-employee-management")) {
+                                path2 = path2 + list[j].toString() + "\\";
+                            } else {
+                                path2 = path2 + list[j].toString() + "\\" + "web";
+                                break;
+                            }
+                        }
+                        File deletefile = new File(path2 + "\\images\\" + oldimg);
                         deletefile.delete();
 
                         //Add new file image
-                        writeImage(request, fileName, part);
-                        String savePath = PATH_IMG + File.separator + fileName;
+                        String savePath = path2 + "\\images" + File.separator + fileName;
                         File fileSaveDir = new File(savePath);
                         part.write(savePath + File.separator);
 
@@ -91,37 +98,25 @@ public class UpdateEmpInfoController extends HttpServlet {
                     }
 
                     if (checkUpdate) {
-                        request.setAttribute("COMPLETED", "Successful");
-                        EmployeeDTO empOld= (EmployeeDTO) session.getAttribute("USER_LOGGIN");
-                        try{
-                        EmployeeDTO empNew = EmployeeDAO.getEmpByEmail(empOld.getEmail());
-                        session.setAttribute("USER_LOGGIN", empNew);
-                        }catch(SQLException e){
-                            e.printStackTrace();
-                        }
                         url = DONE_UPDATE;
+                        emp = EmployeeDAO.showEmpByID(Integer.valueOf(idemp));
+                        HttpSession ss = request.getSession(true);
+                        ss.setAttribute("USER_LOGGIN", emp);
+                        ss.setAttribute("COMPLETED", "Successful");
+                        response.sendRedirect(url);
                     }
                 } else {
                     url = RETURN;
                     if (RegexEmp.checkEmpName(name) == false) {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
-                    }
-                    
-                     if (RegexEmp.checkSalary(salary) == false) {
-                        request.setAttribute("WARNINGSALARY", "Salary contains only number and between 1000000 to 100000000");
-                    }
-
-                    if (RegexEmp.checkEmpAddress(address) == false) {
+                    } else if (RegexEmp.checkSalary(salary) == false) {
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and bigger than 1000");
+                    } else if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
-                    }
-
-
-                    if (RegexEmp.checkPhone(phone) == false) {
+                    } else if (RegexEmp.checkPhone(phone) == false) {
                         request.setAttribute("WARNINGPHONE", "Phone contain only letters and length 5 to 15");
-                    }
-
-                    if (RegexEmp.checkValidationDob(dob) == false) {
-                        request.setAttribute("WARNINGDOB", "Choose a birthday from today or earlier");
+                    } else if (RegexEmp.checkValidationDob(dob) == false) {
+                        request.setAttribute("WARNINGDOB", "Age must be from 18 to 65");
                     }
 
                 }
@@ -136,9 +131,11 @@ public class UpdateEmpInfoController extends HttpServlet {
                 request.setAttribute("dobreg", dob);
                 request.setAttribute("imgreg", oldimg);
                 request.setAttribute("idreg", idemp);
+                request.getRequestDispatcher(url).forward(request, response);
             }
-            request.getRequestDispatcher(url).forward(request, response);
 
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateEmpInfoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -191,7 +188,8 @@ public class UpdateEmpInfoController extends HttpServlet {
         }
         return "";
     }
-public static void writeImage(HttpServletRequest request, String imageName, Part filePart) throws IOException, ServletException {
+
+    public static void writeImage(HttpServletRequest request, String imageName, Part filePart) throws IOException, ServletException {
         InputStream fileContent = filePart.getInputStream();
         String path = request.getServletContext().getRealPath("/");
         FileOutputStream fos = new FileOutputStream(path + URL_SAVE_IMAGE + imageName, false);

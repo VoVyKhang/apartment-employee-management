@@ -61,7 +61,7 @@ public class saveDependentEmpController extends HttpServlet {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
                 request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("updateDependent.jsp").forward(request, response);
+                request.getRequestDispatcher("updateDependentEmp.jsp").forward(request, response);
                 i++;
             }
             if (checkRelationship == false) {
