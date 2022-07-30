@@ -90,12 +90,12 @@
         </style>
     </head>
     <body>
-        <c:if test="${sessionScope.USER_LOGGIN eq null}">
-            <c:redirect url="Hall.jsp"/>
-        </c:if>
         <header>
             <%@include file="header.jsp" %>
         </header>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="sidebar.jsp"></c:import>
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"

@@ -9,9 +9,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <c:if test="${sessionScope.USER_LOGGIN eq null}">
-            <c:redirect url="Hall.jsp"/>
-        </c:if>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add new Dependent</title>
         <style>
@@ -34,12 +31,12 @@
                 margin-top: 8px;
                 margin-left: 30px
             }
-            
+
             .modal-content{
                 height: 100%
             }
-            
-             .btn-primary{
+
+            .btn-primary{
                 background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 10px !important;
@@ -49,14 +46,16 @@
                 padding: 2px 4px;
                 margin-top: 16px
             }
-            
+
             .btn-primary:hover{
                 transform: scale(0.95)
             }
         </style>
     </head>
     <body>
-
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
             <div style="margin: 2% 20%; width: 100%" class="modal-content">

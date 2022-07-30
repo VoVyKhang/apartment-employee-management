@@ -52,60 +52,60 @@
         <title>Department Page</title>
     </head>
     <body>
-        <c:if test="${sessionScope.USER_LOGGIN eq null}">
-            <c:redirect url="Hall.jsp"/>
-        </c:if>
-        <%@include file="headerEmp.jsp" %>
-        <c:import url="sidebarEmp.jsp"></c:import>
 
-            <div style="width: 100%">
-                <div class="page-header">
+        <%@include file="headerEmp.jsp" %>
+    <c:import url="sidebarEmp.jsp"></c:import>
+    <c:if test="${sessionScope.USER_LOGGIN eq null}">
+        <c:redirect url="Hall.jsp"/>
+    </c:if>
+    <div style="width: 100%">
+        <div class="page-header">
+            <div>
+                <h3 class="page-title">Department</h3>
+                <div class="col-sm-12 list-employee__actions">                       
                     <div>
-                        <h3 class="page-title">Department</h3>
-                        <div class="col-sm-12 list-employee__actions">                       
-                            <div>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
-                                    <li class="breadcrumb-item active">Department</li>
-                                </ul>
-                            </div>  
-                        </div>
-                    </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
+                            <li class="breadcrumb-item active">Department</li>
+                        </ul>
+                    </div>  
                 </div>
-                <div class="list-department">
-                    <table class="table table-bordered" style="font-size: 14px">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Date Create</th>
-                                <th scope="col">Creator</th>
-                                <th style="text-align: center" scope="col">History department</th>
-                                <th style="text-align: center" scope="col">History position</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${requestScope.department.depName}</td>                            
-                            <td>${requestScope.department.description}</td>
-                            <td>${requestScope.department.location}</td>
-                            <td >${requestScope.department.dateCreate}</td>
-                            <td>${requestScope.department.creator}</td>
-                            <td class="icon">
-                                <a href="mainController?action=showHisDepEmp">
-                                    <i class="fas fa-pen-square"></i>
-                                </a>
-                            </td>
-                            <td class="icon" >
-                                <a href="mainController?action=showHisPosEmp">
-                                    <i class="fas fa-pen-square"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
-    </body>
+        <div class="list-department">
+            <table class="table table-bordered" style="font-size: 14px">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Date Create</th>
+                        <th scope="col">Creator</th>
+                        <th style="text-align: center" scope="col">History department</th>
+                        <th style="text-align: center" scope="col">History position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${requestScope.department.depName}</td>                            
+                        <td>${requestScope.department.description}</td>
+                        <td>${requestScope.department.location}</td>
+                        <td >${requestScope.department.dateCreate}</td>
+                        <td>${requestScope.department.creator}</td>
+                        <td class="icon">
+                            <a href="mainController?action=showHisDepEmp">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                        </td>
+                        <td class="icon" >
+                            <a href="mainController?action=showHisPosEmp">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
 </html>

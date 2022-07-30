@@ -38,12 +38,12 @@
         </style>
     </head>
     <body>
-        <c:if test="${sessionScope.USER_LOGGIN eq null}">
-            <c:redirect url="Hall.jsp"/>
-        </c:if>
         <header>
             <%@include file="headerEmp.jsp" %>
         </header>
+        <c:if test="${sessionScope.USER_LOGGIN eq null}">
+            <c:redirect url="Hall.jsp"/>
+        </c:if>
         <c:import url="sidebarEmp.jsp"></c:import>
             <div style="margin: 0 16px; width: 100%">
                 <div class="page-header">

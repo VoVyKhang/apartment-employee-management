@@ -51,10 +51,10 @@
         </style>
     </head>
     <body>
+        <%@include file="header.jsp" %>
         <c:if test="${sessionScope.USER_LOGGIN eq null}">
             <c:redirect url="Hall.jsp"/>
         </c:if>
-        <%@include file="header.jsp" %>
         <c:import url="sidebar.jsp"></c:import> 
             <div style="margin: 0 20%" class="list-employee modal-content">
                 <div class="modal-header">
