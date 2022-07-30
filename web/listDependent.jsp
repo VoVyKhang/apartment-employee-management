@@ -97,6 +97,8 @@
             e.idEmp = hp.idEmp and hp.idPos = p.idPos and
             hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and
             statusLog = 1 and role = 0 and hc.status = 1
+            and e.idEmp in(
+            select idEmp from Dependent)
             order by idEmp ASC
         </sql:query>
 

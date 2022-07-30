@@ -44,7 +44,7 @@ public class saveNewDependentController extends HttpServlet {
             String gender = request.getParameter("gender");
             String dob = request.getParameter("dob");
             String relationship = request.getParameter("relationship");
-            String EmpId = request.getParameter("idEmp");
+            String EmpId = request.getParameter("empId");
             String flag = request.getParameter("flag");
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);

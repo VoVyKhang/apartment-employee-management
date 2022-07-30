@@ -127,7 +127,7 @@
 
                         <div style="margin-top: 20px; text-align: center">
                             <c:if test="${requestScope.EmpId ne null}">
-                                <input type="hidden" name="idEmp" value="${requestScope.EmpId}">
+                                <input type="hidden" name="empId" value="${requestScope.EmpId}">
                                 <input type="hidden" name="flag" value="flag">
                             </c:if>
                             <input class="btn btn-primary" type="submit" value="Save">
