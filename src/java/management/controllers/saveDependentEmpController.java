@@ -48,7 +48,7 @@ public class saveDependentEmpController extends HttpServlet {
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
-            boolean checkDob = RegexEmp.checkValidationDob(dob);
+            boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
 
             if (name.equals("") || relationship.equals("") || dob.equals("0000-00-00")) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);

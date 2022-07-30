@@ -50,7 +50,7 @@ public class saveNewDependentEmpController extends HttpServlet {
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
-            boolean checkDob = RegexEmp.checkValidationDob(dob);
+            boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
             if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
                 request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
