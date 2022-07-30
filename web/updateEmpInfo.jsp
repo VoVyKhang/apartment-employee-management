@@ -247,7 +247,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Salary</label>
-                                <input class="form-control" type="text" name="empsalary"
+                                <input readonly="" class="form-control" type="text" name="empsalary"
                                        <c:choose>
                                            <c:when test="${not empty sessionScope.USER_LOGGIN.baseSalary}">
                                                value="${sessionScope.USER_LOGGIN.baseSalary}"
