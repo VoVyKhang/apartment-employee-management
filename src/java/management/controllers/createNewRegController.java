@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import management.dao.RegulationDAO;
 import management.dto.RegulationDTO;
+import management.regex.RegexDep;
 
 /**
  *
@@ -46,23 +47,27 @@ public class createNewRegController extends HttpServlet {
             HttpSession session = request.getSession();
             String nameReg = request.getParameter("regName");
             String typeReg = request.getParameter("regType");
+            boolean checkRegName = RegexDep.checkDepName(nameReg);
             ArrayList<RegulationDTO> listReg = dao.listReg();
             if (nameReg.trim().isEmpty()) {
                 session.setAttribute("WARNING", "Name is not empty");
             } else {
-                for (RegulationDTO regulationDTO : listReg) {
-                    if (nameReg.trim().equals(regulationDTO.getName())) {
-                        session.setAttribute("WARNING", "Name is exits");
-                        checkExits = true;
-                        break;
+                if (checkRegName) {
+                    for (RegulationDTO regulationDTO : listReg) {
+                        if (nameReg.trim().equals(regulationDTO.getName())) {
+                            session.setAttribute("WARNING", "Name is exits");
+                            checkExits = true;
+                            break;
+                        }
                     }
-                }
-                if (!checkExits) {
-                    boolean rs = dao.createReg(nameReg.trim(), Integer.parseInt(typeReg.trim()));
-                    if (rs) {
-                        url = SUCCESS+"&message=Add Success";
-                        session.setAttribute("WARNING", "");
+                    if (!checkExits) {
+                        boolean rs = dao.createReg(nameReg.trim(), Integer.parseInt(typeReg.trim()));
+                        if (rs) {
+                            url = SUCCESS + "&message=Add Success";
+                        }
                     }
+                } else {
+                    session.setAttribute("WARNING", "Name from 1 to 30 character and no number !");
                 }
             }
         } catch (SQLException e) {

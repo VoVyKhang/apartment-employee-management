@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import management.dao.RegulationDAO;
 import management.dto.RegulationDTO;
+import management.regex.RegexDep;
 
 /**
  *
@@ -47,6 +48,7 @@ public class updateRegController extends HttpServlet {
             String idReg = request.getParameter("idReg");
             String nameReg = request.getParameter("regName");
             String typeReg = request.getParameter("regType");
+            boolean checkRegName = RegexDep.checkDepName(nameReg);
             ArrayList<RegulationDTO> listReg = dao.listReg();
             if (nameReg.trim().isEmpty()) {
                 session.setAttribute("WARNING", "Name is not empty");
@@ -55,23 +57,27 @@ public class updateRegController extends HttpServlet {
 //                request.setAttribute("typeReg", typeReg);
                 url = ERROR + "&idRegUpdate=" + idReg + "&nameRegUpdate=" + nameReg + "&statusRegUpdate=" + typeReg;
             } else {
-                for (RegulationDTO regulationDTO : listReg) {
-                    if (nameReg.trim().equals(regulationDTO.getName()) && !idReg.trim().equals(regulationDTO.getIdReg() + "")) {
-                        session.setAttribute("WARNING", "Name is exits");
+                if (checkRegName) {
+                    for (RegulationDTO regulationDTO : listReg) {
+                        if (nameReg.trim().equals(regulationDTO.getName()) && !idReg.trim().equals(regulationDTO.getIdReg() + "")) {
+                            session.setAttribute("WARNING", "Name is exits");
 //                        request.setAttribute("idReg", idReg);
 //                        request.setAttribute("nameReg", nameReg);
 //                        request.setAttribute("typeReg", typeReg);
-                        checkExits = true;
-                        url = ERROR + "&idRegUpdate=" + idReg + "&nameRegUpdate=" + nameReg + "&statusRegUpdate=" + typeReg;
+                            checkExits = true;
+                            url = ERROR + "&idRegUpdate=" + idReg + "&nameRegUpdate=" + nameReg + "&statusRegUpdate=" + typeReg;
+                        }
                     }
-                }
-                if (!checkExits) {
-                    boolean rs = dao.updateReg(Integer.parseInt(idReg), nameReg, Integer.parseInt(typeReg));
+                    if (!checkExits) {
+                        boolean rs = dao.updateReg(Integer.parseInt(idReg), nameReg, Integer.parseInt(typeReg));
 
-                    if (rs) {
-                        url = SUCCESS+"&message=Update Success";
-                        session.setAttribute("WARNING", "");
+                        if (rs) {
+                            url = SUCCESS + "&message=Update Success";
+                        }
                     }
+                } else {
+                    session.setAttribute("WARNING", "Name from 1 to 30 character and no number !");
+                    url = ERROR + "&idRegUpdate=" + idReg + "&nameRegUpdate=" + nameReg + "&statusRegUpdate=" + typeReg;
                 }
             }
         } catch (SQLException e) {

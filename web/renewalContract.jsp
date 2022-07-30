@@ -50,7 +50,7 @@
                 <div>
                     <p style="margin: 16px 16px 0 16px">Contract of employee : ${requestScope.Contract.nameEmp}</p>
             </div>
-            <p style="color:red">${requestScope.WARNING}</p>
+            <p style="color:red">${sessionScope.WARNING}</p>
             <div class="modal-body">
                 <form action="mainController" method="POST" class="form-position" enctype="multipart/form-data">
 
@@ -63,9 +63,9 @@
                         from TypeContract
                     </sql:query>
                     <sql:query dataSource = "${snapshot}" var = "idEmp">
-                        select hc.idEmp 
-                        from HistoryContract as hc, Contract as c
-                        where hc.idContract = c.idContract and c.idContract = ${requestScope.Contract.idCon}
+                        select hc.idEmp , e.name
+                        from HistoryContract as hc, Contract as c , Employee as e
+                        where hc.idContract = c.idContract and e.idEmp=hc.idEmp and c.idContract = ${requestScope.Contract.idCon}
                     </sql:query>
                     <div class="form-group">
                         <label>Type of contract</label>
@@ -101,6 +101,7 @@
                     <input class="btn btn-primary" type="submit" value="Save"/>
                     <c:forEach var="empId" items="${idEmp.rows}">
                         <input type="hidden" name="idemp" value="${empId.idEmp}"/>
+                        <input type="hidden" name="nameEmp" value="${empId.name}"/>
                     </c:forEach>
                     <c:forEach var = "rowlist" items = "${listtype.rows}">
                         <c:if test="${requestScope.Contract.typeCon eq rowlist.name}">
@@ -112,5 +113,8 @@
                 </form>
             </div>
         </div>
+        <%
+            session.removeAttribute("WARNING");
+        %>
     </body>
 </html>

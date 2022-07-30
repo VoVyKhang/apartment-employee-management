@@ -15,6 +15,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import management.dao.ContractDAO;
 import management.dao.HistoryContractDAO;
@@ -29,16 +30,19 @@ import management.dao.HistoryContractDAO;
 public class renewalConController extends HttpServlet {
 
     private static final String DONE_RENEWAL = "mainController?action=showlist&type=con";
-    private static final String FAIL_RENEWAL = "mainController?action=passidcon&idcon=";
+    private static final String FAIL_RENEWAL = "mainController?action=passidcon&nameEmp=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
         try (PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             String typeCon = request.getParameter("typecon");
+            String idCon = request.getParameter("idcon");
             String expDay = request.getParameter("expday");
             String idEmp = request.getParameter("idemp");
+            String nameEmp = request.getParameter("nameEmp");
             Part part = request.getPart("conPath");
             String fileName = extractFileName(part);
             boolean checkexp = false;
@@ -76,16 +80,19 @@ public class renewalConController extends HttpServlet {
                     Logger.getLogger(newConController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (check) {
-                    request.setAttribute("COMPLETE", "Completed");
+                    ss.setAttribute("COMPLETE", "Completed");
                     url = DONE_RENEWAL;
+                } else {
+                    ss.setAttribute("WARNING", "Fail");
+                    url = FAIL_RENEWAL + nameEmp + "&idcon=" + idCon + "&&flag=renewal";
                 }
 
             } else {
-                request.setAttribute("WARNING", "Expiration date must be from tomorrow onwards");
-                url = FAIL_RENEWAL;
+                ss.setAttribute("WARNING", "Expiration date must be from tomorrow onwards");
+                url = FAIL_RENEWAL + nameEmp + "&idcon=" + idCon + "&&flag=renewal";
             }
 
-            request.getRequestDispatcher(url).forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

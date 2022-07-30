@@ -124,7 +124,7 @@
                         <tbody>
                         <a class="list-regulation__link" href="mainController?action=addReg">Add new regulation</a>
                         <c:if test="${requestScope.message ne ''}">
-                            <c:out value="${requestScope.message}"/>
+                            <p style="color:green">${requestScope.message}</p>
                         </c:if>
                         <c:forEach var="listReg" varStatus="counter" items="${requestScope.listReg}">
                             <form action="mainController">

@@ -66,7 +66,7 @@ public class saveNewCertificateController extends HttpServlet {
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             } else if (checkDoi == false) {
-                request.setAttribute("checkDoi", "Can only enter the date before today");
+                request.setAttribute("checkDoi", "Can only enter the date before or equal today");
                 request.getRequestDispatcher("addNewCertificateController").forward(request, response);
                 i++;
             } else if (fileName.isEmpty() || fileName.equals("")) {

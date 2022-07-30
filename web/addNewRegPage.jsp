@@ -93,7 +93,9 @@
                     </form>
                 </div>
             </div>
-
+            <%
+                session.removeAttribute("WARNING");
+            %>
 
     </body>
 </html>

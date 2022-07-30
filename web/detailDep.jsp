@@ -133,27 +133,6 @@
                     </div>
                 </div>
             </div>
-
-            <form action="mainController" method="post">
-                <div class="row justify-content-end">
-                    <div class="col-4" style="margin-top: 8px">
-                        <div class="form-group mb-3 mt-3">
-                            <input type="text" class="form-control" id="myInput" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter..." name="empname">
-                        </div>
-                    </div>
-                    <div class="col-3" >
-                        </br>
-                        <select class="form-select form-select-md-5 mb-1 list-options" name="posname" id="posname"> 
-                            <option value="all" >All Position</option>
-                            <c:forEach var="listPos" items="${listPos.rows}">
-                                <option value="${listPos.posName}">${listPos.posName}</option>
-                            </c:forEach>
-                        </select>
-                    </div> 
-                </div>
-            </form>
-
-
             <c:if test="${requestScope.listEmp != null}">
                 <c:if test="${not empty requestScope.listEmp}">
 

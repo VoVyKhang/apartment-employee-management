@@ -126,6 +126,7 @@
                                 <li class="breadcrumb-item active">Contract</li>
                             </ul>
                         </div>
+                        <p style="color:green">${sessionScope.COMPLETE}</p>
                         <div class="contract-btn">                                      
                             <div style="margin-right: 16px">
                                 <p style="color:green">${requestScope.COMPLETE}</p>
@@ -222,5 +223,8 @@
                 </c:if>
             </c:if>
         </div>
+        <%
+            session.removeAttribute("WARNING");
+        %>
     </body>
 </html>

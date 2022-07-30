@@ -66,6 +66,15 @@
             and hd.status = 1
             group by re.status
         </sql:query>
+        <sql:query dataSource="${snapshot}" var="dep">
+            select d.depName,count(e.idEmp) employee
+            from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc
+            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and
+            e.idEmp = hp.idEmp and hp.idPos = p.idPos and 
+            hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and
+            statusLog = 1 and role = 0 and hc.status = 1
+            group by d.depName
+        </sql:query>
         <div style="width: 100%; margin-left: 40px; overflow: hidden">
             <div>
                 <div class="container">
@@ -128,20 +137,13 @@
                                 <h5 class="card-title">Department Statistics</h5>
                                 <div class="stats-list">
                                     <div class="stats-info">
-                                        <p>Today Leave <strong>4</strong></p>
+                                        <p>Department <strong>Employee</strong></p>
                                     </div>
+                                    <c:forEach var="emp" items="${dep.rows}">
                                     <div class="stats-info">
-                                        <p>Pending Invoice <strong>15</strong></p>    
+                                        <p>${emp.depName} <strong>${emp.employee}</strong></p>
                                     </div>
-                                    <div class="stats-info">
-                                        <p>Completed Projects <strong>85 </strong></p>
-                                    </div>
-                                    <div class="stats-info">
-                                        <p>Open Tickets <strong>190 </strong></p>
-                                    </div>
-                                    <div class="stats-info">
-                                        <p>Closed Tickets <strong>22</strong></p>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
