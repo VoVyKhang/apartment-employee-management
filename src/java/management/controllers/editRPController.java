@@ -36,7 +36,7 @@ public class editRPController extends HttpServlet {
                 int idEmp = Integer.parseInt(request.getParameter("idemp"));
                 int idRp = Integer.parseInt(request.getParameter("idrp"));
                 int idReg = Integer.parseInt(request.getParameter("idReg"));
-                int times = Integer.parseInt(request.getParameter("timerp"));
+                String times = request.getParameter("timerp");
                 String reason = request.getParameter("reasonrp");   
                 boolean result = RewardPenaltyDAO.updateRP(idReg, times, idEmp, reason,idRp);
                 if(result == true){

@@ -181,7 +181,7 @@ public class RewardPenaltyDAO {
     }
 
     //Update Reward & Penalty
-    public static boolean updateRP(int idReg, int times, int idEmp, String reason, int idRp) {
+    public static boolean updateRP(int idReg, String times, int idEmp, String reason, int idRp) {
         Connection cn = null;
         try {
             //buoc 1: mo ket noi
@@ -191,7 +191,7 @@ public class RewardPenaltyDAO {
                 PreparedStatement pst = cn.prepareStatement(UPDATE_RP);
                 //gan data vao dau cham ?
                 pst.setInt(1, idReg);
-                pst.setInt(2, times);
+                pst.setString(2, times);
                 pst.setString(3, reason);
                 pst.setInt(4, idEmp);                
                 pst.setInt(5, idRp);

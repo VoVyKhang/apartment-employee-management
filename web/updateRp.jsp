@@ -84,6 +84,7 @@
                                 <option value=${list.idReg} data-status="${list.status}" <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
                                     ${list.name} 
                                 </option>
+                                <p<c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>${list.name} </p>
                             </c:forEach>  
                         </select>
                     </div>
@@ -93,8 +94,11 @@
                         <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here...">${sessionScope.reason}</textarea>
                     </div>
                     <div class="form-group">
-                        <label>Time</label>
-                        <input class="form-control" type="number" pattern="[0-9\/]*" name="timerp" min="${sessionScope.times}" max="10" placeholder="${sessionScope.times}" readonly="">
+                        <label name="timerp" >Time</label>
+                        <p >${sessionScope.times}</p>
+                    </div>
+                    <div class="form-group">
+                        
                         <div style="text-align: center">
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
                             <input type="hidden" value="${sessionScope.idRP}" name="idrp">
