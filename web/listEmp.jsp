@@ -73,6 +73,7 @@
 
     </head>
     <body>
+        <% HttpSession ss = request.getSession();%>
         <c:if test="${sessionScope.USER_LOGGIN eq null}">
             <c:redirect url="Hall.jsp"/>
         </c:if>
@@ -112,6 +113,8 @@
                             </a>
                             <div> 
                                 <p style="color: green">${requestScope.COMPLETED}</p>
+                                <p style="color: green">${sessionScope.COMPLETED}</p>
+                                <% ss.removeAttribute("COMPLETED");                                    %>
                             </div>
                         </div>
                     </div>

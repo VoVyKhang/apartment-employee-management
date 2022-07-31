@@ -247,7 +247,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label">Salary</label>
+                                <label class="col-form-label">Salary($)</label>
                                 <input class="form-control" type="text" name="empsalary"
                                        <c:choose>
                                            <c:when test="${not empty requestScope.Employee.baseSalary}">

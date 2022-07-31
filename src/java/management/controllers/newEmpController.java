@@ -17,6 +17,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import management.dao.EmployeeDAO;
 import management.regex.RegexEmp;
@@ -31,14 +32,15 @@ public class newEmpController extends HttpServlet {
     private static final int DEFAULT_BUFFER_SIZE = 8192;
     private static final String URL_SAVE_IMAGE = "\\images\\";
     private static final String ERROR = "createNewEmp.jsp";
-    private static final String DONE = "mainController?action=showlist&type=emp";
+    private final String DONE = "mainController?action=showlist&type=emp";
     private static final String PATH_IMG = "E:\\COURSE_5\\SWP391\\Demo\\apartment-employee-management\\web\\images\\";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             String name = request.getParameter("empname");
             String salary = request.getParameter("salary");
             String address = request.getParameter("empadd");
@@ -87,9 +89,10 @@ public class newEmpController extends HttpServlet {
                         Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     if (checkInsert) {
-                        request.setAttribute("COMPLETED", "Successful");
+                        ss.setAttribute("COMPLETED", "COMPLETED");
                         url = DONE;
                         response.sendRedirect(url);
+                        return;
                     } else {
                         url = ERROR;
                         request.setAttribute("namereg", name);
@@ -143,20 +146,26 @@ public class newEmpController extends HttpServlet {
                     if (RegexEmp.checkValidPass(password) == false) {
                         request.setAttribute("WARNINGPASS", "Password length 8 to 25");
                     }
-                    request.setAttribute("namereg", name);
-                    request.setAttribute("salaryreg", salary);
-                    request.setAttribute("addreg", address);
-                    request.setAttribute("genreg", gender);
-                    request.setAttribute("phonereg", phone);
-                    request.setAttribute("dobreg", dob);
-                    request.setAttribute("exactreg", exactDate);
-                    request.setAttribute("depreg", iddep);
-                    request.setAttribute("posreg", idpos);
-                    request.setAttribute("emailreg", email);
-                    request.setAttribute("passreg", password);
-                    request.getRequestDispatcher(url).forward(request, response);
+
                 }
             }
+
+            if (RegexEmp.chekcEmpFieldNull(name, salary, address, phone, dob, exactDate, email, password) == false
+                    || RegexEmp.checkEmpValidation(name, salary, address, phone, dob, exactDate, email, password) == false) {
+                request.setAttribute("namereg", name);
+                request.setAttribute("salaryreg", salary);
+                request.setAttribute("addreg", address);
+                request.setAttribute("genreg", gender);
+                request.setAttribute("phonereg", phone);
+                request.setAttribute("dobreg", dob);
+                request.setAttribute("exactreg", exactDate);
+                request.setAttribute("depreg", iddep);
+                request.setAttribute("posreg", idpos);
+                request.setAttribute("emailreg", email);
+                request.setAttribute("passreg", password);
+
+            }
+            request.getRequestDispatcher(url).forward(request, response);
 
         }
     }

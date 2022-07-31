@@ -56,7 +56,7 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
 
-            <div class="modal-content">content       
+            <div class="modal-content">      
                 <div class="modal-header">
                     <div>
                         <h5 class="modal-title">Update Position</h5>
