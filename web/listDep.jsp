@@ -39,7 +39,7 @@
 
             .breadcrumb{
                 background-color: #f7f7f7 !important;
-                margin-left: -16px;           
+                margin-left: -16px;
             }
 
             .page-title{
@@ -70,6 +70,8 @@
         <header>
             <%@include file="header.jsp" %>
         </header>
+
+        <%HttpSession ss = request.getSession();%>
         <c:if test="${sessionScope.USER_LOGGIN eq null}">
             <c:redirect url="Hall.jsp"/>
         </c:if>
@@ -96,6 +98,8 @@
                             </div>
                             <div >
                                 <p style="color:green">${requestScope.WARNING}<p>
+                                <p style="color:green">${sessionScope.COMPLETED}<p>
+                                    <%ss.removeAttribute("COMPLETED");                                        %>
                                     <a style="margin-right: 8px" class="dep-link" href="createNewDep.jsp">Create New Department</a>
                                     <a class="dep-link" href="mainController?action=showlist&type=changedep">Change Department</a>
                             </div>

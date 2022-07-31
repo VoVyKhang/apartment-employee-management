@@ -51,11 +51,12 @@ public class RegexEmp {
         return false;
     }
 
-    //Check baseSalary only contain number and between 1000000 to 100000000
+    //Check baseSalary only contain number and between 1000000 to 10000
     public static boolean checkSalary(String Salary) {
         boolean check = checkOnlyNumber(Salary);
-        if (check) {
-            if (Integer.parseInt(Salary) >= 1000 ) {
+        
+        if ((check) && (Salary.length() >= 4 && Salary.length() <= 5)) {
+            if (Integer.parseInt(Salary) >= 1000 && Integer.parseInt(Salary) <= 10000) {
                 return true;
             }
         } else {

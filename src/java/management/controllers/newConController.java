@@ -15,6 +15,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import management.dao.ContractDAO;
 import management.dao.HistoryContractDAO;
@@ -29,6 +30,7 @@ import management.dao.HistoryContractDAO;
 public class newConController extends HttpServlet {
 
     private static final String DONE = "createNewCon.jsp";
+    private static final String OKE = "mainController?action=showlist&type=con";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +45,8 @@ public class newConController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             String typeCon = request.getParameter("typecon");
             String expDay = request.getParameter("expday");
             String idEmp = request.getParameter("idemp");
@@ -84,8 +87,10 @@ public class newConController extends HttpServlet {
                     Logger.getLogger(newConController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (check) {
-                    request.setAttribute("COMPLETE", "Completed");
-                    url = DONE;
+                    ss.setAttribute("COMPLETED", "COMPLETED");
+                    url = OKE;
+                    response.sendRedirect(url);
+                    return;
                 }
 
             } else {
@@ -93,6 +98,9 @@ public class newConController extends HttpServlet {
                 url = DONE;
             }
 
+            request.setAttribute("empreg", idEmp);
+            request.setAttribute("conreg", typeCon);
+            request.setAttribute("expreg", expDay);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

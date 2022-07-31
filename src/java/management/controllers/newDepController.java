@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import management.dao.DepartmentDAO;
 import management.regex.RegexDep;
 
@@ -21,15 +22,16 @@ import management.regex.RegexDep;
  * @author lehon
  */
 public class newDepController extends HttpServlet {
-
-//    private static String CREATE_DEP_PAGE = "createNewDep.jsp";
+    
+    private final String DONE = "mainController?action=showlist&type=dep";
     private static String RETRY = "createNewDep.jsp";
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession ss = request.getSession();
             String depName = request.getParameter("depname");
             String depDes = request.getParameter("depdes");
             String depLoc = request.getParameter("deploc");
@@ -44,12 +46,12 @@ public class newDepController extends HttpServlet {
             if (RegexDep.checkDepFieldNull(depName, depDes, depLoc)) {
                 url = RETRY;
                 request.setAttribute("WARNING", "You have not filled in the information completely");
-
+                
             } else {
                 if (checkExist == true) {
                     url = RETRY;
                     request.setAttribute("WARNING", "Department already exists");
-
+                    
                 } else {
                     if (RegexDep.checkDepValidation(depName, depDes, depLoc)) {
                         try {
@@ -58,10 +60,11 @@ public class newDepController extends HttpServlet {
                             Logger.getLogger(newDepController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         if (checkInsert) {
-                            request.setAttribute("SUCCESS", "Completed");
-                            url = RETRY;
-                            request.getRequestDispatcher(url).forward(request, response);
-
+                            ss.setAttribute("COMPLETED", "COMPLETED");
+                            url = DONE;
+                            response.sendRedirect(url);
+                            return;
+                            
                         }
                     } else {
                         url = RETRY;
@@ -75,11 +78,11 @@ public class newDepController extends HttpServlet {
                         if (RegexDep.checkDepLoc(depLoc) == false) {
                             request.setAttribute("messLoc", "length from 1 to 10 characters");
                         }
-
+                        
                     }
                 }
             }
-
+            
             request.setAttribute("namereg", depName);
             request.setAttribute("desreg", depDes);
             request.setAttribute("locreg", depLoc);

@@ -93,7 +93,7 @@
             }
 
             .contract-btn{
-                margin-right: 16px; 
+                margin-right: 16px;
                 display: flex;
                 align-items: center;
             }
@@ -105,7 +105,7 @@
         </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
-
+        <%HttpSession ss = request.getSession();%>
         <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                            url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                            user = "sa"  password = "12345"/>
@@ -127,6 +127,9 @@
                             </ul>
                         </div>
                         <p style="color:green">${sessionScope.COMPLETE}</p>
+                        <p style="color:green">${sessionScope.COMPLETED}</p>
+                        <%ss.removeAttribute("COMPLETED");%>
+
                         <div class="contract-btn">                                      
                             <div style="margin-right: 16px">
                                 <p style="color:green">${requestScope.COMPLETE}</p>

@@ -107,7 +107,12 @@
                             <div style="margin-bottom: 8px">Choose Employee</div>
                             <select name="idemp" class="certificate-select">
                                 <c:forEach var = "rowemp" items = "${resultemp.rows}">
-                                    <option value="${rowemp.idEmp}">ID: ${rowemp.idEmp} - ${rowemp.name}</option>
+                                    <option value="${rowemp.idEmp}" 
+
+
+                                            <c:if test="${requestScope.empreg != null}">
+                                                <c:if test="${requestScope.empreg eq rowemp.idEmp}">selected=""</c:if>
+                                            </c:if>>ID: ${rowemp.idEmp} - ${rowemp.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -115,7 +120,11 @@
                             <div style="margin-bottom: 8px">Type of contract</div>
                             <select name="typecon" class="certificate-select">
                                 <c:forEach var = "rowtype" items = "${resulttype.rows}">
-                                    <option value="${rowtype.idTypeCon}">${rowtype.name}</option>
+                                    <option value="${rowtype.idTypeCon}"
+
+                                            <c:if test="${requestScope.conreg != null}">
+                                                <c:if test="${requestScope.conreg eq rowtype.idTypeCon}">selected=""</c:if>
+                                            </c:if>>${rowtype.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -128,15 +137,17 @@
 
                         <div class="form-group">
                             <label>Expiration Day</label>
-                            <input class="form-control" type="date" name="expday">
-                        </div>
+                            <input class="form-control" type="date" name="expday" 
+                                   <c:if test="${not empty requestScope.expreg}">value="${requestScope.expreg}"</c:if>
+                                   >
+                            </div>
 
-                        <div class="form-group">
-                            <label>File Contract</label>
-                            <input class="form-control" type="file" name="conPath" >
-                        </div>
+                            <div class="form-group">
+                                <label>File Contract</label>
+                                <input class="form-control" type="file" name="conPath" >
+                            </div>
 
-                        <p style="color:red">${requestScope.WARNING}</p>
+                            <p style="color:red">${requestScope.WARNING}</p>
                         <p style="color:green">${requestScope.COMPLETE}</p>  
 
                         <input type="hidden" name="action" value="createcon">
