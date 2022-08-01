@@ -50,7 +50,7 @@ public class saveDependentEmpController extends HttpServlet {
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
 
-            if (name.equals("") || relationship.equals("") || dob.equals("0000-00-00")) {
+            if (name.equals("") || relationship.equals("") || dob.equals("")) {
                 ArrayList<DependentDTO> depenObject = DependentDAO.depenObject(idEmp, idDepen);
                 request.setAttribute("depenObject", depenObject);
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");

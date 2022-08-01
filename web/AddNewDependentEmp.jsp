@@ -61,7 +61,7 @@
             <div style="margin: 2% 20%; width: 100%" class="modal-content">
                 <div class="page-header">
                     <div class="row">
-                        <h3 class="page-title">Update dependent</h3>
+                        <h3 class="page-title">Add new dependent</h3>
                         <div class="col-sm-12 list-employee__actions">                       
                             <div>
                                 <ul class="breadcrumb">

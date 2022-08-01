@@ -60,7 +60,7 @@ public class AddNewCertEmpController extends HttpServlet {
             boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
             CertificateDAO dao = new CertificateDAO();
             int i = 0;
-            if (cerName.equals("") || doi.equals("1900-01-01")) {
+            if (cerName.equals("") || doi.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank,  Add fail");
                 i++;
             } else if (checkName == false) {

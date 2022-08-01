@@ -60,7 +60,7 @@ public class SaveCertEmpController extends HttpServlet {
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(cerName);
             boolean checkDoi = RegexEmp.checkValidationCertiDate(doi);
-            if (cerName.equals("")) {
+            if (cerName.equals("") || doi.equals("")) {
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listTypeCer", listTypeCer);
                 request.setAttribute("filedBlank", "Do not leave any fields blank!");

@@ -51,27 +51,23 @@ public class saveNewDependentEmpController extends HttpServlet {
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
-            if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
+            if (name.equals("") || dob.equals("") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
-                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
                 i++;
             }
 
             if (checkName == false) {
                 request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
                 i++;
             }
 
             if (checkRelationship == false) {
                 request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
                 i++;
             }
 
             if (checkDob == false) {
                 request.setAttribute("checkDob", "Can only enter the date before today");
-                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
                 i++;
             }
 
@@ -84,6 +80,8 @@ public class saveNewDependentEmpController extends HttpServlet {
                     request.setAttribute("Success", "Fail");
                     request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
                 }
+            } else {
+                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
             }
         }
     }

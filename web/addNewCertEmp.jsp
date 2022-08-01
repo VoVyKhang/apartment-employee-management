@@ -75,31 +75,33 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import> 
 
-        <c:if test="${filedBlank != null}">
-            <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
-        </c:if>
-        <c:if test="${Success != null}">
-            <h3 style="color: green" ><c:out value="${Success}"/></h3> 
-        </c:if>
-        <c:if test="${Fail != null}">
-            <c:out value="${Fail}"/>
-        </c:if>        
-        <div style="width: 100%; margin: 3% 20%" class="modal-content">
-            <div class="page-header">
-                <div class="row">
-                    <h3 class="page-title">Certificate</h3>
-                    <div class="col-sm-12 list-employee__actions">                       
-                        <div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
-                                <li class="breadcrumb-item">Account</li>
-                                <li class="breadcrumb-item"><a href="mainController?action=listCertEmp">Certificate</a></li>
-                                <li class="breadcrumb-item active">Add new certificate</li>
-                            </ul>
+
+
+            <div style="width: 100%; margin: 3% 20%" class="modal-content">
+                <div class="page-header">
+                    <div class="row">
+                        <h3 class="page-title">Certificate</h3>
+                        <div class="col-sm-12 list-employee__actions">                       
+                            <div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="EmployeeHome.jsp">Home</a></li>
+                                    <li class="breadcrumb-item">Account</li>
+                                    <li class="breadcrumb-item"><a href="mainController?action=listCertEmp">Certificate</a></li>
+                                    <li class="breadcrumb-item active">Add new certificate</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <c:if test="${filedBlank != null}">
+                <h3 style="color: red" ><c:out value="${filedBlank}"/></h3> 
+            </c:if>
+            <c:if test="${Success != null}">
+                <h3 style="color: green" ><c:out value="${Success}"/></h3> 
+            </c:if>
+            <c:if test="${Fail != null}">
+                <c:out value="${Fail}"/>
+            </c:if>
             <div class="modal-body">
                 <form action="mainController" class="form-position" enctype="multipart/form-data" method="POST">            
 

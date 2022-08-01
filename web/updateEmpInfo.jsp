@@ -101,11 +101,11 @@
                                     <label class="col-form-label">Name</label>
                                     <input class="form-control" type="text" name="empname"
                                     <c:choose>
-                                        <c:when test="${not empty sessionScope.USER_LOGGIN.name}">
+                                        <c:when test="${param.empname eq null}">
                                             value="${sessionScope.USER_LOGGIN.name}"
                                         </c:when>
                                         <c:otherwise>
-                                            value="${requestScope.namereg}"
+                                            value="${param.empname}"
                                         </c:otherwise>
                                     </c:choose>                                                  
                                     >
@@ -118,11 +118,11 @@
                                 <label class="col-form-label">Address</label>
                                 <input class="form-control" type="text" name="empadd"
                                        <c:choose>
-                                           <c:when test="${not empty sessionScope.USER_LOGGIN.address}">
+                                           <c:when test="${param.empadd eq null}">
                                                value="${sessionScope.USER_LOGGIN.address}"
                                            </c:when>
                                            <c:otherwise>
-                                               value="${requestScope.addreg}"
+                                               value="${param.empadd}"
                                            </c:otherwise>  
                                        </c:choose> 
                                        >
@@ -138,11 +138,11 @@
                                 <label class="col-form-label">Phone</label> 
                                 <input class="form-control" type="text" name="empphone"
                                        <c:choose>
-                                           <c:when test="${not empty sessionScope.USER_LOGGIN.phoneNum}">
+                                           <c:when test="${param.empphone eq null}">
                                                value="${sessionScope.USER_LOGGIN.phoneNum}"
                                            </c:when>
                                            <c:otherwise>
-                                               value="${requestScope.phonereg}"
+                                               value="${param.empphone}"
                                            </c:otherwise>
                                        </c:choose>                                                                                                                        
                                        >
@@ -156,11 +156,11 @@
                                 <select name="empgen  " class="form-control">
                                     <option value="Male" 
                                             <c:choose>
-                                                <c:when test="${not empty sessionScope.USER_LOGGIN.gender}">
+                                                <c:when test="${param.empgen eq null}">
                                                     <c:if test="${sessionScope.USER_LOGGIN.gender == 'Male'}">selected=""</c:if>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:if test="${requestScope.genreg == 'Male'}">selected=""</c:if>
+                                                    <c:if test="${param.empgen == 'Male'}">selected=""</c:if>
                                                 </c:otherwise>
                                             </c:choose>                                    
                                             >
@@ -169,11 +169,11 @@
 
                                     <option value="Female" 
                                             <c:choose>
-                                                <c:when test="${not empty sessionScope.USER_LOGGIN.gender}">
+                                                <c:when test="${param.empgen eq null}">
                                                     <c:if test="${sessionScope.USER_LOGGIN.gender == 'Female'}">selected=""</c:if>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:if test="${requestScope.genreg == 'Female'}">selected=""</c:if>
+                                                    <c:if test="${param.empgen == 'Female'}">selected=""</c:if>
                                                 </c:otherwise>
                                             </c:choose>                            
                                             >Female
@@ -181,11 +181,11 @@
 
                                     <option value="Other" 
                                             <c:choose>
-                                                <c:when test="${not empty sessionScope.USER_LOGGIN.gender}">
+                                                <c:when test="${param.empgen eq null}">
                                                     <c:if test="${sessionScope.USER_LOGGIN.gender == 'Other'}">selected=""</c:if>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:if test="${requestScope.genreg == 'Other'}">selected=""</c:if>
+                                                    <c:if test="${param.empgen == 'Other'}">selected=""</c:if>
                                                 </c:otherwise>
                                             </c:choose>                                                                                                     
                                             >Other
@@ -204,11 +204,11 @@
                                 <label class="col-form-label">Day of birth</label>
                                 <input class="form-control" type="date" name="empdob"
                                        <c:choose>
-                                           <c:when test="${not empty sessionScope.USER_LOGGIN.dob}">
+                                           <c:when test="${param.empdob eq null}">
                                                value="${sessionScope.USER_LOGGIN.dob}"
                                            </c:when>
                                            <c:otherwise>
-                                               value="${requestScope.dobreg}"
+                                               value="${param.empdob}"
                                            </c:otherwise>
                                        </c:choose>    
                                        >
@@ -249,11 +249,11 @@
                                 <label class="col-form-label">Salary</label>
                                 <input readonly="" class="form-control" type="text" name="empsalary"
                                        <c:choose>
-                                           <c:when test="${not empty sessionScope.USER_LOGGIN.baseSalary}">
+                                           <c:when test="${param.empsalary eq null}">
                                                value="${sessionScope.USER_LOGGIN.baseSalary}"
                                            </c:when>
                                            <c:otherwise>
-                                               value="${requestScope.salaryreg}"
+                                               value="${param.empsalary}"
                                            </c:otherwise>
                                        </c:choose>                                                  
                                        >
