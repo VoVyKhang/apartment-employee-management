@@ -105,8 +105,9 @@
                     <form action="mainController" method="post" class="form-position">
                         <div class="form-group">
                             <!--                            <div style="margin-bottom: 6px">Reason</div> -->
+                            <div style="margin-bottom: 6px">Reason</div> 
                             <select id="updaterp" name="idReg" class="form-control">
-                                <option value="" disabled selected>Choose Reason</option>
+                                <!--                                <option value="" disabled selected>Choose Reason</option>-->
                                 <c:forEach var="list" items="${requestScope.list}">
                                     <option value="${list.idReg}" data-status="${list.status}" <c:if test="${sessionScope.idReg == list.idReg}" > selected="${list.name}" </c:if>>
                                         ${list.name}
