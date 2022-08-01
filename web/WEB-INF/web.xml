@@ -284,6 +284,10 @@
         <servlet-name>searchHisConController</servlet-name>
         <servlet-class>management.controllers.searchHisConController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchDependentEmpController</servlet-name>
+        <servlet-class>management.controllers.SearchDependentEmpController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -567,6 +571,10 @@
     <servlet-mapping>
         <servlet-name>searchHisConController</servlet-name>
         <url-pattern>/searchHisConController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchDependentEmpController</servlet-name>
+        <url-pattern>/SearchDependentEmpController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

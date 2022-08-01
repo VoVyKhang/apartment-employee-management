@@ -13,6 +13,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/styles.css"/>
         <title>Reward And Penalty</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -35,6 +41,14 @@
                 margin-left: 16px !important;
                 margin-top: 8px
             }
+            .dataTables_length{
+                display: flex;
+                margin-top: -50px;
+                margin-left: -10px
+            }
+            .dataTables_info{
+                display: flex;
+            }
         </style>
     </head>
     <body>
@@ -45,7 +59,7 @@
             <c:redirect url="Hall.jsp"/>
         </c:if>
         <c:import url="sidebarEmp.jsp"></c:import>
-            <div style="margin: 0 16px; width: 100%">
+            <div class="list__employee" style="margin: 0 16px; width: 100%">
                 <div class="page-header">
                     <div class="row">
                         <h3 class="page-title">Reward and penalty</h3>
@@ -60,7 +74,18 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered">
+                <div class="row justify-content-center">
+                <div class="col-3"> 
+                    </br>
+                    <select class="form-select form-select-md-5 mb-1 list-options" name="depname" id="depname"> 
+                        <option value="all" >All Type</option>
+                        <option value="Reward" >Reward</option>
+                        <option value="Penalty" >Penalty</option>
+                    </select>
+                </div>
+                    
+            </div>
+                <table class="table table-striped" id="mydatatable">
                     <thead>
                         <tr>
                             <th>Type</th>
@@ -70,7 +95,7 @@
                             <th>Reason </th>
                         </tr>
                     </thead>
-                    <tbody id="listRp">
+                    <tbody id="listEmp">
                     <c:forEach var="listRpEmp" varStatus="counter" items="${requestScope.listRpEmp}">
                         <tr>
                             <td><c:choose>
@@ -86,5 +111,45 @@
                 </tbody>
             </table> 
         </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
+        <script>
+            $('#mydatatable').DataTable({
+                ordering: false,
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                searching: false
+            });
+        </script>
+        <script>
+            $('.list__employee').on("change", 'select', function () {
+                var depname = $('#depname').val().toLowerCase();
+                var table = $("#listEmp");
+                var trs = table.find('tr');
+                trs.hide();
+                var filtered = trs.filter(function (index, elem) {
+                    var tds = $(elem).find('td');
+                    if (depname == "all") {
+                        return true;
+                    }
+                    if (tds.eq(0).text().trim().toLowerCase().indexOf(depname) != -1 ) {
+                        return true;
+                    }
+                })
+                filtered.show();
+                if (filtered.length == 0) {
+                    alert("No Records Found!!!");
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                var value = $("div.dataTables_length").closest("div");
+                value.closest("div").removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-1');
+            });
+        </script>    
     </body>
 </html>
