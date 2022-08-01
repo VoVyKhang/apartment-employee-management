@@ -102,6 +102,7 @@
                         <div style="text-align: center">
                             <input type="hidden" value="${sessionScope.id}" name="idemp">
                             <input type="hidden" value="${sessionScope.idRP}" name="idrp">
+                            <input type="hidden" value="${sessionScope.times}" name="timerp">
                             <input type="hidden" name="action" value="UpdateRp"> 
                             <input class="btn btn-primary" type="submit" value="Update"> 
                         </div>

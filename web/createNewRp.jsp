@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Create Reward - Penalty</title>
         <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
@@ -104,7 +104,7 @@
                 <div class="list-employee">
                     <form action="mainController" method="post" class="form-position">
                         <div class="form-group">
-<!--                            <div style="margin-bottom: 6px">Reason</div> -->
+                            <!--                            <div style="margin-bottom: 6px">Reason</div> -->
                             <select id="updaterp" name="idReg" class="form-control">
                                 <option value="" disabled selected>Choose Reason</option>
                                 <c:forEach var="list" items="${requestScope.list}">
@@ -113,6 +113,7 @@
                                     </option>
                                 </c:forEach>  
                             </select>
+                            <p style="color:red">${requestScope.WARNING}</p>
                         </div>
                         <div class="form-group" id="divResult"></div>
                         <%Date d = new Date();%>
@@ -156,7 +157,7 @@
                     } else if (times == 1) {
                         output = "Reward";
                         $("#divResult").css("color", "green");
-                    }else{
+                    } else {
                         output = "You must choose reason ";
                         $("#divResult").css("color", "red");
                     }

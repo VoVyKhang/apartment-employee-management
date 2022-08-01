@@ -7,11 +7,17 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import management.dao.RegulationDAO;
 import management.dao.RewardPenaltyDAO;
+import management.dto.RegulationDTO;
 
 /**
  *
@@ -29,31 +35,43 @@ public class CreateNewRpController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int idReg = Integer.parseInt(request.getParameter("idReg"));
+            String idReg = request.getParameter("idReg");
             int times = Integer.parseInt(request.getParameter("timerp"));
             int idEmp = Integer.parseInt(request.getParameter("idemp"));
             String reason = request.getParameter("reasonrp");
             String flag = request.getParameter("flag");
-            if (flag == null || !flag.trim().equals("flag")) {
-                boolean result = RewardPenaltyDAO.createnewRP(idReg, times, idEmp, reason);
-                if (result == true) {
-                    request.setAttribute("updateSuccess", "Create success");
-                    request.getRequestDispatcher("SearchRPController").forward(request, response);
+            if (idReg == null || idReg.equals("")) {
+                request.setAttribute("WARNING", "Choose a reason!!");
+                ArrayList<RegulationDTO> list = RegulationDAO.listReg();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+
+            } else {
+                if (flag == null || !flag.trim().equals("flag")) {
+                    boolean result = RewardPenaltyDAO.createnewRP(Integer.valueOf(idReg), times, idEmp, reason);
+                    if (result == true) {
+                        request.setAttribute("updateSuccess", "Create success");
+                        request.getRequestDispatcher("SearchRPController").forward(request, response);
+                    } else {
+                        ArrayList<RegulationDTO> list = RegulationDAO.listReg();
+                        request.setAttribute("list", list);
+                        request.setAttribute("updateFail", "Create fail");
+                        request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                    }
                 } else {
-                    request.setAttribute("updateFail", "Create fail");
-                    request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
-                }
-            }else{
-                boolean result = RewardPenaltyDAO.createnewRP(idReg, times, idEmp, reason);
-                if (result == true) {
-                    request.getRequestDispatcher("mainController?action=passidemp&empid="+String.valueOf(idEmp)+"&type=detail").forward(request, response);
-                } else {
-                    request.setAttribute("updateFail", "Create fail");
-                    request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                    boolean result = RewardPenaltyDAO.createnewRP(Integer.valueOf(idReg), times, idEmp, reason);
+                    if (result == true) {
+                        request.getRequestDispatcher("mainController?action=passidemp&empid=" + String.valueOf(idEmp) + "&type=detail").forward(request, response);
+                    } else {
+                        ArrayList<RegulationDTO> list = RegulationDAO.listReg();
+                        request.setAttribute("list", list);
+                        request.setAttribute("updateFail", "Create fail");
+                        request.getRequestDispatcher("createNewRp.jsp").forward(request, response);
+                    }
                 }
             }
         }
@@ -71,7 +89,11 @@ public class CreateNewRpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateNewRpController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,7 +107,11 @@ public class CreateNewRpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateNewRpController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -158,7 +158,8 @@
                                                 <div class="col-md-6 col-6 text-center">
                                                     <div class="stats-box mb-4">
                                                         <p style="color: #007bff">Reward</p>
-                                                        <h3>${RP.count}</h3>
+                                                        <c:if test="${RP.count eq null}"><h3>0</h3></c:if>
+                                                        <c:if test="${RP.count ne null}"><h3>${RP.count}</h3></c:if>
                                                     </div>
                                                 </div>
                                                 <c:set var="reward" value="${RP.count}"></c:set>
@@ -168,8 +169,9 @@
                                             <c:if test="${RP.status eq '0'}">
                                                 <div class="col-md-6 col-6 text-center">
                                                     <div class="stats-box mb-4">
-                                                        <p style="color: #dc3545">Penalty</p>
-                                                        <h3>${RP.count}</h3>
+                                                        <p style="color: #f10e1d">Penalty</p>
+                                                        <c:if test="${RP.count eq null}"><h3>0</h3></c:if>
+                                                        <c:if test="${RP.count ne null}"><h3>${RP.count}</h3></c:if>
                                                     </div>
                                                 </div>
                                                 <c:set var="penalty"  value="${RP.count}"> </c:set>
@@ -181,8 +183,8 @@
                                         </div>
                                     </div>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: ${(r div (r+p))*100}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="2" value="${(r div (r+p))*100}" />%</div>                            
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${100-(r div (r+p))*100}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="2" value="${100-(r div (r+p))*100}" />%</div>                                   
+                                        <div class="progress-bar bg-purple" role="progressbar" style="width: ${(r div (r+p))*100}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="3" value="${(r div (r+p))*100}" />%</div>                            
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${100-(r div (r+p))*100}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100"><fmt:formatNumber type="number" pattern="###" maxIntegerDigits="3" value="${100-(r div (r+p))*100}" />%</div>                                   
                                 </div>                           
                             </div>
                         </div>
