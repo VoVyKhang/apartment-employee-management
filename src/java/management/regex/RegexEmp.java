@@ -55,8 +55,8 @@ public class RegexEmp {
     public static boolean checkSalary(String Salary) {
         boolean check = checkOnlyNumber(Salary);
         
-        if ((check) && (Salary.length() >= 4 && Salary.length() <= 5)) {
-            if (Integer.parseInt(Salary) >= 1000 && Integer.parseInt(Salary) <= 10000) {
+        if ((check) && (Salary.length() >= 3 && Salary.length() <= 5)) {
+            if (Integer.parseInt(Salary) >= 100 && Integer.parseInt(Salary) <= 10000) {
                 return true;
             }
         } else {

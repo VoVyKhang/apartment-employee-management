@@ -110,7 +110,7 @@ public class UpdateEmpInfoController extends HttpServlet {
                     if (RegexEmp.checkEmpName(name) == false) {
                         request.setAttribute("WARNINGNAME", "Names contains only letters and space and can be between 4 and 30 characters long");
                     } else if (RegexEmp.checkSalary(salary) == false) {
-                        request.setAttribute("WARNINGSALARY", "Salary contains only number and from 1000$ to 10000$");
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and from 100$ to 10000$");
                     } else if (RegexEmp.checkEmpAddress(address) == false) {
                         request.setAttribute("WARNINGADD", "Address between 5 and 40 characters long");
                     } else if (RegexEmp.checkPhone(phone) == false) {

@@ -89,7 +89,7 @@
                                         <option value="Other" <c:if test="${depenObject.gender eq 'Other'}">selected="${Other}"</c:if>>Other</option>
                                         </select>                                    
                                     </td>
-                                    <td><input type="date" name="dob" value="${depenObject.dob}">
+                                    <td><input type="date" name="dob" value="${depenObject.dob}" required="">
                                     <c:if test="${requestScope.checkDob != null}" >
                                         <p style="color: red" ><c:out value="${requestScope.checkDob}" /></p>
                                     </c:if>

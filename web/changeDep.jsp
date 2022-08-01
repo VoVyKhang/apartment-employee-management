@@ -210,7 +210,7 @@
                                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                         String strDate = dateFormat.format(date);%>
                                     <c:set var = "now" value = "<%= strDate%>" />
-                                    <input type="date" name="exactDate" value = "${now}"/>
+                                    <input type="date" name="exactDate" value = "${now}" required=""/>
                                 </td>
 
                                 <td>

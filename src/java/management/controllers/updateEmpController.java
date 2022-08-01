@@ -107,7 +107,7 @@ public class updateEmpController extends HttpServlet {
                     }
 
                     if (RegexEmp.checkSalary(salary) == false) {
-                        request.setAttribute("WARNINGSALARY", "Salary contains only number and from 1000$ to 10000$");
+                        request.setAttribute("WARNINGSALARY", "Salary contains only number and from 100$ to 10000$");
                     }
                     
                     if (RegexEmp.checkEmpAddress(address) == false) {
