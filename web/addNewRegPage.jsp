@@ -75,7 +75,8 @@
 
                         <div class="form-group">
                             <label for="formGroupExampleInput">Regulation Name</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" name="regName" placeholder="Example input">
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="regName" placeholder="Example Input" value="${sessionScope.regName}">
+                            <% session.removeAttribute("regName"); %>
                             <p style="color:red">${sessionScope.WARNING}</p>
                         </div>
                         <div class="form-group">

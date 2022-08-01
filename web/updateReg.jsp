@@ -68,7 +68,7 @@
 
                 <div>
                     <div>
-                        <p style="margin: 16px 16px 0 16px">Regulation is being updated: ${requestScope.nameReg}</p>
+                        <p style="margin: 16px 16px 0 16px">Regulation is being updated: ${sessionScope.regName}</p>
                 </div>
             </div>
 

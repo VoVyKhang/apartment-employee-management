@@ -144,11 +144,11 @@
                                     <td>
                                         <c:url var="update" value="mainController">
                                             <c:param name="action" value="UpdateReg"> </c:param>
-
                                             <c:param name="idRegUpdate" value="${listReg.idReg}"> </c:param>
                                             <c:param name="nameRegUpdate" value="${listReg.name}"> </c:param>
+                                            <c:param name="nameReg" value="${listReg.name}"> </c:param>
                                             <c:param name="statusRegUpdate" value="${listReg.status}"> </c:param>
-
+                                            
                                         </c:url>
                                         <a href="${update}"><i class="fas fa-edit"></i></a>
 

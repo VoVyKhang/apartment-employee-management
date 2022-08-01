@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,13 +37,18 @@ public class updateRegPageController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String url = ERROR;
         try {
+            HttpSession ss = request.getSession();
             String idReg = request.getParameter("idRegUpdate");
             String nameReg = request.getParameter("nameRegUpdate");
+            String RegName = request.getParameter("nameReg");
             String typeReg = request.getParameter("statusRegUpdate");
             url = SUCCESS;
             request.setAttribute("idReg", idReg);
             request.setAttribute("nameReg", nameReg);
             request.setAttribute("typeReg", typeReg);
+            if(RegName != null){
+                ss.setAttribute("regName", RegName);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }finally{

@@ -68,6 +68,7 @@ public class createNewRegController extends HttpServlet {
                     }
                 } else {
                     session.setAttribute("WARNING", "Name from 1 to 30 character and no number !");
+                    session.setAttribute("regName", nameReg);
                 }
             }
         } catch (SQLException e) {

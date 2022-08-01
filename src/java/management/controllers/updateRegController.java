@@ -73,6 +73,7 @@ public class updateRegController extends HttpServlet {
 
                         if (rs) {
                             url = SUCCESS + "&message=Update Success";
+                            session.removeAttribute("regName");
                         }
                     }
                 } else {
