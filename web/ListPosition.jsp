@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Position Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
             body{
@@ -48,6 +49,17 @@
                 cursor: pointer;
                 padding: 4px 10px;
             }
+            
+            .add-link{
+                display: inline-flex;
+                align-items: center;
+                border: 1px solid #dee2e6;
+                padding: 5px 10px
+            }
+            
+            .add-link:hover{
+                background-color: #dee2e6
+            }
 
         </style>
     </head>
@@ -79,7 +91,9 @@
                     </div>
                 </div>
                 <div>
-                    <a href="addNewPosition.jsp">Add new position</a>
+                    <a class="add-link" href="addNewPosition.jsp">
+                        <i class="ri-add-fill"></i>
+                        Add new position</a>
                 </div>
                 <p style="color: green" > ${requestScope.addSuccess} </p>
                 <table class="table table-bordered">

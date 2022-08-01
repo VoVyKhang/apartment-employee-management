@@ -136,9 +136,6 @@
                             <div class="card-body" >
                                 <h5 class="card-title">Department Statistics</h5>
                                 <div class="stats-list">
-                                    <div class="stats-info">
-                                        <p>Department <strong>Employee</strong></p>
-                                    </div>
                                     <c:forEach var="emp" items="${dep.rows}">
                                     <div class="stats-info">
                                         <p>${emp.depName} <strong>${emp.employee}</strong></p>
