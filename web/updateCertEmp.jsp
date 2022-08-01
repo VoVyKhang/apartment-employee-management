@@ -37,9 +37,6 @@
         </c:if>
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
-        <c:if test="${requestScope.filedBlank != null}" >
-            <h6 style="color: red" ><c:out value="${requestScope.filedBlank}" /></h6>
-        </c:if>
         <div style="margin: 0 16px; width: 100%">
             <table class="table table-striped list-certificate">
                 <thead>

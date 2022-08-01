@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <h5>${requestScope.Success}</h5>
+                <h5 style="color:green">${requestScope.Success}</h5>
                 <table class="table table-striped">
                     <thead>
                         <tr style="text-align: center">
@@ -138,7 +138,7 @@
                                         <c:param name="action" value="Delete"> </c:param>
                                         <c:param name="id" value="${listDep.depNum}"> </c:param>
                                     </c:url>
-                                  
+
                                 </td>
                             </tr>                           
                         </c:forEach>
