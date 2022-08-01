@@ -94,8 +94,8 @@
                         <textarea class="form-control" rows="4" cols="40" name="reasonrp" placeholder="Enter description here...">${sessionScope.reason}</textarea>
                     </div>
                     <div class="form-group">
-                        <label name="timerp" >Time</label>
-                        <p >${sessionScope.times}</p>
+                        <label >Time</label>
+                        <p  name="timerp">${sessionScope.times}</p>
                     </div>
                     <div class="form-group">
                         
