@@ -143,12 +143,6 @@
                                    <c:if test="${not empty requestScope.expreg}">value="${requestScope.expreg}"</c:if>
                                        >
                             </div>
-
-                            <div class="form-group">
-                                <label>File Contract</label>
-                                <input class="form-control" type="file" name="conPath" >
-                            </div>
-
                             <p style="color:red">${requestScope.WARNING}</p>
                         <p style="color:green">${requestScope.COMPLETE}</p>  
 

@@ -102,8 +102,6 @@
                             </c:forEach>
                         </select>
                     </div>
-
-
                     <div>
                         <div class="form-group">
                             <span style="margin-bottom: 8px">
@@ -117,15 +115,6 @@
                             </span>
                             <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
                         </div>
-                        <div>
-                            Current File: ${requestScope.Contract.filePath}
-                        </div>
-                        <div class="form-group">
-                            <span>
-                                New File
-                            </span>
-                            <input class="form-control" type="file" name="fileCon">
-                        </div>
                     </div>
                     <c:choose>
                         <c:when test="${requestScope.Contract.status eq 1}">
@@ -138,7 +127,6 @@
 
                     <div style="text-align: center">
                         <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-                        <input type="hidden" value="${requestScope.Contract.filePath}" name="oldFile">
                         <input type="hidden" value="${requestScope.Contract.nameEmp}" name="nameEmp">
                         <input class="btn btn-primary" type="submit" value="Save"/> 
                         <input class="btn btn-primary" type="hidden" name="action" value="updateCon"/> 
