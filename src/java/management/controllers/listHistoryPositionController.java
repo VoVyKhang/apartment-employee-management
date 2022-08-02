@@ -39,6 +39,7 @@ public class listHistoryPositionController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             ArrayList<HistoryPositionDTO> listHisPos = new ArrayList<>();
             listHisPos= HistoryPosDAO.listHisPos();
+            
             request.setAttribute("listHisPos", listHisPos);
             request.getRequestDispatcher("historyPromoteAndDemote.jsp").forward(request, response);
         }

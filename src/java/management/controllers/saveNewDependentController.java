@@ -37,7 +37,7 @@ public class saveNewDependentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession ss = request.getSession();
             String name = request.getParameter("name");
@@ -50,6 +50,7 @@ public class saveNewDependentController extends HttpServlet {
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
+            /*
             if (flag != null) {
                 request.setAttribute("EmpId", EmpId);
             }
@@ -93,7 +94,38 @@ public class saveNewDependentController extends HttpServlet {
                 }
             } else {
                 request.getRequestDispatcher("addNewDependentController").forward(request, response);
+            } */
+
+            if (name.equals("") || relationship.equals("") || dob.equals("0000-00-00")) {
+                request.setAttribute("filedBlank", "Do not leave any fields blank!");
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+                return;
             }
+            if (checkName == false) {
+                request.setAttribute("nameInvalid", " Dependent only contain Alphabet and space and length 4 -> 30");
+            }
+            if (checkRelationship == false) {
+                request.setAttribute("checkRelationship", "Relationship only contain Alphabet and space and length 4 -> 30");
+
+            }
+            if (checkDob == false) {
+                request.setAttribute("checkDob", "can only enter today and earlier");
+            }
+
+            if (checkDob == false || checkName == false || checkRelationship == false) {
+                request.getRequestDispatcher("addNewDependentController").forward(request, response);
+            }
+            if (checkDob == true && checkName == true && checkRelationship == true) {
+                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, EmpId);
+                if (result == true) {
+                    ss.setAttribute("addDepenSuccess", "Add new success !");
+                    response.sendRedirect("listDependentController");
+                } else {
+                    ss.setAttribute("updateFail", "Update fail, wrong date format !");
+                    response.sendRedirect("listDependentController");
+                }
+            }
+
         }
     }
 

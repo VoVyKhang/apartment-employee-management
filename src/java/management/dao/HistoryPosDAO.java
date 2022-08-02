@@ -120,10 +120,16 @@ public class HistoryPosDAO {
                     String nameEmp = rs.getString("name");
                     String posName = rs.getString("posName");
                     String deliveryDate = rs.getString("deliveryDate");
+                    if (deliveryDate == null) {
+                        deliveryDate = "0000-00-00";
+                    }
                     String exactDate = rs.getString("exactDate");
+                    if (exactDate == null) {
+                        exactDate = "0000-00-00";
+                    }
                     int type = rs.getInt("type");
                     int status = rs.getInt("status");
-                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, idEmp, nameEmp, posName, deliveryDate, exactDate, status, type);
+                    HistoryPositionDTO his = new HistoryPositionDTO(idHisPos, idEmp, nameEmp, posName, deliveryDate.substring(0, 10), exactDate.substring(0, 10), status, type);
                     listHisPos.add(his);
 
                 }

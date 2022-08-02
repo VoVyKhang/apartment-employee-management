@@ -254,7 +254,7 @@
                                             <td>
                                                 <select name="idPos" class="certificate-select">
                                                     <c:forEach var="listPosAndID" items="${listPosAndID.rows}">
-                                                        <option value="${listPosAndID.idPos}" ><c:out value="${listPosAndID.posName}"/></option>                        
+                                                        <option value="${listPosAndID.idPos}" <c:if test="${listEmpPos.posName eq listPosAndID.posName}">disabled=""</c:if> >${listPosAndID.posName}</option>                        
                                                     </c:forEach>
                                                 </select> 
                                             </td>

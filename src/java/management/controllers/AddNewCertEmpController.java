@@ -61,7 +61,7 @@ public class AddNewCertEmpController extends HttpServlet {
             CertificateDAO dao = new CertificateDAO();
             int i = 0;
             if (cerName.equals("") || doi.equals("")) {
-                request.setAttribute("filedBlank", "Do not leave any fields blank,  Add fail");
+                request.setAttribute("filedBlank", "Do not leave any fields blank !");
                 i++;
             } else if (checkName == false) {
                 request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");

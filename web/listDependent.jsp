@@ -130,8 +130,8 @@
                 <c:if test="${requestScope.updateSuccess != null}" >
                     <p style="color: green" ><c:out value="${requestScope.updateSuccess}" /></p>
                 </c:if>
-                <c:if test="${sessionScope.Success != null}">
-                    <p style="color: green" ><c:out value="${sessionScope.Success}"/></p> 
+                <c:if test="${sessionScope.addDepenSuccess != null}">
+                    <p style="color: green" ><c:out value="${sessionScope.addDepenSuccess}"/></p> 
                 </c:if>
 
                 <c:if test="${requestScope.Fail != null}" >
@@ -224,7 +224,7 @@
                 <!--End for each-->
                 <%
                     HttpSession ss = request.getSession();
-                    ss.removeAttribute("Success");
+                    ss.removeAttribute("addDepenSuccess");
                 %>
 
             </div>

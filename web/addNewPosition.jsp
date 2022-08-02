@@ -44,7 +44,7 @@
                 cursor: pointer;
                 padding: 4px 10px;
             }
-            
+
             .create-btn:hover{
                 opacity: 0.9;
                 transform: scale(0.95)
@@ -57,32 +57,33 @@
         </c:if>
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import> 
-        <p style="color: red" >${allField}</p>
-        <div class="modal-content" style="margin: 4% 20%">
 
-            <div style="margin: 0 16px">
-                <div class="page-header">
-                    <div class="row">
-                        <h3 class="page-title">Add new position</h3>
-                        <div class="col-sm-12">                       
-                            <div>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="mainController?action=listPosition">Position</a></li>
-                                    <li class="breadcrumb-item active">Add new position</li>
-                                </ul>
+            <div class="modal-content" style="margin: 4% 20%">
+
+                <div style="margin: 0 16px">
+                    <div class="page-header">
+                        <div class="row">
+                            <h3 class="page-title">Add new position</h3>
+                            <div class="col-sm-12">                       
+                                <div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="mainController?action=listPosition">Position</a></li>
+                                        <li class="breadcrumb-item active">Add new position</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-body">
-                    <form action="mainController" method="POST" class="form-position">
-                        <div class="form-group">
+                    <div class="modal-body">
+                        <form action="mainController" method="POST" class="form-position">
+                            <div class="form-group">
+                                <p style="color: red" >${allField}</p>
                             <label>
                                 Position name
                             </label>
-                            <input class="form-control" name="posName" >
+                            <input class="form-control" name="posName" value="${requestScope.posName}">
                             <p style="color: red" >${messPosName}</p>
                             <p style="color: red" >${duplicateName}</p>
                         </div>
@@ -91,7 +92,7 @@
                             <label>
                                 Description
                             </label>
-                            <input class="form-control" name="posDes">
+                            <input class="form-control" name="posDes" value="${requestScope.posDes}">
                             <p style="color: red" >${messDes}</p>
 
                         </div>

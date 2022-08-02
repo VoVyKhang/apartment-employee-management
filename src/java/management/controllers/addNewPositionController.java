@@ -43,29 +43,40 @@ public class addNewPositionController extends HttpServlet {
             boolean checkPosName = RegexDep.checkDepName(posName);
             boolean checkDes = RegexDep.checkPosDes(posDes);
             boolean checkExitPos = PositionDAO.checkPosExist(posName);
-            if (checkExitPos == true) {
-                request.setAttribute("duplicateName", "Position name is already exits !");
+
+            if (posName.equals("") || posDes.equals("")) {
+                request.setAttribute("allField", "All field are required !");
+                request.setAttribute("posName", posName);
+                request.setAttribute("posDes", posDes);
                 request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
+
                 return;
+            }
+            if (checkExitPos == true) {
+                request.setAttribute("posName", posName);
+                request.setAttribute("posDes", posDes);
+                request.setAttribute("duplicateName", "Position name is already exits !");       
             }
             if (checkPosName == false) {
                 request.setAttribute("messPosName", "Position name from 1 to 30 character and no number !");
-                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
-                return;
-            } else if (checkDes == false) {
+                request.setAttribute("posName", posName);
+                request.setAttribute("posDes", posDes);
+            }
+            if (checkDes == false) {
                 request.setAttribute("messDes", "Position description from 1 to 100 character and no number !");
-                request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
-                return;
+                request.setAttribute("posDes", posDes);
+                request.setAttribute("posName", posName);
+
             }
-            if (posName.equals("") || posDes.equals("")) {
-                request.setAttribute("allField", "all field are required !");
+            if (checkExitPos == true || checkPosName == false || checkDes == false) {
                 request.getRequestDispatcher("addNewPosition.jsp").forward(request, response);
-                return;
             }
-            boolean insertNewPos = PositionDAO.inserNewPos(posName, posDes, creator);
-            if (insertNewPos == true) {
-                request.setAttribute("addSuccess", "add new success !");
-                request.getRequestDispatcher("listPositionController").forward(request, response);
+            if (checkExitPos == false && checkPosName == true && checkDes == true) {
+                boolean insertNewPos = PositionDAO.inserNewPos(posName, posDes, creator);
+                if (insertNewPos == true) {
+                    request.setAttribute("addSuccess", "add new success !");
+                    request.getRequestDispatcher("listPositionController").forward(request, response);
+                }
             }
 
         }
