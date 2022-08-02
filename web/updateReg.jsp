@@ -69,6 +69,7 @@
                 <div>
                     <div>
                         <p style="margin: 16px 16px 0 16px">Regulation is being updated: ${sessionScope.regName}</p>
+                    <% session.removeAttribute("regName"); %>
                 </div>
             </div>
 

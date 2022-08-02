@@ -78,7 +78,9 @@
             where idEmp not in (
             select e.idEmp
             from Employee as e, Contract as c, HistoryContract as hc
-            where c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 ) and role = 0
+            where c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 1 ) and idEmp not in(select e.idEmp
+            from Employee as e, Contract as c, HistoryContract as hc
+            where c.idContract = hc.idContract and e.idEmp = hc.idEmp and hc.status = 0) and role = 0
         </sql:query>
 
         <sql:query dataSource = "${snapshot}" var = "resulttype">
@@ -139,7 +141,7 @@
                             <label>Expiration Day</label>
                             <input class="form-control" type="date" name="expday" 
                                    <c:if test="${not empty requestScope.expreg}">value="${requestScope.expreg}"</c:if>
-                                   >
+                                       >
                             </div>
 
                             <div class="form-group">

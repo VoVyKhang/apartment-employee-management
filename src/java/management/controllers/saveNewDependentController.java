@@ -37,7 +37,7 @@ public class saveNewDependentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession ss = request.getSession();
             String name = request.getParameter("name");
@@ -50,10 +50,11 @@ public class saveNewDependentController extends HttpServlet {
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
             boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
-            /*
+
             if (flag != null) {
                 request.setAttribute("EmpId", EmpId);
             }
+            /*
             if (name.equals("") || dob.equals("1900-01-01") || relationship.equals("")) {
                 request.setAttribute("filedBlank", "Do not leave any fields blank !");
                 i++;
@@ -118,11 +119,20 @@ public class saveNewDependentController extends HttpServlet {
             if (checkDob == true && checkName == true && checkRelationship == true) {
                 boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, EmpId);
                 if (result == true) {
-                    ss.setAttribute("addDepenSuccess", "Add new success !");
-                    response.sendRedirect("listDependentController");
+                    if (flag == null) {
+                        ss.setAttribute("addDepenSuccess", "Add new success !");
+                        response.sendRedirect("listDependentController");
+                    } else {
+                        ss.setAttribute("Success", "Add new Success");
+                        response.sendRedirect("mainController?action=passidemp&empid=" + EmpId + "&type=detail");
+                    }
                 } else {
-                    ss.setAttribute("updateFail", "Update fail, wrong date format !");
-                    response.sendRedirect("listDependentController");
+                    if (flag == null) {
+                        ss.setAttribute("updateFail", "Update fail, wrong date format !");
+                        response.sendRedirect("listDependentController");
+                    } else {
+                        response.sendRedirect("mainController?action=passidemp&empid=" + EmpId + "&type=detail");
+                    }
                 }
             }
 
