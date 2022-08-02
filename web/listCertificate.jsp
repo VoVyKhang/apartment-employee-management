@@ -219,7 +219,7 @@
                                             <tr>                 
                                                 <th>Certificate ID</th>
                                                 <th>Certificate name</th>
-                                                <th>Date of issue</th>
+                                                <th>Date of issues</th>
                                                 <th>Type certificate</th>
                                                 <th>Update</th>
                                             </tr>

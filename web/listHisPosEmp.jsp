@@ -77,7 +77,7 @@
                                     <td>${listHisPos.posName}</td>
                                     <td>${listHisPos.deliveryDate}</td>
                                     <td> <c:choose>
-                                            <c:when test="${listHisPos.type eq 0}">
+                                            <c:when test="${listHisPos.type eq 1}">
                                                 Promote
                                             </c:when>
                                             <c:otherwise>

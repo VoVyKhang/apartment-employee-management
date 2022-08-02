@@ -35,7 +35,7 @@
 
             .page-title{
                 text-align: initial !important;
-                margin-left: 16px !important;
+                margin-left: 6px !important;
                 margin-top: 8px
             }
             .dataTables_length{
@@ -84,7 +84,7 @@
                 </div>
 
                 <h5 style="color:green">${requestScope.Success}</h5>
-                <table class="table table-striped" id="mydatatable">
+                <table class="table table-bordered" id="mydatatable">
                     <thead>
                         <tr>
                             <th>Dependent name</th>
@@ -104,13 +104,7 @@
                                 <td>  
                                     <a href="mainController?action=updateDependentEmp&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}"><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td>
-                                    <c:url var="delete" value="mainController">
-                                        <c:param name="action" value="Delete"> </c:param>
-                                        <c:param name="id" value="${listDep.depNum}"> </c:param>
-                                    </c:url>
-
-                                </td>
+                                
                             </tr>                           
                         </c:forEach>
                     </tbody>

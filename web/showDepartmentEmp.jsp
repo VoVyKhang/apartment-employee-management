@@ -92,7 +92,7 @@
         </div>
                     
         <div class="list-department">
-            <table class="table table-striped" style="font-size: 14px" id="mydatatable">
+            <table class="table table-bordered" style="font-size: 14px" id="mydatatable">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>

@@ -55,7 +55,7 @@ public class addNewPositionController extends HttpServlet {
             if (checkExitPos == true) {
                 request.setAttribute("posName", posName);
                 request.setAttribute("posDes", posDes);
-                request.setAttribute("duplicateName", "Position name is already exits !");       
+                request.setAttribute("duplicateName", "Position name is already exits !");
             }
             if (checkPosName == false) {
                 request.setAttribute("messPosName", "Position name from 1 to 30 character and no number !");
