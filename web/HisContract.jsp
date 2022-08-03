@@ -55,6 +55,25 @@
                 margin-left: 4px;
                 margin-top: 16px
             }
+
+            .list-contract{
+                display: flex;
+                align-items: center
+            }
+
+            .list-contract span{
+                margin-right: 6px
+            }
+
+            .list-contract p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
+
+            .table>:not(:first-child) {
+                border-top: none; 
+            }
         </style>
     </head>
     <body>
@@ -149,17 +168,23 @@
                                     <c:if test="${requestScope.idEmp eq Emp.idEmp}">
                                         <h2 class="accordion-header" id="flush-headingOne">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${Emp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${Emp.idEmp}">
-                                                Id ${Emp.idEmp} - ${Emp.name}
+                                                <div class="list-contract">
+                                                    <span>Id ${Emp.idEmp} - </span> 
+                                                    <p>${Emp.name}</p>
+                                                </div>
                                             </button>
                                         </h2>
                                     </c:if>
                                 </c:if>
                                 <c:if test="${requestScope.idEmp eq null}">
-                                        <h2 class="accordion-header" id="flush-headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${Emp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${Emp.idEmp}">
-                                                Id ${Emp.idEmp} - ${Emp.name}
-                                            </button>
-                                        </h2>
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${Emp.idEmp}" aria-expanded="false" aria-controls="flush-collapse${Emp.idEmp}">
+                                            <div class="list-contract">
+                                                <span>Id ${Emp.idEmp} - </span> 
+                                                <p>${Emp.name}</p>
+                                            </div>
+                                        </button>
+                                    </h2>
                                 </c:if>
                                 <div id="flush-collapse${Emp.idEmp}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush${Emp.idEmp}">
                                     <div class="accordion-body">

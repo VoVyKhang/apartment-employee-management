@@ -96,12 +96,14 @@
                                     <li class="breadcrumb-item active">Department</li>
                                 </ul>
                             </div>
-                            <div >
+                            <div>
                                 <p style="color:green">${requestScope.WARNING}<p>
                                 <p style="color:green">${sessionScope.COMPLETED}<p>
-                                    <%ss.removeAttribute("COMPLETED");                                        %>
-                                    <a style="margin-right: 8px" class="dep-link" href="createNewDep.jsp">Create New Department</a>
-                                    <a class="dep-link" href="mainController?action=showlist&type=changedep">Change Department</a>
+                                    <%ss.removeAttribute("COMPLETED");%>
+                            </div>
+                            <div>                     
+                                <a style="margin-right: 8px" class="dep-link" href="createNewDep.jsp">Create New Department</a>
+                                <a class="dep-link" href="mainController?action=showlist&type=changedep">Change Department</a>
                             </div>
                         </div>
                     </div>

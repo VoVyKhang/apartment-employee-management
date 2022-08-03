@@ -28,6 +28,7 @@
             .breadcrumb{
                 background-color: #f7f7f7 !important;
                 display: inline-flex !important;
+                margin-left: -12px
             }
             .page-title{
                 text-align: initial !important;
@@ -93,7 +94,6 @@
             }
 
             .contract-btn{
-                margin-right: 16px;
                 display: flex;
                 align-items: center;
             }
@@ -117,7 +117,7 @@
 
         <div style="width: 100%">
             <div class="page-header">
-                <div class="row">
+                <div>
                     <h3 class="page-title">Contract</h3>
                     <div class="col-sm-12 list-employee__actions">                       
                         <div>
@@ -128,11 +128,10 @@
                         </div>
                         <p style="color:green">${sessionScope.COMPLETE}</p>
                         <p style="color:green">${sessionScope.COMPLETED}</p>
-                        <%ss.removeAttribute("COMPLETED");%>
-
+                        <%ss.removeAttribute("COMPLETED");%>  
+                        <p style="color:green">${requestScope.COMPLETE}</p>
                         <div class="contract-btn">                                      
-                            <div style="margin-right: 16px">
-                                <p style="color:green">${requestScope.COMPLETE}</p>
+                            <div style="margin-right: 16px;display: flex; align-items: center">
                                 <a class="list-contract__link" href="createNewCon.jsp">Create New Contract</a>
                                 <p style="color: green">${requestScope.COMPLETED}</p>
                             </div>

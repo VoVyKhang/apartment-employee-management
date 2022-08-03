@@ -72,16 +72,13 @@
                 border-radius: 10px"
 
                 class="model-content">
-            <c:if test="${requestScope.idEmp ne null}">
-                <a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Back</a>
-            </c:if>
             <div class="modal-header">
                 <div>
                     <h5 class="modal-title">Create Reward - Penalty</h5>
                     <div>
                         <ul class="breadcrumb">
                             <c:if test="${requestScope.idEmp ne null}">
-                                <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee Records</a></li>
                                 </c:if>
                                 <c:if test="${requestScope.idEmp eq null}">
                                 <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>

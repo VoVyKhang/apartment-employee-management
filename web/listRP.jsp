@@ -86,6 +86,10 @@
                 color: #000;
                 font-weight: 500
             }
+            
+            .table>:not(:first-child) {
+                border-top: none; 
+            }
 
         </style>
     </head>
@@ -129,7 +133,7 @@
                         <div>
                             <ul class="breadcrumb">
                                 <c:if test="${requestScope.idEmp ne ''}">
-                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee</a></li>
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.idEmp}&type=detail">Employee Records</a></li>
                                     </c:if>
                                     <c:if test="${requestScope.idEmp eq ''}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>

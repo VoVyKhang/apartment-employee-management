@@ -73,11 +73,17 @@ public class HistoryContractDAO {
                     int idHisCon = rs.getInt("idHisCon");
                     String typeCon = rs.getString("type");
                     String signDay = rs.getString("signDay");
+                    if (signDay == null) {
+                        signDay = "0000-00-00";
+                    }
                     String expDay = rs.getString("expDay");
+                    if (expDay == null) {
+                        expDay = "0000-00-00";
+                    }
                     String nameEmp = rs.getString("name");
                     String filePath = rs.getString("filePath");
                     int status = rs.getInt("status");
-                    ContractDTO con = new ContractDTO(idHisCon, typeCon, signDay, expDay, filePath, nameEmp, status);
+                    ContractDTO con = new ContractDTO(idHisCon, typeCon, signDay.substring(0, 10), expDay.substring(0, 10), filePath, nameEmp, status);
                     list.add(con);
                 }
             }
@@ -97,6 +103,7 @@ public class HistoryContractDAO {
         }
         return list;
     }
+
     public static ArrayList<ContractDTO> getListHisConByIdEmp(String idEmp) throws SQLException {
         ArrayList<ContractDTO> list = new ArrayList<>();
         try {
@@ -109,11 +116,17 @@ public class HistoryContractDAO {
                     int idHisCon = rs.getInt("idHisCon");
                     String typeCon = rs.getString("type");
                     String signDay = rs.getString("signDay");
+                    if (signDay == null) {
+                        signDay = "0000-00-00";
+                    }
                     String expDay = rs.getString("expDay");
+                    if (expDay == null) {
+                        expDay = "0000-00-00";
+                    }
                     String nameEmp = rs.getString("name");
                     String filePath = rs.getString("filePath");
                     int status = rs.getInt("status");
-                    ContractDTO con = new ContractDTO(idHisCon, typeCon, signDay, expDay, filePath, nameEmp, status);
+                    ContractDTO con = new ContractDTO(idHisCon, typeCon, signDay.substring(0, 10), expDay.substring(0, 10), filePath, nameEmp, status);
                     list.add(con);
                 }
             }

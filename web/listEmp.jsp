@@ -111,14 +111,15 @@
                                 <i class="ri-add-fill list__employee-icon"></i>
                                 Add Employee
                             </a>
-                            <div> 
-                                <p style="color: green">${requestScope.COMPLETED}</p>
-                                <p style="color: green">${sessionScope.COMPLETED}</p>
-                                <% ss.removeAttribute("COMPLETED");                                    %>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div> 
+                <p style="color: green">${requestScope.COMPLETED}</p>
+                <p style="color: green">${sessionScope.COMPLETED}</p>
+                <% ss.removeAttribute("COMPLETED");%>
             </div>
 
             <div class="row justify-content-end">
@@ -188,8 +189,6 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </td>
-
-
                                     <td>
                                         <c:url var="create" value="mainController">
                                             <c:param name="action" value="pushss"> </c:param>
@@ -204,7 +203,6 @@
                                         <a href="mainController?action=passidemp&empid=${listEmp.idEmp}&type=detail">
                                             <i class="fas fa-address-card"></i></a>
                                     </td>
-
                                 </tr>
                             </form> 
                         </c:forEach>

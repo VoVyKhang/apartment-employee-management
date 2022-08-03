@@ -76,16 +76,18 @@
                             <a class="add-btn" href="AddNewDependentEmp.jsp">
                                 <i class="ri-add-fill list__employee-icon"></i>
                                 Add new dependent
-                            </a>
-                            <c:if test="${requestScope.updateSuccess != null}" >
-                                <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
-                            </c:if>
+                            </a> 
                         </div>
                     </div>
                 </div>
-
-                <div class="row justify-content-end">
-                    <div class="col-4" style="margin-top: 8px">
+                <div style="text-align: center">
+                    <p style="color:green">${requestScope.Success}</p>
+                    <c:if test="${requestScope.updateSuccess != null}" >
+                        <p style="color: green" ><c:out value="${requestScope.updateSuccess}" /></p>
+                    </c:if>
+                </div>
+                    <div class="row justify-content-end" style="margin-bottom: -16px">
+                    <div class="col-4" style="margin-top: 8px; ">
                         <div class="form-group mb-3 mt-3">
                             <input type="text" class="form-control" id="myInput" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter..." name="empname">
                         </div>
@@ -119,7 +121,10 @@
                     </tbody>
                 </table>       
 
+
             </div>
+
+
 
 
 

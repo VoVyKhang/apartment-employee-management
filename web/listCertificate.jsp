@@ -89,6 +89,10 @@
                 color: #000;
                 font-weight: 500
             }
+            
+            .table>:not(:first-child) {
+                border-top: none; 
+            }
         </style>
     </head>
     <body>

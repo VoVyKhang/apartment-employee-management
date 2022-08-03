@@ -122,11 +122,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <a class="list-regulation__link" href="mainController?action=addReg">Add new regulation</a>
-                        <c:if test="${requestScope.message ne ''}">
-                            <p style="color:green">${requestScope.message}</p>
-                        </c:if>
-                        <c:forEach var="listReg" varStatus="counter" items="${requestScope.listReg}">
+                        <div style="display: flex">
+                            <div style="margin-right: 20%">
+                                <a class="list-regulation__link" href="mainController?action=addReg">Add new regulation</a>
+                            </div>  
+                            <div>
+                                <c:if test="${requestScope.message ne ''}">
+                                    <p style="color:green">${requestScope.message}</p>
+                                </c:if>
+                            </div>
+                        </div>
+                            <c:forEach var="listReg" varStatus="counter" items="${requestScope.listReg}">
                             <form action="mainController">
                                 <tr  style="text-align: initial">
                                     <td scope="row">${listReg.idReg}</td>                            
@@ -148,7 +154,7 @@
                                             <c:param name="nameRegUpdate" value="${listReg.name}"> </c:param>
                                             <c:param name="nameReg" value="${listReg.name}"> </c:param>
                                             <c:param name="statusRegUpdate" value="${listReg.status}"> </c:param>
-                                            
+
                                         </c:url>
                                         <a href="${update}"><i class="fas fa-edit"></i></a>
 

@@ -53,8 +53,9 @@
             .add-link{
                 display: inline-flex;
                 align-items: center;
-                border: 1px solid #dee2e6;
-                padding: 5px 10px
+                background-color: #00a8ef;
+                padding: 5px 10px;
+                color: #fff
             }
 
             .add-link:hover{

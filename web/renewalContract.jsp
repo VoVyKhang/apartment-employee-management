@@ -15,22 +15,37 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Renewal Contract</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+
             .btn-primary{
-                background: linear-gradient(to right, #00c0f9, #0255cd);
+                background-color: #00a8ef;
                 border: 1px solid #01a3ed !important;
                 border-radius: 5px !important;
                 font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
-                width: 100%;
+                width: 20%;
                 margin-top: 10px;
                 text-transform: uppercase
             }
 
             .btn-primary:hover{
-                transform: scale(0.99);
+                transform: scale(0.95);
                 cursor: pointer;
                 opacity: 0.9
+            }
+
+            .breadcrumb{
+                background-color: #fff !important;
+                margin-left: -16px;
+            }
+
+            .modal-content{
+                height: 100%
             }
 
         </style>
@@ -42,9 +57,18 @@
         <c:import url="header.jsp"></c:import>
         <c:import url="sidebar.jsp"></c:import>
 
-            <div class="modal-content" style="margin: 0 8px">
+            <div class="modal-content" style="margin: 0 20%">
                 <div class="modal-header">
-                    <h5 class="modal-title">Renewal Contract</h5>
+                    <div>
+                        <h5 class="modal-title">Renewal Contract</h5>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
+                                <li class="breadcrumb-item"><a href="mainController?action=showlist&type=con">Contract</a></li>
+                                <li class="breadcrumb-item active">Renewal contract</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -97,8 +121,10 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
-                    <input class="btn btn-primary" type="submit" value="Save"/>
+                    <div style="text-align: center">
+                        <input type="hidden" value="${requestScope.Contract.idCon}" name="idcon">
+                        <input class="btn btn-primary" type="submit" value="Save"/>
+                    </div>
                     <c:forEach var="empId" items="${idEmp.rows}">
                         <input type="hidden" name="idemp" value="${empId.idEmp}"/>
                         <input type="hidden" name="nameEmp" value="${empId.name}"/>
@@ -109,7 +135,6 @@
                         </c:if>
                     </c:forEach>
                     <input class="btn btn-primary" type="hidden" name="action" value="renewal"/>
-
                 </form>
             </div>
         </div>
