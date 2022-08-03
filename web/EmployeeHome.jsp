@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -124,11 +125,11 @@
                                         </li>
                                         <li>
                                             <div class="title">Sign Day</div>
-                                            <div class="text">${rowcon.signDay}</div>
+                                            <div class="text"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcon.signDay}" /></div>
                                         </li>
                                         <li>
                                             <div class="title">End Day</div>
-                                            <div class="text">${rowcon.expDay}</div>
+                                            <div class="text"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcon.expDay}" /></div>
                                         </li>
                                         <li>
                                             <c:choose>
@@ -177,7 +178,7 @@
                                                 <tr>
                                                     <td>${rowdepen.name}</td>
                                                     <td>${rowdepen.gender}</td>
-                                                    <td>${rowdepen.dob}</td>
+                                                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${rowdepen.dob}" /></td>
                                                     <td>${rowdepen.relationship}</td>
                                                     <td class="text-right">
 
@@ -221,7 +222,7 @@
                                                     <div class="timeline-content">
                                                         <div class="name">${rowcer.cerName}</div>
                                                         <div>${rowcer.type}</div>
-                                                        <span class="time">${rowcer.doi}</span>
+                                                        <span class="time"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcer.doi}" /></span>
                                                     </div>
                                                 </div>
                                             </li>
