@@ -73,51 +73,51 @@
                             <a class="add-btn" href="AddNewDependentEmp.jsp">
                                 <i class="ri-add-fill list__employee-icon"></i>
                                 Add new dependent
-                            </a>
-                            <c:if test="${requestScope.updateSuccess != null}" >
-                                <h3 style="color: green" ><c:out value="${requestScope.updateSuccess}" /></h3>
-                            </c:if>
+                            </a> 
                         </div>
                     </div>
                 </div>
-
-                <div class="row justify-content-end">
-                    <div class="col-4" style="margin-top: 8px">
-                        <div class="form-group mb-3 mt-3">
-                            <input type="text" class="form-control" id="myInput" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter..." name="empname">
-                        </div>
-                    </div>
+                <div style="text-align: center">
+                    <p style="color:green">${requestScope.Success}</p>
+                    <c:if test="${requestScope.updateSuccess != null}" >
+                        <p style="color: green" ><c:out value="${requestScope.updateSuccess}" /></p>
+                    </c:if>
                 </div>
-                <h5 style="color:green">${requestScope.Success}</h5>
-                <table class="table table-bordered" id="mydatatable">
-                    <thead>
-                        <tr>
-                            <th>Dependent name</th>
-                            <th>gender</th>
-                            <th>Date of birth</th>
-                            <th>Relationship</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listEmp">                  
-                        <c:forEach var="listDependent" items="${requestScope.listDependent}">
-                            <tr>
-                                <td>${listDependent.name}</td> 
-                                <td>${listDependent.gender}</td> 
-                                <td>${listDependent.dob}</td> 
-                                <td>${listDependent.relationship}</td> 
-                                <td>  
-                                    <a href="mainController?action=updateDependentEmp&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}"><i class="fas fa-edit"></i></a>
-                                </td>
-
-                            </tr>                           
-                        </c:forEach>
-                    </tbody>
-                </table>       
-
             </div>
 
+            <div class="row justify-content-end">
+                <div class="col-4" style="margin-top: 8px">
+                    <div class="form-group mb-3 mt-3">
+                        <input type="text" class="form-control" id="myInput" value="<%= (request.getParameter("empname") == null) ? "" : request.getParameter("empname")%>" placeholder="Enter..." name="empname">
+                    </div>
+                </div>
+            </div>
 
+            <table class="table table-bordered" id="mydatatable">
+                <thead>
+                    <tr>
+                        <th>Dependent name</th>
+                        <th>gender</th>
+                        <th>Date of birth</th>
+                        <th>Relationship</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>
+                <tbody id="listEmp">                  
+                    <c:forEach var="listDependent" items="${requestScope.listDependent}">
+                        <tr>
+                            <td>${listDependent.name}</td> 
+                            <td>${listDependent.gender}</td> 
+                            <td>${listDependent.dob}</td> 
+                            <td>${listDependent.relationship}</td> 
+                            <td>  
+                                <a href="mainController?action=updateDependentEmp&&idEmp=${listDependent.idEmp}&&idDepen=${listDependent.idDepen}"><i class="fas fa-edit"></i></a>
+                            </td>
+
+                        </tr>                           
+                    </c:forEach>
+                </tbody>
+            </table>       
 
 
         </div>
