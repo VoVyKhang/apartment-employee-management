@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import management.dao.DepartmentDAO;
 import management.dao.EmployeeDAO;
 import management.dao.HistoryDepDAO;
+import management.dao.PositionDAO;
+import management.dto.DepartmentDTO;
+import management.dto.EmployeeDTO;
 
 /**
  *
@@ -31,13 +34,15 @@ public class changeDepController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             String idemp = request.getParameter("idemp");
             String newdep = request.getParameter("iddep");
             String oldep = request.getParameter("olddep");
             Date exactDate = Date.valueOf(request.getParameter("exactDate"));
             Date d = new Date(System.currentTimeMillis());
+            EmployeeDTO emp = EmployeeDAO.showEmpByID(Integer.valueOf(idemp));
+            DepartmentDTO dep = DepartmentDAO.getDepByDepnum(newdep);
             int check = d.compareTo(exactDate);
             if (check > 0) {
                 ss.setAttribute("WARNINGFAILED", "Date must after today!");
@@ -46,22 +51,34 @@ public class changeDepController extends HttpServlet {
             } else {
                 boolean checkChangeStatus = false;
                 boolean checkInsert = false;
+                boolean checkPos = false;
+                if (emp.getPosName().equals("Manager")) {
+                    checkPos = PositionDAO.checkPosMana(dep.getDepName());
+                }
                 int iddepold = 0;
-                try {
-                    iddepold = DepartmentDAO.getDepNumByName(oldep);
-                    checkChangeStatus = HistoryDepDAO.updateDep(idemp, iddepold);
-                    checkInsert = HistoryDepDAO.inserNewDep(idemp, newdep, exactDate);
-                } catch (SQLException ex) {
-                    Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (checkChangeStatus == true && checkInsert == true) {
-                    HttpSession session = request.getSession(false);
-                    session.setAttribute("WARNINGCOMPLETED", "Completed");
+                if (checkPos) {
+                    ss.setAttribute("WARNINGFAILED", "Department already manager!!");
                     URL = SUCCESS_CHANGE_DEP;
-                }
+                    response.sendRedirect(URL);
+                } else {
+                    try {
+                        iddepold = DepartmentDAO.getDepNumByName(oldep);
+                        checkChangeStatus = HistoryDepDAO.updateDep(idemp, iddepold);
+                        checkInsert = HistoryDepDAO.inserNewDep(idemp, newdep, exactDate);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (checkChangeStatus == true && checkInsert == true) {
+                        HttpSession session = request.getSession(false);
+                        session.setAttribute("WARNINGCOMPLETED", "Completed");
+                        URL = SUCCESS_CHANGE_DEP;
+                    }
 
-                response.sendRedirect(URL);
+                    response.sendRedirect(URL);
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(changeDepController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
