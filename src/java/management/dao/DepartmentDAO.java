@@ -72,10 +72,13 @@ public class DepartmentDAO {
             + "select depName\n"
             + "from Department\n"
             + "where depName = ?)";
-    private static final String GET_NUMBER_OF_EMP = "select depNum , count(depNum) as number\n"
-            + "from HistoryDep hp , Employee e, Contract as c, HistoryContract as hc\n"
-            + "where c.idContract = hc.idContract and hc.idEmp=e.idEmp and  hc.status = 1 and hp.idEmp = e.idEmp and e.role = 0\n"
-            + "group by depNum";
+    private static final String GET_NUMBER_OF_EMP = "select d.depNum,count(e.idEmp) number\n"
+            + "            from Employee as e, HistoryDep as hd, Department as d, HistoryPos as hp, Position as p, Contract as c, HistoryContract as hc\n"
+            + "            where e.idEmp = hd.idEmp and hd.depNum = d.depNum and\n"
+            + "            e.idEmp = hp.idEmp and hp.idPos = p.idPos and \n"
+            + "            hd.status = 1 and hp.status = 1 and c.idContract=hc.idContract and hc.idEmp=e.idEmp and\n"
+            + "            statusLog = 1 and role = 0 and hc.status = 1\n"
+            + "            group by d.depNum";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
