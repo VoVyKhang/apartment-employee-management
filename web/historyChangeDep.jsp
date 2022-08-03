@@ -37,6 +37,25 @@
                 margin-left: -24px;
                 margin-bottom: 0 !important
             }
+            
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
+            
+            .table>:not(:first-child) {
+                border-top: none; 
+            }
         </style>
     </head>
     <body>
