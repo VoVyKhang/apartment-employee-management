@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import management.dao.DepartmentDAO;
 import management.dao.EmployeeDAO;
+import management.dao.PositionDAO;
 import management.regex.RegexEmp;
 
 /**
@@ -39,8 +41,9 @@ public class newEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
+            DepartmentDAO dao = new DepartmentDAO();
             String name = request.getParameter("empname");
             String salary = request.getParameter("salary");
             String address = request.getParameter("empadd");
@@ -53,47 +56,33 @@ public class newEmpController extends HttpServlet {
             String idpos = request.getParameter("emppos");
             String email = request.getParameter("empmail");
             String password = request.getParameter("emppass");
-
+            String depName = dao.getNameDepByID(iddep);
             Part part = request.getPart("empimg");
             String fileName = extractFileName(part);
+            boolean checkPos = false;
             boolean checkInsert = false;
-
             if (RegexEmp.chekcEmpFieldNull(name, salary, address, phone, dob, exactDate, email, password)) {
                 url = ERROR;
                 request.setAttribute("WARNINGFIELD", "You have not filled in the information completely");
+                request.setAttribute("namereg", name);
+                request.setAttribute("salaryreg", salary);
+                request.setAttribute("addreg", address);
+                request.setAttribute("genreg", gender);
+                request.setAttribute("phonereg", phone);
+                request.setAttribute("dobreg", dob);
+                request.setAttribute("exactreg", exactDate);
+                request.setAttribute("depreg", iddep);
+                request.setAttribute("posreg", idpos);
+                request.setAttribute("emailreg", email);
+                request.setAttribute("passreg", password);
+                request.getRequestDispatcher(url).forward(request, response);
             } else {
                 if (RegexEmp.checkEmpValidation(name, salary, address, phone, dob, exactDate, email, password)) {
 
-                    if (!fileName.isEmpty() || !fileName.equals("")) {
-                        String path = request.getServletContext().getRealPath("/");
-                        String[] list = path.split("\\\\");
-                        String path2 = "";
-                        for (int j = 0; j < list.length; j++) {
-                            if (!list[j].toString().equals("apartment-employee-management")) {
-                                path2 = path2 + list[j].toString() + "\\";
-                            } else {
-                                path2 = path2 + list[j].toString() + "\\" + "web";
-                                break;
-                            }
-                        }
-                        String savePath = path2 + "\\images\\" + fileName;
-                        File fileSaveDir = new File(savePath);
-                        part.write(savePath + File.separator);
-                    } else {
-                        fileName = "...";
+                    if (Integer.valueOf(idpos) == 1) {
+                        checkPos = PositionDAO.checkPosMana(depName);
                     }
-
-                    try {
-                        checkInsert = EmployeeDAO.inserNewEmp(name, salary, address, gender, phone, dob, fileName, exactDate, iddep, idpos, email, password);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    if (checkInsert) {
-                        ss.setAttribute("COMPLETED", "COMPLETED");
-                        url = DONE;
-                        response.sendRedirect(url);
-                        return;
-                    } else {
+                    if (checkPos) {
                         url = ERROR;
                         request.setAttribute("namereg", name);
                         request.setAttribute("salaryreg", salary);
@@ -106,7 +95,53 @@ public class newEmpController extends HttpServlet {
                         request.setAttribute("posreg", idpos);
                         request.setAttribute("emailreg", email);
                         request.setAttribute("passreg", password);
+                        request.setAttribute("WARNINGFIELD", "Department already manager!!");
                         request.getRequestDispatcher(url).forward(request, response);
+                    } else {
+                        if (!fileName.isEmpty() || !fileName.equals("")) {
+                            String path = request.getServletContext().getRealPath("/");
+                            String[] list = path.split("\\\\");
+                            String path2 = "";
+                            for (int j = 0; j < list.length; j++) {
+                                if (!list[j].toString().equals("apartment-employee-management")) {
+                                    path2 = path2 + list[j].toString() + "\\";
+                                } else {
+                                    path2 = path2 + list[j].toString() + "\\" + "web";
+                                    break;
+                                }
+                            }
+                            String savePath = path2 + "\\images\\" + fileName;
+                            File fileSaveDir = new File(savePath);
+                            part.write(savePath + File.separator);
+                        } else {
+                            fileName = "...";
+                        }
+
+                        try {
+                            checkInsert = EmployeeDAO.inserNewEmp(name, salary, address, gender, phone, dob, fileName, exactDate, iddep, idpos, email, password);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        if (checkInsert) {
+                            ss.setAttribute("COMPLETED", "COMPLETED");
+                            url = DONE;
+                            response.sendRedirect(url);
+                            return;
+                        } else {
+                            url = ERROR;
+                            request.setAttribute("namereg", name);
+                            request.setAttribute("salaryreg", salary);
+                            request.setAttribute("addreg", address);
+                            request.setAttribute("genreg", gender);
+                            request.setAttribute("phonereg", phone);
+                            request.setAttribute("dobreg", dob);
+                            request.setAttribute("exactreg", exactDate);
+                            request.setAttribute("depreg", iddep);
+                            request.setAttribute("posreg", idpos);
+                            request.setAttribute("emailreg", email);
+                            request.setAttribute("passreg", password);
+                            request.getRequestDispatcher(url).forward(request, response);
+                        }
                     }
 
                 } else {
@@ -146,27 +181,22 @@ public class newEmpController extends HttpServlet {
                     if (RegexEmp.checkValidPass(password) == false) {
                         request.setAttribute("WARNINGPASS", "Password length 8 to 25");
                     }
-
+                    request.setAttribute("namereg", name);
+                    request.setAttribute("salaryreg", salary);
+                    request.setAttribute("addreg", address);
+                    request.setAttribute("genreg", gender);
+                    request.setAttribute("phonereg", phone);
+                    request.setAttribute("dobreg", dob);
+                    request.setAttribute("exactreg", exactDate);
+                    request.setAttribute("depreg", iddep);
+                    request.setAttribute("posreg", idpos);
+                    request.setAttribute("emailreg", email);
+                    request.setAttribute("passreg", password);
+                    request.getRequestDispatcher(url).forward(request, response);
                 }
             }
-
-            if (RegexEmp.chekcEmpFieldNull(name, salary, address, phone, dob, exactDate, email, password) == false
-                    || RegexEmp.checkEmpValidation(name, salary, address, phone, dob, exactDate, email, password) == false) {
-                request.setAttribute("namereg", name);
-                request.setAttribute("salaryreg", salary);
-                request.setAttribute("addreg", address);
-                request.setAttribute("genreg", gender);
-                request.setAttribute("phonereg", phone);
-                request.setAttribute("dobreg", dob);
-                request.setAttribute("exactreg", exactDate);
-                request.setAttribute("depreg", iddep);
-                request.setAttribute("posreg", idpos);
-                request.setAttribute("emailreg", email);
-                request.setAttribute("passreg", password);
-
-            }
-            request.getRequestDispatcher(url).forward(request, response);
-
+        } catch (SQLException ex) {
+            Logger.getLogger(newEmpController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
