@@ -7,11 +7,14 @@ package management.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import management.dao.CertificateDAO;
+import management.dto.CertificateDTO;
 import management.dto.EmployeeDTO;
 
 /**
@@ -42,6 +45,8 @@ public class listCertEmpController extends HttpServlet {
             if (session.getAttribute("USER_LOGGIN") != null) {
                 EmployeeDTO emp = (EmployeeDTO) session.getAttribute("USER_LOGGIN");
                 request.setAttribute("Employee", emp);
+                ArrayList<CertificateDTO> listCer = CertificateDAO.filterCer(String.valueOf(emp.getIdEmp()), "", "");
+                request.setAttribute("listcer", listCer);
                 url = SUCCESS;
             }
         } catch (Exception e) {

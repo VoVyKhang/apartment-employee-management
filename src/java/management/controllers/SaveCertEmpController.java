@@ -65,19 +65,20 @@ public class SaveCertEmpController extends HttpServlet {
                 request.setAttribute("listTypeCer", listTypeCer);
                 request.setAttribute("filedBlank", "Do not leave any fields blank!");
                 i++;
-            }
-            if (checkName == false) {
-                ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
-                request.setAttribute("listTypeCer", listTypeCer);
-                request.setAttribute("nameInvalid", "Certificate name only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                i++;
-            }
+            } else {
+                if (checkName == false) {
+                    ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
+                    request.setAttribute("listTypeCer", listTypeCer);
+                    request.setAttribute("nameInvalid", "Certificate name only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
+                    i++;
+                }
 
-            if (checkDoi == false) {
-                ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
-                request.setAttribute("listTypeCer", listTypeCer);
-                request.setAttribute("checkDoi", "Can only enter the date from 1950 to today !");
-                i++;
+                if (checkDoi == false) {
+                    ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
+                    request.setAttribute("listTypeCer", listTypeCer);
+                    request.setAttribute("checkDoi", "Can only enter the date from 1950 to today !");
+                    i++;
+                }
             }
             if (i == 0) {
                 boolean result = false;

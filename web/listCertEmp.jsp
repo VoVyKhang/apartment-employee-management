@@ -92,11 +92,7 @@
                                url = "jdbc:sqlserver://localhost:1433;databaseName=EmployeeManagement"
                                user = "sa"  password = "12345"/>
 
-            <sql:query dataSource = "${snapshot}" var = "listcer">
-                select cerID, cerName,imgPath, doi, tc.name as type
-                from Certificate as c, TypeCertificate tc
-                where c.idTypeCer = tc.idTypeCer and c.idEmp = ${sessionScope.USER_LOGGIN.idEmp}
-            </sql:query>
+            
             <div>
                 <div class="page-header">
                     <div class="row">
@@ -162,7 +158,7 @@
                             </tr>
                         </thead>
                         <tbody id="listRp">
-                            <c:forEach var = "rowcer" items = "${listcer.rows}">
+                            <c:forEach var = "rowcer" items = "${requestScope.listcer}">
                                 <tr>
                                     <td class="list__employee-item">
                                         <span>
@@ -178,7 +174,7 @@
                                         <c:url var="update" value="mainController">
                                             <c:param name="action" value="updateCertPage"> </c:param>
                                             <c:param name="imgPath" value="${rowcer.imgPath}"> </c:param>
-                                            <c:param name="cerID" value="${rowcer.cerID}"> </c:param>
+                                            <c:param name="cerID" value="${rowcer.cerId}"> </c:param>
                                             <c:param name="cerDoi" value="${rowcer.doi}"> </c:param>
                                             <c:param name="cerName" value="${rowcer.cerName}"> </c:param>
                                             <c:param name="cerType" value="${rowcer.type}"> </c:param>

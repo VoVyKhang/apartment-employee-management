@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import management.dto.DepartmentDTO;
@@ -92,7 +94,9 @@ public class DepartmentDAO {
                     String depName = rs.getString("depName");
                     String description = rs.getString("description");
                     String location = rs.getString("location");
-                    String dateCreate = rs.getString("dateCreate");
+                    Date date = rs.getDate("dateCreate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateCreate = dateFormat.format(date);
                     String creator = rs.getString("creator");
                     DepartmentDTO dep = new DepartmentDTO(id, depName, description, location, dateCreate, creator);
                     list.add(dep);
@@ -289,7 +293,9 @@ public class DepartmentDAO {
                     String depName = rs.getString("depName");
                     String description = rs.getString("description");
                     String location = rs.getString("location");
-                    String dateCreate = rs.getString("dateCreate");
+                    Date date = rs.getDate("dateCreate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateCreate = dateFormat.format(date);
                     String creator = rs.getString("creator");
                     dep = new DepartmentDTO(depNum, depName, description, location, dateCreate, creator);
                 }
@@ -353,7 +359,9 @@ public class DepartmentDAO {
                     String depName = rs.getString("depName");
                     String description = rs.getString("description");
                     String locationDep = rs.getString("location");
-                    String dateCreate = rs.getString("dateCreate");
+                    Date date = rs.getDate("dateCreate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateCreate = dateFormat.format(date);
                     String creator = rs.getString("creator");
                     DepartmentDTO dep = new DepartmentDTO(depNum, depName, description, locationDep, dateCreate, creator);
                     list.add(dep);
@@ -390,7 +398,9 @@ public class DepartmentDAO {
                     String depName = rs.getString("depName");
                     String description = rs.getString("description");
                     String locationDep = rs.getString("location");
-                    String dateCreate = rs.getString("dateCreate");
+                    Date date = rs.getDate("dateCreate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateCreate = dateFormat.format(date);
                     String creator = rs.getString("creator");
                     DepartmentDTO dep = new DepartmentDTO(depNum, depName, description, locationDep, dateCreate, creator);
                     list.add(dep);
@@ -426,7 +436,9 @@ public class DepartmentDAO {
                     String depName = rs.getString("depName");
                     String description = rs.getString("description");
                     String locationDep = rs.getString("location");
-                    String dateCreate = rs.getString("dateCreate");
+                    Date date = rs.getDate("dateCreate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateCreate = dateFormat.format(date);
                     String creator = rs.getString("creator");
                     dep = new DepartmentDTO(depNum, depName, description, locationDep, dateCreate, creator);
                 }
