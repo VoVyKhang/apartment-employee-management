@@ -38,7 +38,7 @@
 
             .page-title{
                 text-align: initial !important;
-                margin-left: 16px !important;
+                margin-left: 4px !important;
                 margin-top: 8px
             }
             .dataTables_length{
@@ -75,8 +75,8 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                <div class="col-3"> 
-                    </br>
+                <div class="col-3"  style="margin-bottom: 10px"> 
+                    <br>
                     <select class="form-select form-select-md-5 mb-1 list-options" name="depname" id="depname"> 
                         <option value="all" >All Type</option>
                         <option value="Reward" >Reward</option>
@@ -85,7 +85,7 @@
                 </div>
                     
             </div>
-                <table class="table table-striped" id="mydatatable">
+                <table class="table table-bordered" id="mydatatable">
                     <thead>
                         <tr>
                             <th>Type</th>

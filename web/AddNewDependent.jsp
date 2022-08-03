@@ -59,17 +59,14 @@
         <c:import url="sidebar.jsp"></c:import> 
 
         <c:if test="${requestScope.listEmp != null}">          
-            <div style="width: 100%; margin: 0 20%" class="modal-content">
-                <c:if test="${requestScope.EmpId ne null}">
-                    <a href="mainController?action=passidemp&empid=${requestScope.EmpId}&type=detail">Back</a>
-                </c:if>
+            <div style="width: 100%; margin: 0 20%" class="modal-content">            
                 <div class="modal-header" style="margin-bottom: 16px">
                     <div>
                         <h5 class="modal-title">Create new dependent</h5>
                         <div>
                             <ul class="breadcrumb">
                                 <c:if test="${requestScope.EmpId ne null}">
-                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.EmpId}&type=detail">Employee</a></li>
+                                    <li class="breadcrumb-item"><a href="mainController?action=passidemp&empid=${requestScope.EmpId}&type=detail">Employee Records</a></li>
                                     </c:if>
                                     <c:if test="${requestScope.EmpId eq null}">
                                     <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>

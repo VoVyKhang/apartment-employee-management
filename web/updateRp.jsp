@@ -95,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <label >Time</label>
-                        <p  name="timerp">${sessionScope.times}</p>
+                        <input class="form-control" readonly="" name="timerp" value="${sessionScope.times}" >
                     </div>
                     <div class="form-group">
                         

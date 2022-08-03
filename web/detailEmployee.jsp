@@ -272,7 +272,7 @@
                                         <c:param name="depName" value="allDep"> </c:param>
                                         <c:param name="flag" value="flag"> </c:param>
                                     </c:url>
-                                <a href="${detail}"><i class="fa-solid fa-angles-right"></i></a>
+                                
                                 <div class="table-responsive">
 
                                     <sql:query dataSource = "${snapshot}" var = "listdepen">
@@ -287,6 +287,7 @@
                                             <tr>
                                                 <th>Type</th>
                                                 <th>Total Times</th>
+                                                <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -300,6 +301,11 @@
                                                         <td>Reward</td>
                                                     </c:if>
                                                     <td>${rowdepen.times}</td>
+                                                    <td>
+                                                        <a href="${detail}">
+                                                            <i class="fa-solid fa-angles-right"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
