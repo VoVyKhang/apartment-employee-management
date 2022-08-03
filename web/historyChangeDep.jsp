@@ -17,6 +17,12 @@
         <link rel="stylesheet" href="css/globalstyles.css"/>
         <title>History Change Department</title>
         <style>
+             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            body{
+                font-family: 'Poppins', sans-serif !important;
+                background-color: #f7f7f7 !important;
+            }
+            
             .btn-primary{
                 border: 1px solid #00c5fb;
                 border-radius: 50px;
@@ -33,7 +39,7 @@
             }
 
             .breadcrumb{
-                background-color: #fff !important;
+                background-color: #f7f7f7 !important;
                 margin-left: -24px;
                 margin-bottom: 0 !important
             }
