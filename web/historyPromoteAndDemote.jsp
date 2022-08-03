@@ -55,6 +55,21 @@
                 margin-left: 4px;
                 margin-top: 16px
             }
+
+            .dependent-name{
+                display: flex;
+                align-items: center
+            }
+
+            .dependent-name span{
+                margin-right: 6px
+            }
+
+            .dependent-name p{
+                margin-bottom: 0;
+                color: #000;
+                font-weight: 500
+            }
         </style>
     </head>
     <body>
