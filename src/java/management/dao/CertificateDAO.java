@@ -43,7 +43,7 @@ public class CertificateDAO {
     private static final String CHECK_CERTIFICATE_DATE = "DECLARE @today date, @certiDate date;\n"
             + "            SET @today = CAST( GETDATE() AS date);\n"
             + "            SET @certiDate = ?;\n"
-            + "	           IF @certiDate <= @today\n"
+            + "	           IF @certiDate <= @today and @certiDate >= '1950'\n"
             + "            SELECT 'true' as flag\n"
             + "            ELSE SELECT 'false' as flag";
     private static Connection cn = null;

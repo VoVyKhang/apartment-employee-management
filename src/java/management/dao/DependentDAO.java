@@ -35,6 +35,13 @@ public class DependentDAO {
             + "WHERE e.idEmp = ? AND d.idDepen = ?";
     private static final String INSERT_DEPENDENT = "INSERT INTO Dependent(name,  gender, dob,relationship, idEmp)\n"
             + "  VALUES(?,?,?,?,?)";
+    
+     private static final String CHECK_DEPENDENT_DATE = "DECLARE @today date, @depenDate date;\n"
+            + "            SET @today = CAST( GETDATE() AS date);\n"
+            + "            SET @depenDate = ?;\n"
+            + "	           IF @depenDate <= @today and @depenDate >= '1922'\n"
+            + "            SELECT 'true' as flag\n"
+            + "            ELSE SELECT 'false' as flag";
 
     public static ArrayList<DependentDTO> listDependent() throws SQLException {
         ArrayList<DependentDTO> listDependent = new ArrayList<>();
@@ -202,5 +209,38 @@ public class DependentDAO {
             }
         }
         return listDependent;
+    }
+    
+     public static boolean checkDepenDate(String DepenDate) throws SQLException {
+        String check = "";
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                pst = cn.prepareStatement(CHECK_DEPENDENT_DATE);
+                pst.setString(1, DepenDate);
+                rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    check = rs.getString("flag");
+                    if (check.equals("true")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return false;
     }
 }

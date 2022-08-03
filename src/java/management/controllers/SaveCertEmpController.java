@@ -76,7 +76,7 @@ public class SaveCertEmpController extends HttpServlet {
             if (checkDoi == false) {
                 ArrayList<CertificateDTO> listTypeCer = CertificateDAO.listTypeCertificate();
                 request.setAttribute("listTypeCer", listTypeCer);
-                request.setAttribute("checkDoi", "Can only enter the date before today");
+                request.setAttribute("checkDoi", "Can only enter the date from 1950 to today !");
                 i++;
             }
             if (i == 0) {

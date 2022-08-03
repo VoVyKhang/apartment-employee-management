@@ -49,14 +49,14 @@
                 cursor: pointer;
                 padding: 4px 10px;
             }
-            
+
             .add-link{
                 display: inline-flex;
                 align-items: center;
                 border: 1px solid #dee2e6;
                 padding: 5px 10px
             }
-            
+
             .add-link:hover{
                 background-color: #dee2e6
             }
@@ -96,6 +96,9 @@
                         Add new position</a>
                 </div>
                 <p style="color: green" > ${requestScope.addSuccess} </p>
+                <c:if test="${requestScope.updateSuccess != null}">
+                    <p style="color: green" > ${requestScope.updateSuccess} </p>
+                </c:if>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

@@ -49,6 +49,9 @@
         </style>
     </head>
     <body>
+        <%
+            HttpSession ss = request.getSession();
+        %>
         <c:import url="headerEmp.jsp"></c:import>
         <c:import url="sidebarEmp.jsp"></c:import>
         <c:if test="${sessionScope.USER_LOGGIN eq null}">
@@ -88,7 +91,8 @@
                         </div>
                     </div>
                 </div>
-                <h5 style="color:green">${requestScope.Success}</h5>
+                <p style="color:green">${sessionScope.Success}</p>
+                <% ss.removeAttribute("Success");%>
                 <table class="table table-bordered" id="mydatatable">
                     <thead>
                         <tr>

@@ -38,7 +38,7 @@ public class saveNewDependentEmpController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             EmployeeDTO emp = (EmployeeDTO) session.getAttribute("USER_LOGGIN");
@@ -50,39 +50,47 @@ public class saveNewDependentEmpController extends HttpServlet {
             int i = 0;
             boolean checkName = RegexEmp.checkEmpName(name);
             boolean checkRelationship = RegexEmp.checkEmpName(relationship);
-            boolean checkDob = RegexEmp.checkValidationCertiDate(dob);
-            if (name.equals("") || dob.equals("") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
-                request.setAttribute("filedBlank", "Do not leave any fields blank, update fail");
-                i++;
+            boolean checkDob = RegexEmp.checkValidationDependent(dob);
+            if (name.equals("") || dob.equals("0000-00-00") || gender.equals("") || relationship.equals("") || idEmp.equals("")) {
+                request.setAttribute("filedBlank", "Do not leave any fields blank!");
+                request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
+                return;
             }
 
             if (checkName == false) {
                 request.setAttribute("nameInvalid", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                i++;
+                request.setAttribute("name", name);
+                request.setAttribute("dob", dob);
+                request.setAttribute("relationship", relationship);
             }
 
             if (checkRelationship == false) {
                 request.setAttribute("checkRelationship", "Only contain Alphabet(Upper case or Lower case) and space and length 4 -> 30");
-                i++;
+                request.setAttribute("name", name);
+                request.setAttribute("dob", dob);
+                request.setAttribute("relationship", relationship);
             }
 
             if (checkDob == false) {
-                request.setAttribute("checkDob", "Can only enter the date before today");
-                i++;
+                request.setAttribute("checkDob", "Can only enter the date from 1922 to today !");
+                request.setAttribute("name", name);
+                request.setAttribute("dob", dob);
+                request.setAttribute("relationship", relationship);
             }
-
-            if (i == 0) {
-                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
-                if (result == true) {
-                    request.setAttribute("Success", "Success");
-                    request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
-                } else {
-                    request.setAttribute("Success", "Fail");
-                    request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
-                }
-            } else {
+            if (checkName == false || checkRelationship == false || checkDob == false) {
                 request.getRequestDispatcher("AddNewDependentEmp.jsp").forward(request, response);
             }
+            if (checkName == true && checkRelationship && true || checkDob && true) {
+                boolean result = DependentDAO.insertDependent(name, gender, dob, relationship, idEmp);
+                if (result == true) {
+                    session.setAttribute("Success", "Success");
+                    response.sendRedirect("ListDependentEmpController");
+                } else {
+                    request.setAttribute("Fail", "Fail");
+                    request.getRequestDispatcher("ListDependentEmpController").forward(request, response);
+                }
+            }
+
         }
     }
 

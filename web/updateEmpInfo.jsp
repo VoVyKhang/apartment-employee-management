@@ -67,7 +67,12 @@
             .modal-content{
                 background-color: #fff;
                 margin-bottom: 16px !important
+                height: 100%;
             }
+            #sidebar{
+                height: 100vh;               
+            }
+            
         </style>
     </head>
     <body>

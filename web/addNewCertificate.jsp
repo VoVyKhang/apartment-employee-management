@@ -124,7 +124,7 @@
 
                         </div>
                         <div class="form-group">
-                            <span>Date of isuess</span>
+                            <span>Date of issues</span>
                             <input class="form-control" name="doi" type="date" value="${param.doi}" required="" > 
                             <c:if test="${requestScope.checkDoi != null}" >
                                 <p style="color: red" ><c:out value="${requestScope.checkDoi}" /></p>

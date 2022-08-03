@@ -225,6 +225,7 @@
                 <%
                     HttpSession ss = request.getSession();
                     ss.removeAttribute("addDepenSuccess");
+                    ss.removeAttribute("updateFail");
                 %>
 
             </div>

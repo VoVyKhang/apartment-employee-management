@@ -77,19 +77,15 @@
             <c:if test="${filedBlank != null}">
                 <p style="color: red" ><c:out value="${filedBlank}"/></p> 
             </c:if>
-            <c:if test="${Success != null}">
-                <h3 style="color: green" ><c:out value="${Success}"/></h3> 
-            </c:if>
-            <c:if test="${Fail != null}">
-                <c:out value="${Fail}"/>
-            </c:if>
+            
+          
             <div class="modal-body">
                 <form action="mainController" class="form-position">
                     <div class="form-group">
                         <span>Dependent name</span>
                         <input class="form-control" name="name" value="${param.name}">   
                         <c:if test="${nameInvalid != null}">
-                            <h3 style="color: red" ><c:out value="${nameInvalid}"/></h3> 
+                            <p style="color: red" ><c:out value="${nameInvalid}"/></p> 
                         </c:if>
                     </div>
                     <div class="form-group">
@@ -104,14 +100,14 @@
                         <div style="margin-bottom: 4px">Date of birth</div>
                         <input class="form-control" name="dob" value="${param.dob}" type="date">
                         <c:if test="${requestScope.checkDob != null}" >
-                            <h3 style="color: red" ><c:out value="${requestScope.checkDob}" /></h3>
+                            <p style="color: red" ><c:out value="${requestScope.checkDob}" /></p>
                         </c:if>
                     </div>
                     <div class="form-group">
                         <span>Relationship</span>
                         <input class="form-control" name="relationship" value="${param.relationship}"> 
                         <c:if test="${checkRelationship != null}">
-                            <h3 style="color: red" ><c:out value="${checkRelationship}"/></h3> 
+                            <p style="color: red" ><c:out value="${checkRelationship}"/></p> 
                         </c:if>
                     </div>
                     <div style="text-align: center">

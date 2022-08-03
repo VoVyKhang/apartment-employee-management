@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import management.dao.CertificateDAO;
+import management.dao.DependentDAO;
 import management.dao.EmployeeDAO;
 
 /**
@@ -101,6 +102,17 @@ public class RegexEmp {
     public static boolean checkValidationCertiDate(String certiDate) {
         try {
             if (CertificateDAO.checkCertiDate(certiDate)) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegexEmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+     public static boolean checkValidationDependent(String dependent) {
+        try {
+            if (DependentDAO.checkDepenDate(dependent)) {
                 return true;
             }
         } catch (SQLException ex) {
