@@ -24,9 +24,6 @@ import management.dao.HistoryContractDAO;
  *
  * @author lehon
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class renewalConController extends HttpServlet {
 
     private static final String DONE_RENEWAL = "mainController?action=showlist&type=con";
@@ -43,8 +40,6 @@ public class renewalConController extends HttpServlet {
             String expDay = request.getParameter("expday");
             String idEmp = request.getParameter("idemp");
             String nameEmp = request.getParameter("nameEmp");
-            Part part = request.getPart("conPath");
-            String fileName = extractFileName(part);
             boolean checkexp = false;
             boolean check = false;
             String checkInsert = "";
@@ -55,25 +50,8 @@ public class renewalConController extends HttpServlet {
             }
             if (checkexp) {
                 try {
-                    if (!fileName.isEmpty() || !fileName.equals("")) {
-                        String path = request.getServletContext().getRealPath("/");
-                        String[] list = path.split("\\\\");
-                        String path2 = "";
-                        for (int j = 0; j < list.length; j++) {
-                            if (!list[j].toString().equals("apartment-employee-management")) {
-                                path2 = path2 + list[j].toString() + "\\";
-                            } else {
-                                path2 = path2 + list[j].toString() + "\\" + "web";
-                                break;
-                            }
-                        }
-                        String savePath = path2 + "\\fileCon\\" + fileName;
-                        File fileSaveDir = new File(savePath);
-                        part.write(savePath + File.separator);
-                    } else {
-                        fileName = "...";
-                    }
-                    checkInsert = ContractDAO.insertNewContract(expDay, fileName, typeCon);
+                    
+                    checkInsert = ContractDAO.insertNewContract(expDay, "...", typeCon);
                     HistoryContractDAO.insertHisCon(checkInsert, idEmp);
                     check = true;
                 } catch (SQLException ex) {
@@ -135,14 +113,5 @@ public class renewalConController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String extractFileName(Part part) {//This method will print the file name.
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length() - 1);
-            }
-        }
-        return "";
-    }
+   
 }

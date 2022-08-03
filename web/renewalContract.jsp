@@ -108,10 +108,6 @@
                         <label>Expiration Day</label> 
                         <input class="form-control" type="date" value="${requestScope.Contract.expDay}" name="expday"/>
                     </div>
-                    <div class="form-group">
-                        <label>File Contract</label>
-                        <input class="form-control" type="file" name="conPath">
-                    </div>
                     <c:choose>
                         <c:when test="${requestScope.Contract.status eq 1}">
                             Status: <p style="color:green">OK</p>
