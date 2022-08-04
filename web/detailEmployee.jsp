@@ -46,7 +46,7 @@
                             <ul class="breadcrumb ">
                                 <li class="breadcrumb-item"><a href="listHallManagerController">Home</a></li>
                                 <li class="breadcrumb-item"><a href="mainController?action=showlist&type=emp">Employee</a></li>
-                                <li class="breadcrumb-item active">Profile</li>
+                                <li class="breadcrumb-item active">Employee Records</li>
                             </ul>
                         </div>
                     </div>
