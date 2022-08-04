@@ -13,6 +13,8 @@
         <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        
         <link rel="stylesheet" href="./css/profile.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
         <title>Details Information Of Employee</title>
@@ -148,11 +150,11 @@
                                         </li>
                                         <li>
                                             <div class="title">Sign Day</div>
-                                            <div class="text">${rowcon.signDay}</div>
+                                            <div class="text"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcon.signDay}" /></div>
                                         </li>
                                         <li>
                                             <div class="title">End Day</div>
-                                            <div class="text">${rowcon.expDay}</div>
+                                            <div class="text"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcon.expDay}" /></div>
                                         </li>
                                         <li>
                                             <c:choose>
@@ -201,7 +203,7 @@
                                                 <tr>
                                                     <td>${rowdepen.name}</td>
                                                     <td>${rowdepen.gender}</td>
-                                                    <td>${rowdepen.dob}</td>
+                                                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${rowdepen.dob}" /></td>
                                                     <td>${rowdepen.relationship}</td>
                                                     <td class="text-right">
 
@@ -243,7 +245,7 @@
                                                     <div class="timeline-content">
                                                         <div class="name">${rowcer.cerName}</div>
                                                         <div>${rowcer.type}</div>
-                                                        <span class="time">${rowcer.doi}</span>
+                                                        <span class="time"><fmt:formatDate pattern="yyyy-MM-dd" value="${rowcer.doi}" /></span>
                                                     </div>
                                                 </div>
                                             </li>
