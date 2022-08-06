@@ -178,7 +178,7 @@
 
                                 <td class="nameEmp">${listEmp.name}</td>
                                 <td>${listEmp.gender}</td>
-                                <td class="exception">Old department: ${listEmp.depName}</br>
+                                <td class="exception">Current department: ${listEmp.depName}</br>
                                     </br>
 
                                     <sql:setDataSource var = "snapshot" driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"

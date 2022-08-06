@@ -47,7 +47,7 @@ public class showHisDepEmpController extends HttpServlet {
             if (emp == null) {
                 url = ERROR;
             } else {
-                list = HistoryDepDAO.listHisDepFilter(emp.getName(), "", "1");
+                list = HistoryDepDAO.listHisDepFilter(emp.getName(), "", "");
                 request.setAttribute("listHisDep", list);
                 url = SUCCESS;
             }

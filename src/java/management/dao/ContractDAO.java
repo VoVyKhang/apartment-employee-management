@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import management.dto.ContractDTO;
 import management.utils.DBUtils;
@@ -57,18 +59,18 @@ public class ContractDAO {
             + "set expDay = ?\n"
             + "where idContract = ?";
 
-    private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n" +
-"from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n" +
-"where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?\n" +
-"and hc.idContract not in (select idContract\n" +
-"						from HistoryContract\n" +
-"						where status = 0 and idEmp in (select idEmp\n" +
-"						from HistoryContract\n" +
-"						where status = 1)\n" +
-"						)";
-private static final String SEARCH_HISCON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
-        + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
-        + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?\n";
+    private static final String SEARCH_CON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
+            + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
+            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?\n"
+            + "and hc.idContract not in (select idContract\n"
+            + "						from HistoryContract\n"
+            + "						where status = 0 and idEmp in (select idEmp\n"
+            + "						from HistoryContract\n"
+            + "						where status = 1)\n"
+            + "						)";
+    private static final String SEARCH_HISCON = "select c.idContract, tc.name as type, signDay, expDay, e.name, hc.status\n"
+            + "from Contract as c, Employee as e, TypeContract as tc, HistoryContract as hc\n"
+            + "where hc.idEmp = e.idEmp and hc.idContract = c.idContract and c.idTypeCon = tc.idTypeCon and e.role = 0 and tc.name like ? and hc.status like ?  and e.name like ?\n";
     private static Connection conn = null;
     private static PreparedStatement ptm = null;
     private static Statement st = null;
@@ -365,11 +367,14 @@ private static final String SEARCH_HISCON = "select c.idContract, tc.name as typ
                     while (rs.next()) {
                         int id = rs.getInt("idContract");
                         String type = rs.getString("type");
-                        String signDay = rs.getString("signDay");
+                        Date date = rs.getDate("signDay");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String signDay = dateFormat.format(date);
                         if (signDay == null) {
                             signDay = "0000-00-00";
                         }
-                        String expDay = rs.getString("expDay");
+                        date = rs.getDate("expDay");
+                        String expDay = dateFormat.format(date);
                         if (expDay == null) {
                             expDay = "0000-00-00";
                         }
@@ -427,6 +432,7 @@ private static final String SEARCH_HISCON = "select c.idContract, tc.name as typ
         }
         return false;
     }
+
     public static ArrayList<ContractDTO> filterHisCon(String typecon, String statuscon, String empname) throws SQLException {
         ArrayList<ContractDTO> list = new ArrayList<>();
         try {
